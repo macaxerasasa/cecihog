@@ -2523,6 +2523,9 @@ button {
   padding: 4vh 4vw 6vh;
   cursor: none;
   overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
 }
 
 .wand-sky {
@@ -2731,6 +2734,21 @@ button {
 .glyph-guide {
   stroke: rgba(212, 176, 86, 0.28);
   stroke-width: 3.2;
+}
+
+.glyph-lead {
+  fill: none;
+  stroke: rgba(255, 236, 180, 0.75);
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(255, 226, 150, 0.7));
+  animation: leadPulse 0.9s ease-in-out infinite;
+  transition: stroke-dasharray 0.06s linear;
+}
+
+@keyframes leadPulse {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
 }
 
 .glyph-ink {
@@ -3144,6 +3162,7 @@ button {
   .glyph-start-ring,
   .glyph-start-core,
   .glyph-spark-halo,
+  .glyph-lead,
   .wand-gate.is-leaving,
   .library::after,
   .window-light,

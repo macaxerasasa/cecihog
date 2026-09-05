@@ -15,6 +15,8 @@ const LOOKAHEAD_LEN = 42
 const LOST_DIST = 34
 /** The gesture must begin this close to the start bead. */
 const START_TOL = 22
+/** Length of the lit stretch ahead of the ink that shows where to go next. */
+const LEAD_LEN = 34
 
 type Pt = { x: number; y: number }
 type Sample = Pt & { len: number }
@@ -255,6 +257,13 @@ export function WandGate({ reduced, onUnlocked }: Props) {
         <svg ref={svgRef} className="wand-glyph" viewBox="0 0 210 230" aria-hidden="true">
           <path className="glyph-ghost" d={GLYPH} />
           <path className="glyph-guide" d={GLYPH} strokeDasharray="7 11" />
+          {armed && !success ? (
+            <path
+              className="glyph-lead"
+              d={GLYPH}
+              strokeDasharray={`0 ${progressLen} ${LEAD_LEN} ${pathLen}`}
+            />
+          ) : null}
           <path
             ref={pathRef}
             className="glyph-ink"
