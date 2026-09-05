@@ -70,21 +70,21 @@ export function BookVolume({
           </div>
           <div className="board inside">
             <div className="endpaper" />
+            <div className="left-page-rest">
+              {leftSpread ? <Parchment spread={leftSpread} side="left" /> : null}
+              {canPrev ? (
+                <button
+                  type="button"
+                  className="corner-curl prev"
+                  aria-label="Página anterior"
+                  onClick={() => onTurn('prev')}
+                />
+              ) : null}
+            </div>
           </div>
+
           <div className="board-edge" />
           <div className="board-top" />
-        </div>
-
-        <div className="left-page-rest">
-          {leftSpread ? <Parchment spread={leftSpread} side="left" /> : null}
-          {canPrev ? (
-            <button
-              type="button"
-              className="corner-curl prev"
-              aria-label="Página anterior"
-              onClick={() => onTurn('prev')}
-            />
-          ) : null}
         </div>
 
         <span className="riffle r1" aria-hidden="true" />

@@ -717,7 +717,8 @@ button {
 }
 
 .held-book.is-opened .cover-swing {
-  z-index: 1;
+  z-index: 2;
+  pointer-events: auto;
 }
 
 .held-book.is-closing .cover-swing,
@@ -730,52 +731,19 @@ button {
   visibility: hidden;
 }
 
-.held-book.is-opened .board-edge,
-.held-book.is-opened .board-top {
-  visibility: hidden;
-}
-
 .left-leaf {
   display: none;
 }
 
-/* Sit flush left of the spine. Do not use inset:0 — that sets right:0 and
-   stretches this leaf across both pages. */
 .left-page-rest {
   position: absolute;
-  top: 12px;
-  bottom: 12px;
-  left: auto;
-  right: calc(100% + 4px);
-  width: calc(100% - 20px);
-  z-index: 3;
+  inset: 11px 13px 13px 12px;
+  z-index: 2;
   overflow: hidden;
-  border-radius: 3px 0 0 3px;
+  border-radius: 2px;
   background: #ead8b0;
-  opacity: 0;
-  visibility: hidden;
   pointer-events: none;
-  transform: translateZ(3px);
-  box-shadow:
-    -6px 10px 18px rgba(0, 0, 0, 0.2),
-    inset -12px 0 16px rgba(70, 40, 20, 0.14);
-}
-
-.held-book.is-opening .left-page-rest {
-  visibility: visible;
-  animation: leftPageIn 0.35s ease 0.72s forwards;
-}
-
-@keyframes leftPageIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.held-book.is-opened .left-page-rest,
-.held-book.is-turning-next .left-page-rest,
-.held-book.is-turning-prev .left-page-rest {
-  opacity: 1;
-  visibility: visible;
+  box-shadow: inset -12px 0 16px rgba(70, 40, 20, 0.16);
 }
 
 .held-book.is-opened .left-page-rest {
@@ -783,16 +751,9 @@ button {
 }
 
 .held-book.is-turning-next .left-page-rest,
-.held-book.is-turning-prev .left-page-rest {
-  pointer-events: none;
-}
-
+.held-book.is-turning-prev .left-page-rest,
 .held-book.is-closing .left-page-rest {
-  visibility: visible;
-  opacity: 0;
   pointer-events: none;
-  animation: none;
-  transition: opacity 0.4s ease;
 }
 
 .board {
@@ -871,6 +832,7 @@ button {
 
 .board.inside {
   transform: rotateY(180deg) translateZ(5px);
+  overflow: hidden;
   background: linear-gradient(90deg, var(--leather-dark), var(--leather) 55%, var(--leather-dark));
   border-radius: 12px 2px 3px 12px;
 }
