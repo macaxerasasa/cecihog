@@ -124,6 +124,8 @@ export function GoldenSnitch() {
       </div>
       <div className="snitch" ref={ref} aria-hidden="true">
         <span className="snitch-aura" />
+        <span className="snitch-wing-ghost is-far is-left" style={{ backgroundImage: 'url(/snitch/wing-left.png)' }} />
+        <span className="snitch-wing-ghost is-far is-right" style={{ backgroundImage: 'url(/snitch/wing-right.png)' }} />
         <span className="snitch-wing-ghost is-left" style={{ backgroundImage: 'url(/snitch/wing-left.png)' }} />
         <span className="snitch-wing-ghost is-right" style={{ backgroundImage: 'url(/snitch/wing-right.png)' }} />
         <img className="snitch-wing is-left" src="/snitch/wing-left.png" alt="" draggable={false} />
