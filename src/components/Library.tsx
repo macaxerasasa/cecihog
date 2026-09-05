@@ -10,7 +10,8 @@ import { Particles } from './Particles'
 import { WandGate } from './WandGate'
 
 const OPEN_COVER_MS = 1280
-const CLOSE_COVER_MS = 1100
+const CLOSE_COVER_MS = 1280
+const FLY_MS = 980
 const BOOT_MS = 160
 
 export function Library() {
@@ -25,6 +26,9 @@ export function Library() {
   const phaseRef = useRef(phase)
   const queueRef = useRef<string | null>(null)
   const origins = useRef<Record<string, OriginRect>>({})
+  const requestCloseRef = useRef<() => void>(() => {})
+  const activeIdRef = useRef<string | null>(null)
+  activeIdRef.current = activeId
 
   useEffect(() => {
     phaseRef.current = phase
@@ -60,10 +64,17 @@ export function Library() {
 
   const beginOpen = useCallback(
     (id: string, el?: HTMLElement) => {
+      if (el) remember(id, el)
+      if (phaseRef.current === 'open') {
+        if (id === activeIdRef.current) return
+        queueRef.current = id
+        requestCloseRef.current()
+        return
+      }
       if (phaseRef.current !== 'idle' && phaseRef.current !== 'boot') return
       const book = getBook(id)
       if (!book) return
-      const rect = el ? remember(id, el) : origins.current[id]
+      const rect = origins.current[id]
       if (!rect) return
       clearTimers()
       setActiveId(id)
@@ -74,7 +85,7 @@ export function Library() {
         return
       }
       setPhase('toCenter')
-      later(980, () => {
+      later(FLY_MS, () => {
         if (phaseRef.current === 'toCenter') {
           setPhase('opening')
           later(OPEN_COVER_MS, () => {
@@ -126,12 +137,14 @@ export function Library() {
     later(CLOSE_COVER_MS, () => {
       if (phaseRef.current === 'closing') {
         setPhase('toShelf')
-        later(980, () => {
+        later(FLY_MS, () => {
           if (phaseRef.current === 'toShelf') finishClose()
         })
       }
     })
   }, [finishClose, reduced])
+
+  requestCloseRef.current = requestClose
 
   const navigateTo = (id: string) => {
     if (phaseRef.current !== 'open') return
@@ -178,7 +191,7 @@ export function Library() {
       </header>
       <div className="stage-wrap">
         <Bookshelf
-          busy={phase !== 'idle'}
+          busy={busy}
           activeId={activeId}
           onOpen={(id, el) => beginOpen(id, el)}
         />

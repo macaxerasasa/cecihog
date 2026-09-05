@@ -75,8 +75,6 @@ export function BookVolume({
           <div className="board-top" />
         </div>
 
-        <div className="left-leaf" aria-hidden="true" />
-
         <div className="left-page-rest">
           {leftSpread ? <Parchment spread={leftSpread} side="left" /> : null}
           {canPrev ? (

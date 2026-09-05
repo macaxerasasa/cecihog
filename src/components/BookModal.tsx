@@ -17,9 +17,14 @@ type Props = {
 
 function sizes() {
   const mobile = window.innerWidth < 740
-  const w = Math.min(mobile ? 300 : 390, window.innerWidth * (mobile ? 0.44 : 0.34))
-  const h = Math.min(mobile ? 440 : 540, window.innerHeight * (mobile ? 0.58 : 0.7))
-  return { w, h }
+  const gutter = mobile ? 28 : 108
+  const w = Math.min(
+    mobile ? 268 : 372,
+    (window.innerWidth - gutter) / 2,
+    window.innerWidth * (mobile ? 0.45 : 0.31),
+  )
+  const h = Math.min(mobile ? 400 : 528, window.innerHeight * (mobile ? 0.54 : 0.68))
+  return { w: Math.round(w), h: Math.round(h) }
 }
 
 function poseFrom(phase: LibraryPhase): BookPose {
@@ -59,21 +64,40 @@ export function BookModal({
   }, [phase, book.id])
 
   useEffect(() => {
-    if (phase === 'closing' || phase === 'toShelf') pages.cancelTurn()
-  }, [phase, pages.cancelTurn])
+    if (phase === 'closing' || phase === 'toShelf') {
+      if (pages.turning) pages.onFlipEnd()
+      else pages.cancelTurn()
+    }
+  }, [phase, pages.cancelTurn, pages.onFlipEnd, pages.turning])
+
+  useEffect(() => {
+    if (phase !== 'open') return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') {
+        e.preventDefault()
+        pages.onTurn('next')
+      }
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault()
+        pages.onTurn('prev')
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [phase, pages.onTurn])
 
   const cx = window.innerWidth / 2
   const cy = window.innerHeight / 2 + 6
   const start = {
     x: origin.x + origin.width / 2,
     y: origin.y + origin.height / 2,
-    scale: Math.max(0.1, origin.height / dim.h),
-    rotateY: 72,
+    scale: Math.max(0.12, origin.height / dim.h),
+    rotateY: 28,
     rotateX: 8,
   }
   const center = { x: cx, y: cy, scale: 1, rotateY: 0, rotateX: 0 }
   const animateTo = returning ? start : center
-  const duration = reduced ? 0.001 : inFlight ? 0.95 : 0.2
+  const duration = reduced ? 0.001 : inFlight ? 0.92 : 0.01
 
   return (
     <>
