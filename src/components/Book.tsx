@@ -13,8 +13,6 @@ export function Book({ book, disabled, ghost, onOpen }: Props) {
     '--leather': book.palette.leather,
     '--leather-dark': book.palette.leatherDark,
     '--gold-ink': book.palette.gold,
-    transform: `rotate(${book.tilt}deg)`,
-    marginBottom: `${book.heightNudge * 0.12}px`,
   } as CSSProperties
 
   const onKey = (e: KeyboardEvent<HTMLButtonElement>) => {
