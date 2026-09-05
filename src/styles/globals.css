@@ -2910,61 +2910,99 @@ button {
   left: 0;
   top: 0;
   z-index: 70;
-  width: 120px;
-  height: 64px;
-  margin-left: -60px;
-  margin-top: -32px;
+  /* layers are placed in the 640x303 space of the source artwork; ball centre at (328, 238) */
+  --sw: clamp(150px, 15vw, 210px);
+  width: var(--sw);
+  height: calc(var(--sw) * 303 / 640);
+  margin-left: calc(var(--sw) * -0.5125);
+  margin-top: calc(var(--sw) * 303 / 640 * -0.785);
+  transform-origin: 51.25% 78.5%;
   pointer-events: none;
   will-change: transform;
   --speed: 0;
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 10px rgba(255, 190, 60, 0.55));
+  filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.45));
 }
 
 .snitch-aura {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 120px;
-  height: 120px;
-  margin: -60px 0 0 -60px;
+  left: 51.25%;
+  top: 78.5%;
+  width: 90px;
+  height: 90px;
+  margin: -45px 0 0 -45px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 210, 110, 0.45), rgba(255, 160, 40, 0.14) 40%, transparent 68%);
-  animation: snitchAura 1.8s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(255, 205, 100, 0.5), rgba(255, 150, 40, 0.14) 40%, transparent 68%);
+  animation: snitchAura 1.6s ease-in-out infinite;
   mix-blend-mode: screen;
 }
 
-.snitch-svg {
-  position: relative;
+.snitch-ball {
+  position: absolute;
+  left: 42.19%;
+  top: 59.4%;
+  width: 18.125%;
+  height: 38.3%;
   display: block;
-  width: 120px;
-  height: 64px;
-  overflow: visible;
+  z-index: 3;
 }
 
-.snitch-wing {
-  animation: snitchFlap 0.11s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+.snitch-shine {
+  position: absolute;
+  left: 51.25%;
+  top: 78.5%;
+  width: 7%;
+  height: 14%;
+  margin: -7% 0 0 -3.5%;
+  border-radius: 50%;
+  z-index: 4;
+  background: radial-gradient(circle, rgba(255, 236, 190, 0.45), rgba(255, 200, 120, 0.12) 50%, transparent 75%);
+  animation: snitchAura 1.1s ease-in-out infinite reverse;
+  mix-blend-mode: screen;
+}
+
+.snitch-wing,
+.snitch-wing-ghost {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: block;
   will-change: transform;
+  animation: snitchFlapL 0.065s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
+  z-index: 2;
+}
+.snitch-wing-ghost {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  opacity: 0.32;
+  filter: blur(0.5px);
+  animation-delay: -0.033s;
+  z-index: 1;
 }
 
-.snitch-wing.is-left {
-  transform-origin: 46px 31px;
+.snitch-wing.is-left,
+.snitch-wing-ghost.is-left {
+  left: 0;
+  width: 44.06%;
+  transform-origin: 98.5% 70.5%;
 }
-
-.snitch-wing.is-right {
-  transform-origin: 74px 31px;
-  animation-delay: 0.055s;
-}
-
-@keyframes snitchFlap {
-  from { transform: scaleY(1) rotate(0deg); }
-  to { transform: scaleY(0.38) rotate(-6deg); }
-}
-.snitch-wing.is-right {
+.snitch-wing.is-right,
+.snitch-wing-ghost.is-right {
+  left: 58.75%;
+  width: 41.25%;
+  transform-origin: 1.5% 70.5%;
   animation-name: snitchFlapR;
 }
+.snitch-wing-ghost.is-right {
+  animation-delay: -0.033s;
+}
+
+@keyframes snitchFlapL {
+  from { transform: rotate(5deg); }
+  to { transform: rotate(-26deg) scaleY(0.94); }
+}
 @keyframes snitchFlapR {
-  from { transform: scaleY(1) rotate(0deg); }
-  to { transform: scaleY(0.38) rotate(6deg); }
+  from { transform: rotate(-5deg); }
+  to { transform: rotate(26deg) scaleY(0.94); }
 }
 
 @keyframes snitchAura {
@@ -3015,6 +3053,8 @@ button {
   .riffle,
   .flip-leaf,
   .snitch-wing,
+  .snitch-wing-ghost,
+  .snitch-shine,
   .snitch-aura,
   .snitch-spark,
   .veil,
