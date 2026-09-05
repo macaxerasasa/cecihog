@@ -13,8 +13,8 @@ export function LibraryEnvironment({ awake, busy, reading, holding, children }: 
     <div
       className={`library ${awake ? 'is-awake' : 'is-boot'} ${busy ? 'is-busy' : ''} ${reading ? 'is-reading' : ''} ${holding ? 'is-holding' : ''}`}
     >
-      <div className="wall-grain" />
       <div className="stone-wall" aria-hidden="true" />
+      <div className="wall-grain" />
       <div className="window-light a" aria-hidden="true" />
       <div className="window-light b" aria-hidden="true" />
       <div className="floor" aria-hidden="true" />

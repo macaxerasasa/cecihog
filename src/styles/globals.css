@@ -133,20 +133,38 @@ button {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.32;
-  background-image:
-    linear-gradient(0deg, rgba(0, 0, 0, 0.32) 0 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.26) 0 1px, transparent 1px),
-    linear-gradient(90deg, transparent 0 50%, rgba(0, 0, 0, 0.2) 50% calc(50% + 1px), transparent calc(50% + 1px));
-  background-size:
-    100% 92px,
-    184px 92px,
-    184px 184px;
-  background-position:
-    0 0,
-    0 0,
-    0 92px;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.45) 55%, transparent 92%);
+  background-image: url('/stone.svg');
+  background-size: clamp(300px, 34vw, 520px) auto;
+  background-position: center top;
+  background-repeat: repeat;
+  opacity: 0.85;
+  mask-image:
+    radial-gradient(ellipse 80% 70% at 50% 40%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7) 60%, rgba(0, 0, 0, 0.35) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 1) 0 84%, transparent 100%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
+
+.stone-wall::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(255, 150, 60, 0.28), transparent 55%),
+    radial-gradient(ellipse at 14% 60%, rgba(255, 130, 50, 0.16), transparent 42%),
+    radial-gradient(ellipse at 86% 60%, rgba(255, 130, 50, 0.16), transparent 42%),
+    linear-gradient(180deg, rgba(120, 50, 20, 0.35), rgba(20, 8, 4, 0.55) 60%, rgba(0, 0, 0, 0.85));
+  mix-blend-mode: multiply;
+}
+
+.stone-wall::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(255, 170, 80, 0.22), transparent 50%),
+    radial-gradient(ellipse at 50% 100%, rgba(0, 0, 0, 0.6), transparent 50%);
+  mix-blend-mode: soft-light;
 }
 
 .window-light {
@@ -254,7 +272,7 @@ button {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.55;
+  opacity: 0.3;
   background-image:
     repeating-linear-gradient(
       90deg,
