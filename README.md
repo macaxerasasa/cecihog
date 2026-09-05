@@ -1,6 +1,6 @@
-# Ateneu de Cinderis
+# Hogwarts — Biblioteca
 
-Biblioteca mágica interativa: a própria estante é o menu. Dez tomos físicos abrem em perspectiva 3D — ambientação, habilidades, raças e os sete anos da academia.
+Fan site interativo da biblioteca de Hogwarts. A entrada exige o gesto de varinha de **Alohomora** (no espírito do treino de feitiços de *Hogwarts Legacy*). Depois, a estante é o menu: dez tomos abrem em 3D.
 
 ## Como executar
 
@@ -9,21 +9,24 @@ npm install
 npm run dev
 ```
 
-O servidor local sobe em `http://127.0.0.1:45217`.
+Servidor: `http://127.0.0.1:45217`.
 
 ```bash
 npm run build
 npm run preview
 ```
 
+## Entrada
+
+Trace o glifo dourado com o rato ou o dedo, a partir do nó brilhante. Com `prefers-reduced-motion`, há um atalho acessível para completar o gesto.
+
 ## Conteúdo
 
-Os volumes vivem em `src/data/books.ts`. Cada tomo tem paleta, lombada e *spreads* (páginas pares). Os anos já trazem espaços reservados para matérias, feitiços e anotações.
+Os volumes estão em `src/data/books.ts` (Hogwarts, Matérias, Casas e os sete anos). Os feitiços concretos ficam como espaços reservados.
 
 ## Controles
 
-- Clique ou toque em um livro para retirá-lo e abri-lo
+- Traçar Alohomora para entrar
+- Clique ou toque num livro para o abrir
 - `Esc` fecha o tomo
-- Setas na estante movem o foco entre os volumes
-- Com o livro aberto: cadernos, tomo anterior/seguinte e selo de fechar
-- `prefers-reduced-motion` encurta as transições sem bloquear a leitura
+- Setas na estante movem o foco

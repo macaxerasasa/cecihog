@@ -7,6 +7,7 @@ import { Bookshelf } from './Bookshelf'
 import { LibraryEnvironment } from './LibraryEnvironment'
 import { Lighting } from './Lighting'
 import { Particles } from './Particles'
+import { WandGate } from './WandGate'
 
 const OPEN_COVER_MS = 980
 const CLOSE_COVER_MS = 920
@@ -14,6 +15,7 @@ const BOOT_MS = 160
 
 export function Library() {
   const reduced = usePrefersReducedMotion()
+  const [unlocked, setUnlocked] = useState(false)
   const [awake, setAwake] = useState(false)
   const [phase, setPhase] = useState<LibraryPhase>('boot')
   const [activeId, setActiveId] = useState<string | null>(null)
@@ -39,12 +41,13 @@ export function Library() {
   }
 
   useEffect(() => {
+    if (!unlocked) return
     const t = window.setTimeout(() => {
       setAwake(true)
       setPhase('idle')
     }, reduced ? 0 : BOOT_MS)
     return () => window.clearTimeout(t)
-  }, [reduced])
+  }, [reduced, unlocked])
 
   useEffect(() => () => clearTimers(), [])
 
@@ -157,13 +160,21 @@ export function Library() {
   const book = activeId ? getBook(activeId) : null
   const busy = phase !== 'idle' && phase !== 'boot' && phase !== 'open'
 
+  if (!unlocked) {
+    return (
+      <div className="library is-gated">
+        <WandGate reduced={reduced} onUnlocked={() => setUnlocked(true)} />
+      </div>
+    )
+  }
+
   return (
     <LibraryEnvironment awake={awake} busy={busy}>
       <Lighting />
       <Particles active={awake} />
       <header className="masthead">
-        <h1>Ateneu de Cinderis</h1>
-        <p>A Estante-Mãe</p>
+        <h1>Hogwarts</h1>
+        <p>Biblioteca · Seção Restrita</p>
       </header>
       <div className="stage-wrap">
         <Bookshelf

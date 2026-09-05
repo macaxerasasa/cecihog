@@ -1,114 +1,131 @@
-import type { BookData } from '../types'
+import type { BookData, Spread } from '../types'
 
-const reservedMaterias = (ano: string): { type: 'reserved'; label: string; hint: string } => ({
-  type: 'reserved',
+const reservedMaterias = (ano: string) => ({
+  type: 'reserved' as const,
   label: `Matérias — ${ano}`,
-  hint: 'Espaço reservado para o currículo, mestres e horas de estudo deste ciclo. Adicione aqui as disciplinas oficiais quando o grimório for preenchido.',
+  hint: 'Espaço para o horário das aulas, professores e salas (torre, masmorras, estufas).',
 })
 
-const reservedFeiticos = (ano: string): { type: 'reserved'; label: string; hint: string } => ({
-  type: 'reserved',
+const reservedFeiticos = (ano: string) => ({
+  type: 'reserved' as const,
   label: `Feitiços — ${ano}`,
-  hint: 'Catálogo ainda selado. Cada entrada poderá receber nome, círculo, componentes, duração e transcrição da fórmula.',
+  hint: 'Catálogo ainda por preencher: nome, movimento de varinha, encantamento e efeito.',
 })
 
-const reservedNotas = (ano: string): { type: 'reserved'; label: string; hint: string } => ({
-  type: 'reserved',
-  label: `Anotações do ciclo`,
-  hint: `Folhas em branco para crônicas, advertências da reitoria e observações de campo do ${ano.toLowerCase()}.`,
+const reservedNotas = (ano: string) => ({
+  type: 'reserved' as const,
+  label: 'Anotações da aula',
+  hint: `Pergaminho em branco para deveres, pontos das casas e observações do ${ano.toLowerCase()}.`,
 })
+
+function yearSpreads(title: string, subtitle: string, intro: string, subjects: string[]): Spread[] {
+  return [
+    {
+      left: [
+        { type: 'heading', text: title },
+        { type: 'subheading', text: subtitle },
+        { type: 'ornament' },
+        { type: 'paragraph', text: intro },
+      ],
+      right: [
+        reservedMaterias(title),
+        { type: 'list', items: subjects },
+      ],
+    },
+    {
+      left: [reservedFeiticos(title)],
+      right: [reservedNotas(title)],
+    },
+  ]
+}
 
 export const books: BookData[] = [
   {
     id: 'ambientacao',
-    title: 'Ambientação',
-    shortTitle: 'Mundo',
+    title: 'Hogwarts',
+    shortTitle: 'Castelo',
     category: 'world',
-    subtitle: 'Sobre este mundo',
-    motto: 'Onde a cinza ainda guarda o nome das estrelas.',
-    spineLabel: 'AMBIENTAÇÃO',
+    subtitle: 'O castelo e o mundo mágico',
+    motto: 'Draco dormiens nunquam titillandus.',
+    spineLabel: 'HOGWARTS',
     size: 'grand',
     wear: 0.72,
     tilt: -1.4,
     heightNudge: 8,
     palette: {
-      leather: '#5a1e24',
-      leatherDark: '#2a0c11',
-      leatherLight: '#8a3a3f',
-      spine: '#4a181d',
-      gold: '#c8a15a',
+      leather: '#6b1d1d',
+      leatherDark: '#2a0c0c',
+      leatherLight: '#9a3a32',
+      spine: '#541616',
+      gold: '#d4b056',
       pageTint: '#efe2c4',
-      ribbon: '#7a1f2b',
+      ribbon: '#ae0001',
     },
     spreads: [
       {
         left: [
-          { type: 'heading', text: 'Ambientação' },
-          { type: 'subheading', text: 'Sobre este mundo' },
+          { type: 'heading', text: 'Hogwarts' },
+          { type: 'subheading', text: 'Escola de Magia e Bruxaria' },
           { type: 'ornament' },
           {
             type: 'paragraph',
-            text: 'Além das Montanhas de Vidro-Fumê jaz o vale de Cinderis, último recinto onde a língua antiga ainda é ensinada em voz baixa. A Academia não se anuncia: revela-se a quem já esqueceu o caminho de volta.',
+            text: 'Erguida em terra escocesa por Godric Gryffindor, Helga Hufflepuff, Rowena Ravenclaw e Salazar Slytherin, Hogwarts esconde-se dos olhos trouxas por encantamentos antigos. Torres, escadas que mudam de ideia e retratos tagarelas guardam mil anos de ensino.',
           },
           {
             type: 'paragraph',
-            text: 'Este tomo descreve o palco — céus, leis, ruínas e o pacto que impede o inverno de fechar as portas da biblioteca. Não é um mapa. É uma memória que insiste em permanecer.',
+            text: 'Esta estante pertence à biblioteca. Madame Pince não aprovaria que os tomos saíssem da prateleira — mas a magia da seção restrita às vezes faz o contrário.',
           },
         ],
         right: [
-          { type: 'subheading', text: 'O Ateneu de Cinderis' },
-          {
-            type: 'paragraph',
-            text: 'Erguido sobre as fundações de um mosteiro anterior ao Primeiro Silêncio, o Ateneu guarda sete claustros, um observatório cego e a Estante-Mãe — de onde estes volumes nunca deveriam ser retirados.',
-          },
+          { type: 'subheading', text: 'O castelo' },
           {
             type: 'entries',
             items: [
               {
-                title: 'Clima e céu',
-                text: 'Outonos longos. Auroras baixas. A chuva cheira a tinta e resina.',
+                title: 'Salão Principal',
+                text: 'Teto encantado, quatro mesas das casas e a mesa dos professores. O Chapéu Seletor canta aqui.',
               },
               {
-                title: 'Moeda e pacto',
-                text: 'Troca-se em cinzas medidas, favores selados e nomes verdadeiros.',
+                title: 'Escadas e corredores',
+                text: 'Trechos que se movem às terças. Atrás de tapeçarias há atalhos — e, às vezes, o Chapeleiro Tonto.',
               },
               {
-                title: 'Fora dos muros',
-                text: 'Bosques de carvalho-negro, vilas de lanternas e a Estrada que Recua.',
+                title: 'Terrenos',
+                text: 'Lago Negro, Floresta Proibida, estufas da professora Sprout e a cabana de Hagrid.',
               },
             ],
           },
           {
             type: 'reserved',
-            label: 'Cartografia',
-            hint: 'Espaço para mapas, selos de regiões e cronologias do mundo.',
+            label: 'Mapa do castelo',
+            hint: 'Espaço para andares, torres, masmorras e o Mapa do Maroto.',
           },
         ],
       },
       {
         left: [
-          { type: 'heading', text: 'Leis do vale' },
+          { type: 'heading', text: 'Leis da escola' },
           { type: 'ornament' },
           {
             type: 'list',
             items: [
-              'Nenhum fogo aberto junto aos pergaminhos vivos.',
-              'Nomes verdadeiros não se escrevem na primeira pessoa.',
-              'O sino das nove marca o fim das evocações menores.',
-              'Visitantes dormem no claustro oeste, jamais na cripta.',
+              'É proibido feitiços dentro dos corredores entre as aulas.',
+              'A Floresta Proibida continua proibida.',
+              'A seção restrita exige permissão assinada.',
+              'O Terceiro Andar do lado direito é, em certos anos, igualmente proibido.',
             ],
           },
         ],
         right: [
-          { type: 'subheading', text: 'História breve' },
+          { type: 'subheading', text: 'O mundo além' },
           {
             type: 'paragraph',
-            text: 'Três eras marcam Cinderis: a Fundação, o Silêncio, e a Reabertura. Os detalhes da segunda foram deliberadamente apagados. Os espaços em branco abaixo aguardam o retorno dessas páginas.',
+            text: 'Londres mágico começa no Beco Diagonal. O Expresso de Hogwarts parte de King’s Cross, plataforma 9¾. O Ministério, as casas de campo e os vilarejos de Hogsmeade completam o mapa — páginas à espera de crônicas.',
           },
           {
             type: 'reserved',
-            label: 'Linha do tempo',
-            hint: 'Insira dinastias, catástrofes e tratados. Cada era pode ganhar um spread próprio.',
+            label: 'Cronologia',
+            hint: 'Linha do tempo da escola, diretores e conflitos do mundo bruxo.',
           },
         ],
       },
@@ -116,79 +133,68 @@ export const books: BookData[] = [
   },
   {
     id: 'habilidades',
-    title: 'Habilidades',
-    shortTitle: 'Artes',
+    title: 'Matérias',
+    shortTitle: 'Aulas',
     category: 'world',
-    subtitle: 'As artes que o corpo e a vontade aprendem',
-    motto: 'A mão lembra o que a boca ainda teme pronunciar.',
-    spineLabel: 'HABILIDADES',
+    subtitle: 'As artes ensinadas em Hogwarts',
+    motto: 'A varinha escolhe o bruxo.',
+    spineLabel: 'MATÉRIAS',
     size: 'grand',
     wear: 0.48,
     tilt: 0.8,
     heightNudge: 0,
     palette: {
-      leather: '#1f3d32',
-      leatherDark: '#0c1c17',
-      leatherLight: '#3d6a56',
-      spine: '#17352c',
+      leather: '#1b4d2e',
+      leatherDark: '#0c2416',
+      leatherLight: '#2f7a48',
+      spine: '#163d26',
       gold: '#d0b36a',
       pageTint: '#eadcc0',
-      ribbon: '#2e6b4f',
+      ribbon: '#2a623d',
     },
     spreads: [
       {
         left: [
-          { type: 'heading', text: 'Habilidades' },
-          { type: 'subheading', text: 'Categorias da prática' },
+          { type: 'heading', text: 'Matérias' },
+          { type: 'subheading', text: 'O currículo de Hogwarts' },
           { type: 'ornament' },
           {
             type: 'paragraph',
-            text: 'No Ateneu, talento não é dom: é disciplina. As artes se agrupam em quatro colunas, e cada coluna exige um voto diferente. Este volume organiza o vocabulário comum — não as fórmulas.',
+            text: 'Sete anos, dezenas de salas e um horário que desafia a lógica das escadas. As matérias obrigatórias moldam o bruxo; as opcionais — Runicas, Aritmancia, Trato das Criaturas, Alquimia — revelam a vocação.',
           },
         ],
         right: [
           {
             type: 'entries',
             items: [
-              {
-                title: 'Voz e Verbo',
-                text: 'Entoação, nomes, silêncios ritmados. A palavra como instrumento.',
-              },
-              {
-                title: 'Gesto e Selo',
-                text: 'Mudras, caligrafia no ar, geometria das mãos.',
-              },
-              {
-                title: 'Matéria e Vaso',
-                text: 'Ervas, metais, cinzas, sangue de tinta. O mundo como tinta.',
-              },
-              {
-                title: 'Olhar e Sombra',
-                text: 'Percepção, discrição, leitura de auras e mentiras.',
-              },
+              { title: 'Feitiços', text: 'Encantamentos, precisão do gesto e a palavra certa. Torre de Ravenclaw, em geral.' },
+              { title: 'Transfiguração', text: 'A mais elegante e a mais implacável. McGonagall não tolera sapos a meio caminho.' },
+              { title: 'Poções', text: 'Masmorras, caldeirões e a diferença entre infusão e explosão.' },
+              { title: 'Defesa Contra as Artes das Trevas', text: 'O posto que ninguém consegue manter por muito tempo.' },
+              { title: 'Herbologia', text: 'Estufas, mandrágoras e luvas de dragão.' },
+              { title: 'Astronomia', text: 'Torre mais alta, à meia-noite, com telescópio.' },
             ],
           },
         ],
       },
       {
         left: [
-          { type: 'subheading', text: 'Medidas de mestria' },
+          { type: 'subheading', text: 'Exames' },
           {
             type: 'list',
             items: [
-              'Noviço — reproduz, não inventa.',
-              'Adepto — combina duas colunas sem fenda.',
-              'Lente — ensina sem revelar o nome da arte.',
-              'Arquivista — altera a própria categoria.',
+              'N.O.M.s — quinto ano, a base de tudo.',
+              'N.I.E.M.s — sétimo ano, especialização.',
+              'Quadribol não conta para o quadro — mas conta para a alma.',
             ],
           },
         ],
         right: [
-          reservedMaterias('Habilidades Gerais'),
+          reservedMaterias('Currículo geral'),
           {
             type: 'reserved',
-            label: 'Tabelas de progresso',
-            hint: 'Espaço para custos, pré-requisitos e marcas de excelência.',
+            label: 'Professores',
+            hint: 'Retratos, salas e peculiaridades de cada cátedra.',
           },
         ],
       },
@@ -196,83 +202,71 @@ export const books: BookData[] = [
   },
   {
     id: 'racas',
-    title: 'Raças',
-    shortTitle: 'Povos',
+    title: 'Casas',
+    shortTitle: 'Casas',
     category: 'world',
-    subtitle: 'Quem habita a margem do saber',
-    motto: 'Sangue é só outra tinta, se souberes o solvente.',
-    spineLabel: 'RAÇAS',
+    subtitle: 'As quatro casas de Hogwarts',
+    motto: 'O Chapéu Seletor ainda está a pensar.',
+    spineLabel: 'CASAS',
     size: 'grand',
     wear: 0.61,
     tilt: 1.6,
     heightNudge: 4,
     palette: {
-      leather: '#1c2a4a',
-      leatherDark: '#0b1224',
-      leatherLight: '#3a4e7a',
-      spine: '#16233f',
+      leather: '#1a365c',
+      leatherDark: '#0b1a30',
+      leatherLight: '#2e5a8f',
+      spine: '#142c4c',
       gold: '#c9a45a',
       pageTint: '#f0e4c9',
-      ribbon: '#3d4f86',
+      ribbon: '#0e1a40',
     },
     spreads: [
       {
         left: [
-          { type: 'heading', text: 'Raças' },
-          { type: 'subheading', text: 'Povos do vale e além' },
+          { type: 'heading', text: 'Casas' },
+          { type: 'subheading', text: 'Quatro fundadores, quatro temperamentos' },
           { type: 'ornament' },
           {
             type: 'paragraph',
-            text: 'O Ateneu admite quem atravessa o umbral com um nome e uma pergunta. As linhagens abaixo são as mais recorrentes nos registros — não as únicas possíveis.',
+            text: 'Toda a vida em Hogwarts parte da Seleção. O Chapéu lê o que se é — e o que se pode vir a ser. Os pontos no relógio do Salão Principal não medem só vitórias de Quadribol: medem escolhas.',
           },
         ],
         right: [
           {
             type: 'entries',
             items: [
-              {
-                title: 'Humanos de Cinderis',
-                text: 'Memória curta, ambição longa. Dominam a caligrafia administrativa.',
-              },
-              {
-                title: 'Velho-Sangue',
-                text: 'Orelhas em lua, pulso frio. Enxergam tinta invisível à luz do dia.',
-              },
-              {
-                title: 'Cinzentos da Rocha',
-                text: 'Pele mineral, voz de poço. Guardas naturais da cripta.',
-              },
-              {
-                title: 'Nascidos da Bruma',
-                text: 'Raros. Sua sombra chega um passo antes do corpo.',
-              },
+              { title: 'Grifinória', text: 'Coragem, ousadia, cavalheirismo. Escarlate e ouro. Elos de leão e a torre da Grifinória.' },
+              { title: 'Sonserina', text: 'Ambição, astúcia, sangue-frio. Verde e prata. A masmorra no lago e o basilisco dos rumores.' },
+              { title: 'Corvinal', text: 'Inteligência, criatividade, saber. Azul e bronze. O enigma da águia na entrada da torre.' },
+              { title: 'Lufa-Lufa', text: 'Lealdade, paciência, trabalho honesto. Amarelo e negro. A sala perto das cozinhas.' },
             ],
           },
         ],
       },
       {
         left: [
-          { type: 'subheading', text: 'Espaço para linhagens' },
+          { type: 'subheading', text: 'Fantasmas e relíquias' },
           {
             type: 'paragraph',
-            text: 'Cada povo deverá receber origem, temperamento, dons herdados e tabus. As páginas seguintes estão pautadas e aguardam iluminura.',
+            text: 'Nick Quase Sem Cabeça, o Barão Sangrento, a Dama Cinzenta e o Frei Gorducho percorrem os corredores. Cada casa guarda também um objeto dos fundadores — páginas reservadas para esses relatos.',
           },
           {
             type: 'reserved',
-            label: 'Retratos',
-            hint: 'Insira iluminuras, brasões e amostras de caligrafia nativa.',
+            label: 'Brasões',
+            hint: 'Iluminuras dos quatro brasões e das salas comunais.',
           },
         ],
         right: [
           {
             type: 'reserved',
-            label: 'Relações entre povos',
-            hint: 'Tabelas de alianças, preconceitos acadêmicos e pactos de sangue.',
+            label: 'Quadro de pontos',
+            hint: 'Registro anual da Taça das Casas.',
           },
           {
             type: 'reserved',
-            label: 'Notas de campo',
-            hint: 'Observações de mestres viajantes e contradições entre crônicas.',
+            label: 'Prefetos e R.P.M.',
+            hint: 'Lista de cargos, insígnias e o crachá de Rony… quando couber.',
           },
         ],
       },
@@ -284,50 +278,28 @@ export const books: BookData[] = [
     shortTitle: 'I',
     category: 'year',
     year: 1,
-    subtitle: 'O umbral e a lamparina',
-    motto: 'Aprende a ver o escuro antes de acender qualquer chama.',
+    subtitle: 'Cartas, barcos e o Chapéu Seletor',
+    motto: 'Nem sempre o que queremos é o que o Chapéu vê.',
     spineLabel: 'I  ·  PRIMEIRO ANO',
     size: 'tome',
     wear: 0.3,
     tilt: -0.8,
     heightNudge: -6,
     palette: {
-      leather: '#6b3e22',
+      leather: '#7a4a1e',
       leatherDark: '#2d170c',
-      leatherLight: '#a0663a',
+      leatherLight: '#b56a30',
       spine: '#5a321b',
       gold: '#e0c37a',
       pageTint: '#f2e6c8',
-      ribbon: '#b4532a',
+      ribbon: '#ae0001',
     },
-    spreads: [
-      {
-        left: [
-          { type: 'heading', text: 'Primeiro Ano' },
-          { type: 'subheading', text: 'O umbral e a lamparina' },
-          { type: 'ornament' },
-          {
-            type: 'paragraph',
-            text: 'O noviço chega com as mãos limpas e a boca cheia de perguntas erradas. O primeiro ciclo não ensina a dobrar o mundo — ensina a não se perder nele. Aqui se aprende a copiar, a calar, a nomear o óbvio com precisão.',
-          },
-        ],
-        right: [
-          reservedMaterias('Primeiro Ano'),
-          {
-            type: 'list',
-            items: [
-              'Caligrafia de umbral (placeholder)',
-              'História breve do Silêncio (placeholder)',
-              'Cuidado de lamparinas e tintas (placeholder)',
-            ],
-          },
-        ],
-      },
-      {
-        left: [reservedFeiticos('Primeiro Ano')],
-        right: [reservedNotas('Primeiro Ano')],
-      },
-    ],
+    spreads: yearSpreads(
+      'Primeiro Ano',
+      'Cartas, barcos e o Chapéu Seletor',
+      'A carta chega por coruja. O Expresso parte, os barcos cruzam o lago e o Chapéu canta. No primeiro ano aprendem-se os gestos básicos — Lumos, Wingardium Leviosa — e a arte de não se perder a caminho das Poções.',
+      ['Feitiços (placeholder)', 'Transfiguração (placeholder)', 'Poções (placeholder)', 'Voo com vassoura (placeholder)'],
+    ),
   },
   {
     id: 'segundo-ano',
@@ -335,8 +307,8 @@ export const books: BookData[] = [
     shortTitle: 'II',
     category: 'year',
     year: 2,
-    subtitle: 'A tinta aprende a andar',
-    motto: 'Toda linha reta é uma mentira útil.',
+    subtitle: 'Diários, elmos e sussurros na parede',
+    motto: 'A herança de Slytherin não se discute no jantar.',
     spineLabel: 'II  ·  SEGUNDO ANO',
     size: 'tome',
     wear: 0.38,
@@ -351,34 +323,12 @@ export const books: BookData[] = [
       pageTint: '#ecddc0',
       ribbon: '#8d2433',
     },
-    spreads: [
-      {
-        left: [
-          { type: 'heading', text: 'Segundo Ano' },
-          { type: 'subheading', text: 'A tinta aprende a andar' },
-          { type: 'ornament' },
-          {
-            type: 'paragraph',
-            text: 'No segundo ciclo, o copista torna-se aprendiz de forma. Geometrias simples, primeiros selos e a ética de não escrever o que não se pode desfazer. As matérias ganham peso; as noites, também.',
-          },
-        ],
-        right: [
-          reservedMaterias('Segundo Ano'),
-          {
-            type: 'list',
-            items: [
-              'Geometria dos selos menores (placeholder)',
-              'Botânica de claustro (placeholder)',
-              'Ética da transcrição (placeholder)',
-            ],
-          },
-        ],
-      },
-      {
-        left: [reservedFeiticos('Segundo Ano')],
-        right: [reservedNotas('Segundo Ano')],
-      },
-    ],
+    spreads: yearSpreads(
+      'Segundo Ano',
+      'Diários, elmos e sussurros na parede',
+      'Os alunos já conhecem os corredores. Mandrágoras choram nas estufas e rumores de uma câmara antiga voltam a circular. Espaço reservado para o diário, a herdeira e os elfos que ninguém vê.',
+      ['Herbologia (placeholder)', 'História da Magia (placeholder)', 'Defesa Contra as Artes das Trevas (placeholder)'],
+    ),
   },
   {
     id: 'terceiro-ano',
@@ -386,8 +336,8 @@ export const books: BookData[] = [
     shortTitle: 'III',
     category: 'year',
     year: 3,
-    subtitle: 'Voz, vaso e vigília',
-    motto: 'O que se pronuncia passa a dever-te uma resposta.',
+    subtitle: 'O Expresso, o hipogrifo e o tempo',
+    motto: 'Um simples vira-tempo já basta para complicar o horário.',
     spineLabel: 'III  ·  TERCEIRO ANO',
     size: 'tome',
     wear: 0.44,
@@ -400,36 +350,14 @@ export const books: BookData[] = [
       spine: '#323a1b',
       gold: '#cbb56a',
       pageTint: '#e8d9b6',
-      ribbon: '#6b7333',
+      ribbon: '#2a623d',
     },
-    spreads: [
-      {
-        left: [
-          { type: 'heading', text: 'Terceiro Ano' },
-          { type: 'subheading', text: 'Voz, vaso e vigília' },
-          { type: 'ornament' },
-          {
-            type: 'paragraph',
-            text: 'Aqui a prática deixa o caderno e toca o ar. Entoações controladas, primeiros vasos e a vigília das nove. Erros deixam de ser borracha: passam a ser cicatriz acadêmica.',
-          },
-        ],
-        right: [
-          reservedMaterias('Terceiro Ano'),
-          {
-            type: 'list',
-            items: [
-              'Entoação menor (placeholder)',
-              'Alquimia de vaso frio (placeholder)',
-              'Vigília e guarda de limiares (placeholder)',
-            ],
-          },
-        ],
-      },
-      {
-        left: [reservedFeiticos('Terceiro Ano')],
-        right: [reservedNotas('Terceiro Ano')],
-      },
-    ],
+    spreads: yearSpreads(
+      'Terceiro Ano',
+      'O Expresso, o hipogrifo e o tempo',
+      'Hogsmeade abre as portas a quem tem autorização. Adivinhação na torre, Trato das Criaturas Magníficas no parque e o professor que ninguém espera. Guarde aqui o hipogrifo, o mapa e as voltas no tempo.',
+      ['Adivinhação (placeholder)', 'Trato das Criaturas (placeholder)', 'Aritmância (placeholder)'],
+    ),
   },
   {
     id: 'quarto-ano',
@@ -437,50 +365,28 @@ export const books: BookData[] = [
     shortTitle: 'IV',
     category: 'year',
     year: 4,
-    subtitle: 'O meio da escada',
-    motto: 'Quem olha para trás neste degrau vê o tamanho da queda.',
+    subtitle: 'O Cálice e as três tarefas',
+    motto: 'Nascido para isso, ou apenas o Cálice achou que sim.',
     spineLabel: 'IV  ·  QUARTO ANO',
     size: 'tome',
     wear: 0.52,
     tilt: 0.4,
     heightNudge: -3,
     palette: {
-      leather: '#2c3d55',
+      leather: '#243a68',
       leatherDark: '#101826',
-      leatherLight: '#4d6788',
-      spine: '#243448',
+      leatherLight: '#3d5a9a',
+      spine: '#1c2e54',
       gold: '#d4b56a',
       pageTint: '#efe3c6',
-      ribbon: '#3e5a7a',
+      ribbon: '#0e1a40',
     },
-    spreads: [
-      {
-        left: [
-          { type: 'heading', text: 'Quarto Ano' },
-          { type: 'subheading', text: 'O meio da escada' },
-          { type: 'ornament' },
-          {
-            type: 'paragraph',
-            text: 'O quarto ciclo é o estreito. Muitos abandonam. Os que ficam aprendem a unir duas colunas de habilidade e a escrever para um leitor que ainda não nasceu. É também o ano das primeiras saídas vigiadas.',
-          },
-        ],
-        right: [
-          reservedMaterias('Quarto Ano'),
-          {
-            type: 'list',
-            items: [
-              'Correspondência de colunas (placeholder)',
-              'Cartografia de limiares (placeholder)',
-              'Prática de campo vigiada (placeholder)',
-            ],
-          },
-        ],
-      },
-      {
-        left: [reservedFeiticos('Quarto Ano')],
-        right: [reservedNotas('Quarto Ano')],
-      },
-    ],
+    spreads: yearSpreads(
+      'Quarto Ano',
+      'O Cálice e as três tarefas',
+      'Anos de Torneio são raros: dragões, o lago, o labirinto. Visitantes de Beauxbatons e Durmstrang sentam-se no Salão. Estas páginas aguardam as tarefas, os pactos e o que o Cálice não deveria ter feito.',
+      ['Torneio Tribruxo (placeholder)', 'Etiqueta mágica (placeholder)', 'Feitiços avançados (placeholder)'],
+    ),
   },
   {
     id: 'quinto-ano',
@@ -488,8 +394,8 @@ export const books: BookData[] = [
     shortTitle: 'V',
     category: 'year',
     year: 5,
-    subtitle: 'A autoridade da sombra',
-    motto: 'Luz demais é só outra forma de cegueira.',
+    subtitle: 'N.O.M.s e a Ordem',
+    motto: 'A inquisidora nunca está tão longe quanto parece.',
     spineLabel: 'V  ·  QUINTO ANO',
     size: 'tome',
     wear: 0.58,
@@ -502,36 +408,14 @@ export const books: BookData[] = [
       spine: '#3c2140',
       gold: '#ddc07a',
       pageTint: '#ead9b8',
-      ribbon: '#6e3d73',
+      ribbon: '#5d2d6e',
     },
-    spreads: [
-      {
-        left: [
-          { type: 'heading', text: 'Quinto Ano' },
-          { type: 'subheading', text: 'A autoridade da sombra' },
-          { type: 'ornament' },
-          {
-            type: 'paragraph',
-            text: 'Neste volume, o estudante deixa de ser protegido da própria obra. Trabalha-se com ausência, eco e o que a biblioteca recusa catalogar. As matérias avançadas exigem testemunha e lacre.',
-          },
-        ],
-        right: [
-          reservedMaterias('Quinto Ano'),
-          {
-            type: 'list',
-            items: [
-              'Teoria da ausência (placeholder)',
-              'Selos de lacre duplo (placeholder)',
-              'Leitura de ecos (placeholder)',
-            ],
-          },
-        ],
-      },
-      {
-        left: [reservedFeiticos('Quinto Ano')],
-        right: [reservedNotas('Quinto Ano')],
-      },
-    ],
+    spreads: yearSpreads(
+      'Quinto Ano',
+      'N.O.M.s e a Ordem',
+      'O ano dos exames que decidem o resto da vida bruxa. Defesa torna-se política, a Sala Precisa ensina o que o decreto proíbe, e a Armada de Dumbledore cabe neste espaço — quando quiserem preenchê-lo.',
+      ['N.O.M.s (placeholder)', 'Oclumência (placeholder)', 'Sala Precisa (placeholder)'],
+    ),
   },
   {
     id: 'sexto-ano',
@@ -539,8 +423,8 @@ export const books: BookData[] = [
     shortTitle: 'VI',
     category: 'year',
     year: 6,
-    subtitle: 'Ofício e herança',
-    motto: 'Ensinar é a prova de que compreendeste o perigo.',
+    subtitle: 'N.I.E.M.s, poções do príncipe e horcruxes',
+    motto: 'O príncipe não assinou com o nome que usava na sala.',
     spineLabel: 'VI  ·  SEXTO ANO',
     size: 'tome',
     wear: 0.66,
@@ -555,34 +439,12 @@ export const books: BookData[] = [
       pageTint: '#f1e4c4',
       ribbon: '#8a6a32',
     },
-    spreads: [
-      {
-        left: [
-          { type: 'heading', text: 'Sexto Ano' },
-          { type: 'subheading', text: 'Ofício e herança' },
-          { type: 'ornament' },
-          {
-            type: 'paragraph',
-            text: 'O sexto ciclo aproxima o estudante da cátedra. Restaura-se um volume danificado, orienta-se um noviço, e defende-se uma tese diante de três lentes. O orgulho é considerado uma falha de copista.',
-          },
-        ],
-        right: [
-          reservedMaterias('Sexto Ano'),
-          {
-            type: 'list',
-            items: [
-              'Restauro de grimórios (placeholder)',
-              'Pedagogia do umbral (placeholder)',
-              'Tese menor (placeholder)',
-            ],
-          },
-        ],
-      },
-      {
-        left: [reservedFeiticos('Sexto Ano')],
-        right: [reservedNotas('Sexto Ano')],
-      },
-    ],
+    spreads: yearSpreads(
+      'Sexto Ano',
+      'N.I.E.M.s, poções do príncipe e horcruxes',
+      'Apenas quem passou nos N.O.M.s segue nas matérias avançadas. Aparatação, poções de nível N.I.E.M. e aulas particulares que o diretor não coloca no horário. Reserve estas folhas para o livro anotado e as memórias.',
+      ['Aparatação (placeholder)', 'Poções N.I.E.M. (placeholder)', 'Aulas particulares (placeholder)'],
+    ),
   },
   {
     id: 'setimo-ano',
@@ -590,8 +452,8 @@ export const books: BookData[] = [
     shortTitle: 'VII',
     category: 'year',
     year: 7,
-    subtitle: 'O nome que não se lê em voz alta',
-    motto: 'Fecha o livro. O mundo continuará a escrever-te.',
+    subtitle: 'A batalha e o que vem depois',
+    motto: 'Hogwarts não se entrega.',
     spineLabel: 'VII  ·  SÉTIMO ANO',
     size: 'tome',
     wear: 0.84,
@@ -604,33 +466,14 @@ export const books: BookData[] = [
       spine: '#14100e',
       gold: '#f0d78a',
       pageTint: '#e8d7b0',
-      ribbon: '#a07a2c',
+      ribbon: '#ae0001',
     },
-    spreads: [
-      {
-        left: [
-          { type: 'heading', text: 'Sétimo Ano' },
-          { type: 'subheading', text: 'O nome que não se lê em voz alta' },
-          { type: 'ornament' },
-          {
-            type: 'paragraph',
-            text: 'Último tomo do ciclo. Não há currículo público — apenas um percurso, um silêncio e uma escolha. Quem conclui não “se forma”: é inscrito na margem da Estante-Mãe. As páginas seguintes estão quase vazias de propósito.',
-          },
-        ],
-        right: [
-          reservedMaterias('Sétimo Ano'),
-          {
-            type: 'reserved',
-            label: 'Prova final',
-            hint: 'Estrutura reservada para o rito, as testemunhas e o lacre de conclusão.',
-          },
-        ],
-      },
-      {
-        left: [reservedFeiticos('Sétimo Ano')],
-        right: [reservedNotas('Sétimo Ano')],
-      },
-    ],
+    spreads: yearSpreads(
+      'Sétimo Ano',
+      'A batalha e o que vem depois',
+      'O último ano deveria ser só N.I.E.M.s. Em certos tempos, a escola torna-se fortaleza. Estas páginas guardam espaço para a batalha, os que voltaram e o silêncio do Salão quando a guerra acaba.',
+      ['N.I.E.M.s (placeholder)', 'A Batalha de Hogwarts (placeholder)', 'O que se ensina depois (placeholder)'],
+    ),
   },
 ]
 

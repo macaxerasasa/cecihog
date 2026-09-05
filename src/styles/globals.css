@@ -73,9 +73,11 @@ button {
   min-height: 100dvh;
   overflow: hidden;
   background:
-    radial-gradient(1200px 700px at 50% 18%, rgba(90, 50, 22, 0.28), transparent 58%),
+    radial-gradient(1200px 700px at 50% 18%, rgba(120, 40, 18, 0.32), transparent 58%),
+    radial-gradient(700px 420px at 18% 80%, rgba(26, 71, 42, 0.18), transparent 60%),
+    radial-gradient(700px 420px at 82% 78%, rgba(14, 26, 64, 0.2), transparent 60%),
     radial-gradient(900px 500px at 50% 100%, rgba(0, 0, 0, 0.55), transparent 50%),
-    linear-gradient(180deg, #1a100c 0%, #0c0705 42%, #080504 100%);
+    linear-gradient(180deg, #1c0e0c 0%, #0c0705 42%, #080504 100%);
 }
 
 .library::before {
@@ -160,6 +162,39 @@ button {
   width: 340px;
   height: 200px;
   animation-delay: -2.2s;
+}
+
+.house-glow {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  filter: blur(18px);
+  opacity: 0.35;
+  animation: candleFlicker 5.4s ease-in-out infinite;
+}
+.house-glow.gryff {
+  left: 8%;
+  top: 22%;
+  background: radial-gradient(circle, rgba(174, 0, 1, 0.45), transparent 70%);
+}
+.house-glow.slyt {
+  right: 10%;
+  top: 28%;
+  background: radial-gradient(circle, rgba(26, 71, 42, 0.5), transparent 70%);
+  animation-delay: -1s;
+}
+.house-glow.rav {
+  left: 18%;
+  bottom: 12%;
+  background: radial-gradient(circle, rgba(14, 26, 64, 0.55), transparent 70%);
+  animation-delay: -2s;
+}
+.house-glow.huff {
+  right: 16%;
+  bottom: 10%;
+  background: radial-gradient(circle, rgba(236, 185, 57, 0.28), transparent 70%);
+  animation-delay: -0.6s;
 }
 
 @keyframes candleFlicker {
@@ -1032,14 +1067,284 @@ button {
   }
 }
 
+/* ---- Wand gate (Alohomora) ---- */
+.library.is-gated {
+  cursor: none;
+}
+
+.wand-gate {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 4vh 4vw 6vh;
+  cursor: none;
+  overflow: hidden;
+}
+
+.wand-sky {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px 520px at 50% 40%, rgba(174, 0, 1, 0.18), transparent 55%),
+    radial-gradient(700px 400px at 50% 100%, rgba(212, 176, 86, 0.08), transparent 50%),
+    linear-gradient(180deg, #140806 0%, #070403 100%);
+}
+
+.wand-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.72) 100%);
+  pointer-events: none;
+}
+
+.house-embers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 78%, rgba(174, 0, 1, 0.2), transparent 22%),
+    radial-gradient(circle at 82% 74%, rgba(42, 98, 61, 0.18), transparent 22%),
+    radial-gradient(circle at 28% 18%, rgba(14, 26, 64, 0.2), transparent 18%),
+    radial-gradient(circle at 70% 16%, rgba(236, 185, 57, 0.12), transparent 18%);
+}
+
+.wand-copy {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 34rem;
+  pointer-events: none;
+}
+
+.wand-kicker {
+  margin: 0;
+  font-family: Cinzel, serif;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: #d4b056;
+}
+
+.wand-copy h1 {
+  margin: 0.35rem 0 0.5rem;
+  font-family: Cinzel, serif;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  color: #f3e0b0;
+  text-shadow: 0 0 24px rgba(212, 176, 86, 0.35);
+}
+
+.wand-lead {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.45;
+  color: rgba(243, 224, 176, 0.78);
+}
+
+.wand-stage {
+  position: relative;
+  z-index: 2;
+  width: min(420px, 86vw);
+  touch-action: none;
+}
+
+.wand-glyph {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 0 12px rgba(212, 176, 86, 0.25));
+}
+
+.glyph-ghost,
+.glyph-guide,
+.glyph-ink {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.glyph-ghost {
+  stroke: rgba(40, 24, 12, 0.9);
+  stroke-width: 14;
+}
+
+.glyph-guide {
+  stroke: rgba(212, 176, 86, 0.28);
+  stroke-width: 3.2;
+}
+
+.glyph-ink {
+  stroke: #f0d078;
+  stroke-width: 4.2;
+  filter: drop-shadow(0 0 8px rgba(240, 208, 120, 0.85));
+  transition: stroke-dashoffset 0.08s linear;
+}
+
+.glyph-node {
+  fill: rgba(212, 176, 86, 0.22);
+  stroke: rgba(240, 208, 120, 0.35);
+  stroke-width: 1;
+}
+
+.glyph-node.is-lit {
+  fill: #f6e4a4;
+  stroke: #fff6d2;
+  filter: drop-shadow(0 0 6px #f0d078);
+}
+
+.glyph-node.is-start {
+  fill: #ffe9a8;
+  animation: startPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes startPulse {
+  0%,
+  100% {
+    r: 5.5;
+    opacity: 0.85;
+  }
+  50% {
+    r: 7.5;
+    opacity: 1;
+  }
+}
+
+.glyph-trail {
+  fill: none;
+  stroke: rgba(255, 244, 200, 0.55);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.wand-hint {
+  position: relative;
+  z-index: 2;
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(243, 224, 176, 0.55);
+  text-align: center;
+  pointer-events: none;
+}
+
+.wand-skip {
+  position: relative;
+  z-index: 3;
+  margin-top: 0.4rem;
+  font-family: Cinzel, serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #e8d39a;
+  border: 1px solid rgba(212, 176, 86, 0.35);
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  background: rgba(20, 10, 6, 0.45);
+}
+
+.wand-skip.is-quiet {
+  border-color: transparent;
+  opacity: 0.45;
+  font-size: 0.58rem;
+}
+
+.wand-skip:focus-visible {
+  opacity: 1;
+}
+
+.wand-cursor {
+  position: fixed;
+  width: 18px;
+  height: 150px;
+  pointer-events: none;
+  z-index: 70;
+  opacity: 0;
+  transform-origin: 50% 12%;
+}
+
+.wand-cursor.is-on {
+  opacity: 1;
+}
+
+.wand-stick {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: 7px;
+  height: 132px;
+  transform: translateX(-50%);
+  border-radius: 40% 40% 20% 20%;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.35), transparent 40%, transparent 60%, rgba(0, 0, 0, 0.4)),
+    linear-gradient(180deg, #c4a574 0 14%, #5a3a24 18%, #2a1810 100%);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.45);
+}
+
+.wand-tip {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff6d0, #f0c868 40%, transparent 70%);
+  box-shadow: 0 0 16px 6px rgba(240, 208, 120, 0.55);
+}
+
+.wand-gate.is-success .glyph-ink {
+  stroke: #fff6d2;
+  filter: drop-shadow(0 0 16px #ffe9a8);
+}
+
+.wand-gate.is-success .wand-copy h1 {
+  color: #fff8e0;
+}
+
+.wand-gate.is-leaving {
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(1.04);
+  transition:
+    opacity 0.85s var(--ease-cinematic),
+    filter 0.85s var(--ease-cinematic),
+    transform 0.85s var(--ease-cinematic);
+}
+
+@media (max-width: 740px) {
+  .wand-gate {
+    cursor: auto;
+    padding-top: 6vh;
+  }
+  .library.is-gated {
+    cursor: auto;
+  }
+  .wand-cursor {
+    display: none;
+  }
+  .wand-lead {
+    font-size: 0.98rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .candle-glow,
+  .house-glow,
   .library.is-awake .bookshelf-fit,
   .library.is-awake .masthead,
   .book-mesh,
   .cover-swing,
   .held-book,
-  .veil {
+  .veil,
+  .glyph-node.is-start,
+  .wand-gate.is-leaving {
     animation: none !important;
     transition: none !important;
   }
