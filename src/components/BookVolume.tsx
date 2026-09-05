@@ -157,7 +157,7 @@ export function usePageFlip(spreadCount: number, reduced: boolean) {
 
   useEffect(() => {
     if (!turning) return
-    const t = window.setTimeout(onFlipEnd, 980)
+    const t = window.setTimeout(onFlipEnd, 1220)
     return () => window.clearTimeout(t)
   }, [turning])
 
