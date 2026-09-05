@@ -71,6 +71,9 @@ export function BookVolume({
           </div>
           <div className="board inside">
             <div className="endpaper" />
+            <div className="cover-verso">
+              {leftSpread ? <Parchment spread={leftSpread} side="left" /> : null}
+            </div>
           </div>
         </div>
 

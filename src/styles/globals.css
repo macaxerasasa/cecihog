@@ -915,7 +915,12 @@ button {
   z-index: 1;
 }
 
-.held-book.is-closing .cover-swing,
+.held-book.is-closing .cover-swing {
+  transform: rotateY(0deg);
+  z-index: 8;
+  visibility: visible;
+}
+
 .held-book.is-closed .cover-swing {
   transform: rotateY(0deg);
   z-index: 8;
@@ -948,8 +953,9 @@ button {
 }
 
 .held-book.is-opening .left-board {
-  visibility: visible;
-  animation: leftBoardIn 0.4s ease 0.48s forwards;
+  opacity: 0;
+  visibility: hidden;
+  animation: none;
 }
 
 .held-book.is-opened .left-board,
@@ -974,11 +980,6 @@ button {
   animation: none;
   transition: opacity 0.35s ease;
   pointer-events: none;
-}
-
-@keyframes leftBoardIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .left-page-rest {
@@ -1068,8 +1069,16 @@ button {
 .board.inside {
   transform: rotateY(180deg) translateZ(5px);
   overflow: hidden;
-  background: linear-gradient(90deg, var(--leather-dark), var(--leather) 55%, var(--leather-dark));
+  background: #ead8b0;
   border-radius: 12px 2px 3px 12px;
+}
+
+.cover-verso {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  background: #ead8b0;
 }
 
 .endpaper {
