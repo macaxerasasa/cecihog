@@ -108,7 +108,10 @@ export function BookVolume({
           <div
             className={`flip-leaf turn-${turning}`}
             onAnimationEnd={(e) => {
-              if (e.target === e.currentTarget) onFlipEnd()
+              if (e.target !== e.currentTarget) return
+              const name = e.animationName || ''
+              if (!name.toLowerCase().includes('pageflip')) return
+              onFlipEnd()
             }}
           >
             <div className="flip-face front">
@@ -126,13 +129,20 @@ export function BookVolume({
   )
 }
 
-export function usePageFlip(spreadCount: number, reduced: boolean) {
+export function usePageFlip(spreadCount: number, reduced: boolean, bookId?: string) {
   const [spread, setSpread] = useState(0)
   const [turning, setTurning] = useState<'next' | 'prev' | null>(null)
   const lock = useRef(false)
   const turningRef = useRef(turning)
   turningRef.current = turning
   const max = Math.max(0, spreadCount - 1)
+
+  useEffect(() => {
+    setSpread(0)
+    setTurning(null)
+    turningRef.current = null
+    lock.current = false
+  }, [bookId])
 
   const onTurn = (dir: 'next' | 'prev') => {
     if (lock.current) return
@@ -163,7 +173,7 @@ export function usePageFlip(spreadCount: number, reduced: boolean) {
 
   useEffect(() => {
     if (!turning) return
-    const t = window.setTimeout(onFlipEnd, 900)
+    const t = window.setTimeout(onFlipEnd, 1100)
     return () => window.clearTimeout(t)
   }, [turning, onFlipEnd])
 

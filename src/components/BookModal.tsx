@@ -46,7 +46,7 @@ export function BookModal({
   const showUi = phase === 'open'
   const returning = phase === 'toShelf'
   const inFlight = phase === 'toCenter' || returning
-  const pages = usePageFlip(book.spreads.length, reduced)
+  const pages = usePageFlip(book.spreads.length, reduced, book.id)
 
   useEffect(() => {
     const onResize = () => setDim(sizes())
@@ -98,6 +98,8 @@ export function BookModal({
             marginLeft: -dim.w / 2,
             marginTop: -dim.h / 2,
             pointerEvents: phase === 'open' ? 'auto' : 'none',
+            overflow: 'visible',
+            transformStyle: 'preserve-3d',
           }}
           initial={reduced ? center : start}
           animate={animateTo}
