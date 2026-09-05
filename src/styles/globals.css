@@ -2529,8 +2529,8 @@ button {
   .floating-candle {
     display: none;
   }
-  .floating-candle:nth-child(7),
-  .floating-candle:nth-child(8) {
+  .floating-candle:nth-child(1),
+  .floating-candle:nth-child(2) {
     display: block;
   }
   .crown-candle {
