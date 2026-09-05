@@ -254,7 +254,7 @@ button {
 
 .masthead {
   position: absolute;
-  top: 3.2vh;
+  top: 1.8vh;
   left: 0;
   right: 0;
   z-index: 4;
@@ -287,18 +287,18 @@ button {
   z-index: 3;
   display: grid;
   place-items: center;
-  padding: 7.5vh 2.4vw 6.5vh;
+  padding: 5.2vh 1.2vw 4.2vh;
 }
 
 .bookshelf-fit {
-  width: min(1180px, 96vw, calc(82vh * 1180 / 760));
+  width: min(1520px, 98vw, calc(90vh * 1180 / 760));
 }
 
 .bookshelf {
   position: relative;
   width: 100%;
   aspect-ratio: 1180 / 760;
-  max-height: 82vh;
+  max-height: 90vh;
   perspective: 1600px;
 }
 
@@ -633,16 +633,16 @@ button {
 }
 
 .book-btn.grand {
-  width: clamp(44px, 5.2vw, 58px);
-  height: 88%;
-  font-size: clamp(44px, 5.2vw, 58px);
+  width: clamp(58px, 6.6vw, 82px);
+  height: 92%;
+  font-size: clamp(58px, 6.6vw, 82px);
   --depth: 2.55em;
   --spine: 1em;
 }
 .book-btn.tome {
-  width: clamp(30px, 3.6vw, 42px);
-  height: 74%;
-  font-size: clamp(30px, 3.6vw, 42px);
+  width: clamp(40px, 4.8vw, 58px);
+  height: 82%;
+  font-size: clamp(40px, 4.8vw, 58px);
   --depth: 2.7em;
   --spine: 1em;
 }
@@ -1556,26 +1556,27 @@ button {
     bottom: 1.4vh;
   }
   .stage-wrap {
-    padding: 8.5vh 1.2vw 5.5vh;
+    padding: 6.2vh 0.6vw 3.8vh;
   }
   .bookshelf-fit {
-    width: min(96vw, calc(78vh * 0.78));
+    width: min(98vw, calc(86vh * 0.82));
   }
   .bookshelf {
     aspect-ratio: 3 / 4.15;
-    max-height: 78vh;
+    max-height: 86vh;
   }
   .book-mesh {
     transform: rotateY(10deg);
   }
   .book-btn.grand {
-    width: clamp(48px, 13vw, 70px);
-    font-size: clamp(48px, 13vw, 70px);
+    width: clamp(56px, 16vw, 88px);
+    font-size: clamp(56px, 16vw, 88px);
+    height: 90%;
   }
   .book-btn.tome {
-    width: clamp(32px, 8.6vw, 42px);
-    font-size: clamp(32px, 8.6vw, 42px);
-    height: 78%;
+    width: clamp(38px, 10vw, 52px);
+    font-size: clamp(38px, 10vw, 52px);
+    height: 84%;
   }
   .nav-tab {
     min-width: 0;
