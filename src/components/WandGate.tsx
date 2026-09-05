@@ -4,8 +4,8 @@ const GLYPH =
   'M 36 188 C 34 132 46 64 98 46 C 148 30 176 78 150 118 C 128 150 92 138 96 108 C 102 72 156 86 172 152'
 
 const CHECKPOINTS = 36
-const HIT_RADIUS = 28
-const LOOKAHEAD = 8
+const HIT_RADIUS = 34
+const LOOKAHEAD = 12
 
 type Pt = { x: number; y: number }
 
@@ -127,8 +127,7 @@ export function WandGate({ reduced, onUnlocked }: Props) {
   handleMoveRef.current = handleMove
 
   const handleUp = () => {
-    drawingRef.current = false
-    setDrawing(false)
+    /* Keep tracing after release so the gesture stays attached to the wand, like a spell drill. */
   }
 
   useEffect(() => {
@@ -145,8 +144,7 @@ export function WandGate({ reduced, onUnlocked }: Props) {
       }
     }
     const onUp = () => {
-      drawingRef.current = false
-      setDrawing(false)
+      /* keep channeling */
     }
     window.addEventListener('pointermove', onMove)
     window.addEventListener('mousemove', onMove)
@@ -268,7 +266,7 @@ export function WandGate({ reduced, onUnlocked }: Props) {
       <p className="wand-hint">
         {success
           ? 'As fechaduras cedem…'
-          : 'Toque no nó brilhante e desenhe o percurso dourado até o fim.'}
+          : 'Toque no nó brilhante e siga o traço dourado — a varinha continua o gesto até concluir.'}
       </p>
 
       <button type="button" className={`wand-skip ${reduced ? '' : 'is-quiet'}`} onClick={complete}>
