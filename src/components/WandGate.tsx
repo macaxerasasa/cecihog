@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState, type PointerEvent } from 'react'
+import { useEffect, useRef, useState, type MouseEvent, type PointerEvent, type TouchEvent } from 'react'
 
 const GLYPH =
   'M 36 188 C 34 132 46 64 98 46 C 148 30 176 78 150 118 C 128 150 92 138 96 108 C 102 72 156 86 172 152'
 
-const CHECKPOINTS = 28
+const CHECKPOINTS = 36
+const HIT_RADIUS = 28
+const LOOKAHEAD = 8
 
 type Pt = { x: number; y: number }
 
@@ -31,6 +33,7 @@ export function WandGate({ reduced, onUnlocked }: Props) {
   const drawingRef = useRef(false)
   const successRef = useRef(false)
   const [points, setPoints] = useState<Pt[]>([])
+  const pointsRef = useRef<Pt[]>([])
   const [done, setDone] = useState(0)
   const [drawing, setDrawing] = useState(false)
   const [trail, setTrail] = useState<Pt[]>([])
@@ -43,7 +46,9 @@ export function WandGate({ reduced, onUnlocked }: Props) {
     const path = pathRef.current
     if (!path) return
     setPathLen(path.getTotalLength())
-    setPoints(samplePath(path, CHECKPOINTS))
+    const sampled = samplePath(path, CHECKPOINTS)
+    pointsRef.current = sampled
+    setPoints(sampled)
   }, [])
 
   const toLocal = (clientX: number, clientY: number): Pt | null => {
@@ -70,45 +75,46 @@ export function WandGate({ reduced, onUnlocked }: Props) {
     }, 650)
   }
 
+  const usingPointer = useRef(false)
+
   const advance = (local: Pt) => {
-    if (!points.length || successRef.current) return
-    const radius = 18
+    if (!pointsRef.current.length || successRef.current) return
+    const pts = pointsRef.current
     let idx = doneRef.current
-    let hops = 0
-    while (idx < points.length && hops < 5) {
-      if (dist(local, points[idx]) <= radius) {
-        idx += 1
-        hops += 1
-      } else break
+    const start = Math.max(0, idx - 1)
+    const end = Math.min(pts.length - 1, idx + LOOKAHEAD)
+    let best = -1
+    for (let i = start; i <= end; i++) {
+      if (dist(local, pts[i]) <= HIT_RADIUS) best = i
     }
-    if (idx !== doneRef.current) {
-      doneRef.current = idx
-      setDone(idx)
-      if (idx >= points.length) complete()
+    if (best >= idx) {
+      const next = best + 1
+      doneRef.current = next
+      setDone(next)
+      if (next >= pts.length) complete()
     }
   }
 
-  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+  const handleDown = (clientX: number, clientY: number) => {
     if (successRef.current) return
-    e.currentTarget.setPointerCapture(e.pointerId)
     drawingRef.current = true
     setDrawing(true)
-    const local = toLocal(e.clientX, e.clientY)
-    setWand({ x: e.clientX, y: e.clientY, angle: -28, on: true })
+    const local = toLocal(clientX, clientY)
+    setWand({ x: clientX, y: clientY, angle: -28, on: true })
     if (local) {
       setTrail([local])
       advance(local)
     }
   }
 
-  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
+  const handleMove = (clientX: number, clientY: number) => {
     setWand((prev) => {
-      const dx = e.clientX - prev.x
-      const dy = e.clientY - prev.y
+      const dx = clientX - prev.x
+      const dy = clientY - prev.y
       const angle = Math.abs(dx) + Math.abs(dy) > 1.5 ? (Math.atan2(dy, dx) * 180) / Math.PI + 90 : prev.angle
-      return { x: e.clientX, y: e.clientY, angle, on: true }
+      return { x: clientX, y: clientY, angle, on: true }
     })
-    const local = toLocal(e.clientX, e.clientY)
+    const local = toLocal(clientX, clientY)
     if (!local || !drawingRef.current) return
     setTrail((t) => {
       const next = [...t, local]
@@ -117,9 +123,81 @@ export function WandGate({ reduced, onUnlocked }: Props) {
     advance(local)
   }
 
-  const onPointerUp = () => {
+  const handleMoveRef = useRef(handleMove)
+  handleMoveRef.current = handleMove
+
+  const handleUp = () => {
     drawingRef.current = false
     setDrawing(false)
+  }
+
+  useEffect(() => {
+    const onMove = (e: globalThis.PointerEvent | globalThis.MouseEvent) => {
+      if (!drawingRef.current) return
+      handleMoveRef.current(e.clientX, e.clientY)
+    }
+    const onTouch = (e: globalThis.TouchEvent) => {
+      if (!drawingRef.current) return
+      const t = e.touches[0]
+      if (t) {
+        e.preventDefault()
+        handleMoveRef.current(t.clientX, t.clientY)
+      }
+    }
+    const onUp = () => {
+      drawingRef.current = false
+      setDrawing(false)
+    }
+    window.addEventListener('pointermove', onMove)
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('touchmove', onTouch, { passive: false })
+    window.addEventListener('pointerup', onUp)
+    window.addEventListener('mouseup', onUp)
+    window.addEventListener('touchend', onUp)
+    return () => {
+      window.removeEventListener('pointermove', onMove)
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('touchmove', onTouch)
+      window.removeEventListener('pointerup', onUp)
+      window.removeEventListener('mouseup', onUp)
+      window.removeEventListener('touchend', onUp)
+    }
+  }, [])
+
+  const onPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    usingPointer.current = true
+    e.currentTarget.setPointerCapture(e.pointerId)
+    handleDown(e.clientX, e.clientY)
+  }
+
+  const onPointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    handleMove(e.clientX, e.clientY)
+  }
+
+  const onMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+    if (usingPointer.current) return
+    handleDown(e.clientX, e.clientY)
+  }
+
+  const onMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (usingPointer.current) return
+    handleMove(e.clientX, e.clientY)
+  }
+
+  const onTouchStart = (e: TouchEvent<HTMLDivElement>) => {
+    if (usingPointer.current) return
+    const t = e.touches[0]
+    if (t) handleDown(t.clientX, t.clientY)
+  }
+
+  const onTouchMove = (e: TouchEvent<HTMLDivElement>) => {
+    if (usingPointer.current) return
+    const t = e.touches[0]
+    if (t) handleMove(t.clientX, t.clientY)
+  }
+
+  const onPointerUp = () => {
+    handleUp()
   }
 
   const progress = points.length ? done / points.length : 0
@@ -149,6 +227,12 @@ export function WandGate({ reduced, onUnlocked }: Props) {
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={handleUp}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={handleUp}
       >
         <svg
           ref={svgRef}

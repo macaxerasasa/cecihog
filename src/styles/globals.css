@@ -1150,7 +1150,7 @@ button {
 .wand-stage {
   position: relative;
   z-index: 2;
-  width: min(420px, 86vw);
+  width: min(520px, 94vw);
   touch-action: none;
 }
 
