@@ -216,16 +216,25 @@ button {
   filter: none;
   transition:
     opacity 1.4s var(--ease-cinematic) 0.15s,
-    filter 1.6s var(--ease-cinematic) 0.1s;
+    filter 0.6s ease;
+}
+
+.library.is-awake.is-holding .bookshelf-fit {
+  filter: brightness(0.3) saturate(0.6) blur(1.6px);
 }
 
 .library.is-busy {
   cursor: progress;
 }
 
-.library.is-reading .stage-wrap {
+.library.is-holding .stage-wrap {
   z-index: 25;
   pointer-events: none;
+}
+
+.library.is-holding .bookshelf-fit {
+  pointer-events: none;
+  filter: brightness(0.3) saturate(0.6) blur(1.6px);
 }
 
 .library.is-reading .bookshelf-fit {
@@ -425,8 +434,81 @@ button {
 }
 
 .bookshelf-fit {
-  width: min(1180px, 96vw, calc((100vh - var(--stage-top) - var(--stage-bottom)) * 1180 / 760));
+  width: min(1180px, 84vw, calc((100vh - var(--stage-top) - var(--stage-bottom)) * 1180 / 760));
 }
+
+/* ---- House crests in the four corners ---- */
+.house-corners {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.house-corner {
+  position: absolute;
+  width: clamp(150px, 16vw, 250px);
+  height: clamp(150px, 16vw, 250px);
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+}
+
+.house-corner.tl { top: 0; left: 0; }
+.house-corner.tr { top: 0; right: 0; transform: scaleX(-1); }
+.house-corner.bl { bottom: 0; left: 0; transform: scaleY(-1); }
+.house-corner.br { bottom: 0; right: 0; transform: scale(-1, -1); }
+
+.corner-filigree {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  opacity: 0.92;
+}
+
+.crest-wrap {
+  position: absolute;
+  left: 11%;
+  top: 11%;
+  width: 40%;
+  height: 40%;
+  display: grid;
+  place-items: center;
+}
+
+.crest-glow {
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--house-glow), transparent 68%);
+  filter: blur(6px);
+  animation: crestBreath 5.5s ease-in-out infinite;
+}
+
+.house-corner.tr .crest-glow { animation-delay: -1.4s; }
+.house-corner.bl .crest-glow { animation-delay: -2.8s; }
+.house-corner.br .crest-glow { animation-delay: -4.1s; }
+
+@keyframes crestBreath {
+  0%, 100% { opacity: 0.55; transform: scale(0.92); }
+  50% { opacity: 1; transform: scale(1.08); }
+}
+
+.crest-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 3px 2px rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0 10px var(--house-glow));
+  user-select: none;
+}
+
+/* undo the corner mirroring so the beasts face the right way */
+.house-corner.tr .crest-img { transform: scaleX(-1); }
+.house-corner.bl .crest-img { transform: scaleY(-1); }
+.house-corner.br .crest-img { transform: scale(-1, -1); }
 
 .bookshelf {
   position: relative;
@@ -2373,6 +2455,11 @@ button {
   .shelf-prop {
     display: none;
   }
+  .house-corner {
+    width: 104px;
+    height: 104px;
+    opacity: 0.85;
+  }
   .pediment .plaque {
     letter-spacing: 0.14em;
     font-size: 0.48rem;
@@ -2844,6 +2931,7 @@ button {
   .window-light,
   .wand-stars,
   .orb-halo,
+  .crest-glow,
   .orb-nebula,
   .potion-glow,
   .lantern-glow,

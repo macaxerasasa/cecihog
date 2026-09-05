@@ -4,6 +4,7 @@ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import type { LibraryPhase, OriginRect } from '../types'
 import { BookModal } from './BookModal'
 import { Bookshelf } from './Bookshelf'
+import { HouseCorners } from './HouseCorners'
 import { LibraryEnvironment } from './LibraryEnvironment'
 import { Lighting } from './Lighting'
 import { Particles } from './Particles'
@@ -182,8 +183,14 @@ export function Library() {
   }
 
   return (
-    <LibraryEnvironment awake={awake} busy={busy} reading={phase === 'open'}>
+    <LibraryEnvironment
+      awake={awake}
+      busy={busy}
+      reading={phase === 'open'}
+      holding={phase === 'toCenter' || phase === 'opening' || phase === 'open' || phase === 'closing'}
+    >
       <Lighting />
+      <HouseCorners />
       <Particles active={awake} />
       <header className="masthead">
         <h1>Hogwarts</h1>
