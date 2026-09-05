@@ -212,7 +212,7 @@ button {
   pointer-events: none;
   background-image:
     radial-gradient(ellipse 60% 90% at 50% 0%, rgba(255, 150, 60, 0.18), transparent 70%),
-    linear-gradient(180deg, rgba(15, 8, 4, 0.55), rgba(10, 5, 3, 0.75) 55%, rgba(4, 2, 1, 0.96)),
+    linear-gradient(180deg, rgba(15, 8, 4, 0.4), rgba(10, 5, 3, 0.62) 55%, rgba(4, 2, 1, 0.9)),
     url('/stone.svg');
   background-size: 100% 100%, 100% 100%, clamp(420px, 42vw, 720px) auto;
   background-position: center top;
@@ -446,7 +446,7 @@ button {
   z-index: 3;
   display: grid;
   place-items: center;
-  --stage-top: max(12vh, 124px);
+  --stage-top: max(14vh, 150px);
   --stage-bottom: 6.5vh;
   padding: var(--stage-top) 2.4vw var(--stage-bottom);
 }
@@ -998,104 +998,157 @@ button {
   top: 46.6%;
 }
 
-.sconce,
-.taper {
+/* ---- Candles ---- */
+.candle {
+  position: absolute;
+  display: block;
   pointer-events: none;
-  z-index: 8;
+  --flicker-delay: 0s;
 }
 
-.sconce {
-  position: absolute;
-  top: 18%;
-  width: 34px;
-  height: 22%;
+.candle-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
-.sconce.left { left: 0.2%; }
-.sconce.right { right: 0.2%; }
 
-.taper {
+.candle-flame {
+  animation: flameLick 1.1s ease-in-out infinite;
+  animation-delay: var(--flicker-delay);
+  will-change: transform;
+}
+
+.candle-halo {
+  transform-origin: 30px 58px;
+  animation: haloBreathe 2.6s ease-in-out infinite;
+  animation-delay: var(--flicker-delay);
+}
+
+.candle::after {
+  content: '';
   position: absolute;
-  width: 10px;
+  left: 50%;
+  top: 22%;
+  width: 240%;
+  height: 90%;
+  transform: translate(-50%, -30%);
+  background: radial-gradient(ellipse at 50% 30%, rgba(255, 170, 70, 0.32), rgba(255, 120, 40, 0.08) 45%, transparent 70%);
+  filter: blur(6px);
+  mix-blend-mode: screen;
+  animation: candleFlicker 3.2s ease-in-out infinite;
+  animation-delay: var(--flicker-delay);
+  z-index: -1;
+}
+
+/* Candlesticks standing in a row on the crown moulding */
+.crown-candles {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2.4%;
+  height: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.crown-candle {
+  bottom: 0;
+  width: 3%;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.55));
+}
+
+/* Iron sconces on the stone wall flanking the case */
+.wall-sconces {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.wall-sconce {
+  position: absolute;
+  top: 44%;
+  width: clamp(54px, 4.6vw, 76px);
+  aspect-ratio: 80 / 120;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.6));
+}
+.wall-sconce.left { left: 2.2vw; }
+.wall-sconce.right { right: 2.2vw; transform: scaleX(-1); }
+
+.sconce-bracket {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
   display: block;
 }
 
-.taper-stick {
-  display: block;
-  width: 8px;
-  height: 38px;
-  margin: 14px auto 0;
-  background: linear-gradient(90deg, #d9c49a, #f4e8cc 40%, #c4a878);
-  border-radius: 2px 2px 1px 1px;
-  box-shadow: inset 0 0 0 1px rgba(80, 50, 20, 0.25);
+.sconce-candle {
+  left: 8.9%;
+  top: -69.8%;
+  width: 47.2%;
+}
+.wall-sconce.right .sconce-candle {
+  transform: scaleX(-1);
 }
 
-.taper-drip {
+/* Great Hall candles drifting in the air */
+.floating-candles {
   position: absolute;
-  left: 1px;
-  top: 42px;
-  width: 5px;
-  height: 10px;
-  background: #efe3c6;
-  border-radius: 0 0 4px 3px;
-  opacity: 0.85;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  --depth: 1;
 }
 
-.taper-wick {
-  position: absolute;
-  left: 50%;
-  top: 8px;
-  width: 2px;
-  height: 7px;
-  margin-left: -1px;
-  background: #1a1008;
+.floating-candle {
+  width: calc(clamp(22px, 2.2vw, 34px) * var(--depth));
+  transform: translateX(-50%);
+  opacity: calc(0.45 + 0.55 * var(--depth));
+  filter: blur(calc((1 - var(--depth)) * 1.6px)) drop-shadow(0 10px 14px rgba(0, 0, 0, 0.5));
 }
 
-.taper-flame {
-  position: absolute;
-  left: 50%;
-  top: -6px;
-  width: 8px;
-  height: 16px;
-  margin-left: -4px;
-  background: radial-gradient(ellipse at 50% 80%, #fff6c8 0 20%, #ffb347 42%, #e05a12 78%, transparent 80%);
-  border-radius: 50% 50% 40% 40%;
-  filter: blur(0.2px);
-  animation: flameLick 0.9s ease-in-out infinite;
-  transform-origin: 50% 100%;
+.floating-candle .candle-svg {
+  animation: candleDrift var(--drift, 10s) ease-in-out infinite;
+  animation-delay: var(--flicker-delay);
+  will-change: transform;
 }
 
-.taper-halo {
+.floating-candle::before {
+  content: '';
   position: absolute;
   left: 50%;
-  top: -18px;
-  width: 46px;
-  height: 46px;
-  margin-left: -23px;
-  background: radial-gradient(circle, rgba(255, 186, 80, 0.45), transparent 68%);
-  animation: candleFlicker 2.8s ease-in-out infinite;
+  bottom: -14%;
+  width: 140%;
+  height: 12%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse, rgba(255, 160, 70, 0.22), transparent 70%);
+  filter: blur(3px);
 }
 
-.taper.sconce-a { top: 0; left: 4px; }
-.taper.sconce-b { top: 18px; left: 16px; transform: scale(0.86); }
-.taper.sconce-b .taper-halo { animation-delay: -0.8s; }
-.taper.sconce-b .taper-flame { animation-delay: -0.3s; }
+@keyframes candleDrift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-1.2deg); }
+  30% { transform: translate3d(2px, -9px, 0) rotate(0.8deg); }
+  55% { transform: translate3d(-1px, -4px, 0) rotate(1.6deg); }
+  80% { transform: translate3d(-2px, -11px, 0) rotate(-0.6deg); }
+}
 
-.taper.on-mid {
-  top: 38.2%;
+@keyframes haloBreathe {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  35% { transform: scale(1.12); opacity: 1; }
+  65% { transform: scale(0.94); opacity: 0.75; }
 }
-.taper.on-mid.left { left: 3.4%; }
-.taper.on-mid.right { right: 3.4%; left: auto; }
-.taper.on-bot {
-  top: 86.4%;
-}
-.taper.on-bot.left { left: 4.2%; }
-.taper.on-bot.right { right: 4.2%; left: auto; }
 
 @keyframes flameLick {
   0%,
-  100% { transform: scaleY(1) rotate(-4deg); }
-  40% { transform: scaleY(1.14) rotate(5deg); }
-  70% { transform: scaleY(0.94) rotate(-2deg); }
+  100% { transform: scaleY(1) scaleX(1) rotate(-3deg); }
+  25% { transform: scaleY(1.12) scaleX(0.94) rotate(3deg); }
+  45% { transform: scaleY(0.96) scaleX(1.04) rotate(-1deg); }
+  70% { transform: scaleY(1.08) scaleX(0.96) rotate(4deg); }
+  85% { transform: scaleY(0.92) scaleX(1.05) rotate(-2deg); }
 }
 
 /* ---- Shelf book ---- */
@@ -2468,10 +2521,20 @@ button {
     padding: 0.5rem 0.7rem;
     font-size: 0.58rem;
   }
-  .taper.on-bot,
+  .wall-sconces,
   .cobweb,
   .shelf-prop {
     display: none;
+  }
+  .floating-candle {
+    display: none;
+  }
+  .floating-candle:nth-child(7),
+  .floating-candle:nth-child(8) {
+    display: block;
+  }
+  .crown-candle {
+    width: 4%;
   }
   .house-corner {
     width: 104px;
@@ -2483,8 +2546,11 @@ button {
     font-size: 0.48rem;
     padding: 0.2rem 0.45rem;
   }
-  .taper-stick {
-    height: 28px;
+}
+
+@media (max-width: 1000px) {
+  .wall-sconces {
+    display: none;
   }
 }
 
@@ -2929,9 +2995,10 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .taper,
-  .taper-flame,
-  .taper-halo,
+  .candle-flame,
+  .candle-halo,
+  .candle::after,
+  .floating-candle .candle-svg,
   .candle-glow,
   .house-glow,
   .library.is-awake .bookshelf-fit,

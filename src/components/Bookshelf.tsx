@@ -1,6 +1,8 @@
+import type { CSSProperties } from 'react'
 import { yearBooks, worldBooks } from '../data/books'
 import { Book } from './Book'
 import { CrystalBall, Hourglass, Inkwell, Lantern, PotionVials, ScrollStack } from './ShelfProps'
+import { Candle } from './Candle'
 
 type Props = {
   busy: boolean
@@ -8,17 +10,15 @@ type Props = {
   onOpen: (id: string, el: HTMLButtonElement) => void
 }
 
-function Candle({ className }: { className: string }) {
-  return (
-    <span className={`taper ${className}`} aria-hidden="true">
-      <span className="taper-stick" />
-      <span className="taper-drip" />
-      <span className="taper-wick" />
-      <span className="taper-flame" />
-      <span className="taper-halo" />
-    </span>
-  )
-}
+/* Candlesticks standing on the crown moulding, mirrored around the plaque. */
+const CROWN_CANDLES = [
+  { left: 5.5, burn: 0.3, delay: 0 },
+  { left: 13, burn: 0.15, delay: -0.7 },
+  { left: 20.5, burn: 0.4, delay: -1.3 },
+  { left: 79.5, burn: 0.35, delay: -0.4 },
+  { left: 87, burn: 0.1, delay: -1.1 },
+  { left: 94.5, burn: 0.25, delay: -1.8 },
+]
 
 export function Bookshelf({ busy, activeId, onOpen }: Props) {
   return (
@@ -59,18 +59,17 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
         <div className="shelf-light upper" />
         <div className="shelf-light lower" />
 
-        <div className="sconce left">
-          <Candle className="sconce-a" />
-          <Candle className="sconce-b" />
+        <div className="crown-candles" aria-hidden="true">
+          {CROWN_CANDLES.map((c) => (
+            <Candle
+              key={c.left}
+              holder
+              burn={c.burn}
+              className="crown-candle"
+              style={{ left: `${c.left}%`, '--flicker-delay': `${c.delay}s` } as CSSProperties}
+            />
+          ))}
         </div>
-        <div className="sconce right">
-          <Candle className="sconce-a" />
-          <Candle className="sconce-b" />
-        </div>
-        <Candle className="on-mid left" />
-        <Candle className="on-mid right" />
-        <Candle className="on-bot left" />
-        <Candle className="on-bot right" />
 
         <div className="shelf-recess upper" aria-label="Andar superior — tomos do mundo">
           <ScrollStack />
