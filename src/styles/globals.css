@@ -636,6 +636,13 @@ button {
   perspective: 2200px;
 }
 
+.volume,
+.flyer-orbit,
+.held-stage,
+.held-book {
+  overflow: visible;
+}
+
 .held-book {
   position: relative;
   width: 100%;
@@ -644,7 +651,6 @@ button {
   transform: rotateX(8deg) rotateY(-6deg);
   transition: transform 1.2s var(--ease-cinematic);
   pointer-events: auto;
-  overflow: visible;
 }
 
 .held-book.is-opened,
@@ -681,6 +687,11 @@ button {
 .held-book.is-opened .cover-swing {
   transform: rotateY(-180deg);
   z-index: 2;
+}
+
+.held-book.is-opened .cover-swing {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .held-book.is-closing .cover-swing,
@@ -720,6 +731,7 @@ button {
   background: #ead8b0;
   opacity: 0;
   pointer-events: none;
+  transform: translateZ(20px);
   box-shadow:
     -8px 16px 28px rgba(0, 0, 0, 0.28),
     inset -14px 0 18px rgba(70, 40, 20, 0.16);
