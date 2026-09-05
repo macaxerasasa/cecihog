@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { neighborIds } from '../data/books'
 import type { BookData, LibraryPhase, OriginRect } from '../types'
-import { BookCover } from './BookCover'
-import { BookPages } from './BookPages'
+import { BookVolume, usePageFlip, type BookPose } from './BookVolume'
 
 type Props = {
   book: BookData
@@ -18,9 +17,16 @@ type Props = {
 
 function sizes() {
   const mobile = window.innerWidth < 740
-  const w = Math.min(mobile ? 300 : 400, window.innerWidth * (mobile ? 0.44 : 0.36))
-  const h = Math.min(mobile ? 440 : 530, window.innerHeight * (mobile ? 0.58 : 0.68))
+  const w = Math.min(mobile ? 300 : 390, window.innerWidth * (mobile ? 0.44 : 0.34))
+  const h = Math.min(mobile ? 440 : 540, window.innerHeight * (mobile ? 0.58 : 0.7))
   return { w, h }
+}
+
+function poseFrom(phase: LibraryPhase): BookPose {
+  if (phase === 'opening') return 'opening'
+  if (phase === 'open') return 'opened'
+  if (phase === 'closing') return 'closing'
+  return 'closed'
 }
 
 export function BookModal({
@@ -33,14 +39,14 @@ export function BookModal({
   onRequestClose,
   onNavigate,
 }: Props) {
-  const [spread, setSpread] = useState(0)
   const [dim, setDim] = useState(sizes)
   const closeRef = useRef<HTMLButtonElement>(null)
   const neighbors = neighborIds(book.id)
-  const opened = phase === 'opening' || phase === 'open'
+  const pose = poseFrom(phase)
   const showUi = phase === 'open'
   const returning = phase === 'toShelf'
   const inFlight = phase === 'toCenter' || returning
+  const pages = usePageFlip(book.spreads.length, reduced)
 
   useEffect(() => {
     const onResize = () => setDim(sizes())
@@ -58,13 +64,12 @@ export function BookModal({
     x: origin.x + origin.width / 2,
     y: origin.y + origin.height / 2,
     scale: Math.max(0.1, origin.height / dim.h),
-    rotateY: 78,
+    rotateY: 72,
+    rotateX: 8,
   }
-  const center = { x: cx, y: cy, scale: 1, rotateY: 0 }
+  const center = { x: cx, y: cy, scale: 1, rotateY: 0, rotateX: 0 }
   const animateTo = returning ? start : center
-  const duration = reduced ? 0.001 : inFlight ? 0.92 : 0.2
-  const spreadData = book.spreads[spread] ?? book.spreads[0]
-  const maxSpread = book.spreads.length - 1
+  const duration = reduced ? 0.001 : inFlight ? 0.95 : 0.2
 
   return (
     <>
@@ -82,11 +87,10 @@ export function BookModal({
 
       <div className="flyer-root">
         <motion.div
+          className="flyer-orbit"
           style={{
-            position: 'absolute',
             width: dim.w,
             height: dim.h,
-            transformStyle: 'preserve-3d',
             marginLeft: -dim.w / 2,
             marginTop: -dim.h / 2,
             pointerEvents: phase === 'open' ? 'auto' : 'none',
@@ -100,47 +104,25 @@ export function BookModal({
           }}
         >
           <div
-            className={`held-book ${opened ? 'is-opened' : 'is-closed'}`}
+            className="held-stage"
+            style={{ width: dim.w, height: dim.h }}
+            onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
             aria-labelledby="book-dialog-title"
-            style={{
-              width: dim.w,
-              height: dim.h,
-              ['--leather' as string]: book.palette.leather,
-              ['--leather-dark' as string]: book.palette.leatherDark,
-            }}
-            onClick={(e) => e.stopPropagation()}
           >
             <h2 id="book-dialog-title" className="sr-only">
               {book.title}
             </h2>
-            <div className="volume">
-              <div className="cover-block">
-                <div className="cover-swing">
-                  <div className="cover-outer">
-                    <div className="cover-frame" />
-                    <BookCover book={book} />
-                  </div>
-                  <div className="page-sheet left-face">
-                    <div className="page-grain" />
-                    <div className="page-inner">
-                      {spreadData ? <BookPages blocks={spreadData.left} /> : null}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="page-block">
-                <div className="cover-outer back-skin" />
-                <div className="page-sheet">
-                  <div className="page-grain" />
-                  <div className="page-inner">
-                    {spreadData ? <BookPages blocks={spreadData.right} /> : null}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="spine-hinge" />
+            <BookVolume
+              book={book}
+              pose={pose}
+              reduced={reduced}
+              spread={pages.spread}
+              turning={pages.turning}
+              onTurn={pages.onTurn}
+              onFlipEnd={pages.onFlipEnd}
+            />
           </div>
         </motion.div>
       </div>
@@ -163,23 +145,23 @@ export function BookModal({
               ✕<span>fechar</span>
             </button>
 
-            {maxSpread > 0 ? (
+            {pages.max > 0 ? (
               <>
                 <button
                   type="button"
                   className="page-turn prev"
                   aria-label="Página anterior"
-                  disabled={spread === 0}
-                  onClick={() => setSpread((s) => Math.max(0, s - 1))}
+                  disabled={pages.spread === 0 || !!pages.turning}
+                  onClick={() => pages.onTurn('prev')}
                 >
                   ‹
                 </button>
                 <button
                   type="button"
                   className="page-turn next"
-                  aria-label="Próxima página"
-                  disabled={spread === maxSpread}
-                  onClick={() => setSpread((s) => Math.min(maxSpread, s + 1))}
+                  aria-label="Virar a página"
+                  disabled={pages.spread === pages.max || !!pages.turning}
+                  onClick={() => pages.onTurn('next')}
                 >
                   ›
                 </button>
@@ -188,9 +170,9 @@ export function BookModal({
                     <button
                       key={i}
                       type="button"
-                      className={i === spread ? 'is-on' : ''}
+                      className={i === pages.spread && !pages.turning ? 'is-on' : ''}
                       aria-label={`Abrir caderno ${i + 1}`}
-                      onClick={() => setSpread(i)}
+                      onClick={() => pages.goTo(i)}
                     />
                   ))}
                 </div>

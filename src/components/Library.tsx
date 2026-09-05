@@ -9,8 +9,8 @@ import { Lighting } from './Lighting'
 import { Particles } from './Particles'
 import { WandGate } from './WandGate'
 
-const OPEN_COVER_MS = 980
-const CLOSE_COVER_MS = 920
+const OPEN_COVER_MS = 1280
+const CLOSE_COVER_MS = 1100
 const BOOT_MS = 160
 
 export function Library() {
