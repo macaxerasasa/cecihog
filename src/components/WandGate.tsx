@@ -8,9 +8,9 @@ const SAMPLES = 320
 /** Decorative beads along the glyph that light up as the wand passes. */
 const BEADS = 14
 /** How close (viewBox units) the tip must be to the glyph to advance. */
-const TOLERANCE = 15
+const TOLERANCE = 19
 /** How far ahead along the glyph (in length) the tip may jump in one move. */
-const LOOKAHEAD_LEN = 26
+const LOOKAHEAD_LEN = 42
 /** Straying this far from the ink's tip counts as losing the thread. */
 const LOST_DIST = 34
 /** The gesture must begin this close to the start bead. */
@@ -172,7 +172,7 @@ export function WandGate({ reduced, onUnlocked }: Props) {
     if (!local) return
     setTrail((t) => {
       const next = [...t, local]
-      return next.length > 40 ? next.slice(-40) : next
+      return next.length > 14 ? next.slice(-14) : next
     })
     advance(local)
   }
