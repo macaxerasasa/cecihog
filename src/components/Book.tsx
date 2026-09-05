@@ -14,6 +14,7 @@ export function Book({ book, disabled, ghost, onOpen }: Props) {
     '--leather-dark': book.palette.leatherDark,
     '--leather-light': book.palette.leatherLight,
     '--gold-ink': book.palette.gold,
+    '--chars': Math.max(4, book.spineLabel.replace(/\s+/g, '').length),
   } as CSSProperties
 
   const onKey = (e: KeyboardEvent<HTMLButtonElement>) => {
@@ -39,10 +40,21 @@ export function Book({ book, disabled, ghost, onOpen }: Props) {
           <span className="spine-rib head" />
           <span className="gold-band t" />
           <span className="spine-rib r1" />
-          <span className="spine-title">{book.spineLabel}</span>
+          <span className="spine-label">
+            <span className="spine-title">{book.spineLabel}</span>
+          </span>
           <span className="spine-rib r2" />
           <span className="gold-band b" />
-          <span className="spine-emblem">{book.category === 'year' ? book.shortTitle : '✦'}</span>
+          <span className="spine-emblem">
+            {book.category === 'year' ? (
+              <>
+                <small>ano</small>
+                <b>{book.shortTitle}</b>
+              </>
+            ) : (
+              <b className="star">✦</b>
+            )}
+          </span>
           <span className="spine-rib foot" />
           <span className="wear-mark" style={{ opacity: book.wear }} />
         </span>

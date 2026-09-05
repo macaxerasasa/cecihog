@@ -1,5 +1,6 @@
 import { yearBooks, worldBooks } from '../data/books'
 import { Book } from './Book'
+import { CrystalBall, Hourglass, Inkwell, Lantern, PotionVials, ScrollStack } from './ShelfProps'
 
 type Props = {
   busy: boolean
@@ -72,16 +73,8 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
         <Candle className="on-bot right" />
 
         <div className="shelf-recess upper" aria-label="Andar superior — tomos do mundo">
-          <span className="shelf-prop scrolls" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-          </span>
-          <span className="shelf-prop hourglass" aria-hidden="true">
-            <i className="hg-cap top" />
-            <i className="hg-glass" />
-            <i className="hg-cap bot" />
-          </span>
+          <ScrollStack />
+          <Hourglass />
           {worldBooks.map((book) => (
             <Book
               key={book.id}
@@ -91,17 +84,12 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
               onOpen={(el) => onOpen(book.id, el)}
             />
           ))}
-          <span className="shelf-prop orb" aria-hidden="true">
-            <i className="orb-glass" />
-            <i className="orb-stand" />
-          </span>
-          <span className="shelf-prop inkwell" aria-hidden="true">
-            <i className="ink-pot" />
-            <i className="ink-quill" />
-          </span>
+          <CrystalBall />
+          <Inkwell />
         </div>
 
         <div className="shelf-recess lower" aria-label="Andar inferior — anos de estudo">
+          <PotionVials />
           {yearBooks.map((book) => (
             <Book
               key={book.id}
@@ -111,6 +99,7 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
               onOpen={(el) => onOpen(book.id, el)}
             />
           ))}
+          <Lantern />
         </div>
       </div>
     </div>
