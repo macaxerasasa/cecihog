@@ -93,16 +93,16 @@ button {
 .library.is-boot .bookshelf-fit,
 .library.is-boot .masthead {
   opacity: 0;
-  transform: translateY(18px) scale(0.985);
+  filter: blur(8px);
 }
 
 .library.is-awake .bookshelf-fit,
 .library.is-awake .masthead {
   opacity: 1;
-  transform: none;
+  filter: none;
   transition:
     opacity 1.4s var(--ease-cinematic) 0.15s,
-    transform 1.6s var(--ease-cinematic) 0.1s;
+    filter 1.6s var(--ease-cinematic) 0.1s;
 }
 
 .library.is-busy {
@@ -220,18 +220,18 @@ button {
   z-index: 3;
   display: grid;
   place-items: center;
-  padding-top: 5vh;
+  padding: 7.5vh 2.4vw 6.5vh;
 }
 
 .bookshelf-fit {
-  transform-origin: center center;
-  will-change: transform;
+  width: min(1180px, 96vw, calc(82vh * 1180 / 760));
 }
 
 .bookshelf {
   position: relative;
-  width: 1180px;
-  height: 760px;
+  width: 100%;
+  aspect-ratio: 1180 / 760;
+  max-height: 82vh;
   perspective: 1600px;
 }
 
@@ -274,9 +274,9 @@ button {
 
 .rail {
   position: absolute;
-  left: 28px;
-  right: 28px;
-  height: 28px;
+  left: 2.4%;
+  right: 2.4%;
+  height: 3.7%;
   background:
     linear-gradient(180deg, #6a4630, #3a2418 40%, #1a0e0a);
   box-shadow:
@@ -286,13 +286,13 @@ button {
 }
 
 .rail.top {
-  top: 36px;
+  top: 4.8%;
 }
 .rail.mid {
-  top: 328px;
+  top: 43.1%;
 }
 .rail.bot {
-  bottom: 48px;
+  bottom: 6.3%;
 }
 
 .rail-lip {
@@ -306,63 +306,63 @@ button {
 
 .ornament-col {
   position: absolute;
-  top: 20px;
-  bottom: 28px;
-  width: 22px;
+  top: 2.6%;
+  bottom: 3.6%;
+  width: clamp(12px, 1.8vw, 22px);
   background:
     linear-gradient(90deg, #1a0e08, #5a3a24 45%, #1a0e08);
   box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.6);
   z-index: 6;
 }
 .ornament-col.left {
-  left: 18px;
+  left: 1.5%;
 }
 .ornament-col.right {
-  right: 18px;
+  right: 1.5%;
 }
 
 .shelf-recess {
   position: absolute;
-  left: 52px;
-  right: 52px;
+  left: 4.6%;
+  right: 4.6%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 18px;
-  padding: 0 28px 8px;
+  gap: clamp(8px, 1.6vw, 18px);
+  padding: 0 clamp(8px, 2vw, 28px) 1.1%;
   transform-style: preserve-3d;
 }
 
 .shelf-recess.upper {
-  top: 64px;
-  height: 264px;
-  gap: 42px;
+  top: 8.5%;
+  height: 34.5%;
+  gap: clamp(16px, 3.4vw, 42px);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.08) 50%, transparent);
 }
 
 .shelf-recess.lower {
-  top: 356px;
-  height: 328px;
+  top: 46.8%;
+  height: 43%;
   justify-content: space-between;
-  gap: 8px;
+  gap: clamp(4px, 0.7vw, 8px);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 46%, transparent);
 }
 
 .shelf-light {
   position: absolute;
-  left: 70px;
-  right: 70px;
-  height: 70px;
+  left: 6%;
+  right: 6%;
+  height: 9%;
   pointer-events: none;
   background: linear-gradient(180deg, rgba(255, 196, 110, 0.12), transparent);
   mix-blend-mode: screen;
   z-index: 4;
 }
 .shelf-light.upper {
-  top: 62px;
+  top: 8.2%;
 }
 .shelf-light.lower {
-  top: 354px;
+  top: 46.6%;
 }
 
 /* ---- Shelf book ---- */
@@ -384,12 +384,18 @@ button {
 }
 
 .book-btn.grand {
-  width: 58px;
-  height: 232px;
+  width: clamp(44px, 5.2vw, 58px);
+  height: 88%;
+  font-size: clamp(44px, 5.2vw, 58px);
+  --depth: 2.55em;
+  --spine: 1em;
 }
 .book-btn.tome {
-  width: 42px;
-  height: 196px;
+  width: clamp(30px, 3.6vw, 42px);
+  height: 74%;
+  font-size: clamp(30px, 3.6vw, 42px);
+  --depth: 2.7em;
+  --spine: 1em;
 }
 
 .book-mesh {
@@ -470,14 +476,14 @@ button {
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   font-family: Cinzel, serif;
-  font-size: 0.72rem;
+  font-size: 0.22em;
   letter-spacing: 0.18em;
   color: var(--gold-ink, #e8d39a);
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.65);
 }
 
 .book-btn.grand .spine-title {
-  font-size: 0.84rem;
+  font-size: 0.2em;
   letter-spacing: 0.22em;
 }
 
@@ -976,9 +982,44 @@ button {
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 740px) {
+  .masthead {
+    top: 1.4vh;
+  }
   .masthead h1 {
-    letter-spacing: 0.22em;
+    letter-spacing: 0.16em;
+    font-size: 0.92rem;
+  }
+  .masthead p {
+    letter-spacing: 0.12em;
+    font-size: 0.72rem;
+  }
+  .hint {
+    letter-spacing: 0.12em;
+    font-size: 0.62rem;
+    bottom: 1.4vh;
+  }
+  .stage-wrap {
+    padding: 8.5vh 1.2vw 5.5vh;
+  }
+  .bookshelf-fit {
+    width: min(96vw, calc(78vh * 0.78));
+  }
+  .bookshelf {
+    aspect-ratio: 3 / 4.15;
+    max-height: 78vh;
+  }
+  .book-mesh {
+    transform: rotateY(10deg);
+  }
+  .book-btn.grand {
+    width: clamp(48px, 13vw, 70px);
+    font-size: clamp(48px, 13vw, 70px);
+  }
+  .book-btn.tome {
+    width: clamp(32px, 8.6vw, 42px);
+    font-size: clamp(32px, 8.6vw, 42px);
+    height: 78%;
   }
   .nav-tab {
     min-width: 0;

@@ -2,15 +2,14 @@ import { yearBooks, worldBooks } from '../data/books'
 import { Book } from './Book'
 
 type Props = {
-  scale: number
   busy: boolean
   activeId: string | null
   onOpen: (id: string, el: HTMLButtonElement) => void
 }
 
-export function Bookshelf({ scale, busy, activeId, onOpen }: Props) {
+export function Bookshelf({ busy, activeId, onOpen }: Props) {
   return (
-    <div className="bookshelf-fit" style={{ transform: `scale(${scale})` }}>
+    <div className="bookshelf-fit">
       <div className="bookshelf">
         <div className="case" />
         <div className="case-wood" />

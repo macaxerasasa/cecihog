@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { books, getBook } from '../data/books'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
-import { useShelfScale } from '../hooks/useShelfScale'
 import type { LibraryPhase, OriginRect } from '../types'
 import { BookModal } from './BookModal'
 import { Bookshelf } from './Bookshelf'
@@ -15,7 +14,6 @@ const BOOT_MS = 160
 
 export function Library() {
   const reduced = usePrefersReducedMotion()
-  const scale = useShelfScale()
   const [awake, setAwake] = useState(false)
   const [phase, setPhase] = useState<LibraryPhase>('boot')
   const [activeId, setActiveId] = useState<string | null>(null)
@@ -169,7 +167,6 @@ export function Library() {
       </header>
       <div className="stage-wrap">
         <Bookshelf
-          scale={scale}
           busy={phase !== 'idle'}
           activeId={activeId}
           onOpen={(id, el) => beginOpen(id, el)}

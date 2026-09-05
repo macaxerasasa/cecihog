@@ -9,17 +9,12 @@ type Props = {
 }
 
 export function Book({ book, disabled, ghost, onOpen }: Props) {
-  const depth = book.size === 'grand' ? 150 : 118
-  const spine = book.size === 'grand' ? 58 : 42
-
   const style = {
     '--leather': book.palette.leather,
     '--leather-dark': book.palette.leatherDark,
     '--gold-ink': book.palette.gold,
-    '--depth': `${depth}px`,
-    '--spine': `${spine}px`,
-    height: `calc(${book.size === 'grand' ? 232 : 196}px + ${book.heightNudge}px)`,
     transform: `rotate(${book.tilt}deg)`,
+    marginBottom: `${book.heightNudge * 0.12}px`,
   } as CSSProperties
 
   const onKey = (e: KeyboardEvent<HTMLButtonElement>) => {
