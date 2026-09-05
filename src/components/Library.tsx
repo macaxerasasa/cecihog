@@ -182,7 +182,7 @@ export function Library() {
   }
 
   return (
-    <LibraryEnvironment awake={awake} busy={busy}>
+    <LibraryEnvironment awake={awake} busy={busy} reading={phase === 'open'}>
       <Lighting />
       <Particles active={awake} />
       <header className="masthead">

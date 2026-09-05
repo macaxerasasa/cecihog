@@ -171,7 +171,7 @@ export function usePageFlip(spreadCount: number, reduced: boolean, bookId?: stri
 
   useEffect(() => {
     if (!turning) return
-    const t = window.setTimeout(onFlipEnd, 1100)
+    const t = window.setTimeout(onFlipEnd, 1250)
     return () => window.clearTimeout(t)
   }, [turning, onFlipEnd])
 
