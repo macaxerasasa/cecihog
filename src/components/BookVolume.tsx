@@ -93,6 +93,7 @@ export function BookVolume({
 
         <div className="page-slab">
           <div className="slab-face">
+            <span className="ribbon" style={{ ['--ribbon' as string]: book.palette.ribbon }} aria-hidden="true" />
             {rightSpread ? <Parchment spread={rightSpread} side="right" /> : null}
             {canNext ? (
               <button type="button" className="corner-curl next" aria-label="Virar a página" onClick={() => onTurn('next')} />

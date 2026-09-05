@@ -23,17 +23,24 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
   return (
     <div className="bookshelf-fit">
       <div className="bookshelf">
+        <div className="case-halo" aria-hidden="true" />
         <div className="case" />
         <div className="case-wood" />
         <div className="case-wear" />
+        <div className="crown-mold" aria-hidden="true">
+          <span className="dentils" />
+        </div>
         <div className="brass-corner tl" />
         <div className="brass-corner tr" />
         <div className="brass-corner bl" />
         <div className="brass-corner br" />
         <div className="pediment">
-          <span className="crest">✦</span>
-          <span className="plaque">Seção Restrita</span>
-          <span className="crest">✦</span>
+          <span className="pediment-wing left" />
+          <span className="plaque">
+            <span className="plaque-crest">H</span>
+            <span className="plaque-text">Seção Restrita</span>
+          </span>
+          <span className="pediment-wing right" />
         </div>
         <div className="cobweb left" />
         <div className="cobweb right" />

@@ -208,15 +208,27 @@ export function WandGate({ reduced, onUnlocked }: Props) {
       aria-labelledby="wand-title"
     >
       <div className="wand-sky" />
+      <div className="wand-stars" aria-hidden="true" />
+      <div className="wand-stars far" aria-hidden="true" />
       <div className="wand-vignette" />
       <div className="house-embers" aria-hidden="true" />
 
       <div className="wand-copy">
-        <p className="wand-kicker">Biblioteca de Hogwarts</p>
+        <p className="wand-kicker">
+          <span className="kicker-rule" />
+          Biblioteca de Hogwarts
+          <span className="kicker-rule" />
+        </p>
         <h1 id="wand-title">Alohomora</h1>
         <p className="wand-lead">
           Trace o glifo com a varinha, como no treino de feitiços, para abrir as portas da seção restrita.
         </p>
+      </div>
+
+      <div className="runic-ring" aria-hidden="true">
+        <span className="ring outer" />
+        <span className="ring inner" />
+        <span className="ring dashes" />
       </div>
 
       <div
