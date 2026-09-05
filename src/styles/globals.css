@@ -93,8 +93,8 @@ button {
     radial-gradient(1200px 700px at 50% 16%, rgba(150, 62, 22, 0.42), transparent 58%),
     radial-gradient(700px 420px at 16% 82%, rgba(26, 71, 42, 0.22), transparent 60%),
     radial-gradient(700px 420px at 84% 80%, rgba(14, 26, 64, 0.26), transparent 60%),
-    radial-gradient(900px 500px at 50% 100%, rgba(0, 0, 0, 0.6), transparent 50%),
-    linear-gradient(180deg, #2a140c 0%, #150905 44%, #070403 100%);
+    radial-gradient(900px 500px at 50% 100%, rgba(0, 0, 0, 0.35), transparent 50%),
+    linear-gradient(180deg, #2a140c 0%, #150905 44%, #0b0604 100%);
 }
 
 .library::before {
@@ -138,11 +138,7 @@ button {
   background-position: center top;
   background-repeat: repeat;
   opacity: 0.85;
-  mask-image:
-    radial-gradient(ellipse 80% 70% at 50% 40%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.7) 60%, rgba(0, 0, 0, 0.35) 100%),
-    linear-gradient(180deg, rgba(0, 0, 0, 1) 0 84%, transparent 100%);
-  mask-composite: intersect;
-  -webkit-mask-composite: source-in;
+  mask-image: radial-gradient(ellipse 85% 80% at 50% 40%, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8) 60%, rgba(0, 0, 0, 0.55) 100%);
 }
 
 .stone-wall::after {
@@ -153,7 +149,7 @@ button {
     radial-gradient(ellipse at 50% 18%, rgba(255, 150, 60, 0.28), transparent 55%),
     radial-gradient(ellipse at 14% 60%, rgba(255, 130, 50, 0.16), transparent 42%),
     radial-gradient(ellipse at 86% 60%, rgba(255, 130, 50, 0.16), transparent 42%),
-    linear-gradient(180deg, rgba(120, 50, 20, 0.35), rgba(20, 8, 4, 0.55) 60%, rgba(0, 0, 0, 0.85));
+    linear-gradient(180deg, rgba(120, 50, 20, 0.35), rgba(20, 8, 4, 0.5) 60%, rgba(0, 0, 0, 0.55));
   mix-blend-mode: multiply;
 }
 
@@ -211,15 +207,19 @@ button {
   left: -10%;
   right: -10%;
   bottom: 0;
-  height: 16%;
+  height: 22%;
   z-index: 1;
   pointer-events: none;
-  background:
-    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.16) 0 2px, transparent 2px 76px),
-    linear-gradient(180deg, rgba(60, 32, 14, 0.4), rgba(28, 14, 6, 0.85) 60%, #040201);
-  transform: perspective(600px) rotateX(58deg);
+  background-image:
+    radial-gradient(ellipse 60% 90% at 50% 0%, rgba(255, 150, 60, 0.18), transparent 70%),
+    linear-gradient(180deg, rgba(15, 8, 4, 0.55), rgba(10, 5, 3, 0.75) 55%, rgba(4, 2, 1, 0.96)),
+    url('/stone.svg');
+  background-size: 100% 100%, 100% 100%, clamp(420px, 42vw, 720px) auto;
+  background-position: center top;
+  background-repeat: no-repeat, no-repeat, repeat;
+  transform: perspective(700px) rotateX(56deg);
   transform-origin: 50% 0;
-  opacity: 0.9;
+  box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.7), 0 -6px 18px rgba(0, 0, 0, 0.6);
 }
 
 .library.is-boot .bookshelf-fit,
