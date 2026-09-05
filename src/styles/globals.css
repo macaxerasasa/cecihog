@@ -287,18 +287,19 @@ button {
   z-index: 3;
   display: grid;
   place-items: center;
-  padding: 5.2vh 1.2vw 4.2vh;
+  padding: 4.8vh 2vw 3.6vh;
 }
 
 .bookshelf-fit {
-  width: min(1520px, 98vw, calc(90vh * 1180 / 760));
+  width: min(1280px, 94vw);
+  height: 100%;
 }
 
 .bookshelf {
   position: relative;
   width: 100%;
-  aspect-ratio: 1180 / 760;
-  max-height: 90vh;
+  height: 100%;
+  overflow: visible;
   perspective: 1600px;
 }
 
@@ -468,28 +469,29 @@ button {
 
 .shelf-recess {
   position: absolute;
-  left: 4.6%;
-  right: 4.6%;
+  left: 5.2%;
+  right: 5.2%;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: clamp(8px, 1.6vw, 18px);
-  padding: 0 clamp(8px, 2vw, 28px) 1.1%;
+  gap: clamp(10px, 1.8vw, 22px);
+  padding: 0 clamp(10px, 1.8vw, 22px) 2.4%;
+  overflow: visible;
   transform-style: preserve-3d;
 }
 
 .shelf-recess.upper {
-  top: 8.5%;
-  height: 34.5%;
-  gap: clamp(16px, 3.4vw, 42px);
+  top: 8.8%;
+  height: 32.6%;
+  gap: clamp(18px, 3.2vw, 40px);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.08) 50%, transparent);
 }
 
 .shelf-recess.lower {
-  top: 46.8%;
-  height: 43%;
-  justify-content: space-between;
-  gap: clamp(4px, 0.7vw, 8px);
+  top: 46.4%;
+  height: 44.2%;
+  justify-content: space-evenly;
+  gap: clamp(6px, 1vw, 12px);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.1) 46%, transparent);
 }
 
@@ -614,6 +616,8 @@ button {
 .book-btn {
   position: relative;
   display: block;
+  flex: 0 0 auto;
+  overflow: visible;
   transform-style: preserve-3d;
   perspective: 900px;
   touch-action: manipulation;
@@ -633,17 +637,17 @@ button {
 }
 
 .book-btn.grand {
-  width: clamp(58px, 6.6vw, 82px);
-  height: 92%;
-  font-size: clamp(58px, 6.6vw, 82px);
-  --depth: 2.55em;
+  width: clamp(52px, 5.8vw, 72px);
+  height: 78%;
+  font-size: clamp(52px, 5.8vw, 72px);
+  --depth: 2.2em;
   --spine: 1em;
 }
 .book-btn.tome {
-  width: clamp(40px, 4.8vw, 58px);
-  height: 82%;
-  font-size: clamp(40px, 4.8vw, 58px);
-  --depth: 2.7em;
+  width: clamp(34px, 4.1vw, 48px);
+  height: 74%;
+  font-size: clamp(34px, 4.1vw, 48px);
+  --depth: 2.35em;
   --spine: 1em;
 }
 
@@ -662,8 +666,8 @@ button {
 .book-btn:hover .book-mesh,
 .book-btn:focus-visible .book-mesh,
 .book-btn.is-armed .book-mesh {
-  transform: rotateY(8deg) translateZ(26px) translateY(-10px);
-  filter: drop-shadow(-18px 22px 16px rgba(0, 0, 0, 0.62))
+  transform: rotateY(10deg) translateZ(16px) translateY(-4px);
+  filter: drop-shadow(-14px 16px 12px rgba(0, 0, 0, 0.58))
     drop-shadow(0 0 12px rgba(212, 170, 80, 0.28));
 }
 
@@ -1519,7 +1523,7 @@ button {
 
 .hint {
   position: absolute;
-  bottom: 2.2vh;
+  bottom: 1.1vh;
   left: 0;
   right: 0;
   text-align: center;
@@ -1556,27 +1560,29 @@ button {
     bottom: 1.4vh;
   }
   .stage-wrap {
-    padding: 6.2vh 0.6vw 3.8vh;
+    padding: 5.4vh 1.2vw 3.2vh;
   }
   .bookshelf-fit {
-    width: min(98vw, calc(86vh * 0.82));
+    width: min(96vw, 100%);
+    height: 100%;
   }
   .bookshelf {
-    aspect-ratio: 3 / 4.15;
-    max-height: 86vh;
+    height: 100%;
+    aspect-ratio: auto;
+    max-height: none;
   }
   .book-mesh {
     transform: rotateY(10deg);
   }
   .book-btn.grand {
-    width: clamp(56px, 16vw, 88px);
-    font-size: clamp(56px, 16vw, 88px);
-    height: 90%;
+    width: clamp(48px, 12vw, 68px);
+    font-size: clamp(48px, 12vw, 68px);
+    height: 76%;
   }
   .book-btn.tome {
-    width: clamp(38px, 10vw, 52px);
-    font-size: clamp(38px, 10vw, 52px);
-    height: 84%;
+    width: clamp(30px, 8vw, 42px);
+    font-size: clamp(30px, 8vw, 42px);
+    height: 72%;
   }
   .nav-tab {
     min-width: 0;
