@@ -58,6 +58,10 @@ export function BookModal({
     if (phase === 'open') closeRef.current?.focus()
   }, [phase, book.id])
 
+  useEffect(() => {
+    if (phase === 'closing' || phase === 'toShelf') pages.cancelTurn()
+  }, [phase, pages.cancelTurn])
+
   const cx = window.innerWidth / 2
   const cy = window.innerHeight / 2 + 6
   const start = {

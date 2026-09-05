@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { BookData, Spread } from '../types'
 import { BookCover } from './BookCover'
 import { BookPages } from './BookPages'
@@ -43,15 +43,12 @@ export function BookVolume({
 }: Props) {
   const max = book.spreads.length - 1
   const current = book.spreads[spread] ?? book.spreads[0]
-  const incoming =
-    turning === 'next'
-      ? book.spreads[Math.min(max, spread + 1)]
-      : turning === 'prev'
-        ? book.spreads[Math.max(0, spread - 1)]
-        : current
+  const nextSpread = book.spreads[Math.min(max, spread + 1)]
+  const prevSpread = book.spreads[Math.max(0, spread - 1)]
 
-  const leftSpread = turning === 'next' ? current : (incoming ?? current)
-  const rightSpread = turning === 'next' ? (incoming ?? current) : current
+  const leftSpread = turning === 'prev' ? (prevSpread ?? current) : current
+  const rightSpread = turning === 'next' ? (nextSpread ?? current) : current
+
   const canPrev = spread > 0 && !turning && pose === 'opened'
   const canNext = spread < max && !turning && pose === 'opened'
 
@@ -72,23 +69,15 @@ export function BookVolume({
             <div className="board-sheen" />
           </div>
           <div className="board inside">
-            <div className="endpaper">{leftSpread ? <Parchment spread={leftSpread} side="left" /> : null}</div>
+            <div className="endpaper" />
           </div>
           <div className="board-edge" />
           <div className="board-top" />
         </div>
 
-        <span className="riffle r1" aria-hidden="true" />
-        <span className="riffle r2" aria-hidden="true" />
-        <span className="riffle r3" aria-hidden="true" />
-        <span className="riffle r4" aria-hidden="true" />
-
-        <div className="page-slab">
-          <div className="slab-face">
-            {rightSpread ? <Parchment spread={rightSpread} side="right" /> : null}
-            {canNext ? (
-              <button type="button" className="corner-curl next" aria-label="Virar a página" onClick={() => onTurn('next')} />
-            ) : null}
+        <div className="left-leaf">
+          <div className="leaf-back">
+            {leftSpread ? <Parchment spread={leftSpread} side="left" /> : null}
             {canPrev ? (
               <button
                 type="button"
@@ -98,12 +87,24 @@ export function BookVolume({
               />
             ) : null}
           </div>
+        </div>
+
+        <span className="riffle r1" aria-hidden="true" />
+        <span className="riffle r2" aria-hidden="true" />
+
+        <div className="page-slab">
+          <div className="slab-face">
+            {rightSpread ? <Parchment spread={rightSpread} side="right" /> : null}
+            {canNext ? (
+              <button type="button" className="corner-curl next" aria-label="Virar a página" onClick={() => onTurn('next')} />
+            ) : null}
+          </div>
           <div className="slab-edge" />
           <div className="slab-top" />
           <div className="slab-bottom" />
         </div>
 
-        {turning && incoming && current ? (
+        {turning && current && (turning === 'next' ? nextSpread : prevSpread) ? (
           <div
             className={`flip-leaf turn-${turning}`}
             onAnimationEnd={(e) => {
@@ -111,12 +112,11 @@ export function BookVolume({
             }}
           >
             <div className="flip-face front">
-              <Parchment spread={turning === 'next' ? current : incoming} side="right" />
+              <Parchment spread={turning === 'next' ? current : prevSpread!} side="right" />
             </div>
             <div className="flip-face back">
-              <Parchment spread={turning === 'next' ? incoming : current} side="left" />
+              <Parchment spread={turning === 'next' ? nextSpread! : current} side="left" />
             </div>
-            <span className="flip-shadow" />
           </div>
         ) : null}
 
@@ -146,20 +146,26 @@ export function usePageFlip(spreadCount: number, reduced: boolean) {
     setTurning(dir)
   }
 
-  const onFlipEnd = () => {
+  const onFlipEnd = useCallback(() => {
     const dir = turningRef.current
     if (!dir) return
     turningRef.current = null
     setSpread((s) => (dir === 'next' ? Math.min(max, s + 1) : Math.max(0, s - 1)))
     setTurning(null)
     lock.current = false
-  }
+  }, [max])
+
+  const cancelTurn = useCallback(() => {
+    turningRef.current = null
+    setTurning(null)
+    lock.current = false
+  }, [])
 
   useEffect(() => {
     if (!turning) return
-    const t = window.setTimeout(onFlipEnd, 1220)
+    const t = window.setTimeout(onFlipEnd, 900)
     return () => window.clearTimeout(t)
-  }, [turning])
+  }, [turning, onFlipEnd])
 
   const goTo = (index: number) => {
     if (index === spread || lock.current) return
@@ -170,5 +176,5 @@ export function usePageFlip(spreadCount: number, reduced: boolean) {
     onTurn(index > spread ? 'next' : 'prev')
   }
 
-  return { spread, turning, onTurn, onFlipEnd, goTo, max }
+  return { spread, turning, onTurn, onFlipEnd, goTo, cancelTurn, max }
 }
