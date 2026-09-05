@@ -8,7 +8,6 @@ import { HouseCorners } from './HouseCorners'
 import { LibraryEnvironment } from './LibraryEnvironment'
 import { Lighting } from './Lighting'
 import { WallSconces } from './WallSconces'
-import { FloatingCandles } from './FloatingCandles'
 import { Particles } from './Particles'
 import { WandGate } from './WandGate'
 
@@ -193,7 +192,6 @@ export function Library() {
     >
       <Lighting />
       <WallSconces />
-      <FloatingCandles />
       <HouseCorners />
       <Particles active={awake} />
       <header className="masthead">
