@@ -727,10 +727,6 @@ button {
   z-index: 8;
 }
 
-.held-book.is-opened .board.front {
-  visibility: hidden;
-}
-
 .left-leaf {
   display: none;
 }
@@ -744,6 +740,10 @@ button {
   background: #ead8b0;
   pointer-events: none;
   box-shadow: inset -12px 0 16px rgba(70, 40, 20, 0.16);
+}
+
+.held-book.is-closed .left-page-rest {
+  visibility: hidden;
 }
 
 .held-book.is-opened .left-page-rest {
@@ -848,75 +848,18 @@ button {
   box-shadow: inset -14px 0 20px rgba(0, 0, 0, 0.28);
 }
 
-.board-edge {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 100%;
-  width: 22px;
-  transform: rotateY(90deg);
-  transform-origin: left center;
-  background: linear-gradient(90deg, var(--leather-dark), var(--leather) 40%, #1a0c08);
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
-}
-
+.board-edge,
 .board-top {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 22px;
-  transform: rotateX(90deg);
-  transform-origin: top center;
-  background: linear-gradient(#4a2a1c, var(--leather-dark));
+  display: none;
 }
 
 .riffle {
-  position: absolute;
-  top: 3.5%;
-  bottom: 3.5%;
-  left: 0;
-  right: 1%;
-  transform-origin: left center;
-  background:
-    linear-gradient(90deg, rgba(90, 50, 20, 0.14), transparent 22%),
-    linear-gradient(#f6ead0, #e8d4aa);
-  border-radius: 1px 6px 6px 1px;
-  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.16);
-  pointer-events: none;
-  opacity: 0.72;
-  transition: transform 1.2s cubic-bezier(0.45, 0.12, 0.22, 1), opacity 0.6s ease;
-  z-index: 4;
-}
-
-.riffle.r1 { transform: translateZ(7px); transition-delay: 0.05s; }
-.riffle.r2 { transform: translateZ(5px); transition-delay: 0.12s; }
-.riffle.r3 { transform: translateZ(3px); transition-delay: 0.18s; }
-.riffle.r4 { transform: translateZ(1px); transition-delay: 0.24s; }
-
-.held-book.is-opening .riffle.r1 { transform: rotateY(-22deg) translateZ(18px); opacity: 0.9; }
-.held-book.is-opening .riffle.r2 { transform: rotateY(-40deg) translateZ(14px); opacity: 0.82; }
-.held-book.is-opening .riffle.r3 { transform: rotateY(-58deg) translateZ(10px); opacity: 0.7; }
-.held-book.is-opening .riffle.r4 { transform: rotateY(-74deg) translateZ(6px); opacity: 0.55; }
-
-.held-book.is-opened .riffle,
-.held-book.is-turning-next .riffle,
-.held-book.is-turning-prev .riffle {
-  opacity: 0;
-  visibility: hidden;
-  transform: rotateY(-180deg);
-}
-
-.held-book.is-closing .riffle,
-.held-book.is-closed .riffle {
-  opacity: 0.55;
-  transform: rotateY(0deg) translateZ(5px);
+  display: none;
 }
 
 .page-slab {
   position: absolute;
   inset: 0;
-  transform-style: preserve-3d;
   z-index: 1;
 }
 
@@ -934,10 +877,10 @@ button {
 .slab-face::after {
   content: '';
   position: absolute;
-  top: 0;
+  top: 8px;
   right: 0;
-  bottom: 0;
-  width: 11px;
+  bottom: 8px;
+  width: 8px;
   z-index: 6;
   pointer-events: none;
   background: repeating-linear-gradient(
@@ -946,47 +889,13 @@ button {
     #d7c196 2px 3px
   );
   box-shadow: inset 3px 0 6px rgba(80, 50, 20, 0.25);
-  opacity: 0.95;
+  opacity: 0.85;
 }
 
-.slab-edge {
-  position: absolute;
-  top: 2%;
-  bottom: 2%;
-  left: 100%;
-  width: 18px;
-  transform: rotateY(90deg);
-  transform-origin: left center;
-  background: repeating-linear-gradient(
-    180deg,
-    #f4e8cc 0 2px,
-    #d9c49a 2px 3px,
-    #efe1c0 3px 5px
-  );
-  box-shadow: inset 4px 0 8px rgba(0, 0, 0, 0.15);
-}
-
+.slab-edge,
 .slab-top,
 .slab-bottom {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 18px;
-  background: repeating-linear-gradient(
-    90deg,
-    #efe3c6 0 3px,
-    #dcc59a 3px 4px
-  );
-}
-.slab-top {
-  top: 0;
-  transform: rotateX(90deg);
-  transform-origin: top center;
-}
-.slab-bottom {
-  bottom: 0;
-  transform: rotateX(-90deg);
-  transform-origin: bottom center;
+  display: none;
 }
 
 .parchment {
@@ -1111,9 +1020,14 @@ button {
   opacity: 0.65;
 }
 
-.held-book.is-closed .page-inner,
-.held-book.is-closing .page-inner {
+.held-book.is-closed .page-inner {
   opacity: 0;
+}
+
+.held-book.is-opening .page-inner,
+.held-book.is-opened .page-inner,
+.held-book.is-closing .page-inner {
+  opacity: 1;
 }
 
 .held-book.is-turning-next .page-inner,

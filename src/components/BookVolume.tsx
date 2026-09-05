@@ -82,9 +82,6 @@ export function BookVolume({
               ) : null}
             </div>
           </div>
-
-          <div className="board-edge" />
-          <div className="board-top" />
         </div>
 
         <span className="riffle r1" aria-hidden="true" />
@@ -97,9 +94,6 @@ export function BookVolume({
               <button type="button" className="corner-curl next" aria-label="Virar a página" onClick={() => onTurn('next')} />
             ) : null}
           </div>
-          <div className="slab-edge" />
-          <div className="slab-top" />
-          <div className="slab-bottom" />
         </div>
 
         {turning && current && (turning === 'next' ? nextSpread : prevSpread) ? (
