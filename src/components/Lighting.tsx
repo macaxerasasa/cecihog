@@ -4,6 +4,8 @@ export function Lighting() {
       <span className="candle-glow a" />
       <span className="candle-glow b" />
       <span className="candle-glow c" />
+      <span className="candle-glow d" />
+      <span className="candle-glow e" />
       <span className="house-glow gryff" />
       <span className="house-glow slyt" />
       <span className="house-glow rav" />

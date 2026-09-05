@@ -48,6 +48,7 @@ export function BookVolume({
 
   const leftSpread = turning === 'prev' ? (prevSpread ?? current) : current
   const rightSpread = turning === 'next' ? (nextSpread ?? current) : current
+  const incoming = turning === 'next' ? nextSpread : prevSpread
 
   const canPrev = spread > 0 && !turning && pose === 'opened'
   const canNext = spread < max && !turning && pose === 'opened'
@@ -70,22 +71,22 @@ export function BookVolume({
           </div>
           <div className="board inside">
             <div className="endpaper" />
-            <div className="left-page-rest">
-              {leftSpread ? <Parchment spread={leftSpread} side="left" /> : null}
-              {canPrev ? (
-                <button
-                  type="button"
-                  className="corner-curl prev"
-                  aria-label="Página anterior"
-                  onClick={() => onTurn('prev')}
-                />
-              ) : null}
-            </div>
           </div>
         </div>
 
-        <span className="riffle r1" aria-hidden="true" />
-        <span className="riffle r2" aria-hidden="true" />
+        <div className="left-board">
+          <div className="left-page-rest">
+            {leftSpread ? <Parchment spread={leftSpread} side="left" /> : null}
+            {canPrev ? (
+              <button
+                type="button"
+                className="corner-curl prev"
+                aria-label="Página anterior"
+                onClick={() => onTurn('prev')}
+              />
+            ) : null}
+          </div>
+        </div>
 
         <div className="page-slab">
           <div className="slab-face">
@@ -96,8 +97,9 @@ export function BookVolume({
           </div>
         </div>
 
-        {turning && current && (turning === 'next' ? nextSpread : prevSpread) ? (
+        {turning && current && incoming ? (
           <div
+            key={`${turning}-${spread}`}
             className={`flip-leaf turn-${turning}`}
             onAnimationEnd={(e) => {
               if (e.target !== e.currentTarget) return
@@ -107,10 +109,10 @@ export function BookVolume({
             }}
           >
             <div className="flip-face front">
-              <Parchment spread={turning === 'next' ? current : prevSpread!} side="right" />
+              <Parchment spread={turning === 'next' ? current : incoming} side="right" />
             </div>
             <div className="flip-face back">
-              <Parchment spread={turning === 'next' ? nextSpread! : current} side="left" />
+              <Parchment spread={turning === 'next' ? incoming : current} side="left" />
             </div>
           </div>
         ) : null}
@@ -165,7 +167,7 @@ export function usePageFlip(spreadCount: number, reduced: boolean, bookId?: stri
 
   useEffect(() => {
     if (!turning) return
-    const t = window.setTimeout(onFlipEnd, 1250)
+    const t = window.setTimeout(onFlipEnd, 980)
     return () => window.clearTimeout(t)
   }, [turning, onFlipEnd])
 
