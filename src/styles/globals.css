@@ -419,18 +419,20 @@ button {
   z-index: 3;
   display: grid;
   place-items: center;
-  padding: 7.5vh 2.4vw 6.5vh;
+  --stage-top: max(12vh, 124px);
+  --stage-bottom: 6.5vh;
+  padding: var(--stage-top) 2.4vw var(--stage-bottom);
 }
 
 .bookshelf-fit {
-  width: min(1180px, 96vw, calc(82vh * 1180 / 760));
+  width: min(1180px, 96vw, calc((100vh - var(--stage-top) - var(--stage-bottom)) * 1180 / 760));
 }
 
 .bookshelf {
   position: relative;
   width: 100%;
   aspect-ratio: 1180 / 760;
-  max-height: 82vh;
+  max-height: calc(100vh - var(--stage-top) - var(--stage-bottom));
   overflow: visible;
   perspective: 1600px;
 }
@@ -745,9 +747,31 @@ button {
   align-items: flex-end;
   justify-content: center;
   gap: clamp(8px, 1.6vw, 18px);
-  padding: 0 clamp(8px, 2vw, 28px) 1.4%;
+  padding: 0 clamp(8px, 2vw, 28px) 0;
   overflow: visible;
   transform-style: preserve-3d;
+}
+
+.shelf-recess > * {
+  margin-bottom: -1px;
+}
+
+.book-btn::after,
+.shelf-prop::after {
+  content: '';
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  bottom: -3px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3) 55%, transparent 80%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.book-btn.is-ghost::after {
+  opacity: 0;
 }
 
 .shelf-recess.upper {
@@ -787,36 +811,36 @@ button {
 
 .shelf-prop.scrolls {
   width: clamp(70px, 8.2vw, 104px);
-  aspect-ratio: 120 / 64;
+  aspect-ratio: 120 / 60;
   margin-right: clamp(4px, 1.2vw, 20px);
 }
 
 .shelf-prop.hourglass {
   width: clamp(28px, 3.4vw, 42px);
-  aspect-ratio: 48 / 92;
+  aspect-ratio: 48 / 90;
   margin-right: clamp(10px, 2vw, 34px);
 }
 
 .shelf-prop.orb {
   width: clamp(44px, 5.4vw, 66px);
-  aspect-ratio: 72 / 96;
+  aspect-ratio: 72 / 93.5;
   margin-left: clamp(10px, 2vw, 34px);
 }
 
 .shelf-prop.inkwell {
   width: clamp(44px, 5.4vw, 64px);
-  aspect-ratio: 80 / 100;
+  aspect-ratio: 80 / 92;
   margin-left: clamp(4px, 1.2vw, 20px);
 }
 
 .shelf-prop.potions {
   width: clamp(72px, 8.6vw, 108px);
-  aspect-ratio: 110 / 90;
+  aspect-ratio: 110 / 84;
 }
 
 .shelf-prop.lantern {
   width: clamp(34px, 4.2vw, 52px);
-  aspect-ratio: 60 / 110;
+  aspect-ratio: 60 / 104;
 }
 
 .orb-halo {
@@ -2313,7 +2337,9 @@ button {
     bottom: 1.4vh;
   }
   .stage-wrap {
-    padding: 8.5vh 1.2vw 5.5vh;
+    --stage-top: max(9vh, 86px);
+    --stage-bottom: 5.5vh;
+    padding: var(--stage-top) 1.2vw var(--stage-bottom);
   }
   .bookshelf-fit {
     width: min(96vw, calc(78vh * 0.78));

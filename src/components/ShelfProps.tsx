@@ -5,7 +5,7 @@ const wrap = (name: string, extra?: string) => `shelf-prop ${name} ${extra ?? ''
 export function ScrollStack({ className }: PropProps) {
   return (
     <span className={wrap('scrolls', className)} aria-hidden="true">
-      <svg viewBox="0 0 120 64" className="prop-svg">
+      <svg viewBox="0 0 120 60" className="prop-svg">
         <defs>
           <linearGradient id="sc-paper" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="#f7ecd2" />
@@ -35,7 +35,6 @@ export function ScrollStack({ className }: PropProps) {
             <stop offset="1" stopColor="#5a0c08" />
           </linearGradient>
         </defs>
-        <ellipse cx="60" cy="61" rx="56" ry="3" fill="rgba(0,0,0,0.45)" />
         {/* bottom scroll */}
         <rect x="10" y="44" width="100" height="16" rx="8" fill="url(#sc-roll)" />
         <rect x="18" y="46" width="84" height="12" fill="url(#sc-paper)" />
@@ -73,7 +72,7 @@ export function ScrollStack({ className }: PropProps) {
 export function Hourglass({ className }: PropProps) {
   return (
     <span className={wrap('hourglass', className)} aria-hidden="true">
-      <svg viewBox="0 0 48 92" className="prop-svg">
+      <svg viewBox="0 0 48 90" className="prop-svg">
         <defs>
           <linearGradient id="hg-wood" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0" stopColor="#2a160c" />
@@ -100,7 +99,6 @@ export function Hourglass({ className }: PropProps) {
             <stop offset="1" stopColor="#b98a2e" />
           </linearGradient>
         </defs>
-        <ellipse cx="24" cy="89" rx="20" ry="2.6" fill="rgba(0,0,0,0.5)" />
         {/* posts */}
         <rect x="5" y="10" width="3" height="72" fill="url(#hg-wood)" />
         <rect x="40" y="10" width="3" height="72" fill="url(#hg-wood)" />
@@ -146,7 +144,7 @@ export function Hourglass({ className }: PropProps) {
 export function CrystalBall({ className }: PropProps) {
   return (
     <span className={wrap('orb', className)} aria-hidden="true">
-      <svg viewBox="0 0 72 96" className="prop-svg">
+      <svg viewBox="0 0 72 93.5" className="prop-svg">
         <defs>
           <radialGradient id="cb-glow" cx="0.5" cy="0.5" r="0.5">
             <stop offset="0" stopColor="rgba(170,110,255,0.55)" />
@@ -178,7 +176,6 @@ export function CrystalBall({ className }: PropProps) {
             <feGaussianBlur stdDeviation="2.4" />
           </filter>
         </defs>
-        <ellipse cx="36" cy="93" rx="24" ry="2.8" fill="rgba(0,0,0,0.5)" />
         <circle cx="36" cy="36" r="36" fill="url(#cb-glow)" className="orb-halo" />
         {/* stand */}
         <g fill="url(#cb-gold)">
@@ -222,7 +219,7 @@ export function CrystalBall({ className }: PropProps) {
 export function Inkwell({ className }: PropProps) {
   return (
     <span className={wrap('inkwell', className)} aria-hidden="true">
-      <svg viewBox="0 0 80 100" className="prop-svg">
+      <svg viewBox="0 0 80 92" className="prop-svg">
         <defs>
           <linearGradient id="ik-glass" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0" stopColor="#0c1418" />
@@ -248,7 +245,6 @@ export function Inkwell({ className }: PropProps) {
             <stop offset="1" stopColor="#c9b892" />
           </linearGradient>
         </defs>
-        <ellipse cx="34" cy="97" rx="26" ry="2.8" fill="rgba(0,0,0,0.5)" />
         {/* quill */}
         <g transform="rotate(26 40 92)">
           <path
@@ -292,7 +288,7 @@ export function Inkwell({ className }: PropProps) {
 export function PotionVials({ className }: PropProps) {
   return (
     <span className={wrap('potions', className)} aria-hidden="true">
-      <svg viewBox="0 0 110 90" className="prop-svg">
+      <svg viewBox="0 0 110 84" className="prop-svg">
         <defs>
           <radialGradient id="pv-green" cx="0.45" cy="0.7" r="0.7">
             <stop offset="0" stopColor="#c6ff9a" />
@@ -328,7 +324,6 @@ export function PotionVials({ className }: PropProps) {
             <feGaussianBlur stdDeviation="3" />
           </filter>
         </defs>
-        <ellipse cx="55" cy="87" rx="50" ry="3" fill="rgba(0,0,0,0.5)" />
         {/* glows */}
         <ellipse cx="26" cy="66" rx="18" ry="14" fill="rgba(80,220,110,0.28)" filter="url(#pv-glow)" className="potion-glow" />
         <ellipse cx="58" cy="60" rx="10" ry="18" fill="rgba(230,80,170,0.25)" filter="url(#pv-glow)" className="potion-glow b" />
@@ -383,7 +378,7 @@ export function PotionVials({ className }: PropProps) {
 export function Lantern({ className }: PropProps) {
   return (
     <span className={wrap('lantern', className)} aria-hidden="true">
-      <svg viewBox="0 0 60 110" className="prop-svg">
+      <svg viewBox="0 0 60 104" className="prop-svg">
         <defs>
           <linearGradient id="ln-brass" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0" stopColor="#3a2408" />
@@ -408,7 +403,6 @@ export function Lantern({ className }: PropProps) {
             <stop offset="1" stopColor="rgba(255,240,200,0.22)" />
           </linearGradient>
         </defs>
-        <ellipse cx="30" cy="107" rx="22" ry="2.8" fill="rgba(0,0,0,0.5)" />
         <circle cx="30" cy="62" r="30" fill="url(#ln-glow)" className="lantern-glow" />
         {/* ring handle */}
         <path d="M30 4 a 8 8 0 1 0 0.01 0" fill="none" stroke="url(#ln-brass)" strokeWidth="2.6" />
