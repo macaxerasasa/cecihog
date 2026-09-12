@@ -9,7 +9,9 @@
   --shadow: rgba(0, 0, 0, 0.72);
   --font-display: 'Cinzel Decorative', Cinzel, 'Times New Roman', serif;
   --font-caps: Cinzel, 'Times New Roman', serif;
-  --font-book: 'IM Fell English', 'Cormorant Garamond', Georgia, serif;
+  --font-book: 'EB Garamond', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-book-title: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+  --font-book-italic: 'IM Fell English', 'EB Garamond', Georgia, serif;
   --gold-text: linear-gradient(180deg, #fff3cf 0%, #f0d078 32%, #b98a2e 58%, #f2dc9a 82%, #8a6222 100%);
   --ease-cinematic: cubic-bezier(0.22, 0.8, 0.28, 1);
   --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
@@ -1747,7 +1749,7 @@ button {
 
 .cover-title .motto {
   max-width: 17em;
-  font-family: var(--font-book);
+  font-family: var(--font-book-italic);
   font-style: italic;
   font-size: 0.98rem;
   line-height: 1.35;
@@ -2048,47 +2050,65 @@ button {
 
 .page-inner {
   font-family: var(--font-book);
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures discretionary-ligatures;
+  font-variant-numeric: oldstyle-nums;
+  text-rendering: optimizeLegibility;
 }
 
 .page-inner h3 {
-  margin: 0 0 0.25rem;
-  font-family: var(--font-display);
-  font-size: clamp(1.15rem, 1.9vw, 1.55rem);
-  letter-spacing: 0.06em;
-  font-weight: 700;
-  line-height: 1.15;
+  margin: 0 0 0.2rem;
+  font-family: var(--font-book-title);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 600;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
   color: #3a2010;
   text-shadow: 0 1px 0 rgba(255, 248, 230, 0.6);
 }
 
 .page-inner h4 {
-  margin: 0.45rem 0 0.7rem;
-  font-family: var(--font-caps);
-  font-size: 0.74rem;
+  margin: 0.35rem 0 0.7rem;
+  font-family: var(--font-book-title);
+  font-size: 0.98rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.14em;
   color: #8a5a22;
 }
 
 .page-inner p {
   margin: 0 0 0.85rem;
-  font-size: 1.06rem;
-  line-height: 1.55;
+  font-size: 1.12rem;
+  line-height: 1.5;
   color: #2c1a10;
   text-align: justify;
   hyphens: auto;
+  text-indent: 1.2em;
+}
+
+.page-inner h3 + p,
+.page-inner h4 + p,
+.page-inner .ornament-line + p {
+  text-indent: 0;
+}
+
+.page-inner em,
+.page-inner i {
+  font-family: var(--font-book-italic);
+  font-style: italic;
 }
 
 .page-inner h3 + h4 + .ornament-line + p::first-letter,
 .page-inner h3 + .ornament-line + p::first-letter,
 .page-inner h3 + p::first-letter {
   float: left;
-  font-family: var(--font-display);
+  font-family: var(--font-book-title);
   font-weight: 700;
-  font-size: 3.1em;
-  line-height: 0.82;
-  padding: 0.08em 0.12em 0 0;
+  font-size: 3.4em;
+  line-height: 0.8;
+  padding: 0.06em 0.1em 0 0;
   color: #7a1c14;
   text-shadow: 0 1px 0 rgba(255, 240, 200, 0.6);
 }
@@ -2126,8 +2146,8 @@ button {
   position: relative;
   padding-left: 1.15rem;
   margin: 0.4rem 0;
-  font-size: 1.03rem;
-  line-height: 1.45;
+  font-size: 1.08rem;
+  line-height: 1.42;
 }
 
 .plain-list li::before {
@@ -2143,19 +2163,19 @@ button {
   margin: 0 0 0.8rem;
   padding-left: 0.7rem;
   border-left: 2px solid rgba(154, 106, 42, 0.35);
-  line-height: 1.45;
-  font-size: 1.02rem;
+  line-height: 1.42;
+  font-size: 1.08rem;
 }
 
 .entry-list strong {
   display: block;
-  font-family: var(--font-caps);
-  font-weight: 600;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: var(--font-book-title);
+  font-weight: 700;
+  font-size: 1.08rem;
+  font-variant-caps: small-caps;
+  letter-spacing: 0.06em;
   color: #5a2c12;
-  margin-bottom: 0.1rem;
+  margin-bottom: 0.05rem;
 }
 
 .reserved-slot {
