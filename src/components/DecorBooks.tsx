@@ -54,17 +54,17 @@ export function DecoBook({ leather, w, h, title, lean, mobile, bands = 2 }: Deco
     >
       <span className="book-mesh">
         <span className="book-face book-spine">
-          <span className="spine-rib head" />
+          <span className="spine-tool head" />
           <span className="gold-band t" />
-          {bands >= 3 ? <span className="spine-rib r1" /> : null}
           {title ? (
             <span className="spine-label">
               <span className="spine-title">{title}</span>
             </span>
-          ) : null}
-          {bands >= 2 ? <span className="spine-rib r2" /> : null}
+          ) : (
+            <span className="spine-medallion" />
+          )}
           <span className="gold-band b" />
-          <span className="spine-rib foot" />
+          <span className="spine-tool foot" />
         </span>
         <span className="cover-panel" />
         <span className="back-panel" />

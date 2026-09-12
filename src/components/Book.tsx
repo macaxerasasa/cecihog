@@ -37,13 +37,12 @@ export function Book({ book, disabled, ghost, onOpen }: Props) {
     >
       <span className="book-mesh" aria-hidden="true">
         <span className="book-face book-spine">
-          <span className="spine-rib head" />
+          <span className="spine-tool head" />
           <span className="gold-band t" />
-          <span className="spine-rib r1" />
           <span className="spine-label">
             <span className="spine-title">{book.spineLabel}</span>
           </span>
-          <span className="spine-rib r2" />
+          <span className="spine-medallion" />
           <span className="gold-band b" />
           <span className="spine-emblem">
             {book.category === 'year' ? (
@@ -55,7 +54,7 @@ export function Book({ book, disabled, ghost, onOpen }: Props) {
               <b className="star">✦</b>
             )}
           </span>
-          <span className="spine-rib foot" />
+          <span className="spine-tool foot" />
           <span className="wear-mark" style={{ opacity: book.wear }} />
         </span>
         <span className="cover-panel">
