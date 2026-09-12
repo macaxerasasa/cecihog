@@ -450,8 +450,9 @@ button {
   z-index: 3;
   display: grid;
   place-items: center;
-  --stage-top: max(14vh, 150px);
-  --stage-bottom: 6.5vh;
+  /* headroom for the masthead plus the candelabra rising above the crown */
+  --stage-top: max(16vh, 172px);
+  --stage-bottom: 6vh;
   padding: var(--stage-top) 2.4vw var(--stage-bottom);
 }
 
@@ -1022,7 +1023,7 @@ button {
   /* the end blocks' top face runs from 5.7% to 6.8% of the case; the base
      stands on its front edge, not on the back highlight */
   top: 6.75%;
-  width: 11%;
+  width: 8.6%;
   transform: translate(-50%, -100%);
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 2px rgba(255, 200, 130, 0.35));
 }
