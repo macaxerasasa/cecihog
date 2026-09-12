@@ -2683,7 +2683,7 @@ body:has(.library.is-holding) .snitch-trail {
     display: none;
   }
   .stage-wrap {
-    --stage-top: max(9vh, 86px);
+    --stage-top: max(11vh, 96px);
     --stage-bottom: 5.5vh;
     padding: var(--stage-top) 1.2vw var(--stage-bottom);
   }
@@ -2747,7 +2747,7 @@ body:has(.library.is-holding) .snitch-trail {
   }
   .crown-candelabra {
     top: 2.8%;
-    width: 15%;
+    width: 12.5%;
   }
   .crown-candelabra.left { left: 12.5%; }
   .crown-candelabra.right { left: 87.5%; }
