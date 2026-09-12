@@ -97,8 +97,47 @@ export function BookModal({
     rotateX: 8,
   }
   const center = { x: cx, y: cy, scale: 1, rotateY: 0, rotateX: 0 }
-  const animateTo = returning ? start : center
-  const duration = reduced ? 0.001 : inFlight ? 0.92 : 0.01
+  /*
+   * Flight path: the tome is first drawn straight out of the shelf (a short
+   * pull towards the viewer with a slight tilt), then swoops up in an arc to
+   * the reading position. The return plays the same path backwards.
+   */
+  const lift = Math.min(90, origin.height * 0.55)
+  const pulled = {
+    x: start.x + origin.width * 0.9,
+    y: start.y - lift * 0.35,
+    scale: start.scale * 1.32,
+    rotateY: 44,
+    rotateX: 10,
+  }
+  const arc = {
+    x: start.x + (cx - start.x) * 0.55,
+    y: Math.min(start.y, cy) - lift,
+    scale: start.scale + (1 - start.scale) * 0.6,
+    rotateY: 18,
+    rotateX: -4,
+  }
+  const path = (from: typeof start, ...steps: (typeof start)[]) => {
+    const all = [from, ...steps]
+    return {
+      x: all.map((p) => p.x),
+      y: all.map((p) => p.y),
+      scale: all.map((p) => p.scale),
+      rotateY: all.map((p) => p.rotateY),
+      rotateX: all.map((p) => p.rotateX),
+    }
+  }
+  const animateTo = reduced
+    ? returning
+      ? start
+      : center
+    : returning
+      ? path(center, arc, pulled, start)
+      : inFlight
+        ? path(start, pulled, arc, center)
+        : center
+  const duration = reduced ? 0.001 : inFlight ? 1.15 : 0.01
+  const times = returning ? [0, 0.45, 0.78, 1] : [0, 0.26, 0.6, 1]
 
   return (
     <>
@@ -128,7 +167,11 @@ export function BookModal({
           }}
           initial={reduced ? center : start}
           animate={animateTo}
-          transition={{ duration, ease: [0.22, 0.8, 0.28, 1] }}
+          transition={
+            inFlight && !reduced
+              ? { duration, times, ease: ['easeOut', 'easeInOut', [0.22, 0.8, 0.28, 1]] }
+              : { duration, ease: [0.22, 0.8, 0.28, 1] }
+          }
           onAnimationComplete={() => {
             if (phase === 'toCenter') onOpened()
             if (phase === 'toShelf') onClosed()

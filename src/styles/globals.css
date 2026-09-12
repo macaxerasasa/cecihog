@@ -2204,6 +2204,126 @@ body:has(.library.is-holding) .snitch-trail {
   to { opacity: 1; translate: 0 0; filter: blur(0); }
 }
 
+/* ---- Cover choreography: the board swings past vertical and settles, casting light and shadow ---- */
+.held-book.is-opening .cover-swing {
+  animation: coverOpen 1.28s cubic-bezier(0.42, 0.08, 0.18, 1) both;
+}
+@keyframes coverOpen {
+  0% { transform: rotateY(0deg); }
+  58% { transform: rotateY(-121deg); }
+  86% { transform: rotateY(-186deg); }
+  100% { transform: rotateY(-180deg); }
+}
+.held-book.is-closing .cover-swing {
+  animation: coverClose 1.24s cubic-bezier(0.5, 0.05, 0.25, 1) both;
+}
+@keyframes coverClose {
+  0% { transform: rotateY(-180deg); }
+  45% { transform: rotateY(-70deg); }
+  100% { transform: rotateY(0deg); }
+}
+
+/* the board's leather catches the candlelight as it turns */
+.held-book.is-opening .board.front .board-sheen {
+  animation: boardGlint 1.28s ease-in-out both;
+}
+@keyframes boardGlint {
+  0% { background-position: 0% 0; opacity: 0.6; }
+  55% { opacity: 1; }
+  100% { background-position: 100% 0; opacity: 0.6; }
+}
+.board-sheen {
+  background-size: 260% 100%;
+}
+
+/* shadow the moving cover throws over the right leaf */
+.slab-face::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(90deg, rgba(40, 22, 8, 0.55), rgba(40, 22, 8, 0.18) 40%, transparent 78%);
+}
+.held-book.is-opening .slab-face::before {
+  animation: coverShadow 1.28s cubic-bezier(0.42, 0.08, 0.18, 1) both;
+}
+.held-book.is-closing .slab-face::before {
+  animation: coverShadow 1.24s cubic-bezier(0.5, 0.05, 0.25, 1) reverse both;
+}
+@keyframes coverShadow {
+  0% { opacity: 0.9; translate: 0 0; }
+  58% { opacity: 0.5; translate: -30% 0; }
+  100% { opacity: 0; translate: -100% 0; }
+}
+
+/* ---- Page turn: the leaf bows and shades as it passes the vertical ---- */
+.flip-face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(90deg, rgba(50, 30, 10, 0.05), rgba(50, 30, 10, 0.42) 60%, rgba(50, 30, 10, 0.55));
+}
+.flip-leaf.turn-next .flip-face::after,
+.flip-leaf.turn-prev .flip-face::after {
+  animation: leafShade 0.88s cubic-bezier(0.2, 0.65, 0.15, 1) both;
+}
+@keyframes leafShade {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  100% { opacity: 0; }
+}
+/* the leaves underneath darken briefly as the turning page passes over them */
+.held-book.is-turning-next .slab-face::before,
+.held-book.is-turning-prev .slab-face::before {
+  animation: underShade 0.88s cubic-bezier(0.2, 0.65, 0.15, 1) both;
+}
+@keyframes underShade {
+  0% { opacity: 0; translate: 40% 0; }
+  45% { opacity: 0.55; translate: 0 0; }
+  100% { opacity: 0; translate: -60% 0; }
+}
+
+/* ---- Shelf life: books breathe under the hand, neighbours lean away ---- */
+.book-btn {
+  transition: translate 0.45s var(--ease-soft);
+}
+.book-btn:hover .book-mesh,
+.book-btn:focus-visible .book-mesh {
+  transform: rotateY(6deg) translateZ(34px) translateY(-10px);
+}
+.book-btn:not(.deco):hover ~ .book-btn:not(.deco),
+.book-btn:not(.deco):hover ~ .book-btn.deco {
+  translate: 2px 0;
+}
+.book-btn:hover .spine-title,
+.book-btn:focus-visible .spine-title {
+  text-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.75),
+    0 0 10px rgba(255, 222, 140, 0.55);
+}
+.book-btn:hover .gold-band,
+.book-btn:focus-visible .gold-band,
+.book-btn:hover .spine-medallion,
+.book-btn:focus-visible .spine-medallion,
+.book-btn:hover .spine-label::before,
+.book-btn:focus-visible .spine-label::before {
+  filter: brightness(1.35);
+}
+.gold-band,
+.spine-medallion,
+.spine-label::before {
+  transition: filter 0.45s var(--ease-soft);
+}
+.book-btn:active .book-mesh {
+  transform: rotateY(4deg) translateZ(44px) translateY(-14px) scale(1.02);
+  transition-duration: 0.18s;
+}
+
 .ritual-ui {
   position: fixed;
   z-index: 40;
@@ -3553,11 +3673,25 @@ body:has(.library.is-holding) .snitch-trail {
   .library.is-awake .crown-candle,
   .masthead h1,
   .gate-burst > *,
-  .wand-gate.is-success::after {
+  .wand-gate.is-success::after,
+  .held-book.is-opened .page-inner > *,
+  .held-book.is-opening .cover-swing,
+  .held-book.is-closing .cover-swing,
+  .held-book.is-opening .board.front .board-sheen,
+  .slab-face::before,
+  .flip-face::after {
     animation: none !important;
   }
   .hall-art {
     transform: none;
+  }
+  .snitch,
+  .snitch-trail,
+  .book-btn,
+  .gold-band,
+  .spine-medallion,
+  .spine-label::before {
+    transition: none;
   }
 }
 
@@ -3669,6 +3803,20 @@ body:has(.library.is-holding) .snitch-trail {
   .book-spine::after {
     display: none;
   }
+  .case {
+    filter: none;
+  }
+  /* same reveal without the animated blur */
+  .held-book.is-opened .page-inner > * {
+    animation-name: inkInLite;
+  }
+  .held-book.is-opening .board.front .board-sheen {
+    animation: none;
+  }
+}
+@keyframes inkInLite {
+  from { opacity: 0; translate: 0 6px; }
+  to { opacity: 1; translate: 0 0; }
 }
 
 /* ---- Compact reader: one page at a time on phones ---- */

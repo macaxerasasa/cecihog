@@ -14,7 +14,7 @@ import { WandGate } from './WandGate'
 
 const OPEN_COVER_MS = 1280
 const CLOSE_COVER_MS = 1280
-const FLY_MS = 980
+const FLY_MS = 1180
 const BOOT_MS = 160
 
 export function Library() {
