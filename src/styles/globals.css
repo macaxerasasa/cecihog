@@ -635,6 +635,20 @@ button {
   margin-bottom: -1px;
 }
 
+/* candlelight pooling on the board: dark feet and dark leather read as
+   silhouettes standing on wood instead of floating in the recess */
+.shelf-recess::before {
+  content: '';
+  position: absolute;
+  left: -1%;
+  right: -1%;
+  bottom: 0;
+  height: 18%;
+  background: linear-gradient(to top, rgba(255, 186, 104, 0.3), rgba(255, 160, 80, 0.1) 50%, transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
 .book-btn::after,
 .shelf-prop::after {
   content: '';
@@ -675,7 +689,8 @@ button {
   align-self: flex-end;
   pointer-events: none;
   z-index: 3;
-  filter: drop-shadow(-7px 10px 8px rgba(0, 0, 0, 0.6));
+  /* ground shadow plus a faint warm rim so iron and dark wood keep an edge */
+  filter: drop-shadow(-7px 10px 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 2px rgba(255, 200, 130, 0.4));
 }
 
 /* the renders are lit like product shots; pull them down into the shelf's dusk */
