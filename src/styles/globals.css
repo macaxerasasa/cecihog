@@ -1999,7 +1999,9 @@ button {
 }
 
 .page-inner h3 + h4 + .ornament-line + p::first-letter,
+.page-inner h3 + h4 + .ornament-line + .ink-plate + p::first-letter,
 .page-inner h3 + .ornament-line + p::first-letter,
+.page-inner h3 + .ornament-line + .ink-plate + p::first-letter,
 .page-inner h3 + p::first-letter {
   float: left;
   font-family: var(--font-book-drop);
@@ -2124,15 +2126,14 @@ button {
 }
 .plate-art {
   display: block;
-  width: min(46%, 6.6rem);
+  width: min(60%, 8.8rem);
   aspect-ratio: 1;
   margin: 0 auto;
   background: center / contain no-repeat;
-  filter: sepia(0.2) contrast(1.05);
-  opacity: 0.9;
+  opacity: 0.92;
 }
 .ink-plate.is-large .plate-art {
-  width: min(66%, 10.5rem);
+  width: min(78%, 12.4rem);
 }
 .ink-plate figcaption {
   margin-top: 0.3rem;

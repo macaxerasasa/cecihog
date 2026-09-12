@@ -36,8 +36,8 @@ function yearSpreads(
         { type: 'heading', text: title },
         { type: 'subheading', text: subtitle },
         { type: 'ornament' },
-        { type: 'paragraph', text: intro },
         plate(frontis, true),
+        { type: 'paragraph', text: intro },
       ],
       right: [
         reservedMaterias(title),
@@ -79,15 +79,11 @@ export const books: BookData[] = [
           { type: 'heading', text: 'Hogwarts' },
           { type: 'subheading', text: 'Escola de Magia e Bruxaria' },
           { type: 'ornament' },
+          plate({ art: 'castle', caption: 'Prancha I — O castelo visto do Lago Negro' }, true),
           {
             type: 'paragraph',
             text: 'Erguida em terra escocesa por Godric Gryffindor, Helga Hufflepuff, Rowena Ravenclaw e Salazar Slytherin, Hogwarts esconde-se dos olhos trouxas por encantamentos antigos. Torres, escadas que mudam de ideia e retratos tagarelas guardam mil anos de ensino.',
           },
-          {
-            type: 'paragraph',
-            text: 'Esta estante pertence à biblioteca. Madame Pince não aprovaria que os tomos saíssem da prateleira — mas a magia da seção restrita às vezes faz o contrário.',
-          },
-          plate({ art: 'castle', caption: 'Prancha I — O castelo visto do Lago Negro' }),
         ],
         right: [
           { type: 'subheading', text: 'O castelo' },
@@ -119,6 +115,7 @@ export const books: BookData[] = [
         left: [
           { type: 'heading', text: 'Leis da escola' },
           { type: 'ornament' },
+          plate({ art: 'key', caption: 'Prancha II — Chave alada, corredor do terceiro andar' }),
           {
             type: 'list',
             items: [
@@ -128,13 +125,16 @@ export const books: BookData[] = [
               'O Terceiro Andar do lado direito é, em certos anos, igualmente proibido.',
             ],
           },
-          plate({ art: 'key', caption: 'Prancha II — Chave alada, corredor do terceiro andar' }),
         ],
         right: [
           { type: 'subheading', text: 'O mundo além' },
           {
             type: 'paragraph',
             text: 'Londres mágico começa no Beco Diagonal. O Expresso de Hogwarts parte de King’s Cross, plataforma 9¾. O Ministério, as casas de campo e os vilarejos de Hogsmeade completam o mapa — páginas à espera de crônicas.',
+          },
+          {
+            type: 'paragraph',
+            text: 'Esta estante pertence à biblioteca. Madame Pince não aprovaria que os tomos saíssem da prateleira — mas a magia da seção restrita às vezes faz o contrário.',
           },
           {
             type: 'reserved',
@@ -172,11 +172,11 @@ export const books: BookData[] = [
           { type: 'heading', text: 'Matérias' },
           { type: 'subheading', text: 'O currículo de Hogwarts' },
           { type: 'ornament' },
+          plate({ art: 'wand', caption: 'Prancha I — A varinha escolhe o bruxo' }, true),
           {
             type: 'paragraph',
             text: 'Sete anos, dezenas de salas e um horário que desafia a lógica das escadas. As matérias obrigatórias moldam o bruxo; as opcionais — Runicas, Aritmancia, Trato das Criaturas, Alquimia — revelam a vocação.',
           },
-          plate({ art: 'wand', caption: 'Prancha I — A varinha escolhe o bruxo' }),
         ],
         right: [
           {
@@ -195,6 +195,7 @@ export const books: BookData[] = [
       {
         left: [
           { type: 'subheading', text: 'Exames' },
+          plate({ art: 'mandrake', caption: 'Prancha II — Mandrágora jovem, Estufa Três' }),
           {
             type: 'list',
             items: [
@@ -203,7 +204,6 @@ export const books: BookData[] = [
               'Quadribol não conta para o quadro — mas conta para a alma.',
             ],
           },
-          plate({ art: 'mandrake', caption: 'Prancha II — Mandrágora jovem, Estufa Três' }),
         ],
         right: [
           reservedMaterias('Currículo geral'),
@@ -243,11 +243,11 @@ export const books: BookData[] = [
           { type: 'heading', text: 'Casas' },
           { type: 'subheading', text: 'Quatro fundadores, quatro temperamentos' },
           { type: 'ornament' },
+          plate({ art: 'hat', caption: 'Prancha I — O Chapéu Seletor' }, true),
           {
             type: 'paragraph',
             text: 'Toda a vida em Hogwarts parte da Seleção. O Chapéu lê o que se é — e o que se pode vir a ser. Os pontos no relógio do Salão Principal não medem só vitórias de Quadribol: medem escolhas.',
           },
-          plate({ art: 'hat', caption: 'Prancha I — O Chapéu Seletor' }),
         ],
         right: [
           {
@@ -264,6 +264,7 @@ export const books: BookData[] = [
       {
         left: [
           { type: 'subheading', text: 'Fantasmas e relíquias' },
+          plate({ art: 'sword', caption: 'Prancha II — A espada de Godric Gryffindor' }),
           {
             type: 'paragraph',
             text: 'Nick Quase Sem Cabeça, o Barão Sangrento, a Dama Cinzenta e o Frei Gorducho percorrem os corredores. Cada casa guarda também um objeto dos fundadores — páginas reservadas para esses relatos.',
@@ -273,7 +274,6 @@ export const books: BookData[] = [
             label: 'Brasões',
             hint: 'Iluminuras dos quatro brasões e das salas comunais.',
           },
-          plate({ art: 'sword', caption: 'Prancha II — A espada de Godric Gryffindor' }),
         ],
         right: [
           {
@@ -464,8 +464,8 @@ export const books: BookData[] = [
     },
     spreads: yearSpreads(
       'Sexto Ano',
-      'N.I.E.M.s, poções do príncipe e horcruxes',
-      'Apenas quem passou nos N.O.M.s segue nas matérias avançadas. Aparatação, poções de nível N.I.E.M. e aulas particulares que o diretor não coloca no horário. Reserve estas folhas para o livro anotado e as memórias.',
+      'Poções do príncipe e horcruxes',
+      'Apenas quem passou nos N.O.M.s segue nas matérias avançadas: Aparatação, poções de nível N.I.E.M. e aulas particulares fora do horário. Reserve estas folhas para o livro anotado e as memórias.',
       ['Aparatação (placeholder)', 'Poções N.I.E.M. (placeholder)', 'Aulas particulares (placeholder)'],
       [{ art: 'locket', caption: 'Prancha I — O medalhão de Slytherin' }],
     ),
