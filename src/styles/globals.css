@@ -2628,11 +2628,11 @@ button {
     display: none;
   }
   .book-btn.deco.keep-mobile {
-    width: clamp(20px, 6vw, 28px);
-    font-size: clamp(20px, 6vw, 28px);
+    width: clamp(20px, 6.6vw, 30px);
+    font-size: clamp(20px, 6.6vw, 30px);
   }
   .crown-candle {
-    width: 4%;
+    width: 5.5%;
   }
   .house-corner {
     width: 104px;
