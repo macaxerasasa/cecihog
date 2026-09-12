@@ -1901,10 +1901,12 @@ button {
 /* text block sits inside the painted frame; it scrolls within it, never under the vines */
 .page-inner {
   position: absolute;
-  top: 8.6%;
-  right: 10.6%;
-  bottom: 9.8%;
-  left: 10.6%;
+  /* the painted rule frame runs at 12.2% / 8.8% / 12.6% of the leaf; the text
+     column sits clearly inside it */
+  top: 10.6%;
+  right: 14.2%;
+  bottom: 14%;
+  left: 14.2%;
   z-index: 1;
   padding: 0.3rem 0.35rem 0.9rem;
   overflow: auto;
@@ -1921,11 +1923,29 @@ button {
 }
 
 .parchment.left .page-inner {
-  right: 11.4%;
+  right: 15%;
 }
 
 .parchment.right .page-inner {
-  left: 11.4%;
+  left: 15%;
+}
+
+/* the owl-and-leaf corners of the border lean into the column; the first
+   lines flow around them instead of running underneath */
+.corner-guard {
+  display: block;
+  width: 5.5%;
+  height: 6.5%;
+  shape-margin: 0.15rem;
+  pointer-events: none;
+}
+.corner-guard.l {
+  float: left;
+  shape-outside: polygon(0 0, 100% 0, 0 100%);
+}
+.corner-guard.r {
+  float: right;
+  shape-outside: polygon(0 0, 100% 0, 100% 100%);
 }
 
 .page-inner {
@@ -2186,19 +2206,20 @@ body:has(.library.is-holding) .snitch-trail {
 }
 
 /* ---- Ink settles onto the leaf: staggered reveal on open and on every turn ---- */
-.held-book.is-opened .page-inner > * {
+.held-book.is-opened .page-inner > :not(.corner-guard) {
   animation: inkIn 0.62s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   animation-delay: calc(0.05s + var(--k, 0) * 70ms);
 }
-.page-inner > :nth-child(1) { --k: 0; }
-.page-inner > :nth-child(2) { --k: 1; }
-.page-inner > :nth-child(3) { --k: 2; }
-.page-inner > :nth-child(4) { --k: 3; }
-.page-inner > :nth-child(5) { --k: 4; }
-.page-inner > :nth-child(6) { --k: 5; }
-.page-inner > :nth-child(7) { --k: 6; }
-.page-inner > :nth-child(8) { --k: 7; }
-.page-inner > :nth-child(n + 9) { --k: 8; }
+/* the two corner guards come first, so the text blocks start at child 3 */
+.page-inner > :nth-child(3) { --k: 0; }
+.page-inner > :nth-child(4) { --k: 1; }
+.page-inner > :nth-child(5) { --k: 2; }
+.page-inner > :nth-child(6) { --k: 3; }
+.page-inner > :nth-child(7) { --k: 4; }
+.page-inner > :nth-child(8) { --k: 5; }
+.page-inner > :nth-child(9) { --k: 6; }
+.page-inner > :nth-child(10) { --k: 7; }
+.page-inner > :nth-child(n + 11) { --k: 8; }
 @keyframes inkIn {
   from { opacity: 0; translate: 0 6px; filter: blur(1.5px); }
   to { opacity: 1; translate: 0 0; filter: blur(0); }
@@ -3424,7 +3445,7 @@ body:has(.library.is-holding) .snitch-trail {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 9.8%;
+  bottom: 14%;
   height: 2.2rem;
   z-index: 2;
   pointer-events: none;
@@ -3674,7 +3695,7 @@ body:has(.library.is-holding) .snitch-trail {
   .masthead h1,
   .gate-burst > *,
   .wand-gate.is-success::after,
-  .held-book.is-opened .page-inner > *,
+  .held-book.is-opened .page-inner > :not(.corner-guard),
   .held-book.is-opening .cover-swing,
   .held-book.is-closing .cover-swing,
   .held-book.is-opening .board.front .board-sheen,
@@ -3807,7 +3828,7 @@ body:has(.library.is-holding) .snitch-trail {
     filter: none;
   }
   /* same reveal without the animated blur */
-  .held-book.is-opened .page-inner > * {
+  .held-book.is-opened .page-inner > :not(.corner-guard) {
     animation-name: inkInLite;
   }
   .held-book.is-opening .board.front .board-sheen {
@@ -3858,7 +3879,7 @@ body:has(.library.is-holding) .snitch-trail {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 9.8%;
+    bottom: 14%;
     height: 2.4rem;
     pointer-events: none;
     z-index: 2;

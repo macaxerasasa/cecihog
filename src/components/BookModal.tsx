@@ -21,11 +21,12 @@ function sizes() {
     // One page at a time: fill the width, leave room for the seal and the nav row.
     const w = Math.min(380, window.innerWidth - 32)
     const h = Math.min(620, window.innerHeight - 190, w * 1.45)
-    return { w: Math.round(w), h: Math.round(h) }
+    // never squarer than 1.3: the painted border is drawn for a tall leaf
+    return { w: Math.round(Math.min(w, h / 1.3)), h: Math.round(h) }
   }
   const w = Math.min(460, (window.innerWidth - 140) / 2, window.innerWidth * 0.32)
   const h = Math.min(660, window.innerHeight * 0.74, w * 1.45)
-  return { w: Math.round(w), h: Math.round(h) }
+  return { w: Math.round(Math.min(w, h / 1.3)), h: Math.round(h) }
 }
 
 function poseFrom(phase: LibraryPhase): BookPose {

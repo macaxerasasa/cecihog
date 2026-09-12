@@ -35,6 +35,8 @@ function Parchment({
       <div className="page-grain" />
       <div className="gutter-shade" />
       <div className="page-inner" key={stamp}>
+        <i className="corner-guard l" aria-hidden="true" />
+        <i className="corner-guard r" aria-hidden="true" />
         <BookPages blocks={blocks} />
       </div>
     </div>
