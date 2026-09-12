@@ -57,7 +57,7 @@ As pinturas e materiais em `public/art/` foram geradas por IA e otimizadas para 
 - `tool-band.webp`, `tool-frame.webp`, `tool-medallion.webp`, `tool-flourish.webp` — douração das lombadas (faixas, moldura do título em nine-slice, medalhão, florões), aplicada sobre o couro com `mix-blend-mode: screen`.
 - `cover-frame.webp`, `cover-medallion.webp` — a moldura e o brasão gravados na capa do livro aberto.
 - `page-border.webp` — a cercadura de vinhas iluminada das páginas (`mix-blend-mode: multiply`).
-- `prop-candle-a.webp`, `prop-candle-b.webp`, `prop-sconce.webp` — castiçais de latão e a arandela de ferro; só a chama é desenhada ao vivo (SVG sobre o pavio).
+- `prop-candelabra.webp`, `prop-sconce.webp` — o candelabro de cinco braços da cornija e a arandela de ferro da parede; só as chamas são desenhadas ao vivo (SVG sobre cada pavio medido na imagem), com a luz quente que elas jogam na madeira e na parede.
 - `prop-hourglass.webp`, `prop-orb.webp`, `prop-inkwell.webp`, `prop-potions.webp`, `prop-lantern.webp`, `prop-scrolls.webp`, `prop-stack.webp` — os objetos das prateleiras, recortados com transparência; brilhos do orbe, das poções e da lanterna são camadas CSS animadas por cima.
 - `ink-*.webp` — 18 pranchas de gravura a tinta (castelo, coruja, caldeirão, varinha, chapéu, pomo, ampulheta, orbe, pena, diário, cálice, fénix, medalhão, espada, vassoura, vira-tempo, mandrágora, chave) com fundo transparente, usadas nos blocos `plate` de `src/data/books.ts`.
 

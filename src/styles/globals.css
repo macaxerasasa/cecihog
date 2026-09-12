@@ -968,7 +968,7 @@ button {
   z-index: -1;
 }
 
-/* Candlesticks standing in a row on the crown moulding */
+/* Candelabra on the end blocks of the crown moulding */
 .crown-candles {
   position: absolute;
   inset: 0;
@@ -976,15 +976,56 @@ button {
   pointer-events: none;
 }
 
-.crown-candle {
-  top: calc(var(--top, 5.7) * 1%);
-  width: 3%;
+.candelabra {
+  position: absolute;
+  display: block;
+  aspect-ratio: 629 / 956;
+  pointer-events: none;
+}
+.candelabra .wick {
+  display: contents;
+  --flame-k: 0.23;
+}
+
+/* the cluster of flames throws light back onto the wall and the wood */
+.candelabra::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 16%;
+  width: 260%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 178, 84, 0.36), rgba(255, 128, 44, 0.12) 38%, transparent 66%);
+  filter: blur(12px);
+  mix-blend-mode: screen;
+  animation: candleFlicker 3.4s ease-in-out infinite;
+  z-index: -1;
+}
+/* and pools on the block it stands on */
+.candelabra::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -3%;
+  width: 170%;
+  height: 16%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at 50% 60%, rgba(255, 176, 86, 0.38), rgba(255, 140, 50, 0.1) 50%, transparent 72%);
+  filter: blur(4px);
+  mix-blend-mode: screen;
+  animation: candleFlicker 4.1s ease-in-out infinite reverse;
+  z-index: -1;
+}
+
+.crown-candelabra {
+  top: 5.7%;
+  width: 11%;
   transform: translate(-50%, -100%);
-  filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.55));
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 2px rgba(255, 200, 130, 0.35));
 }
-.crown-candle.candle-b {
-  width: 3.3%;
-}
+.crown-candelabra.left { left: 7.5%; }
+.crown-candelabra.right { left: 92.5%; transform: translate(-50%, -100%) scaleX(-1); }
 
 /* Iron sconces on the stone wall flanking the case */
 .wall-sconces {
@@ -2701,13 +2742,12 @@ body:has(.library.is-holding) .snitch-trail {
     width: 7.6cqw;
     font-size: 7.6cqw;
   }
-  .crown-candle {
-    width: 6.2%;
-    --top: 2.1;
+  .crown-candelabra {
+    top: 2.1%;
+    width: 15%;
   }
-  .crown-candle.candle-b {
-    width: 6.8%;
-  }
+  .crown-candelabra.left { left: 12.5%; }
+  .crown-candelabra.right { left: 87.5%; }
   .house-corner {
     width: 104px;
     height: 104px;
@@ -3539,16 +3579,14 @@ body:has(.library.is-holding) .snitch-trail {
   to { opacity: 1; translate: 0 0; }
 }
 
-.library.is-awake .crown-candle {
+.library.is-awake .crown-candelabra .flame-svg {
   animation: candleIgnite 0.7s ease-out both;
-  animation-delay: calc(0.9s + var(--n, 0) * 110ms);
+  animation-delay: calc(0.9s + var(--n, 0) * 140ms);
 }
-.crown-candles > :nth-child(1) { --n: 0; }
-.crown-candles > :nth-child(2) { --n: 1; }
-.crown-candles > :nth-child(3) { --n: 2; }
-.crown-candles > :nth-child(4) { --n: 5; }
-.crown-candles > :nth-child(5) { --n: 4; }
-.crown-candles > :nth-child(6) { --n: 3; }
+.library.is-awake .crown-candelabra::before,
+.library.is-awake .crown-candelabra::after {
+  animation-delay: 1.2s;
+}
 
 @keyframes candleIgnite {
   from { opacity: 0; filter: brightness(2.2); }
@@ -3728,7 +3766,9 @@ body:has(.library.is-holding) .snitch-trail {
 @media (prefers-reduced-motion: reduce) {
   .hall-art,
   .library.is-awake .shelf-recess > *,
-  .library.is-awake .crown-candle,
+  .library.is-awake .crown-candelabra .flame-svg,
+  .candelabra::before,
+  .candelabra::after,
   .masthead h1,
   .gate-burst > *,
   .wand-gate.is-success::after,
@@ -3783,7 +3823,7 @@ body:has(.library.is-holding) .snitch-trail {
   .house-corner,
   .shelf-prop,
   .stack-pedestal .shelf-prop,
-  .crown-candle,
+  .crown-candelabra,
   .wall-sconce {
     filter: none;
   }

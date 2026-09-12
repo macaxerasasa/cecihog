@@ -98,3 +98,32 @@ export function Candle({ variant = 'a', className = '', style }: CandleProps) {
     </span>
   )
 }
+
+/*
+ * Five-arm brass candelabra for the crown of the case. Wick positions were
+ * measured on the artwork; each wick carries its own flame and flicker phase.
+ */
+const CANDELABRA_WICKS = [
+  { x: 7.3, y: 16.0, d: -0.4 },
+  { x: 27.3, y: 8.2, d: -1.3 },
+  { x: 49.8, y: 0.1, d: 0 },
+  { x: 72.5, y: 8.3, d: -0.8 },
+  { x: 92.5, y: 16.3, d: -1.7 },
+]
+
+export function Candelabra({ className = '', style }: { className?: string; style?: CSSProperties }) {
+  return (
+    <span className={`candelabra ${className}`} style={style} aria-hidden="true">
+      <img className="candle-art" src={asset('art/prop-candelabra.webp')} alt="" draggable={false} />
+      {CANDELABRA_WICKS.map((w, i) => (
+        <span
+          key={i}
+          className="wick"
+          style={{ '--wick-x': `${w.x}%`, '--wick-y': `${w.y}%`, '--flicker-delay': `${w.d}s`, '--n': i } as CSSProperties}
+        >
+          <Flame />
+        </span>
+      ))}
+    </span>
+  )
+}
