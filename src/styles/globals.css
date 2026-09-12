@@ -969,11 +969,12 @@ button {
   z-index: -1;
 }
 
-/* Candelabra on the end blocks of the crown moulding */
+/* Candelabra standing behind the crown moulding: the layer sits under the
+   painted case, so the crown's front face hides the foot of each base */
 .crown-candles {
   position: absolute;
   inset: 0;
-  z-index: 10;
+  z-index: 0;
   pointer-events: none;
 }
 
@@ -1020,9 +1021,9 @@ button {
 }
 
 .crown-candelabra {
-  /* the end blocks' top face runs from 5.7% to 6.8% of the case; the base
-     stands on its front edge, not on the back highlight */
-  top: 6.75%;
+  /* the crown's top face runs from 5.7% to 6.8% of the case; the foot drops
+     below the back edge and the case artwork in front covers it */
+  top: 7.3%;
   width: 8.6%;
   transform: translate(-50%, -100%);
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 2px rgba(255, 200, 130, 0.35));
@@ -2746,7 +2747,7 @@ body:has(.library.is-holding) .snitch-trail {
     font-size: 7.6cqw;
   }
   .crown-candelabra {
-    top: 2.8%;
+    top: 3.3%;
     width: 12.5%;
   }
   .crown-candelabra.left { left: 12.5%; }
