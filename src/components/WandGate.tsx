@@ -95,8 +95,8 @@ export function WandGate({ reduced, onUnlocked }: Props) {
     }
     window.setTimeout(() => {
       setLeaving(true)
-      window.setTimeout(onUnlocked, 850)
-    }, 650)
+      window.setTimeout(onUnlocked, 900)
+    }, 950)
   }
 
   /* Move the wand DOM node directly so the tip tracks the pointer with no render lag. */
@@ -230,10 +230,19 @@ export function WandGate({ reduced, onUnlocked }: Props) {
       onTouchStart={onTouchStart}
     >
       <div className="wand-sky" />
+      <div className="gate-door" aria-hidden="true" />
       <div className="wand-stars" aria-hidden="true" />
       <div className="wand-stars far" aria-hidden="true" />
       <div className="wand-vignette" />
       <div className="house-embers" aria-hidden="true" />
+      {success ? (
+        <div className="gate-burst" aria-hidden="true">
+          <span className="burst-core" />
+          <span className="burst-ring" />
+          <span className="burst-ring late" />
+          <span className="burst-rays" />
+        </div>
+      ) : null}
 
       <div className="wand-copy">
         <p className="wand-kicker">

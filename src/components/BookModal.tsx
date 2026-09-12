@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { neighborIds } from '../data/books'
 import type { BookData, LibraryPhase, OriginRect } from '../types'
@@ -23,8 +23,8 @@ function sizes() {
     const h = Math.min(620, window.innerHeight - 190, w * 1.45)
     return { w: Math.round(w), h: Math.round(h) }
   }
-  const w = Math.min(372, (window.innerWidth - 108) / 2, window.innerWidth * 0.31)
-  const h = Math.min(528, window.innerHeight * 0.68)
+  const w = Math.min(430, (window.innerWidth - 140) / 2, window.innerWidth * 0.3)
+  const h = Math.min(620, window.innerHeight * 0.7, w * 1.45)
   return { w: Math.round(w), h: Math.round(h) }
 }
 
@@ -162,6 +162,7 @@ export function BookModal({
         {showUi ? (
           <motion.div
             className="ritual-ui"
+            style={{ '--book-w': `${dim.w}px` } as CSSProperties}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

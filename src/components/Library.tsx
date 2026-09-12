@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { books, getBook } from '../data/books'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
+import { preloadHallArt } from '../lib/preload'
 import type { LibraryPhase, OriginRect } from '../types'
 import { BookModal } from './BookModal'
 import { Bookshelf } from './Bookshelf'
@@ -56,6 +57,10 @@ export function Library() {
   }, [reduced, unlocked])
 
   useEffect(() => () => clearTimers(), [])
+
+  useEffect(() => {
+    preloadHallArt()
+  }, [])
 
   const remember = (id: string, el: HTMLElement) => {
     const r = el.getBoundingClientRect()
