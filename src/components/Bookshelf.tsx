@@ -3,6 +3,7 @@ import { yearBooks, worldBooks } from '../data/books'
 import { Book } from './Book'
 import { CrystalBall, Hourglass, Inkwell, Lantern, PotionVials, ScrollStack } from './ShelfProps'
 import { Candle } from './Candle'
+import { BookStack, DecoBook } from './DecorBooks'
 
 type Props = {
   busy: boolean
@@ -73,7 +74,8 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
 
         <div className="shelf-recess upper" aria-label="Andar superior — tomos do mundo">
           <ScrollStack />
-          <Hourglass />
+          <DecoBook leather="navy" w={3.4} h={78} title="Astronomia" bands={3} />
+          <DecoBook leather="plum" w={2.8} h={66} lean="r" />
           {worldBooks.map((book) => (
             <Book
               key={book.id}
@@ -83,12 +85,22 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
               onOpen={(el) => onOpen(book.id, el)}
             />
           ))}
+          <DecoBook leather="forest" w={3} h={70} title="Herbarium" mobile />
+          <DecoBook leather="tan" w={2.4} h={58} bands={1} />
+          <DecoBook leather="oxblood" w={3.4} h={80} title="Bestiarium" lean="l" />
+          <span className="stack-pedestal">
+            <Hourglass />
+            <BookStack leathers={['charcoal', 'rust']} />
+          </span>
           <CrystalBall />
+          <DecoBook leather="slate" w={2.8} h={64} title="Runae" />
           <Inkwell />
         </div>
 
         <div className="shelf-recess lower" aria-label="Andar inferior — anos de estudo">
           <PotionVials />
+          <DecoBook leather="olive" w={3} h={64} title="Alchimia" mobile />
+          <DecoBook leather="umber" w={2.4} h={56} bands={1} />
           {yearBooks.map((book) => (
             <Book
               key={book.id}
@@ -98,6 +110,10 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
               onOpen={(el) => onOpen(book.id, el)}
             />
           ))}
+          <DecoBook leather="navy" w={3.2} h={70} title="Historia" lean="l" />
+          <DecoBook leather="plum" w={2.6} h={60} />
+          <DecoBook leather="charcoal" w={3} h={66} title="Codex" mobile />
+          <BookStack leathers={['tan', 'oxblood', 'forest']} />
           <Lantern />
         </div>
       </div>

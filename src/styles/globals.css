@@ -880,7 +880,7 @@ button {
 .shelf-recess.upper {
   top: 8.5%;
   height: 34.5%;
-  gap: clamp(16px, 3.4vw, 42px);
+  gap: clamp(3px, 0.5vw, 6px);
   background:
     radial-gradient(ellipse at 50% 100%, rgba(255, 170, 70, 0.1), transparent 60%),
     linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.12) 50%, transparent);
@@ -889,8 +889,7 @@ button {
 .shelf-recess.lower {
   top: 46.8%;
   height: 43%;
-  justify-content: space-evenly;
-  gap: clamp(6px, 1vw, 10px);
+  gap: clamp(3px, 0.5vw, 6px);
   background:
     radial-gradient(ellipse at 50% 100%, rgba(255, 170, 70, 0.1), transparent 60%),
     linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.14) 46%, transparent);
@@ -913,37 +912,159 @@ button {
 }
 
 .shelf-prop.scrolls {
-  width: clamp(70px, 8.2vw, 104px);
+  width: clamp(64px, 7.4vw, 96px);
   aspect-ratio: 120 / 60;
-  margin-right: clamp(4px, 1.2vw, 20px);
+  margin-right: clamp(6px, 1vw, 14px);
 }
 
 .shelf-prop.hourglass {
-  width: clamp(28px, 3.4vw, 42px);
+  width: clamp(26px, 3vw, 38px);
   aspect-ratio: 48 / 90;
-  margin-right: clamp(10px, 2vw, 34px);
+  margin: 0 auto;
 }
 
 .shelf-prop.orb {
-  width: clamp(44px, 5.4vw, 66px);
+  width: clamp(42px, 5vw, 62px);
   aspect-ratio: 72 / 93.5;
-  margin-left: clamp(10px, 2vw, 34px);
+  margin: 0 clamp(4px, 0.8vw, 10px);
 }
 
 .shelf-prop.inkwell {
-  width: clamp(44px, 5.4vw, 64px);
+  width: clamp(40px, 4.8vw, 58px);
   aspect-ratio: 80 / 92;
-  margin-left: clamp(4px, 1.2vw, 20px);
+  margin-left: clamp(6px, 1vw, 14px);
 }
 
 .shelf-prop.potions {
-  width: clamp(72px, 8.6vw, 108px);
+  width: clamp(66px, 7.8vw, 98px);
   aspect-ratio: 110 / 84;
+  margin-right: clamp(6px, 1vw, 14px);
 }
 
 .shelf-prop.lantern {
-  width: clamp(34px, 4.2vw, 52px);
+  width: clamp(32px, 3.8vw, 48px);
   aspect-ratio: 60 / 104;
+  margin-left: clamp(6px, 1vw, 14px);
+}
+
+/* ---- Filler tomes, stacks and pedestals ---- */
+.book-btn.deco {
+  width: clamp(22px, calc(var(--w, 3) * 1vw), calc(var(--w, 3) * 11.5px));
+  font-size: clamp(22px, calc(var(--w, 3) * 1vw), calc(var(--w, 3) * 11.5px));
+  height: calc(var(--h, 66) * 1%);
+  --depth: 2.5em;
+  --spine: 1em;
+  pointer-events: none;
+  cursor: default;
+}
+
+.book-btn.deco .book-mesh {
+  transform: rotateY(18deg) translateZ(0);
+  filter: drop-shadow(-6px 8px 8px rgba(0, 0, 0, 0.5)) saturate(0.82) brightness(0.86);
+}
+
+.book-btn.deco .gold-band {
+  height: 4px;
+  opacity: 0.7;
+}
+.book-btn.deco .gold-band::after {
+  display: none;
+}
+.book-btn.deco .spine-label {
+  top: 24%;
+  bottom: 30%;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 2px rgba(232, 196, 120, 0.12);
+}
+.book-btn.deco .spine-title {
+  font-family: var(--font-book-title);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  font-size: min(0.2em, calc(40cqh / (var(--chars, 8) * 0.8)));
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.7);
+  opacity: 0.85;
+}
+.book-btn.deco.bands-1 .gold-band.b {
+  display: none;
+}
+
+/* leaning volumes rest on their neighbour */
+.book-btn.deco.lean-l {
+  transform-origin: 0 100%;
+  transform: rotate(-8deg);
+  margin-left: 0.34em;
+  margin-right: -0.22em;
+}
+.book-btn.deco.lean-r {
+  transform-origin: 100% 100%;
+  transform: rotate(8deg);
+  margin-right: 0.34em;
+  margin-left: -0.22em;
+}
+.book-btn.deco.lean-l::after,
+.book-btn.deco.lean-r::after {
+  opacity: 0.6;
+}
+
+.book-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  align-self: flex-end;
+  width: clamp(48px, 5.6vw, 70px);
+  margin: 0 clamp(4px, 0.8vw, 10px);
+  pointer-events: none;
+  z-index: 2;
+  filter: drop-shadow(-5px 6px 6px rgba(0, 0, 0, 0.5));
+}
+
+.flat-book {
+  display: block;
+  position: relative;
+  width: calc(100% - var(--i) * 8%);
+  height: clamp(7px, 0.85vw, 11px);
+  margin-left: calc(var(--i) * 3%);
+  border-radius: 1px 3px 3px 1px;
+  background:
+    linear-gradient(180deg, rgba(255, 240, 200, 0.16), transparent 30%, rgba(0, 0, 0, 0.35)),
+    linear-gradient(90deg, var(--leather-dark) 0 6%, var(--leather) 6% 86%, #d8c49a 86% 88%, #f2e2bd 88% 98%, #c9b58a 98%);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(0, 0, 0, 0.5);
+}
+.flat-book::before {
+  content: '';
+  position: absolute;
+  left: 14%;
+  right: 22%;
+  top: 40%;
+  height: 1px;
+  background: var(--gold-ink);
+  opacity: 0.55;
+}
+
+.stack-pedestal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: flex-end;
+  margin: 0 clamp(4px, 0.8vw, 10px);
+  pointer-events: none;
+  z-index: 3;
+}
+.stack-pedestal .shelf-prop {
+  filter: drop-shadow(-4px 6px 6px rgba(0, 0, 0, 0.55));
+  margin: 0;
+}
+.stack-pedestal .shelf-prop::after {
+  display: none;
+}
+.stack-pedestal .book-stack {
+  margin: -1px 0 0;
+  align-self: center;
 }
 
 .orb-halo {
@@ -3195,4 +3316,172 @@ button {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* ---- Lite mode: phones and coarse-pointer tablets ----
+   Drop the per-frame expensive work (blur filters, animated grain,
+   backdrop blur, stacked drop-shadows) so the scene stays smooth. */
+@media (max-width: 740px), ((pointer: coarse) and (max-width: 1100px)) {
+  .library::after {
+    animation: none;
+    opacity: 0.05;
+    inset: 0;
+  }
+  .window-light,
+  .crest-glow,
+  .candle-halo,
+  .orb-halo,
+  .orb-nebula,
+  .potion-glow,
+  .lantern-glow,
+  .case-halo {
+    animation: none;
+  }
+  .window-light {
+    opacity: 0.35;
+  }
+  .stone-wall::before {
+    display: none;
+  }
+  .case-halo,
+  .crest-glow,
+  .house-corner,
+  .shelf-prop,
+  .book-stack,
+  .stack-pedestal .shelf-prop,
+  .crown-candle,
+  .wall-sconce {
+    filter: none;
+  }
+  .book-mesh,
+  .book-btn:hover .book-mesh,
+  .book-btn.deco .book-mesh {
+    filter: none;
+  }
+  .book-btn.deco .book-mesh {
+    opacity: 0.86;
+  }
+  .candle::after {
+    display: none;
+  }
+  .veil {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(4, 2, 1, 0.84);
+  }
+  .library.is-holding .bookshelf-fit {
+    filter: brightness(0.3) saturate(0.6);
+  }
+  .snitch {
+    --sw: clamp(96px, 26vw, 130px);
+    filter: none;
+  }
+  .snitch-wing-ghost.is-far,
+  .snitch-trail {
+    display: none;
+  }
+  .snitch-wing-ghost {
+    filter: none;
+  }
+  .snitch-aura {
+    animation: none;
+    opacity: 0.7;
+  }
+  .wand-stars,
+  .wand-stars.far,
+  .runic-ring .ring {
+    animation: none;
+  }
+  .wand-glyph,
+  .glyph-ink,
+  .glyph-lead,
+  .glyph-spark-halo {
+    filter: none;
+  }
+  .glyph-spark-halo {
+    animation: none;
+  }
+  .wand-stage::before {
+    filter: none;
+    opacity: 0.6;
+  }
+}
+
+/* ---- Compact reader: one page at a time on phones ---- */
+@media (max-width: 740px) {
+  .held-book.is-compact.is-opened,
+  .held-book.is-compact.is-opening,
+  .held-book.is-compact.is-turning-next,
+  .held-book.is-compact.is-turning-prev {
+    transform: rotateX(3deg) rotateY(0deg);
+  }
+  .held-book.is-compact.is-closing {
+    transform: rotateX(3deg) rotateY(0deg);
+  }
+  .held-book.is-compact .left-board,
+  .held-book.is-compact .spine-cap,
+  .held-book.is-compact .corner-curl.prev {
+    display: none;
+  }
+  .held-book.is-compact .slab-face,
+  .held-book.is-compact .flip-face {
+    border-radius: 6px 10px 10px 6px;
+  }
+  .held-book.is-compact .ribbon {
+    right: 10px;
+    width: 9px;
+  }
+  .parchment.is-compact .gutter-shade {
+    width: 12%;
+    background: linear-gradient(90deg, rgba(70, 40, 18, 0.14), transparent 80%);
+  }
+  .parchment.is-compact .page-inner {
+    padding: 1.15rem 1.15rem 1.4rem 1.25rem;
+  }
+  .parchment.is-compact .page-inner p {
+    font-size: 1.02rem;
+    line-height: 1.5;
+    text-align: left;
+    hyphens: none;
+    text-indent: 0;
+    margin-bottom: 0.7rem;
+  }
+  .parchment.is-compact .page-inner h3 {
+    font-size: 1.4rem;
+  }
+  .parchment.is-compact .page-inner h4 {
+    font-size: 0.86rem;
+  }
+  .parchment.is-compact .plain-list li,
+  .parchment.is-compact .entry-list li {
+    font-size: 1rem;
+  }
+  .parchment.is-compact .ornament-line {
+    margin: 0.35rem 0 0.7rem;
+  }
+  .parchment.is-compact .reserved-slot {
+    margin-top: 0.9rem;
+  }
+  .parchment.is-compact .reserved-slot p {
+    font-size: 0.92rem;
+  }
+
+  .held-book.is-compact .flip-leaf.turn-next {
+    animation: pageFlipCompactNext 0.62s cubic-bezier(0.3, 0.6, 0.2, 1) both;
+  }
+  .held-book.is-compact .flip-leaf.turn-prev {
+    animation: pageFlipCompactPrev 0.62s cubic-bezier(0.3, 0.6, 0.2, 1) both;
+  }
+  .held-book.is-compact .flip-face.back {
+    display: none;
+  }
+}
+
+@keyframes pageFlipCompactNext {
+  0% { transform: rotateY(0deg); opacity: 1; }
+  100% { transform: rotateY(-100deg); opacity: 0; }
+}
+@keyframes pageFlipCompactPrev {
+  0% { transform: rotateY(-100deg); opacity: 0; }
+  100% { transform: rotateY(0deg); opacity: 1; }
 }

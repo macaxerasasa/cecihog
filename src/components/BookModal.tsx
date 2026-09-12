@@ -17,13 +17,14 @@ type Props = {
 
 function sizes() {
   const mobile = window.innerWidth < 740
-  const gutter = mobile ? 28 : 108
-  const w = Math.min(
-    mobile ? 268 : 372,
-    (window.innerWidth - gutter) / 2,
-    window.innerWidth * (mobile ? 0.45 : 0.31),
-  )
-  const h = Math.min(mobile ? 400 : 528, window.innerHeight * (mobile ? 0.54 : 0.68))
+  if (mobile) {
+    // One page at a time: fill the width, leave room for the seal and the nav row.
+    const w = Math.min(380, window.innerWidth - 32)
+    const h = Math.min(620, window.innerHeight - 190, w * 1.45)
+    return { w: Math.round(w), h: Math.round(h) }
+  }
+  const w = Math.min(372, (window.innerWidth - 108) / 2, window.innerWidth * 0.31)
+  const h = Math.min(528, window.innerHeight * 0.68)
   return { w: Math.round(w), h: Math.round(h) }
 }
 

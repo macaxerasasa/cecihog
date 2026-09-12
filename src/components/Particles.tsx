@@ -21,7 +21,9 @@ export function Particles({ active }: { active: boolean }) {
 
     let raf = 0
     const dots: Particle[] = []
-    const count = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 12 : 42
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const lite = window.matchMedia('(max-width: 740px), (pointer: coarse)').matches
+    const count = reduced ? 12 : lite ? 18 : 42
 
     const resize = () => {
       canvas.width = window.innerWidth * devicePixelRatio

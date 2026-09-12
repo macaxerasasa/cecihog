@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { BookData, Spread } from '../types'
 import { BookCover } from './BookCover'
 import { BookPages } from './BookPages'
+import { COMPACT_QUERY, useMediaQuery } from '../hooks/useMediaQuery'
 
 export type BookPose = 'closed' | 'opening' | 'opened' | 'closing'
 
@@ -18,16 +19,20 @@ type Props = {
 function Parchment({
   spread,
   side,
+  compact = false,
 }: {
   spread: Spread
   side: 'left' | 'right'
+  /** One-page reader: the right leaf carries both halves of the spread. */
+  compact?: boolean
 }) {
+  const blocks = compact ? [...spread.left, ...spread.right] : side === 'left' ? spread.left : spread.right
   return (
-    <div className={`parchment ${side}`}>
+    <div className={`parchment ${side} ${compact ? 'is-compact' : ''}`}>
       <div className="page-grain" />
       <div className="gutter-shade" />
       <div className="page-inner">
-        <BookPages blocks={side === 'left' ? spread.left : spread.right} />
+        <BookPages blocks={blocks} />
       </div>
     </div>
   )
@@ -52,10 +57,11 @@ export function BookVolume({
 
   const canPrev = spread > 0 && !turning && pose === 'opened'
   const canNext = spread < max && !turning && pose === 'opened'
+  const compact = useMediaQuery(COMPACT_QUERY)
 
   return (
     <div
-      className={`held-book is-${pose} ${turning ? `is-turning-${turning}` : ''}`}
+      className={`held-book is-${pose} ${turning ? `is-turning-${turning}` : ''} ${compact ? 'is-compact' : ''}`}
       style={{
         ['--leather' as string]: book.palette.leather,
         ['--leather-dark' as string]: book.palette.leatherDark,
@@ -79,7 +85,7 @@ export function BookVolume({
 
         <div className="left-board">
           <div className="left-page-rest">
-            {leftSpread ? <Parchment spread={leftSpread} side="left" /> : null}
+            {leftSpread && !compact ? <Parchment spread={leftSpread} side="left" /> : null}
             {canPrev ? (
               <button
                 type="button"
@@ -94,7 +100,7 @@ export function BookVolume({
         <div className="page-slab">
           <div className="slab-face">
             <span className="ribbon" style={{ ['--ribbon' as string]: book.palette.ribbon }} aria-hidden="true" />
-            {rightSpread ? <Parchment spread={rightSpread} side="right" /> : null}
+            {rightSpread ? <Parchment spread={rightSpread} side="right" compact={compact} /> : null}
             {canNext ? (
               <button type="button" className="corner-curl next" aria-label="Virar a página" onClick={() => onTurn('next')} />
             ) : null}
@@ -113,10 +119,14 @@ export function BookVolume({
             }}
           >
             <div className="flip-face front">
-              <Parchment spread={turning === 'next' ? current : incoming} side="right" />
+              <Parchment spread={turning === 'next' ? current : incoming} side="right" compact={compact} />
             </div>
             <div className="flip-face back">
-              <Parchment spread={turning === 'next' ? incoming : current} side="left" />
+              {compact ? (
+                <Parchment spread={turning === 'next' ? incoming : current} side="right" compact />
+              ) : (
+                <Parchment spread={turning === 'next' ? incoming : current} side="left" />
+              )}
             </div>
           </div>
         ) : null}
