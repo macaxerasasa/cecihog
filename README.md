@@ -16,6 +16,28 @@ npm run build
 npm run preview
 ```
 
+## Publicar no GitHub Pages (site `cecihog`)
+
+O repositório já traz o workflow `.github/workflows/deploy-pages.yml`, que faz o build e publica a cada push em `main`.
+
+1. No GitHub, crie um repositório chamado **cecihog** (público, vazio, sem README).
+2. Envie o código:
+
+   ```bash
+   git remote add github https://github.com/SEU-USUARIO/cecihog.git
+   git push -u github main
+   ```
+
+3. No repositório, abra **Settings → Pages** e em **Build and deployment → Source** escolha **GitHub Actions**.
+4. Aguarde a action "Deploy to GitHub Pages" terminar (aba **Actions**).
+
+O site fica em `https://SEU-USUARIO.github.io/cecihog/`. O caminho base é resolvido pelo workflow a partir do nome do repositório; para testar o build com esse caminho localmente:
+
+```bash
+VITE_BASE=/cecihog/ npm run build
+npm run preview
+```
+
 ## Entrada
 
 Trace o glifo dourado com o rato ou o dedo, a partir do nó brilhante. Com `prefers-reduced-motion`, há um atalho acessível para completar o gesto.

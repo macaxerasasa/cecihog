@@ -1,3 +1,5 @@
+import { asset } from '../lib/asset'
+
 type House = {
   id: 'gryffindor' | 'slytherin' | 'ravenclaw' | 'hufflepuff'
   name: string
@@ -128,7 +130,7 @@ export function HouseCorners() {
           <Filigree house={house} />
           <div className="crest-wrap">
             <span className="crest-glow" />
-            <img src={`/crests/${house.id}.png`} alt="" className="crest-img" draggable={false} />
+            <img src={asset(`crests/${house.id}.png`)} alt="" className="crest-img" draggable={false} />
           </div>
         </div>
       ))}
