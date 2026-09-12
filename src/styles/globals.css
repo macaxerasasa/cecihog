@@ -2597,6 +2597,9 @@ button {
     font-size: 0.62rem;
     bottom: 1.4vh;
   }
+  .hint-more {
+    display: none;
+  }
   .stage-wrap {
     --stage-top: max(9vh, 86px);
     --stage-bottom: 5.5vh;

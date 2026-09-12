@@ -46,6 +46,16 @@ Trace o glifo dourado com o rato ou o dedo, a partir do nó brilhante. Com `pref
 
 Os volumes estão em `src/data/books.ts` (Hogwarts, Matérias, Casas e os sete anos). Os feitiços concretos ficam como espaços reservados.
 
+## Arte e texturas
+
+As pinturas e materiais em `public/art/` foram geradas por IA e otimizadas para a web (WebP):
+
+- `hall.webp` / `hall-portrait.webp` — o salão da biblioteca atrás da estante (paisagem e retrato); recebe um parallax leve com o rato e um zoom lento na revelação.
+- `gate.webp` — a porta gótica do portal Alohomora.
+- `wood.webp`, `leather.webp`, `parchment.webp` — ladrilhos sem emendas para a madeira da estante, o couro das lombadas e o papel das páginas.
+
+Em telemóveis e ecrãs de toque o site entra num modo leve (sem desfoques, sem grão animado, sem parallax) para manter a fluidez.
+
 ## Controles
 
 - Traçar Alohomora para entrar

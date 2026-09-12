@@ -210,7 +210,9 @@ export function Library() {
           onOpen={(id, el) => beginOpen(id, el)}
         />
       </div>
-      <p className="hint">Toque um tomo para retirá-lo da estante</p>
+      <p className="hint">
+        Toque um tomo<span className="hint-more"> para retirá-lo da estante</span>
+      </p>
       <div className="sr-only" aria-live="polite">
         {status}
       </div>
