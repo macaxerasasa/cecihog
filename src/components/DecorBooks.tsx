@@ -74,30 +74,3 @@ export function DecoBook({ leather, w, h, title, lean, mobile, bands = 2 }: Deco
     </span>
   )
 }
-
-/** Two or three volumes lying flat, a pedestal for a prop or just clutter. */
-export function BookStack({ leathers, mobile }: { leathers: (keyof typeof LEATHERS)[]; mobile?: boolean }) {
-  return (
-    <span className={`book-stack ${mobile ? 'keep-mobile' : ''}`} aria-hidden="true">
-      {leathers.map((k, i) => {
-        const p = LEATHERS[k]
-        return (
-          <i
-            key={i}
-            className="flat-book"
-            style={
-              {
-                '--leather': p.leather,
-                '--leather-dark': p.dark,
-                '--leather-light': p.light,
-                '--gold-ink': p.gold,
-                '--i': i,
-                '--n': leathers.length,
-              } as CSSProperties
-            }
-          />
-        )
-      })}
-    </span>
-  )
-}

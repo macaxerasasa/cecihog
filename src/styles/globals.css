@@ -678,47 +678,55 @@ button {
   filter: drop-shadow(-7px 10px 8px rgba(0, 0, 0, 0.6));
 }
 
-.prop-svg {
+/* the renders are lit like product shots; pull them down into the shelf's dusk */
+.prop-art,
+.candle-art {
   display: block;
   width: 100%;
-  height: 100%;
-  overflow: visible;
+  height: auto;
+  user-select: none;
+  filter: brightness(0.9) contrast(1.04) saturate(0.96);
 }
 
 .shelf-prop.scrolls {
-  width: 8cqw;
-  aspect-ratio: 120 / 60;
+  width: 10.5cqw;
+  aspect-ratio: 520 / 252;
   margin-right: 0.4cqw;
 }
 
 .shelf-prop.hourglass {
-  width: 4.6cqw;
-  aspect-ratio: 48 / 90;
+  width: 5cqw;
+  aspect-ratio: 228 / 440;
   margin: 0 auto;
 }
 
 .shelf-prop.orb {
-  width: 6.8cqw;
-  aspect-ratio: 72 / 93.5;
+  width: 7.2cqw;
+  aspect-ratio: 259 / 440;
   margin: 0 0.3cqw;
 }
 
 .shelf-prop.inkwell {
-  width: 6.6cqw;
-  aspect-ratio: 80 / 92;
+  width: 5.8cqw;
+  aspect-ratio: 204 / 440;
   margin-left: 0.4cqw;
 }
 
 .shelf-prop.potions {
-  width: 9.4cqw;
-  aspect-ratio: 110 / 84;
+  width: 12.5cqw;
+  aspect-ratio: 560 / 355;
   margin-right: 0.4cqw;
 }
 
 .shelf-prop.lantern {
-  width: 5.8cqw;
-  aspect-ratio: 60 / 104;
+  width: 6.8cqw;
+  aspect-ratio: 221 / 440;
   margin-left: 0.4cqw;
+}
+
+.shelf-prop.stack {
+  width: 9.4cqw;
+  aspect-ratio: 520 / 214;
 }
 
 /* ---- Filler tomes, stacks and pedestals ---- */
@@ -733,7 +741,7 @@ button {
 }
 
 .book-btn.deco .book-mesh {
-  transform: rotateY(18deg) translateZ(0);
+  transform: rotateY(13deg) translateZ(0);
   filter: drop-shadow(-6px 8px 8px rgba(0, 0, 0, 0.5)) saturate(0.9) brightness(0.92);
 }
 
@@ -782,43 +790,6 @@ button {
   opacity: 0.6;
 }
 
-.book-stack {
-  position: relative;
-  display: flex;
-  flex-direction: column-reverse;
-  align-items: center;
-  align-self: flex-end;
-  width: 8cqw;
-  margin: 0 0.3cqw;
-  pointer-events: none;
-  z-index: 2;
-  filter: drop-shadow(-5px 6px 6px rgba(0, 0, 0, 0.5));
-}
-
-.flat-book {
-  display: block;
-  position: relative;
-  width: calc(100% - var(--i) * 8%);
-  height: 1.3cqw;
-  margin-left: calc(var(--i) * 3%);
-  border-radius: 1px 3px 3px 1px;
-  background:
-    linear-gradient(180deg, rgba(255, 240, 200, 0.16), transparent 30%, rgba(0, 0, 0, 0.35)),
-    linear-gradient(90deg, var(--leather-dark) 0 6%, var(--leather) 6% 86%, #d8c49a 86% 88%, #f2e2bd 88% 98%, #c9b58a 98%);
-  box-shadow:
-    inset 0 0 0 1px rgba(0, 0, 0, 0.35),
-    0 1px 0 rgba(0, 0, 0, 0.5);
-}
-.flat-book::before {
-  content: '';
-  position: absolute;
-  left: 14%;
-  right: 22%;
-  top: 40%;
-  height: 1px;
-  background: var(--gold-ink);
-  opacity: 0.55;
-}
 
 .stack-pedestal {
   position: relative;
@@ -834,89 +805,147 @@ button {
   filter: drop-shadow(-4px 6px 6px rgba(0, 0, 0, 0.55));
   margin: 0;
 }
-.stack-pedestal .shelf-prop::after {
+.stack-pedestal .shelf-prop.hourglass {
+  /* the hourglass stands on the top board of the pile */
+  margin-bottom: -0.35cqw;
+  z-index: 1;
+}
+.stack-pedestal .shelf-prop.hourglass::after {
   display: none;
 }
-.stack-pedestal .book-stack {
-  margin: -1px 0 0;
-  align-self: center;
+
+/* ---- Living light on the painted props ---- */
+.orb-halo,
+.orb-nebula,
+.potion-glow,
+.lantern-glow,
+.lantern-flame {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
 }
 
 .orb-halo {
-  animation: haloPulse 5s ease-in-out infinite;
-  transform-origin: 36px 36px;
+  left: 50%;
+  top: 31%;
+  width: 150%;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(178, 132, 255, 0.42), rgba(120, 82, 220, 0.14) 38%, transparent 64%);
+  filter: blur(6px);
+  animation: glowPulse 5s ease-in-out infinite;
 }
 
 .orb-nebula {
-  animation: nebulaDrift 9s ease-in-out infinite alternate;
-  transform-origin: 42px 46px;
+  left: 50%;
+  top: 31%;
+  width: 86%;
+  aspect-ratio: 1;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(205, 170, 255, 0.38) 18%,
+    transparent 38%,
+    rgba(150, 120, 240, 0.32) 58%,
+    transparent 74%,
+    rgba(230, 210, 255, 0.28) 88%,
+    transparent
+  );
+  filter: blur(5px);
+  animation: nebulaSpin 14s linear infinite;
 }
 
 .potion-glow {
-  animation: haloPulse 4.2s ease-in-out infinite;
-  transform-origin: center;
-  transform-box: fill-box;
+  top: 56%;
+  width: 34%;
+  aspect-ratio: 1;
+  filter: blur(4px);
+  animation: glowPulse 4.2s ease-in-out infinite;
 }
-.potion-glow.b { animation-delay: -1.4s; }
-.potion-glow.c { animation-delay: -2.6s; }
+.potion-glow.a { left: 22%; background: radial-gradient(circle, rgba(110, 255, 130, 0.55), transparent 62%); }
+.potion-glow.b { left: 50%; top: 50%; background: radial-gradient(circle, rgba(255, 70, 70, 0.5), transparent 62%); animation-delay: -1.4s; }
+.potion-glow.c { left: 78%; top: 60%; background: radial-gradient(circle, rgba(255, 190, 70, 0.55), transparent 62%); animation-delay: -2.6s; }
 
 .lantern-glow {
-  animation: haloPulse 3.2s ease-in-out infinite;
-  transform-origin: 30px 62px;
+  left: 50%;
+  top: 60%;
+  width: 190%;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(255, 176, 80, 0.5), rgba(255, 120, 30, 0.14) 40%, transparent 66%);
+  filter: blur(8px);
+  animation: glowPulse 3.2s ease-in-out infinite;
 }
 
 .lantern-flame {
-  animation: flameLick 0.9s ease-in-out infinite;
-  transform-origin: 30px 60px;
+  left: 50%;
+  top: 60%;
+  width: 26%;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(255, 246, 200, 0.95), rgba(255, 170, 60, 0.6) 45%, transparent 70%);
+  filter: blur(1.5px);
+  animation: lanternFlicker 0.9s ease-in-out infinite;
 }
 
-@keyframes haloPulse {
-  0%, 100% { opacity: 0.55; transform: scale(0.94); }
-  50% { opacity: 1; transform: scale(1.06); }
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.55; scale: 0.94; }
+  50% { opacity: 1; scale: 1.06; }
 }
 
-@keyframes nebulaDrift {
-  from { transform: rotate(-12deg) scale(0.96); }
-  to { transform: rotate(14deg) scale(1.08); }
+@keyframes nebulaSpin {
+  to { rotate: 360deg; }
 }
 
+@keyframes lanternFlicker {
+  0%, 100% { opacity: 0.85; scale: 1; }
+  30% { opacity: 1; scale: 1.12 1.2; }
+  60% { opacity: 0.75; scale: 0.94 0.9; }
+}
 
-/* ---- Candles ---- */
+/* ---- Candles: painted sticks, live flames ---- */
 .candle {
   position: absolute;
   display: block;
   pointer-events: none;
+  aspect-ratio: var(--candle-ratio, 137 / 560);
   --flicker-delay: 0s;
 }
 
-.candle-svg {
-  display: block;
-  width: 100%;
-  height: auto;
+.flame-svg {
+  position: absolute;
+  left: var(--wick-x, 50%);
+  top: var(--wick-y, 3%);
+  width: calc(var(--flame-k, 1) * 100%);
+  aspect-ratio: 1;
+  /* the flame's base sits at y=54 of the 60-unit box, on the wick */
+  transform: translate(-50%, -90%);
   overflow: visible;
+  z-index: 2;
 }
 
 .candle-flame {
   animation: flameLick 1.1s ease-in-out infinite;
   animation-delay: var(--flicker-delay);
+  transform-origin: 30px 54px;
   will-change: transform;
 }
 
 .candle-halo {
-  transform-origin: 30px 58px;
+  transform-origin: 30px 40px;
   animation: haloBreathe 2.6s ease-in-out infinite;
   animation-delay: var(--flicker-delay);
 }
 
+/* warm spill on the wood and the wall around the flame */
 .candle::after {
   content: '';
   position: absolute;
-  left: 50%;
-  top: 22%;
-  width: 240%;
-  height: 90%;
-  transform: translate(-50%, -30%);
-  background: radial-gradient(ellipse at 50% 30%, rgba(255, 170, 70, 0.32), rgba(255, 120, 40, 0.08) 45%, transparent 70%);
+  left: var(--wick-x, 50%);
+  top: var(--wick-y, 3%);
+  width: 320%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -42%);
+  background: radial-gradient(circle at 50% 50%, rgba(255, 170, 70, 0.3), rgba(255, 120, 40, 0.08) 42%, transparent 68%);
   filter: blur(6px);
   mix-blend-mode: screen;
   animation: candleFlicker 3.2s ease-in-out infinite;
@@ -938,6 +967,9 @@ button {
   transform: translate(-50%, -100%);
   filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.55));
 }
+.crown-candle.candle-b {
+  width: 3.3%;
+}
 
 /* Iron sconces on the stone wall flanking the case */
 .wall-sconces {
@@ -949,30 +981,17 @@ button {
 
 .wall-sconce {
   position: absolute;
-  top: 44%;
-  width: clamp(54px, 4.6vw, 76px);
-  aspect-ratio: 80 / 120;
+  top: 40%;
+  width: clamp(64px, 5.6vw, 92px);
+  aspect-ratio: 301 / 420;
   filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.6));
 }
-.wall-sconce.left { left: 2.2vw; }
-.wall-sconce.right { right: 2.2vw; transform: scaleX(-1); }
-
-.sconce-bracket {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-}
+.wall-sconce.left { left: 1.6vw; }
+.wall-sconce.right { right: 1.6vw; transform: scaleX(-1); }
 
 .sconce-candle {
-  left: 8.9%;
-  top: -69.8%;
-  width: 47.2%;
-}
-.wall-sconce.right .sconce-candle {
-  transform: scaleX(-1);
+  inset: 0;
+  width: 100%;
 }
 
 @keyframes haloBreathe {
@@ -998,7 +1017,7 @@ button {
   container-type: size;
   overflow: visible;
   transform-style: preserve-3d;
-  perspective: 900px;
+  perspective: 1500px;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
 }
@@ -1034,7 +1053,7 @@ button {
   position: absolute;
   inset: 0;
   transform-style: preserve-3d;
-  transform: rotateY(18deg) translateZ(0);
+  transform: rotateY(13deg) translateZ(0);
   transition:
     transform 0.55s var(--ease-soft),
     filter 0.55s var(--ease-soft);
@@ -2558,7 +2577,7 @@ body:has(.library.is-holding) .snitch-trail {
 
 @media (hover: none) {
   .book-btn:hover .book-mesh {
-    transform: rotateY(18deg) translateZ(0);
+    transform: rotateY(13deg) translateZ(0);
     filter: drop-shadow(-10px 14px 12px rgba(0, 0, 0, 0.55));
   }
 }
@@ -2659,7 +2678,6 @@ body:has(.library.is-holding) .snitch-trail {
   }
   .wall-sconces,
   .shelf-prop,
-  .book-stack,
   .stack-pedestal,
   .book-btn.deco:not(.keep-mobile) {
     display: none;
@@ -2669,8 +2687,11 @@ body:has(.library.is-holding) .snitch-trail {
     font-size: 7.6cqw;
   }
   .crown-candle {
-    width: 8.5%;
+    width: 6.2%;
     --top: 2.1;
+  }
+  .crown-candle.candle-b {
+    width: 6.8%;
   }
   .house-corner {
     width: 104px;
@@ -3746,7 +3767,6 @@ body:has(.library.is-holding) .snitch-trail {
   .crest-glow,
   .house-corner,
   .shelf-prop,
-  .book-stack,
   .stack-pedestal .shelf-prop,
   .crown-candle,
   .wall-sconce {

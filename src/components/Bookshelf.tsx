@@ -1,9 +1,9 @@
 import { Fragment, type CSSProperties, type ReactNode } from 'react'
 import { yearBooks, worldBooks } from '../data/books'
 import { Book } from './Book'
-import { CrystalBall, Hourglass, Inkwell, Lantern, PotionVials, ScrollStack } from './ShelfProps'
-import { Candle } from './Candle'
-import { BookStack, DecoBook } from './DecorBooks'
+import { CrystalBall, FlatStack, Hourglass, Inkwell, Lantern, PotionVials, ScrollStack } from './ShelfProps'
+import { Candle, type CandleVariant } from './Candle'
+import { DecoBook } from './DecorBooks'
 
 type Props = {
   busy: boolean
@@ -13,24 +13,25 @@ type Props = {
 
 /*
  * Candlesticks standing on the painted crown. `top` is the measured height of
- * the crown's edge at that column (in % of the case) so each one rests on wood.
+ * the crown's edge at that column (in % of the case) so each one rests on wood;
+ * tall and half-burned sticks alternate so the row does not read as a stamp.
  */
-const CROWN_CANDLES = [
-  { left: 6, top: 5.7, burn: 0.3, delay: 0 },
-  { left: 16.5, top: 6.6, burn: 0.15, delay: -0.7 },
-  { left: 26, top: 6.3, burn: 0.4, delay: -1.3 },
-  { left: 74, top: 6.3, burn: 0.35, delay: -0.4 },
-  { left: 83.5, top: 6.6, burn: 0.1, delay: -1.1 },
-  { left: 94, top: 5.7, burn: 0.25, delay: -1.8 },
+const CROWN_CANDLES: { left: number; top: number; variant: CandleVariant; delay: number }[] = [
+  { left: 6, top: 5.7, variant: 'a', delay: 0 },
+  { left: 16.5, top: 6.6, variant: 'b', delay: -0.7 },
+  { left: 26, top: 6.3, variant: 'a', delay: -1.3 },
+  { left: 74, top: 6.3, variant: 'a', delay: -0.4 },
+  { left: 83.5, top: 6.6, variant: 'b', delay: -1.1 },
+  { left: 94, top: 5.7, variant: 'a', delay: -1.8 },
 ]
 
 /* Filler volumes slipped between the readable books so the rows read as one packed shelf. */
 const UPPER_BETWEEN: Record<number, ReactNode> = {
-  0: <DecoBook leather="umber" w={2.6} h={62} />,
-  1: <DecoBook leather="slate" w={2.4} h={58} bands={1} />,
+  0: <DecoBook leather="umber" w={2.6} h={74} />,
+  1: <DecoBook leather="slate" w={2.4} h={72} bands={1} />,
 }
 const LOWER_BETWEEN: Record<number, ReactNode> = {
-  2: <DecoBook leather="tan" w={2.2} h={58} bands={1} />,
+  2: <DecoBook leather="tan" w={2.2} h={72} bands={1} />,
 }
 
 export function Bookshelf({ busy, activeId, onOpen }: Props) {
@@ -50,8 +51,7 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
           {CROWN_CANDLES.map((c) => (
             <Candle
               key={c.left}
-              holder
-              burn={c.burn}
+              variant={c.variant}
               className="crown-candle"
               style={{ left: `${c.left}%`, '--top': c.top, '--flicker-delay': `${c.delay}s` } as CSSProperties}
             />
@@ -60,7 +60,7 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
 
         <div className="shelf-recess upper" aria-label="Andar superior — tomos do mundo">
           <ScrollStack />
-          <DecoBook leather="navy" w={3.4} h={78} title="Astronomia" bands={3} mobile />
+          <DecoBook leather="navy" w={3.4} h={80} title="Astronomia" bands={3} mobile />
           {worldBooks.map((book, i) => (
             <Fragment key={book.id}>
               <Book
@@ -72,20 +72,20 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
               {UPPER_BETWEEN[i]}
             </Fragment>
           ))}
-          <DecoBook leather="forest" w={3} h={70} title="Herbarium" mobile />
-          <DecoBook leather="oxblood" w={3.4} h={80} title="Bestiarium" lean="l" mobile />
+          <DecoBook leather="forest" w={3} h={76} title="Herbarium" mobile />
+          <DecoBook leather="oxblood" w={3.4} h={80} title="Bestiarium" mobile />
           <span className="stack-pedestal">
             <Hourglass />
-            <BookStack leathers={['charcoal', 'rust']} />
+            <FlatStack />
           </span>
           <CrystalBall />
-          <DecoBook leather="slate" w={2.8} h={64} title="Runae" mobile />
+          <DecoBook leather="slate" w={2.8} h={76} title="Runae" mobile />
           <Inkwell />
         </div>
 
         <div className="shelf-recess lower" aria-label="Andar inferior — anos de estudo">
           <PotionVials />
-          <DecoBook leather="olive" w={3} h={72} title="Alchimia" mobile />
+          <DecoBook leather="olive" w={3} h={76} title="Alchimia" mobile />
           {yearBooks.map((book, i) => (
             <Fragment key={book.id}>
               <Book
@@ -97,9 +97,9 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
               {LOWER_BETWEEN[i]}
             </Fragment>
           ))}
-          <DecoBook leather="navy" w={3.2} h={78} title="Historia" lean="l" />
-          <DecoBook leather="oxblood" w={3} h={82} title="Venena" mobile />
-          <DecoBook leather="slate" w={2.8} h={70} title="Arcana" />
+          <DecoBook leather="navy" w={3.2} h={80} title="Historia" />
+          <DecoBook leather="oxblood" w={3} h={76} title="Venena" mobile />
+          <DecoBook leather="slate" w={2.8} h={80} title="Arcana" />
           <Lantern />
         </div>
       </div>
