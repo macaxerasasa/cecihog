@@ -1019,7 +1019,9 @@ button {
 }
 
 .crown-candelabra {
-  top: 5.7%;
+  /* the end blocks' top face runs from 5.7% to 6.8% of the case; the base
+     stands on its front edge, not on the back highlight */
+  top: 6.75%;
   width: 11%;
   transform: translate(-50%, -100%);
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 2px rgba(255, 200, 130, 0.35));
@@ -2743,7 +2745,7 @@ body:has(.library.is-holding) .snitch-trail {
     font-size: 7.6cqw;
   }
   .crown-candelabra {
-    top: 2.1%;
+    top: 2.8%;
     width: 15%;
   }
   .crown-candelabra.left { left: 12.5%; }
