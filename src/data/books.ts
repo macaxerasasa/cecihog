@@ -18,7 +18,18 @@ const reservedNotas = (ano: string) => ({
   hint: `Pergaminho em branco para deveres, pontos das casas e observações do ${ano.toLowerCase()}.`,
 })
 
-function yearSpreads(title: string, subtitle: string, intro: string, subjects: string[]): Spread[] {
+type Plate = { art: string; caption: string }
+
+const plate = (p: Plate, large = false) => ({ type: 'plate' as const, art: p.art, caption: p.caption, large })
+
+function yearSpreads(
+  title: string,
+  subtitle: string,
+  intro: string,
+  subjects: string[],
+  plates: [Plate, Plate?],
+): Spread[] {
+  const [frontis, second] = plates
   return [
     {
       left: [
@@ -26,6 +37,7 @@ function yearSpreads(title: string, subtitle: string, intro: string, subjects: s
         { type: 'subheading', text: subtitle },
         { type: 'ornament' },
         { type: 'paragraph', text: intro },
+        plate(frontis, true),
       ],
       right: [
         reservedMaterias(title),
@@ -33,7 +45,7 @@ function yearSpreads(title: string, subtitle: string, intro: string, subjects: s
       ],
     },
     {
-      left: [reservedFeiticos(title)],
+      left: second ? [reservedFeiticos(title), plate(second, true)] : [reservedFeiticos(title)],
       right: [reservedNotas(title)],
     },
   ]
@@ -75,6 +87,7 @@ export const books: BookData[] = [
             type: 'paragraph',
             text: 'Esta estante pertence à biblioteca. Madame Pince não aprovaria que os tomos saíssem da prateleira — mas a magia da seção restrita às vezes faz o contrário.',
           },
+          plate({ art: 'castle', caption: 'Prancha I — O castelo visto do Lago Negro' }),
         ],
         right: [
           { type: 'subheading', text: 'O castelo' },
@@ -115,6 +128,7 @@ export const books: BookData[] = [
               'O Terceiro Andar do lado direito é, em certos anos, igualmente proibido.',
             ],
           },
+          plate({ art: 'key', caption: 'Prancha II — Chave alada, corredor do terceiro andar' }),
         ],
         right: [
           { type: 'subheading', text: 'O mundo além' },
@@ -162,6 +176,7 @@ export const books: BookData[] = [
             type: 'paragraph',
             text: 'Sete anos, dezenas de salas e um horário que desafia a lógica das escadas. As matérias obrigatórias moldam o bruxo; as opcionais — Runicas, Aritmancia, Trato das Criaturas, Alquimia — revelam a vocação.',
           },
+          plate({ art: 'wand', caption: 'Prancha I — A varinha escolhe o bruxo' }),
         ],
         right: [
           {
@@ -188,6 +203,7 @@ export const books: BookData[] = [
               'Quadribol não conta para o quadro — mas conta para a alma.',
             ],
           },
+          plate({ art: 'mandrake', caption: 'Prancha II — Mandrágora jovem, Estufa Três' }),
         ],
         right: [
           reservedMaterias('Currículo geral'),
@@ -231,6 +247,7 @@ export const books: BookData[] = [
             type: 'paragraph',
             text: 'Toda a vida em Hogwarts parte da Seleção. O Chapéu lê o que se é — e o que se pode vir a ser. Os pontos no relógio do Salão Principal não medem só vitórias de Quadribol: medem escolhas.',
           },
+          plate({ art: 'hat', caption: 'Prancha I — O Chapéu Seletor' }),
         ],
         right: [
           {
@@ -256,6 +273,7 @@ export const books: BookData[] = [
             label: 'Brasões',
             hint: 'Iluminuras dos quatro brasões e das salas comunais.',
           },
+          plate({ art: 'sword', caption: 'Prancha II — A espada de Godric Gryffindor' }),
         ],
         right: [
           {
@@ -299,6 +317,7 @@ export const books: BookData[] = [
       'Cartas, barcos e o Chapéu Seletor',
       'A carta chega por coruja. O Expresso parte, os barcos cruzam o lago e o Chapéu canta. No primeiro ano aprendem-se os gestos básicos — Lumos, Wingardium Leviosa — e a arte de não se perder a caminho das Poções.',
       ['Feitiços (placeholder)', 'Transfiguração (placeholder)', 'Poções (placeholder)', 'Voo com vassoura (placeholder)'],
+      [{ art: 'owl', caption: 'Prancha I — A coruja e a carta' }, { art: 'broom', caption: 'Prancha II — Primeira aula de voo' }],
     ),
   },
   {
@@ -328,6 +347,7 @@ export const books: BookData[] = [
       'Diários, elmos e sussurros na parede',
       'Os alunos já conhecem os corredores. Mandrágoras choram nas estufas e rumores de uma câmara antiga voltam a circular. Espaço reservado para o diário, a herdeira e os elfos que ninguém vê.',
       ['Herbologia (placeholder)', 'História da Magia (placeholder)', 'Defesa Contra as Artes das Trevas (placeholder)'],
+      [{ art: 'diary', caption: 'Prancha I — O diário e o dente de basilisco' }, { art: 'cauldron', caption: 'Prancha II — Poção Polissuco, banheiro do segundo andar' }],
     ),
   },
   {
@@ -357,6 +377,7 @@ export const books: BookData[] = [
       'O Expresso, o hipogrifo e o tempo',
       'Hogsmeade abre as portas a quem tem autorização. Adivinhação na torre, Trato das Criaturas Magníficas no parque e o professor que ninguém espera. Guarde aqui o hipogrifo, o mapa e as voltas no tempo.',
       ['Adivinhação (placeholder)', 'Trato das Criaturas (placeholder)', 'Aritmância (placeholder)'],
+      [{ art: 'timeturner', caption: 'Prancha I — O Vira-Tempo' }, { art: 'snitch', caption: 'Prancha II — A Firebolt e o pomo' }],
     ),
   },
   {
@@ -386,6 +407,7 @@ export const books: BookData[] = [
       'O Cálice e as três tarefas',
       'Anos de Torneio são raros: dragões, o lago, o labirinto. Visitantes de Beauxbatons e Durmstrang sentam-se no Salão. Estas páginas aguardam as tarefas, os pactos e o que o Cálice não deveria ter feito.',
       ['Torneio Tribruxo (placeholder)', 'Etiqueta mágica (placeholder)', 'Feitiços avançados (placeholder)'],
+      [{ art: 'goblet', caption: 'Prancha I — O Cálice de Fogo' }, { art: 'hourglass', caption: 'Prancha II — As três tarefas, contra o tempo' }],
     ),
   },
   {
@@ -415,6 +437,7 @@ export const books: BookData[] = [
       'N.O.M.s e a Ordem',
       'O ano dos exames que decidem o resto da vida bruxa. Defesa torna-se política, a Sala Precisa ensina o que o decreto proíbe, e a Armada de Dumbledore cabe neste espaço — quando quiserem preenchê-lo.',
       ['N.O.M.s (placeholder)', 'Oclumência (placeholder)', 'Sala Precisa (placeholder)'],
+      [{ art: 'orb', caption: 'Prancha I — A profecia, Departamento de Mistérios' }, { art: 'quill', caption: 'Prancha II — Pena e tinteiro dos N.O.M.s' }],
     ),
   },
   {
@@ -444,6 +467,7 @@ export const books: BookData[] = [
       'N.I.E.M.s, poções do príncipe e horcruxes',
       'Apenas quem passou nos N.O.M.s segue nas matérias avançadas. Aparatação, poções de nível N.I.E.M. e aulas particulares que o diretor não coloca no horário. Reserve estas folhas para o livro anotado e as memórias.',
       ['Aparatação (placeholder)', 'Poções N.I.E.M. (placeholder)', 'Aulas particulares (placeholder)'],
+      [{ art: 'locket', caption: 'Prancha I — O medalhão de Slytherin' }],
     ),
   },
   {
@@ -473,6 +497,7 @@ export const books: BookData[] = [
       'A batalha e o que vem depois',
       'O último ano deveria ser só N.I.E.M.s. Em certos tempos, a escola torna-se fortaleza. Estas páginas guardam espaço para a batalha, os que voltaram e o silêncio do Salão quando a guerra acaba.',
       ['N.I.E.M.s (placeholder)', 'A Batalha de Hogwarts (placeholder)', 'O que se ensina depois (placeholder)'],
+      [{ art: 'phoenix', caption: 'Prancha I — A fênix, depois da batalha' }],
     ),
   },
 ]

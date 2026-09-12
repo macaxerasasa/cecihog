@@ -6,6 +6,8 @@ export type ContentBlock =
   | { type: 'list'; items: string[] }
   | { type: 'entries'; items: { title: string; text: string }[] }
   | { type: 'reserved'; label: string; hint: string }
+  /** Engraved ink plate: `art` is the file stem under public/art/ink-*.webp */
+  | { type: 'plate'; art: string; caption: string; large?: boolean }
 
 export type Spread = {
   left: ContentBlock[]

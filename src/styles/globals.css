@@ -1749,11 +1749,14 @@ button {
   background-color: #e5d2a8;
 }
 
+/* illuminated vine border painted onto every leaf */
 .parchment::after {
   content: '';
   position: absolute;
-  inset: 8px;
-  border: 1px solid rgba(120, 80, 30, 0.16);
+  inset: 0;
+  background: url('/art/page-border.webp') center / 100% 100% no-repeat;
+  mix-blend-mode: multiply;
+  opacity: 0.58;
   pointer-events: none;
   z-index: 3;
 }
@@ -1895,11 +1898,15 @@ button {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+/* text block sits inside the painted frame; it scrolls within it, never under the vines */
 .page-inner {
-  position: relative;
+  position: absolute;
+  top: 8.6%;
+  right: 10.6%;
+  bottom: 9.8%;
+  left: 10.6%;
   z-index: 1;
-  height: 100%;
-  padding: clamp(1.15rem, 2.3vw, 1.85rem) clamp(1.15rem, 2.4vw, 1.9rem);
+  padding: 0.3rem 0.35rem 0.9rem;
   overflow: auto;
   overscroll-behavior: contain;
   color: #2a1c12;
@@ -1914,11 +1921,11 @@ button {
 }
 
 .parchment.left .page-inner {
-  padding-right: clamp(1.2rem, 2.2vw, 1.7rem);
+  right: 11.4%;
 }
 
 .parchment.right .page-inner {
-  padding-left: clamp(1.2rem, 2.2vw, 1.7rem);
+  left: 11.4%;
 }
 
 .page-inner {
@@ -2086,6 +2093,115 @@ button {
   line-height: 1.45;
   color: #5a4430;
   text-align: left;
+}
+
+/* ---- Engraved plates ---- */
+.ink-plate {
+  margin: 0.5rem 0 0.4rem;
+  padding: 0;
+  text-align: center;
+  break-inside: avoid;
+}
+.plate-art {
+  display: block;
+  width: min(46%, 6.6rem);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  background: center / contain no-repeat;
+  filter: sepia(0.2) contrast(1.05);
+  opacity: 0.9;
+}
+.ink-plate.is-large .plate-art {
+  width: min(66%, 10.5rem);
+}
+.ink-plate figcaption {
+  margin-top: 0.3rem;
+  font-family: var(--font-book-italic);
+  font-style: italic;
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  color: #6a4a2a;
+}
+.ink-plate figcaption::before,
+.ink-plate figcaption::after {
+  content: '·';
+  margin: 0 0.4em;
+  color: #9a6a2a;
+}
+
+/* while a tome is held the snitch slips away, so nothing crosses the page being read */
+.snitch,
+.snitch-trail {
+  transition: opacity 0.6s ease;
+}
+body:has(.library.is-holding) .snitch,
+body:has(.library.is-holding) .snitch-trail {
+  opacity: 0;
+  transition-duration: 0.35s;
+}
+
+/* ---- Typography refinements ---- */
+.page-inner h3 {
+  font-size: clamp(1.45rem, 2.4vw, 1.95rem);
+  letter-spacing: 0.04em;
+  padding-bottom: 0.1rem;
+}
+.page-inner h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.86rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #7a4a1c;
+}
+.page-inner h4::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(138, 98, 48, 0.55), transparent);
+}
+.page-inner p {
+  font-size: 1rem;
+  line-height: 1.47;
+  text-wrap: pretty;
+}
+.entry-list li {
+  padding-left: 0.85rem;
+  border-left: 0;
+  position: relative;
+}
+.entry-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.35rem;
+  bottom: 0.3rem;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(154, 106, 42, 0.7), rgba(154, 106, 42, 0.15));
+}
+.entry-list strong {
+  font-size: 1.02rem;
+  color: #5a2210;
+}
+
+/* ---- Ink settles onto the leaf: staggered reveal on open and on every turn ---- */
+.held-book.is-opened .page-inner > * {
+  animation: inkIn 0.62s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(0.05s + var(--k, 0) * 70ms);
+}
+.page-inner > :nth-child(1) { --k: 0; }
+.page-inner > :nth-child(2) { --k: 1; }
+.page-inner > :nth-child(3) { --k: 2; }
+.page-inner > :nth-child(4) { --k: 3; }
+.page-inner > :nth-child(5) { --k: 4; }
+.page-inner > :nth-child(6) { --k: 5; }
+.page-inner > :nth-child(7) { --k: 6; }
+.page-inner > :nth-child(8) { --k: 7; }
+.page-inner > :nth-child(n + 9) { --k: 8; }
+@keyframes inkIn {
+  from { opacity: 0; translate: 0 6px; filter: blur(1.5px); }
+  to { opacity: 1; translate: 0 0; filter: blur(0); }
 }
 
 .ritual-ui {
@@ -3188,7 +3304,7 @@ button {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 9.8%;
   height: 2.2rem;
   z-index: 2;
   pointer-events: none;
@@ -3584,7 +3700,7 @@ button {
     background: linear-gradient(90deg, rgba(70, 40, 18, 0.14), transparent 80%);
   }
   .parchment.is-compact .page-inner {
-    padding: 1.15rem 1.15rem 2.2rem 1.25rem;
+    padding: 0.2rem 0.2rem 2rem;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;
   }
@@ -3594,7 +3710,7 @@ button {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0;
+    bottom: 9.8%;
     height: 2.4rem;
     pointer-events: none;
     z-index: 2;

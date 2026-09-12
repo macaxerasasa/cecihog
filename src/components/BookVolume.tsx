@@ -20,18 +20,21 @@ function Parchment({
   spread,
   side,
   compact = false,
+  stamp,
 }: {
   spread: Spread
   side: 'left' | 'right'
   /** One-page reader: the right leaf carries both halves of the spread. */
   compact?: boolean
+  /** Changes with the spread so the ink-in reveal replays on every turn. */
+  stamp?: number
 }) {
   const blocks = compact ? [...spread.left, ...spread.right] : side === 'left' ? spread.left : spread.right
   return (
     <div className={`parchment ${side} ${compact ? 'is-compact' : ''}`}>
       <div className="page-grain" />
       <div className="gutter-shade" />
-      <div className="page-inner">
+      <div className="page-inner" key={stamp}>
         <BookPages blocks={blocks} />
       </div>
     </div>
@@ -54,6 +57,7 @@ export function BookVolume({
   const leftSpread = turning === 'prev' ? (prevSpread ?? current) : current
   const rightSpread = turning === 'next' ? (nextSpread ?? current) : current
   const incoming = turning === 'next' ? nextSpread : prevSpread
+  const stampOf = (sp: Spread | undefined) => (sp ? book.spreads.indexOf(sp) : -1)
 
   const canPrev = spread > 0 && !turning && pose === 'opened'
   const canNext = spread < max && !turning && pose === 'opened'
@@ -78,14 +82,14 @@ export function BookVolume({
           <div className="board inside">
             <div className="endpaper" />
             <div className="cover-verso">
-              {leftSpread ? <Parchment spread={leftSpread} side="left" /> : null}
+              {leftSpread ? <Parchment spread={leftSpread} side="left" stamp={stampOf(leftSpread)} /> : null}
             </div>
           </div>
         </div>
 
         <div className="left-board">
           <div className="left-page-rest">
-            {leftSpread && !compact ? <Parchment spread={leftSpread} side="left" /> : null}
+            {leftSpread && !compact ? <Parchment spread={leftSpread} side="left" stamp={stampOf(leftSpread)} /> : null}
             {canPrev ? (
               <button
                 type="button"
@@ -100,7 +104,7 @@ export function BookVolume({
         <div className="page-slab">
           <div className="slab-face">
             <span className="ribbon" style={{ ['--ribbon' as string]: book.palette.ribbon }} aria-hidden="true" />
-            {rightSpread ? <Parchment spread={rightSpread} side="right" compact={compact} /> : null}
+            {rightSpread ? <Parchment spread={rightSpread} side="right" compact={compact} stamp={stampOf(rightSpread)} /> : null}
             {canNext ? (
               <button type="button" className="corner-curl next" aria-label="Virar a página" onClick={() => onTurn('next')} />
             ) : null}

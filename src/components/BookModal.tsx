@@ -23,8 +23,8 @@ function sizes() {
     const h = Math.min(620, window.innerHeight - 190, w * 1.45)
     return { w: Math.round(w), h: Math.round(h) }
   }
-  const w = Math.min(430, (window.innerWidth - 140) / 2, window.innerWidth * 0.3)
-  const h = Math.min(620, window.innerHeight * 0.7, w * 1.45)
+  const w = Math.min(460, (window.innerWidth - 140) / 2, window.innerWidth * 0.32)
+  const h = Math.min(660, window.innerHeight * 0.74, w * 1.45)
   return { w: Math.round(w), h: Math.round(h) }
 }
 
