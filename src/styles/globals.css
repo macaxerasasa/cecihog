@@ -456,7 +456,7 @@ button {
 }
 
 .bookshelf-fit {
-  width: min(1180px, 84vw, calc((100vh - var(--stage-top) - var(--stage-bottom)) * 1180 / 760));
+  width: min(1180px, 84vw, calc((100vh - var(--stage-top) - var(--stage-bottom)) * 1047 / 700));
 }
 
 /* ---- House crests in the four corners ---- */
@@ -535,7 +535,7 @@ button {
 .bookshelf {
   position: relative;
   width: 100%;
-  aspect-ratio: 1180 / 760;
+  aspect-ratio: 1047 / 700;
   max-height: calc(100vh - var(--stage-top) - var(--stage-bottom));
   overflow: visible;
   perspective: 1600px;
@@ -552,148 +552,42 @@ button {
   filter: blur(18px);
 }
 
+/* ---- The painted case: a gothic walnut bookcase cut out over the hall ---- */
 .case {
   position: absolute;
   inset: 0;
-  border-radius: 6px 6px 18px 18px;
-  background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.6), transparent 9%, transparent 91%, rgba(0, 0, 0, 0.6)),
-    linear-gradient(180deg, #5a381c 0%, #33190e 20%, #150c08 100%);
-  box-shadow:
-    0 60px 110px rgba(0, 0, 0, 0.8),
-    0 0 0 1px rgba(0, 0, 0, 0.7),
-    inset 0 2px 0 rgba(232, 196, 120, 0.22),
-    inset 0 -40px 50px rgba(0, 0, 0, 0.45);
-}
-
-.crown-mold {
-  position: absolute;
-  top: -2.4%;
-  left: -1.2%;
-  right: -1.2%;
-  height: 4.6%;
-  z-index: 9;
-  border-radius: 3px 3px 0 0;
-  background:
-    linear-gradient(180deg, #8a5a30 0%, #4e2e18 40%, #2a160c 70%, #1a0e08 100%);
-  box-shadow:
-    0 6px 14px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(240, 208, 120, 0.42),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.6);
-}
-
-.crown-mold::before {
-  content: '';
-  position: absolute;
-  left: 1.5%;
-  right: 1.5%;
-  top: 22%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(240, 208, 120, 0.85) 12%, rgba(240, 208, 120, 0.85) 88%, transparent);
-}
-
-.dentils {
-  position: absolute;
-  left: 1.5%;
-  right: 1.5%;
-  bottom: 12%;
-  height: 34%;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(232, 196, 120, 0.55) 0 5px,
-      rgba(0, 0, 0, 0.55) 5px 7px,
-      transparent 7px 13px
-    );
-  opacity: 0.85;
-}
-
-.case-wood {
-  position: absolute;
-  inset: 18px 20px 26px;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(92, 48, 22, 0.22) 0 2px,
-      rgba(18, 8, 4, 0.16) 2px 7px,
-      rgba(74, 38, 18, 0.28) 7px 9px,
-      rgba(30, 14, 8, 0.12) 9px 14px
-    ),
-    repeating-linear-gradient(
-      180deg,
-      transparent 0 11px,
-      rgba(0, 0, 0, 0.06) 11px 12px
-    ),
-    linear-gradient(180deg, rgba(120, 72, 40, 0.5) 0%, rgba(58, 34, 20, 0.28) 38%, rgba(16, 8, 4, 0.7) 100%),
-    url('/art/wood.webp') center top / clamp(240px, 26cqw, 420px) auto repeat;
-  background-color: #241209;
-  box-shadow: inset 0 0 90px rgba(0, 0, 0, 0.55);
-}
-
-.case-wood::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
-  mix-blend-mode: multiply;
-  opacity: 0.7;
+  z-index: 1;
+  background: url('/art/case.webp') center / 100% 100% no-repeat;
+  filter: drop-shadow(0 28px 36px rgba(0, 0, 0, 0.55));
   pointer-events: none;
 }
 
-.case-wear {
-  position: absolute;
-  inset: 18px 20px 26px;
-  pointer-events: none;
-  z-index: 2;
-  background:
-    radial-gradient(ellipse at 12% 18%, rgba(0, 0, 0, 0.28), transparent 36%),
-    radial-gradient(ellipse at 88% 72%, rgba(0, 0, 0, 0.22), transparent 32%),
-    linear-gradient(180deg, rgba(40, 18, 8, 0.15), transparent 20%, transparent 80%, rgba(0, 0, 0, 0.35));
-}
-
+/* Brass nameplate on the frieze, under the carved cartouche */
 .pediment {
   position: absolute;
-  top: 0.9%;
-  left: 6%;
-  right: 6%;
+  top: 9.1%;
+  left: 0;
+  right: 0;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
   pointer-events: none;
-}
-
-.pediment-wing {
-  flex: 1;
-  max-width: 34%;
-  height: 10px;
-  background:
-    linear-gradient(90deg, transparent, rgba(212, 170, 80, 0.7) 40%, rgba(240, 208, 120, 0.9));
-  clip-path: polygon(0 50%, 100% 0, 100% 100%);
-  opacity: 0.85;
-}
-
-.pediment-wing.right {
-  background:
-    linear-gradient(270deg, transparent, rgba(212, 170, 80, 0.7) 40%, rgba(240, 208, 120, 0.9));
-  clip-path: polygon(0 0, 100% 50%, 0 100%);
 }
 
 .pediment .plaque {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.3rem 1.1rem 0.34rem 0.8rem;
-  border: 1px solid rgba(240, 208, 120, 0.55);
-  background:
-    linear-gradient(180deg, #6a4420, #3a2010 55%, #24120a);
+  gap: 0.55rem;
+  padding: 0.24rem 0.95rem 0.28rem 0.7rem;
+  border: 1px solid rgba(240, 208, 120, 0.5);
+  background: linear-gradient(180deg, #5c3a1c, #2e180c 55%, #1d0f08);
   box-shadow:
-    inset 0 1px 0 rgba(255, 220, 150, 0.3),
+    inset 0 1px 0 rgba(255, 220, 150, 0.28),
     inset 0 0 0 3px rgba(20, 10, 4, 0.55),
-    inset 0 0 0 4px rgba(212, 170, 80, 0.35),
-    0 8px 16px rgba(0, 0, 0, 0.5);
+    inset 0 0 0 4px rgba(212, 170, 80, 0.32),
+    0 6px 12px rgba(0, 0, 0, 0.55);
   clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 50%, calc(100% - 6px) 100%, 6px 100%, 0 50%);
 }
 
@@ -705,7 +599,7 @@ button {
   border-radius: 50%;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(0.62rem, 1.2vw, 0.84rem);
+  font-size: clamp(0.58rem, 1.1vw, 0.78rem);
   color: #2a160c;
   background: radial-gradient(circle at 35% 30%, #fff0c0, #d4b056 55%, #8a6222);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(80, 50, 10, 0.5);
@@ -713,151 +607,28 @@ button {
 
 .plaque-text {
   font-family: var(--font-caps);
-  letter-spacing: 0.36em;
+  letter-spacing: 0.34em;
   text-transform: uppercase;
-  font-size: clamp(0.52rem, 1.05vw, 0.7rem);
+  font-size: clamp(0.5rem, 0.95vw, 0.66rem);
   color: #f0dca0;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.8);
 }
 
-.brass-corner {
-  position: absolute;
-  width: 34px;
-  height: 34px;
-  z-index: 7;
-  pointer-events: none;
-  border: 2px solid rgba(232, 196, 120, 0.6);
-  box-shadow:
-    inset 0 0 8px rgba(80, 50, 10, 0.4),
-    0 0 6px rgba(0, 0, 0, 0.6);
-}
-.brass-corner::after {
-  content: '';
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fff0c0, #b98a2e 60%, #5a3a10);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-}
-.brass-corner.tl { top: 10px; left: 12px; border-right: 0; border-bottom: 0; border-radius: 3px 0 0 0; }
-.brass-corner.tr { top: 10px; right: 12px; border-left: 0; border-bottom: 0; border-radius: 0 3px 0 0; }
-.brass-corner.bl { bottom: 14px; left: 12px; border-right: 0; border-top: 0; border-radius: 0 0 0 12px; }
-.brass-corner.br { bottom: 14px; right: 12px; border-left: 0; border-top: 0; border-radius: 0 0 12px 0; }
-.brass-corner.tl::after { top: 4px; left: 4px; }
-.brass-corner.tr::after { top: 4px; right: 4px; }
-.brass-corner.bl::after { bottom: 6px; left: 4px; }
-.brass-corner.br::after { bottom: 6px; right: 4px; }
 
-.cobweb {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  z-index: 6;
-  pointer-events: none;
-  opacity: 0.22;
-  background:
-    repeating-conic-gradient(from 0deg, rgba(230, 210, 170, 0.35) 0 1deg, transparent 1deg 18deg);
-  mask-image: radial-gradient(circle at 0 0, #000 0 55%, transparent 70%);
-}
-.cobweb.left { top: 7%; left: 3.2%; transform: scaleX(-1); }
-.cobweb.right { top: 7%; right: 3.2%; mask-image: radial-gradient(circle at 100% 0, #000 0 55%, transparent 70%); }
-
-.rail {
-  position: absolute;
-  left: 2.4%;
-  right: 2.4%;
-  height: 3.7%;
-  background:
-    linear-gradient(180deg, #8c5c34 0%, #5a3620 30%, #3a2012 62%, #1a0e08 100%);
-  box-shadow:
-    0 14px 22px rgba(0, 0, 0, 0.66),
-    inset 0 1px 0 rgba(240, 208, 120, 0.38),
-    inset 0 -2px 0 rgba(0, 0, 0, 0.5);
-  z-index: 5;
-}
-
-.rail::after {
-  content: '';
-  position: absolute;
-  left: 1.2%;
-  right: 1.2%;
-  top: 34%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(240, 208, 120, 0.5) 10%, rgba(240, 208, 120, 0.5) 90%, transparent);
-  opacity: 0.8;
-}
-
-.rail.top {
-  top: 4.8%;
-}
-.rail.mid {
-  top: 43.1%;
-}
-.rail.bot {
-  bottom: 6.3%;
-}
-
-.rail-lip {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -10px;
-  height: 10px;
-  background: linear-gradient(180deg, #2a1810, #100904);
-}
-
-.ornament-col {
-  position: absolute;
-  top: 2.6%;
-  bottom: 3.6%;
-  width: clamp(12px, 1.8vw, 22px);
-  background:
-    repeating-linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.55) 0 14%,
-      rgba(120, 78, 40, 0.5) 14% 26%,
-      rgba(0, 0, 0, 0.35) 26% 40%,
-      rgba(140, 92, 50, 0.6) 40% 60%,
-      rgba(0, 0, 0, 0.35) 60% 74%,
-      rgba(120, 78, 40, 0.5) 74% 86%,
-      rgba(0, 0, 0, 0.55) 86% 100%
-    ),
-    linear-gradient(90deg, #1a0e08, #5a3a24 45%, #1a0e08);
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.6);
-  z-index: 6;
-}
-
-.ornament-col::before,
-.ornament-col::after {
-  content: '';
-  position: absolute;
-  left: -2px;
-  right: -2px;
-  height: 7px;
-  background: linear-gradient(180deg, #f0d078, #9a7428 55%, #d4b056);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-}
-.ornament-col::before { top: 0; }
-.ornament-col::after { bottom: 0; }
-.ornament-col.left {
-  left: 1.5%;
-}
-.ornament-col.right {
-  right: 1.5%;
-}
-
+/* The two bays of the painted case; every child is sized in cqw of the bay itself. */
 .shelf-recess {
   position: absolute;
-  left: 3.4%;
-  right: 3.4%;
+  left: 13.4%;
+  right: 13%;
+  z-index: 3;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  gap: 0.45cqw;
-  padding: 0 0.8cqw;
+  gap: 0.5cqw;
+  padding: 0 0.6cqw;
   overflow: visible;
   transform-style: preserve-3d;
+  container-type: inline-size;
 }
 
 .shelf-recess > * {
@@ -883,19 +654,19 @@ button {
 }
 
 .shelf-recess.upper {
-  top: 8.5%;
-  height: 34.5%;
+  top: 14.3%;
+  height: 34.4%;
   background:
-    radial-gradient(ellipse at 50% 100%, rgba(255, 170, 70, 0.1), transparent 60%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.12) 50%, transparent);
+    radial-gradient(ellipse at 50% 100%, rgba(255, 170, 70, 0.14), transparent 60%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.1) 50%, transparent);
 }
 
 .shelf-recess.lower {
-  top: 46.8%;
-  height: 43%;
+  top: 53.1%;
+  height: 32.9%;
   background:
-    radial-gradient(ellipse at 50% 100%, rgba(255, 170, 70, 0.1), transparent 60%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.14) 46%, transparent);
+    radial-gradient(ellipse at 50% 100%, rgba(255, 170, 70, 0.14), transparent 60%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.46), rgba(0, 0, 0, 0.12) 46%, transparent);
 }
 
 .shelf-prop {
@@ -917,43 +688,43 @@ button {
 .shelf-prop.scrolls {
   width: 8cqw;
   aspect-ratio: 120 / 60;
-  margin-right: 0.3cqw;
+  margin-right: 0.4cqw;
 }
 
 .shelf-prop.hourglass {
-  width: 3.2cqw;
+  width: 4.6cqw;
   aspect-ratio: 48 / 90;
   margin: 0 auto;
 }
 
 .shelf-prop.orb {
-  width: 5.2cqw;
+  width: 6.8cqw;
   aspect-ratio: 72 / 93.5;
-  margin: 0 0.2cqw;
+  margin: 0 0.3cqw;
 }
 
 .shelf-prop.inkwell {
-  width: 4.9cqw;
+  width: 6.6cqw;
   aspect-ratio: 80 / 92;
-  margin-left: 0.3cqw;
+  margin-left: 0.4cqw;
 }
 
 .shelf-prop.potions {
-  width: 8.2cqw;
+  width: 9.4cqw;
   aspect-ratio: 110 / 84;
-  margin-right: 0.3cqw;
+  margin-right: 0.4cqw;
 }
 
 .shelf-prop.lantern {
-  width: 4cqw;
+  width: 5.8cqw;
   aspect-ratio: 60 / 104;
-  margin-left: 0.3cqw;
+  margin-left: 0.4cqw;
 }
 
 /* ---- Filler tomes, stacks and pedestals ---- */
 .book-btn.deco {
-  width: calc(var(--w, 3) * 1.2cqw);
-  font-size: calc(var(--w, 3) * 1.2cqw);
+  width: calc(var(--w, 3) * 1.8cqw);
+  font-size: calc(var(--w, 3) * 1.8cqw);
   height: calc(var(--h, 66) * 1%);
   --depth: 2.5em;
   --spine: 1em;
@@ -1016,8 +787,8 @@ button {
   flex-direction: column-reverse;
   align-items: center;
   align-self: flex-end;
-  width: 6cqw;
-  margin: 0 0.2cqw;
+  width: 8cqw;
+  margin: 0 0.3cqw;
   pointer-events: none;
   z-index: 2;
   filter: drop-shadow(-5px 6px 6px rgba(0, 0, 0, 0.5));
@@ -1027,7 +798,7 @@ button {
   display: block;
   position: relative;
   width: calc(100% - var(--i) * 8%);
-  height: 0.92cqw;
+  height: 1.3cqw;
   margin-left: calc(var(--i) * 3%);
   border-radius: 1px 3px 3px 1px;
   background:
@@ -1108,22 +879,6 @@ button {
   to { transform: rotate(14deg) scale(1.08); }
 }
 
-.shelf-light {
-  position: absolute;
-  left: 6%;
-  right: 6%;
-  height: 11%;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(255, 186, 92, 0.26), transparent);
-  mix-blend-mode: screen;
-  z-index: 4;
-}
-.shelf-light.upper {
-  top: 8.2%;
-}
-.shelf-light.lower {
-  top: 46.6%;
-}
 
 /* ---- Candles ---- */
 .candle {
@@ -1171,18 +926,15 @@ button {
 /* Candlesticks standing in a row on the crown moulding */
 .crown-candles {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: -2.4%;
-  height: 0;
+  inset: 0;
   z-index: 10;
   pointer-events: none;
 }
 
 .crown-candle {
-  bottom: 0;
+  top: calc(var(--top, 5.7) * 1%);
   width: 3%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -100%);
   filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.55));
 }
 
@@ -1263,16 +1015,16 @@ button {
 }
 
 .book-btn.grand {
-  width: 5.3cqw;
+  width: 8.1cqw;
   height: 86%;
-  font-size: 5.3cqw;
+  font-size: 8.1cqw;
   --depth: 2.55em;
   --spine: 1em;
 }
 .book-btn.tome {
-  width: 3.9cqw;
+  width: 6.3cqw;
   height: 80%;
-  font-size: 3.9cqw;
+  font-size: 6.3cqw;
   --depth: 2.7em;
   --spine: 1em;
 }
@@ -2571,10 +2323,6 @@ button {
   .masthead p::after {
     width: 22px;
   }
-  .crown-mold {
-    top: -1.6%;
-    height: 3%;
-  }
   .runic-ring {
     width: 128vw;
     height: 128vw;
@@ -2605,27 +2353,48 @@ button {
     --stage-bottom: 5.5vh;
     padding: var(--stage-top) 1.2vw var(--stage-bottom);
   }
+  /* portrait case for phones: taller bays, measured from case-portrait.webp */
   .bookshelf-fit {
-    width: min(96vw, calc(80vh * 0.62));
+    width: min(96vw, calc(80vh * 664 / 1216));
     height: auto;
   }
   .bookshelf {
-    aspect-ratio: 3 / 4.85;
+    aspect-ratio: 664 / 1216;
     max-height: 80vh;
     height: auto;
+  }
+  .case {
+    background-image: url('/art/case-portrait.webp');
+  }
+  .shelf-recess {
+    left: 11.6%;
+    right: 12.6%;
+    gap: 0.5cqw;
+    padding: 0 0.6cqw;
+  }
+  .shelf-recess.upper {
+    top: 8.7%;
+    height: 40%;
+  }
+  .shelf-recess.lower {
+    top: 50.5%;
+    height: 33%;
+  }
+  .pediment {
+    top: 5.4%;
   }
   .book-mesh {
     transform: rotateY(10deg);
   }
   .book-btn.grand {
-    width: clamp(48px, 13vw, 70px);
-    font-size: clamp(48px, 13vw, 70px);
-    height: 86%;
+    width: 17.8cqw;
+    font-size: 17.8cqw;
+    height: 78%;
   }
   .book-btn.tome {
-    width: clamp(32px, 8.6vw, 42px);
-    font-size: clamp(32px, 8.6vw, 42px);
-    height: 80%;
+    width: 11.1cqw;
+    font-size: 11.1cqw;
+    height: 76%;
   }
   .nav-tab {
     min-width: 0;
@@ -2633,7 +2402,6 @@ button {
     font-size: 0.58rem;
   }
   .wall-sconces,
-  .cobweb,
   .shelf-prop,
   .book-stack,
   .stack-pedestal,
@@ -2641,11 +2409,12 @@ button {
     display: none;
   }
   .book-btn.deco.keep-mobile {
-    width: clamp(20px, 6.6vw, 30px);
-    font-size: clamp(20px, 6.6vw, 30px);
+    width: 7.6cqw;
+    font-size: 7.6cqw;
   }
   .crown-candle {
-    width: 5.5%;
+    width: 7%;
+    --top: 2.1;
   }
   .house-corner {
     width: 104px;

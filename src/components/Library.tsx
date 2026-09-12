@@ -19,7 +19,10 @@ const BOOT_MS = 160
 
 export function Library() {
   const reduced = usePrefersReducedMotion()
-  const [unlocked, setUnlocked] = useState(false)
+  // `?aberto` skips the wand gate during development so the hall can be inspected directly
+  const [unlocked, setUnlocked] = useState(
+    () => import.meta.env.DEV && new URLSearchParams(window.location.search).has('aberto'),
+  )
   const [awake, setAwake] = useState(false)
   const [phase, setPhase] = useState<LibraryPhase>('boot')
   const [activeId, setActiveId] = useState<string | null>(null)
