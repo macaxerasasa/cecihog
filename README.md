@@ -53,6 +53,13 @@ As pinturas e materiais em `public/art/` foram geradas por IA e otimizadas para 
 - `hall.webp` / `hall-portrait.webp` — o salão da biblioteca atrás da estante (paisagem e retrato); recebe um parallax leve com o rato e um zoom lento na revelação.
 - `gate.webp` — a porta gótica do portal Alohomora.
 - `wood.webp`, `leather.webp`, `parchment.webp` — ladrilhos sem emendas para a madeira da estante, o couro das lombadas e o papel das páginas.
+- `case.webp` / `case-portrait.webp` — a estante pintada (recorte com alfa, versões paisagem e retrato). As prateleiras reais (`.shelf-recess`) são posicionadas em percentagens medidas sobre a pintura, por isso os livros encaixam nos vãos.
+- `tool-band.webp`, `tool-frame.webp`, `tool-medallion.webp`, `tool-flourish.webp` — douração das lombadas (faixas, moldura do título em nine-slice, medalhão, florões), aplicada sobre o couro com `mix-blend-mode: screen`.
+- `cover-frame.webp`, `cover-medallion.webp` — a moldura e o brasão gravados na capa do livro aberto.
+- `page-border.webp` — a cercadura de vinhas iluminada das páginas (`mix-blend-mode: multiply`).
+- `ink-*.webp` — 18 pranchas de gravura a tinta (castelo, coruja, caldeirão, varinha, chapéu, pomo, ampulheta, orbe, pena, diário, cálice, fénix, medalhão, espada, vassoura, vira-tempo, mandrágora, chave) com fundo transparente, usadas nos blocos `plate` de `src/data/books.ts`.
+
+Durante o desenvolvimento, `http://127.0.0.1:45217/?aberto` salta o portal Alohomora e abre a estante directamente.
 
 Em telemóveis e ecrãs de toque o site entra num modo leve (sem desfoques, sem grão animado, sem parallax) para manter a fluidez.
 
