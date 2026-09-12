@@ -9,9 +9,10 @@
   --shadow: rgba(0, 0, 0, 0.72);
   --font-display: 'Cinzel Decorative', Cinzel, 'Times New Roman', serif;
   --font-caps: Cinzel, 'Times New Roman', serif;
-  --font-book: 'EB Garamond', 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --font-book-title: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
-  --font-book-italic: 'IM Fell English', 'EB Garamond', Georgia, serif;
+  --font-book: Alegreya, 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-book-title: 'Almendra SC', Almendra, Alegreya, Georgia, serif;
+  --font-book-drop: 'Almendra Display', Almendra, Alegreya, Georgia, serif;
+  --font-book-italic: Alegreya, 'IM Fell English', Georgia, serif;
   --gold-text: linear-gradient(180deg, #fff3cf 0%, #f0d078 32%, #b98a2e 58%, #f2dc9a 82%, #8a6222 100%);
   --ease-cinematic: cubic-bezier(0.22, 0.8, 0.28, 1);
   --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
@@ -2059,10 +2060,9 @@ button {
 .page-inner h3 {
   margin: 0 0 0.2rem;
   font-family: var(--font-book-title);
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
-  font-weight: 600;
-  font-variant-caps: small-caps;
-  letter-spacing: 0.04em;
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  font-weight: 400;
+  letter-spacing: 0.05em;
   line-height: 1.1;
   color: #3a2010;
   text-shadow: 0 1px 0 rgba(255, 248, 230, 0.6);
@@ -2071,16 +2071,15 @@ button {
 .page-inner h4 {
   margin: 0.35rem 0 0.7rem;
   font-family: var(--font-book-title);
-  font-size: 0.98rem;
-  font-weight: 600;
-  font-variant-caps: small-caps;
+  font-size: 0.92rem;
+  font-weight: 400;
   letter-spacing: 0.14em;
   color: #8a5a22;
 }
 
 .page-inner p {
   margin: 0 0 0.85rem;
-  font-size: 1.12rem;
+  font-size: 1.08rem;
   line-height: 1.5;
   color: #2c1a10;
   text-align: justify;
@@ -2104,10 +2103,10 @@ button {
 .page-inner h3 + .ornament-line + p::first-letter,
 .page-inner h3 + p::first-letter {
   float: left;
-  font-family: var(--font-book-title);
-  font-weight: 700;
-  font-size: 3.4em;
-  line-height: 0.8;
+  font-family: var(--font-book-drop);
+  font-weight: 400;
+  font-size: 3.6em;
+  line-height: 0.78;
   padding: 0.06em 0.1em 0 0;
   color: #7a1c14;
   text-shadow: 0 1px 0 rgba(255, 240, 200, 0.6);
@@ -2170,9 +2169,8 @@ button {
 .entry-list strong {
   display: block;
   font-family: var(--font-book-title);
-  font-weight: 700;
-  font-size: 1.08rem;
-  font-variant-caps: small-caps;
+  font-weight: 400;
+  font-size: 1rem;
   letter-spacing: 0.06em;
   color: #5a2c12;
   margin-bottom: 0.05rem;
