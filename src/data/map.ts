@@ -70,7 +70,7 @@ export const places: Place[] = [
   {
     id: 'ambientacao',
     name: 'Ambientação',
-    note: 'Salão Principal — o castelo e o mundo mágico',
+    note: '1991 — a era de Vantcroft',
     kind: 'hall',
     art: 'castle',
     l: { x: 590, y: 208, w: 420, h: 268 },

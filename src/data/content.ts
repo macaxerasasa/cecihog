@@ -49,74 +49,172 @@ const contents: Record<string, Spread[]> = {
   ambientacao: [
     {
       left: [
-        { type: 'heading', text: 'Hogwarts' },
-        { type: 'subheading', text: 'Escola de Magia e Bruxaria' },
+        { type: 'heading', text: 'Ambientação' },
+        { type: 'subheading', text: '1991 — a era de Vantcroft' },
         { type: 'ornament' },
-        plate({ art: 'castle', caption: 'Prancha I — O castelo visto do Lago Negro' }, true),
+        plate({ art: 'castle', caption: 'Prancha I — Hogwarts sob a Confederação' }, true),
         {
           type: 'paragraph',
-          text: 'Erguida em terra escocesa por Godric Gryffindor, Helga Hufflepuff, Rowena Ravenclaw e Salazar Slytherin, Hogwarts esconde-se dos olhos trouxas por encantamentos antigos. Torres, escadas que mudam de ideia e retratos tagarelas guardam mil anos de ensino.',
+          text: 'Em 1991, o mundo bruxo vive sob a sombra permanente de um triunfo que jamais deveria ter acontecido. Hogwarts ainda existe e ainda ensina magia. Mas o ano letivo que se abre em setembro é o primeiro gesto — ainda que sutil demais para uma criança de onze anos — de como aquele mundo já está corrompido.',
         },
       ],
       right: [
-        { type: 'subheading', text: 'O castelo' },
         {
-          type: 'entries',
+          type: 'toc',
+          heading: 'Índice',
           items: [
-            {
-              title: 'Salão Principal',
-              text: 'Teto encantado, quatro mesas das casas e a mesa dos professores. O Chapéu Seletor canta aqui.',
-            },
-            {
-              title: 'Escadas e corredores',
-              text: 'Trechos que se movem às terças. Atrás de tapeçarias há atalhos — e, às vezes, o Chapeleiro Tonto.',
-            },
-            {
-              title: 'Terrenos',
-              text: 'Lago Negro, Floresta Proibida, estufas da professora Sprout e a cabana de Hagrid.',
-            },
+            { label: 'Aurelius Vantcroft', note: 'Quem venceu a guerra que Grindelwald perdeu', spread: 1 },
+            { label: 'A Confederação Arcana', note: 'O regime de 1953', spread: 2 },
+            { label: 'Hogwarts em 1991', note: 'A escola como instrumento', spread: 3 },
+            { label: 'A resistência', note: 'Túneis, vilarejos e os que sobraram', spread: 4 },
+            { label: 'Sangue misturado', note: 'Meio gigantes e descendentes de veela', spread: 5 },
+            { label: 'Setembro de 1991', note: 'O ritual do primeiro ano', spread: 6 },
           ],
-        },
-        {
-          type: 'reserved',
-          label: 'Mapa do castelo',
-          hint: 'Espaço para andares, torres, masmorras e o Mapa do Maroto.',
         },
       ],
     },
     {
       left: [
-        { type: 'heading', text: 'Leis da escola' },
+        { type: 'heading', text: 'Aurelius Vantcroft' },
+        { type: 'subheading', text: 'Contemporâneo e rival de Grindelwald' },
         { type: 'ornament' },
-        plate({ art: 'key', caption: 'Prancha II — Chave alada, corredor do terceiro andar' }),
         {
-          type: 'list',
-          items: [
-            'É proibido feitiços dentro dos corredores entre as aulas.',
-            'A Floresta Proibida continua proibida.',
-            'A seção restrita exige permissão assinada.',
-            'O Terceiro Andar do lado direito é, em certos anos, igualmente proibido.',
-          ],
+          type: 'paragraph',
+          text: 'Décadas atrás, um bruxo brilhante e implacável chamado Aurelius Vantcroft, contemporâneo e rival ideológico de Wilbert Grindelwald, conseguiu terminar de forma independente aquilo que Grindelwald apenas sonhara: dominar as Varinhas das Trevas rivais, decifrar os segredos mais profundos das Relíquias da Morte e forjar um pacto de sangue com um conselho de bruxos sombrios espalhados pela Europa.',
+        },
+        {
+          type: 'paragraph',
+          text: 'Consolidou “Para o Bem Maior” não como um slogan de propaganda, mas como doutrina de Estado.',
         },
       ],
       right: [
-        { type: 'subheading', text: 'O mundo além' },
         {
           type: 'paragraph',
-          text: 'Londres mágico começa no Beco Diagonal. O Expresso de Hogwarts parte de King’s Cross, plataforma 9¾. O Ministério, as casas de campo e os vilarejos de Hogsmeade completam o mapa — páginas à espera de crônicas.',
+          text: 'Enquanto Grindelwald acabou preso e esquecido em Nurmengard ainda nos anos 40 — tratado hoje como um fanático fracassado e uma nota de rodapé histórica —, foi Vantcroft quem venceu a verdadeira guerra.',
         },
         {
           type: 'paragraph',
-          text: 'Esta estante pertence à biblioteca. Madame Pince não aprovaria que os tomos saíssem da prateleira — mas a magia da seção restrita às vezes faz o contrário.',
-        },
-        {
-          type: 'reserved',
-          label: 'Cronologia',
-          hint: 'Linha do tempo da escola, diretores e conflitos do mundo bruxo.',
+          text: 'Subjugou o Ministério da Magia britânico numa campanha silenciosa de infiltração, chantagem e assassinatos seletivos. A derrota que a resistência jamais soube que existia foi a dele: Grindelwald perdeu, e Vantcroft, silenciosamente, venceu por ele.',
         },
       ],
     },
-    ],
+    {
+      left: [
+        { type: 'heading', text: 'A Confederação Arcana' },
+        { type: 'subheading', text: '1953' },
+        { type: 'ornament' },
+        plate({ art: 'key', caption: 'Prancha II — As chaves do regime' }),
+        {
+          type: 'paragraph',
+          text: 'A campanha culminou, em 1953, na fundação da Confederação Arcana: um regime pan-europeu que despreza o Estatuto do Sigilo e trata os trouxas abertamente como gado ou recurso.',
+        },
+      ],
+      right: [
+        {
+          type: 'paragraph',
+          text: 'O mundo bruxo foi dividido em castas de sangue rigidamente policiadas por Aurors-fantasmas leais somente à Confederação.',
+        },
+        {
+          type: 'paragraph',
+          text: 'Quatro décadas depois, em 1991, esse é o ar que se respira: não uma ameaça à espreita, mas o Estado. A “era dourada” dos livros de história — reescritos — é a era de Vantcroft.',
+        },
+      ],
+    },
+    {
+      left: [
+        { type: 'heading', text: 'Hogwarts em 1991' },
+        { type: 'ornament' },
+        {
+          type: 'paragraph',
+          text: 'Hogwarts ainda existe e ainda ensina magia, mas funciona como um instrumento de doutrinação do regime.',
+        },
+        {
+          type: 'paragraph',
+          text: 'O currículo foi reescrito para glorificar a ascensão de Vantcroft. Casas inteiras foram realocadas conforme “pureza” e lealdade política. Professores dissidentes desaparecem sem explicação.',
+        },
+      ],
+      right: [
+        {
+          type: 'paragraph',
+          text: 'O Salão Principal ainda recebe os alunos. O teto ainda se abre. Mas o olhar dos professores é outro — mais tenso, mais armado do que o esperado — e o que se canta sobre o castelo não é mais o que os fundadores deixaram escrito.',
+        },
+      ],
+    },
+    {
+      left: [
+        { type: 'heading', text: 'A resistência' },
+        { type: 'ornament' },
+        {
+          type: 'paragraph',
+          text: 'Uma resistência clandestina de bruxos, nascidos-trouxas escondidos e até alguns poucos gigantes, lobisomens e descendentes de veela marginalizados pelo novo regime começa a se organizar em túneis esquecidos sob o castelo e em vilarejos isolados.',
+        },
+      ],
+      right: [
+        {
+          type: 'paragraph',
+          text: 'Tentam reacender, quatro décadas depois da derrota que nunca vieram a saber que existia, alguma centelha da guerra que Grindelwald perdeu — mas que Vantcroft, silenciosamente, venceu por ele.',
+        },
+      ],
+    },
+    {
+      left: [
+        { type: 'heading', text: 'Sangue misturado' },
+        { type: 'subheading', text: 'Meio gigantes e descendentes de veela' },
+        { type: 'ornament' },
+        {
+          type: 'paragraph',
+          text: 'Sob esse regime, meio gigantes e descendentes de veela não são proibidos de estudar em Hogwarts. Expulsá-los completamente seria admitir fraqueza demográfica que o próprio regime não pode se dar ao luxo de sofrer.',
+        },
+        {
+          type: 'paragraph',
+          text: 'Sua presença é tolerada com um desprezo institucionalizado palpável. São matriculados sob um sistema de “acompanhamento especial” que na prática significa vigilância constante.',
+        },
+      ],
+      right: [
+        {
+          type: 'list',
+          items: [
+            'Ficam proibidos de ocupar cargos de monitoria ou representação estudantil, independentemente do mérito.',
+            'Sofrem revistas e interrogatórios após qualquer incidente no castelo, mesmo sem qualquer evidência contra eles.',
+            'Boa parte do corpo docente e dos colegas os trata com uma mistura de medo supersticioso e nojo mal disfarçado.',
+          ],
+        },
+        {
+          type: 'paragraph',
+          text: 'O discurso oficial se repete: “sangue misturado com criaturas mágicas é sangue diluído”. Isso empurra a maioria desses alunos para um isolamento silencioso — ou para alianças discretas com outros marginalizados do novo sistema.',
+        },
+      ],
+    },
+    {
+      left: [
+        { type: 'heading', text: 'Setembro de 1991' },
+        { type: 'subheading', text: 'O ritual do primeiro ano' },
+        { type: 'ornament' },
+        {
+          type: 'paragraph',
+          text: 'É justamente nesse cenário que, em setembro de 1991, os alunos do primeiro ano ainda seguem um ritual que sobreviveu intacto ao regime por puro valor simbólico e propagandístico.',
+        },
+        {
+          type: 'paragraph',
+          text: 'Chegam à estação de trem escondida sob feitiços cada vez mais reforçados por Aurors-fantasmas disfarçados de zeladores. Embarcam no mesmo trem vermelho de sempre — agora com vagões extras reservados exclusivamente para “supervisão de pureza”, onde crianças de sangue considerado suspeito são discretamente separadas e examinadas antes mesmo de chegar ao castelo.',
+        },
+      ],
+      right: [
+        {
+          type: 'paragraph',
+          text: 'Atravessam o lago em botes à luz de lanternas, sob o olhar atento de professores visivelmente mais tensos e armados do que o esperado.',
+        },
+        {
+          type: 'paragraph',
+          text: 'São recebidos no Salão Principal por um Chapéu Seletor que, segundo boatos que nenhum aluno ousa confirmar em voz alta, foi sutilmente alterado décadas atrás para favorecer certas casas de acordo com a linhagem de sangue declarada na ficha de matrícula.',
+        },
+        {
+          type: 'paragraph',
+          text: 'É um primeiro gesto, ainda que sutil demais para uma criança de onze anos maravilhada com o castelo, de como aquele ano letivo será diferente de tudo que os livros de história — reescritos — contam sobre a “era dourada” trazida por Vantcroft. E é exatamente nesse primeiro ano, em meio a esse mundo já corrompido mas ainda desconhecido para eles, que os bruxos começam sua jornada.',
+        },
+      ],
+    },
+  ],
   habilidades: layoutGifts({
     left: [
       { type: 'heading', text: 'Habilidades e Raças' },

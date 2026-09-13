@@ -7,12 +7,12 @@ import type { BookData } from '../types'
 export const books: BookData[] = [
   {
     id: 'ambientacao',
-    title: 'Hogwarts',
-    shortTitle: 'Castelo',
+    title: 'Ambientação',
+    shortTitle: '1991',
     category: 'world',
-    subtitle: 'O castelo e o mundo mágico',
-    motto: 'Draco dormiens nunquam titillandus.',
-    spineLabel: 'HOGWARTS',
+    subtitle: '1991 — a era de Vantcroft',
+    motto: 'Para o Bem Maior.',
+    spineLabel: '1991',
     size: 'grand',
     wear: 0.72,
     tilt: -1.4,
