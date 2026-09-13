@@ -9,6 +9,7 @@ import type { OriginRect } from '../types'
 import { CastleMap } from './CastleMap'
 import { FOLD_MS, LIFT_MS, type FoldPhase } from './foldTiming'
 import { Oath } from './Oath'
+import { YourSteps } from './YourSteps'
 
 const loadFoldOut = () => import('./FoldOut')
 const FoldOut = lazy(loadFoldOut)
@@ -229,6 +230,7 @@ export function MaraudersMap() {
     return (
       <main className="maroto is-gated">
         <Oath reduced={reduced} onSworn={swear} />
+        <div className="candlelight" aria-hidden="true" />
         <div className="sr-only" aria-live="polite">
           {status}
         </div>
@@ -263,6 +265,9 @@ export function MaraudersMap() {
           Travessura feita
         </button>
       </footer>
+
+      <div className="candlelight" aria-hidden="true" />
+      {!lite ? <YourSteps paused={holding || !drawn} /> : null}
 
       <div className="sr-only" aria-live="polite">
         {status}

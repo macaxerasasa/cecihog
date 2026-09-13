@@ -120,10 +120,12 @@ export const corridors: Record<Frame, string[]> = {
   l: [
     // the long corridor along the classrooms, with its stair up to the hall
     'M 118 560 H 1482',
-    'M 660 476 V 560',
-    // the wings reach the hall through short galleries
+    'M 600 476 V 560',
+    // the wings reach the hall through short galleries, and the corridor by a stair
     'M 458 342 H 590',
     'M 1010 342 H 1142',
+    'M 293 448 V 560',
+    'M 1307 448 V 560',
     // stairs from each classroom up to the corridor
     ...Array.from({ length: 7 }, (_, i) => `M ${204 + i * 197} 626 V 560`),
   ],
@@ -141,12 +143,15 @@ export const corridors: Record<Frame, string[]> = {
 /* Routes the wandering footprints follow (closed loops, SVG path syntax). */
 export const walks: Record<Frame, { name: string; path: string; seconds: number }[]> = {
   l: [
-    { name: 'Argo Filch', path: 'M 140 560 H 1460 V 600 H 1460 V 560 H 140 Z', seconds: 92 },
-    { name: 'Madame Nor-r-a', path: 'M 660 476 V 560 H 1200 V 476 H 1142 V 342 H 1010 V 476 H 660 Z', seconds: 58 },
-    { name: 'Pirraça', path: 'M 458 342 H 590 V 476 H 660 V 560 H 458 V 448 Z', seconds: 66 },
+    // the caretaker paces the whole corridor and back
+    { name: 'Argo Filch', path: 'M 150 560 H 1450 L 150 560', seconds: 96 },
+    // the cat keeps to the east half, down the wing's stair and along
+    { name: 'Madame Nor-r-a', path: 'M 1307 456 V 560 H 930 L 1307 560 V 456', seconds: 64 },
+    // the poltergeist comes down one wing and up the other
+    { name: 'Pirraça', path: 'M 293 456 V 560 H 600 V 480 L 600 560 H 293 V 456', seconds: 70 },
   ],
   p: [
-    { name: 'Argo Filch', path: 'M 500 520 V 1400 H 470 V 520 Z', seconds: 80 },
-    { name: 'Madame Nor-r-a', path: 'M 270 596 V 572 H 730 V 596 V 572 H 270 Z', seconds: 62 },
+    { name: 'Argo Filch', path: 'M 500 520 V 1400 L 500 520', seconds: 84 },
+    { name: 'Madame Nor-r-a', path: 'M 270 596 V 572 H 730 V 596 L 730 572 H 270 V 596', seconds: 64 },
   ],
 }

@@ -23,8 +23,8 @@ const GAP = 46
 function doorsOf(p: Place, frame: Frame): Door[] {
   if (frame === 'l') {
     if (p.kind === 'hall') return [{ side: 'bottom', at: HALL_STAIR_X }, { side: 'left' }, { side: 'right' }]
-    if (p.id === 'habilidades') return [{ side: 'right' }]
-    if (p.id === 'racas') return [{ side: 'left' }]
+    if (p.id === 'habilidades') return [{ side: 'right' }, { side: 'bottom' }]
+    if (p.id === 'racas') return [{ side: 'left' }, { side: 'bottom' }]
     return [{ side: 'top' }]
   }
   if (p.kind === 'hall') return [{ side: 'bottom' }]
@@ -34,7 +34,7 @@ function doorsOf(p: Place, frame: Frame): Door[] {
 }
 
 /* the hall's stair down to the long corridor, clear of its banner */
-const HALL_STAIR_X = 660
+const HALL_STAIR_X = 600
 
 /* The ink of one room: outer and inner wall lines with door gaps, the hatched
    wall thickness, jambs and the swing of every door. */
@@ -201,6 +201,45 @@ function Scale({ x, y, w }: { x: number; y: number; w: number }) {
   )
 }
 
+/* What the Marauders knew and the staff did not: secret passages in dashed
+   ink, the Whomping Willow, the way down to the dungeons. */
+function Secrets() {
+  return (
+    <g className="secrets">
+      {/* the one-eyed witch on the left gallery, and her hump down to Hogsmeade */}
+      <g style={drawDelay(524, 300, 'l')}>
+        <path className="ink thin" d="M517 322 c 0 -8 3 -12 7 -12 s 7 4 7 12 M 519 322 h 10 M 524 310 c -3 -3 -3 -7 0 -8 s 4 5 0 8" pathLength={1} />
+        <path className="ink-fade passage" d="M 524 326 V 400 C 524 470, 460 520, 380 580 S 250 606, 160 598" />
+        <text className="map-italic small" x={524} y={296} textAnchor="middle">
+          Bruxa de um olho só
+        </text>
+      </g>
+      {/* the Whomping Willow between the towers, its roots hiding a passage */}
+      <g style={drawDelay(1000, 120, 'l')}>
+        <path
+          className="ink thin"
+          d="M1000 200 V 166 M 1000 178 c -10 -8 -18 -6 -26 -18 M 1000 172 c 9 -6 16 -4 22 -16 M 1000 166 c -4 -12 -12 -14 -8 -30 M 1000 166 c 6 -10 14 -8 12 -26 M 1000 166 c 2 -14 -4 -20 4 -34 M 986 200 c 6 -6 22 -6 28 0"
+          pathLength={1}
+        />
+        <path className="ink-fade passage" d="M 1014 200 C 1060 214, 1110 190, 1160 204 S 1240 222, 1290 210" />
+        <text className="map-italic small" x={1000} y={222} textAnchor="middle">
+          Salgueiro Lutador
+        </text>
+        <text className="map-italic small" x={1200} y={184} textAnchor="middle">
+          para a Casa dos Gritos
+        </text>
+      </g>
+      {/* down to the dungeons at the west end of the corridor */}
+      <g style={drawDelay(130, 600, 'l')}>
+        <path className="ink thin" d="M 140 568 V 604 M 132 596 L 140 606 L 148 596" pathLength={1} />
+        <text className="map-italic small" x={140} y={545} textAnchor="middle">
+          Masmorras
+        </text>
+      </g>
+    </g>
+  )
+}
+
 /* Grounds along the foot of the landscape sheet: the greenhouses, Hagrid's
    hut and the Quidditch pitch, each a few strokes with an italic label. */
 function Landmarks() {
@@ -247,10 +286,13 @@ function Decor({ frame }: { frame: Frame }) {
         <Corridors frame="l" />
         <g className="stairs">
           <use href="#stair" x={HALL_STAIR_X - 15} y={482} width={30} height={40} />
+          <use href="#stair" x={278} y={470} width={30} height={40} />
+          <use href="#stair" x={1292} y={470} width={30} height={40} />
           {Array.from({ length: 7 }, (_, i) => (
             <use key={i} href="#stair" x={189 + i * 197} y={572} width={30} height={40} />
           ))}
         </g>
+        <Secrets />
         <g className="towers" style={drawDelay(220, 150, 'l')}>
           <use href="#tower" x={214} y={126} width={40} height={40} />
           <text className="map-italic" x={234} y={200} textAnchor="middle">
@@ -278,6 +320,20 @@ function Decor({ frame }: { frame: Frame }) {
       <g className="stairs">
         <use href="#stair" x={485} y={506} width={30} height={40} />
         <use href="#stair" x={485} y={1366} width={30} height={40} />
+      </g>
+      <g className="secrets" style={drawDelay(500, 120, 'p')}>
+        <path
+          className="ink thin"
+          d="M500 214 V 180 M 500 192 c -10 -8 -18 -6 -26 -18 M 500 186 c 9 -6 16 -4 22 -16 M 500 180 c -4 -12 -12 -14 -8 -30 M 500 180 c 6 -10 14 -8 12 -26 M 486 214 c 6 -6 22 -6 28 0"
+          pathLength={1}
+        />
+        <path className="ink-fade passage" d="M 514 214 C 560 226, 620 206, 680 218 S 760 236, 820 224" />
+        <text className="map-italic small" x={500} y={234} textAnchor="middle">
+          Salgueiro Lutador
+        </text>
+        <text className="map-italic small" x={700} y={196} textAnchor="middle">
+          para a Casa dos Gritos
+        </text>
       </g>
       <Compass x={900} y={160} r={44} />
       <g className="towers" style={drawDelay(120, 150, 'p')}>

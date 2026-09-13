@@ -17,8 +17,10 @@
   --font-script: 'Pinyon Script', 'Brush Script MT', cursive;
   --font-hand: 'Homemade Apple', 'Segoe Print', cursive;
   --ease: cubic-bezier(0.22, 0.8, 0.28, 1);
-  --wand: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path d='M3 29 L26 6' stroke='%232b1c10' stroke-width='3.2' stroke-linecap='round'/><path d='M4 28 L25 7' stroke='%23b8935a' stroke-width='1.1' stroke-linecap='round'/><path d='M27 1 l1.1 3 3 1.1 -3 1.1 -1.1 3 -1.1 -3 -3 -1.1 3 -1.1z' fill='%237a2a1c'/></svg>")
-    28 4,
+  /* the wand points like an arrow: tip (and hotspot) at the top-left star,
+     handle trailing down to the right */
+  --wand: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><path d='M7 7 L29 29' stroke='%23f3e6c6' stroke-width='5.4' stroke-linecap='round' opacity='.8'/><path d='M7 7 L29 29' stroke='%232b1c10' stroke-width='3.2' stroke-linecap='round'/><path d='M8 8 L28 28' stroke='%23b8935a' stroke-width='1' stroke-linecap='round'/><path d='M4.5 0.6 l1.1 3 3 1.1 -3 1.1 -1.1 3 -1.1 -3 -3 -1.1 3 -1.1z' fill='%237a2a1c'/></svg>")
+    4 4,
     auto;
 }
 
@@ -80,7 +82,10 @@ button {
 
 @media (pointer: fine) {
   .maroto,
+  .maroto a,
   .maroto button,
+  .maroto label,
+  .maroto summary,
   .maroto [role='button'] {
     cursor: var(--wand);
   }
@@ -235,6 +240,18 @@ button {
 
 .thin {
   stroke-width: 1;
+}
+
+.castle-map .passage {
+  stroke-width: 1.1;
+  stroke-dasharray: 5 5;
+  stroke-opacity: 0.6;
+}
+
+.is-drawing .castle-map .ink-fade {
+  opacity: 0;
+  animation: inkFade 0.9s ease forwards;
+  animation-delay: calc(var(--d, 0s) + 0.9s);
 }
 
 .compass-star {
@@ -407,6 +424,10 @@ button {
 /* --------------------------------------------------------------------------
    Footprints
    -------------------------------------------------------------------------- */
+.walkers {
+  pointer-events: none;
+}
+
 .walker-feet,
 .walker-tag {
   offset-distance: 0%;
@@ -483,6 +504,104 @@ button {
 .is-holding .walker-tag,
 .is-holding .foot {
   animation-play-state: paused;
+}
+
+/* --------------------------------------------------------------------------
+   The reader's own steps and the wand's light
+   -------------------------------------------------------------------------- */
+.your-steps {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.your-steps.is-hidden {
+  opacity: 0;
+}
+
+.wandlight {
+  position: absolute;
+  left: -380px;
+  top: -380px;
+  width: 760px;
+  height: 760px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 247, 218, 0.34) 0%, rgba(255, 240, 200, 0.14) 30%, transparent 62%);
+  will-change: transform;
+}
+
+.your-print {
+  position: absolute;
+  left: -7px;
+  top: -13px;
+  width: 14px;
+  height: 26px;
+  fill: var(--ink);
+  transform: translate(var(--x), var(--y)) rotate(var(--a));
+  animation: printFade 2.8s ease-out forwards;
+}
+
+@keyframes printFade {
+  from {
+    opacity: 0.72;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.your-tag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+}
+
+.your-tag span {
+  position: absolute;
+  left: 0;
+  top: -52px;
+  transform: translateX(-50%);
+  padding: 2px 14px 3px;
+  font: 400 13px var(--font-caps);
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  background: rgba(250, 240, 214, 0.82);
+  border: 1px solid var(--ink);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 6px) 50%, 100% 100%, 0 100%, 6px 50%);
+  white-space: nowrap;
+}
+
+/* candlelight over the whole sheet; it only breathes on desktop, where the
+   full-screen blend each frame is free, and stays a static tint elsewhere */
+.candlelight {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 42%, transparent 44%, rgba(50, 30, 10, 0.1) 70%, rgba(40, 22, 6, 0.32) 100%);
+  opacity: 0.9;
+}
+
+@media (min-width: 741px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .candlelight {
+    animation: candle 7s ease-in-out infinite;
+  }
+}
+
+@keyframes candle {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  38% {
+    opacity: 1;
+  }
+  64% {
+    opacity: 0.78;
+  }
 }
 
 /* --------------------------------------------------------------------------

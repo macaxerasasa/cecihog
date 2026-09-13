@@ -19,7 +19,8 @@ npm run preview
 ## Estrutura
 
 - `src/components/Oath.tsx` — o juramento: veias de tinta a partir do toque e a apresentação dos senhores Aluado, Rabicho, Almofadinhas e Pontas.
-- `src/components/CastleMap.tsx` — a planta em SVG: salas com portas, corredores, escadas, bússola, floresta, lago e as pegadas que rondam os corredores (`Walkers.tsx`).
+- `src/components/CastleMap.tsx` — a planta em SVG: salas com portas, corredores, escadas, bússola, floresta, lago, passagens secretas tracejadas e as pegadas que rondam os corredores (`Walkers.tsx`).
+- `src/components/YourSteps.tsx` — no desktop, as pegadas do próprio leitor seguem a varinha sob a faixa "Você", e a luz da ponta aquece o pergaminho ao redor.
 - `src/components/FoldOut.tsx` — a folha que se ergue da sala e se desdobra em duas metades; as dobras seguintes viram na prega. `MapBlocks.tsx` desenha os blocos de conteúdo, `SpellEntry.tsx` os verbetes e `SpellSearch.tsx` a busca.
 - `src/data/` — os textos: `books.ts` (títulos, subtítulos, lemas), `content.ts` (páginas), `spells.json` (feitiços, importados do documento via `npm run spells`) e `map.ts` (onde cada sala fica na planta, em paisagem e em retrato).
 - `src/styles/map.css` — toda a estética: só transformações, opacidade e `clip-path` animam; o único filtro SVG (o tremor de traço à mão) fica numa camada estática.
