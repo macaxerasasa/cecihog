@@ -253,6 +253,15 @@ button {
   z-index: 25;
   pointer-events: none;
 }
+/* full-stage dusk so the case drop-shadow is not sliced by a box on the shelf */
+.library.is-holding .stage-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 18;
+  pointer-events: none;
+  background: rgba(4, 2, 1, 0.55);
+}
 
 .library.is-holding .bookshelf-fit {
   pointer-events: none;
@@ -301,6 +310,23 @@ body:has(.library.is-holding) .snitch-aura,
 body:has(.library.is-holding) .snitch-shine {
   animation-play-state: paused;
 }
+
+/* the veil already covers the hall: skip painting those layers while reading */
+.library.is-holding .stone-wall,
+.library.is-holding .hall-art,
+.library.is-holding .hall-tint,
+.library.is-holding .wall-grain,
+.library.is-holding .window-light,
+.library.is-holding .candles,
+.library.is-holding .wall-sconces,
+.library.is-holding .house-corners,
+.library.is-holding .particles-canvas,
+.library.is-holding::before,
+.library.is-holding::after {
+  visibility: hidden;
+  content-visibility: hidden;
+}
+
 
 .wall-grain {
   position: absolute;
@@ -525,21 +551,7 @@ body:has(.library.is-holding) .snitch-shine {
 }
 
 .bookshelf-fit {
-  position: relative;
   width: min(1180px, 84vw, calc((100vh - var(--stage-top) - var(--stage-bottom)) * 1047 / 700));
-}
-/* a flat tint instead of filter:blur on the 3D shelf — same dusk, one cheap layer */
-.bookshelf-fit::after {
-  content: '';
-  position: absolute;
-  inset: -3% -2% -5%;
-  z-index: 8;
-  pointer-events: none;
-  background: rgba(4, 2, 1, 0.72);
-  opacity: 0;
-}
-.library.is-holding .bookshelf-fit::after {
-  opacity: 1;
 }
 
 /* ---- House crests in the four corners ---- */
@@ -1261,6 +1273,10 @@ body:has(.library.is-holding) .snitch-shine {
   --spine: 1em;
 }
 
+.book-btn.deco .book-mesh {
+  transform-style: flat;
+}
+
 .book-mesh {
   position: absolute;
   inset: 0;
@@ -1575,6 +1591,17 @@ body:has(.library.is-holding) .snitch-shine {
   position: relative;
   transform-style: preserve-3d;
   perspective: 2000px;
+}
+.held-stage::before {
+  content: '';
+  position: absolute;
+  left: -22%;
+  right: -22%;
+  top: -10%;
+  bottom: -16%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 58%, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.18) 46%, transparent 74%);
 }
 
 .volume,
@@ -2387,6 +2414,8 @@ body:has(.library.is-holding) .snitch-shine {
 body:has(.library.is-holding) .snitch,
 body:has(.library.is-holding) .snitch-trail {
   opacity: 0;
+  visibility: hidden;
+  content-visibility: hidden;
   transition-duration: 0.35s;
 }
 
@@ -3716,8 +3745,7 @@ body:has(.library.is-holding) .snitch-trail {
   transform: none;
   transition:
     opacity 1.4s var(--ease-cinematic) 0.15s,
-    transform 1.6s var(--ease-cinematic) 0.1s,
-    filter 0.6s ease;
+    transform 1.6s var(--ease-cinematic) 0.1s;
 }
 
 .library.is-awake .shelf-recess > * {
