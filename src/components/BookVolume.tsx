@@ -3,6 +3,7 @@ import type { BookData, Spread } from '../types'
 import { BookCover } from './BookCover'
 import { BookPages } from './BookPages'
 import { COMPACT_QUERY, useMediaQuery } from '../hooks/useMediaQuery'
+import { peekBookmark } from '../lib/bookmark'
 
 export type BookPose = 'closed' | 'opening' | 'opened' | 'closing'
 
@@ -14,6 +15,19 @@ type Props = {
   turning: 'next' | 'prev' | null
   onTurn: (dir: 'next' | 'prev') => void
   onFlipEnd: () => void
+}
+
+/**
+ * One-page reader: both halves of the spread on one leaf. On the opening
+ * spread of a grimoire the finder follows the title instead of the intro, so
+ * the search field is reached without scrolling.
+ */
+function compactOrder(spread: Spread) {
+  if (!spread.right.some((b) => b.type === 'spell-search')) return [...spread.left, ...spread.right]
+  const cut = spread.left.findIndex((b) => b.type !== 'heading' && b.type !== 'subheading' && b.type !== 'ornament')
+  const head = cut < 0 ? spread.left : spread.left.slice(0, cut)
+  const rest = cut < 0 ? [] : spread.left.slice(cut)
+  return [...head, ...spread.right, ...rest]
 }
 
 function Parchment({
@@ -29,7 +43,7 @@ function Parchment({
   /** Changes with the spread so the ink-in reveal replays on every turn. */
   stamp?: number
 }) {
-  const blocks = compact ? [...spread.left, ...spread.right] : side === 'left' ? spread.left : spread.right
+  const blocks = compact ? compactOrder(spread) : side === 'left' ? spread.left : spread.right
   return (
     <div className={`parchment ${side} ${compact ? 'is-compact' : ''}`}>
       <div className="page-grain" />
@@ -152,11 +166,11 @@ export function usePageFlip(spreadCount: number, reduced: boolean, bookId?: stri
   const max = Math.max(0, spreadCount - 1)
 
   useEffect(() => {
-    setSpread(0)
+    setSpread(Math.min(max, peekBookmark(bookId)))
     setTurning(null)
     turningRef.current = null
     lock.current = false
-  }, [bookId])
+  }, [bookId, max])
 
   const onTurn = (dir: 'next' | 'prev') => {
     if (lock.current) return

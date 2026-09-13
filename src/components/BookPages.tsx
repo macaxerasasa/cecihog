@@ -1,5 +1,7 @@
 import type { ContentBlock } from '../types'
 import { asset } from '../lib/asset'
+import { SpellEntry } from './SpellEntry'
+import { SpellSearch } from './SpellSearch'
 
 function Block({ block }: { block: ContentBlock }) {
   switch (block.type) {
@@ -46,6 +48,10 @@ function Block({ block }: { block: ContentBlock }) {
           ))}
         </ul>
       )
+    case 'spell':
+      return <SpellEntry id={block.id} part={block.part} />
+    case 'spell-search':
+      return <SpellSearch year={block.year} />
     case 'reserved':
       return (
         <div className="reserved-slot">

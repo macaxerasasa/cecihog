@@ -1,54 +1,43 @@
-import type { BookData, Spread } from '../types'
-
-const reservedMaterias = (ano: string) => ({
-  type: 'reserved' as const,
-  label: `Matérias — ${ano}`,
-  hint: 'Espaço para o horário das aulas, professores e salas (torre, masmorras, estufas).',
-})
-
-const reservedFeiticos = (ano: string) => ({
-  type: 'reserved' as const,
-  label: `Feitiços — ${ano}`,
-  hint: 'Catálogo ainda por preencher: nome, movimento de varinha, encantamento e efeito.',
-})
-
-const reservedNotas = (ano: string) => ({
-  type: 'reserved' as const,
-  label: 'Anotações da aula',
-  hint: `Pergaminho em branco para deveres, pontos das casas e observações do ${ano.toLowerCase()}.`,
-})
+import type { BookData, ContentBlock, Spread } from '../types'
+import { layoutYear, spellsOfYear } from './spells'
 
 type Plate = { art: string; caption: string }
 
 const plate = (p: Plate, large = false) => ({ type: 'plate' as const, art: p.art, caption: p.caption, large })
 
+/**
+ * A year tome opens on its frontispiece and the spell finder; every leaf
+ * after that is one entry of the grimoire (long entries take two leaves).
+ */
 function yearSpreads(
+  year: number,
   title: string,
   subtitle: string,
   intro: string,
-  subjects: string[],
   plates: [Plate, Plate?],
 ): Spread[] {
   const [frontis, second] = plates
-  return [
+  const count = spellsOfYear(year).length
+  const front: Spread = {
+    left: [
+      { type: 'heading', text: title },
+      { type: 'subheading', text: subtitle },
+      { type: 'ornament' },
+      plate(frontis),
+      { type: 'paragraph', text: intro },
+    ],
+    right: [{ type: 'spell-search', year }],
+  }
+  const closing: ContentBlock[] = [
+    { type: 'subheading', text: 'Fim do sumário' },
+    { type: 'ornament' },
+    ...(second ? [plate(second, true)] : []),
     {
-      left: [
-        { type: 'heading', text: title },
-        { type: 'subheading', text: subtitle },
-        { type: 'ornament' },
-        plate(frontis, true),
-        { type: 'paragraph', text: intro },
-      ],
-      right: [
-        reservedMaterias(title),
-        { type: 'list', items: subjects },
-      ],
-    },
-    {
-      left: second ? [reservedFeiticos(title), plate(second, true)] : [reservedFeiticos(title)],
-      right: [reservedNotas(title)],
+      type: 'paragraph',
+      text: `Aqui se encerram os ${count} feitiços ensinados no ${title.toLowerCase()}. Os aprimoramentos marcados como bloqueados aguardam autorização do corpo docente.`,
     },
   ]
+  return layoutYear(year, front, closing)
 }
 
 export const books: BookData[] = [
@@ -206,7 +195,11 @@ export const books: BookData[] = [
           },
         ],
         right: [
-          reservedMaterias('Currículo geral'),
+          {
+            type: 'reserved',
+            label: 'Matérias — Currículo geral',
+            hint: 'Espaço para o horário das aulas, professores e salas (torre, masmorras, estufas).',
+          },
           {
             type: 'reserved',
             label: 'Professores',
@@ -296,7 +289,7 @@ export const books: BookData[] = [
     shortTitle: 'I',
     category: 'year',
     year: 1,
-    subtitle: 'Cartas, barcos e o Chapéu Seletor',
+    subtitle: 'Sumário de Feitiços · Livro I',
     motto: 'Nem sempre o que queremos é o que o Chapéu vê.',
     spineLabel: 'PRIMEIRO',
     size: 'tome',
@@ -313,10 +306,10 @@ export const books: BookData[] = [
       ribbon: '#ae0001',
     },
     spreads: yearSpreads(
+      1,
       'Primeiro Ano',
-      'Cartas, barcos e o Chapéu Seletor',
-      'A carta chega por coruja. O Expresso parte, os barcos cruzam o lago e o Chapéu canta. No primeiro ano aprendem-se os gestos básicos — Lumos, Wingardium Leviosa — e a arte de não se perder a caminho das Poções.',
-      ['Feitiços (placeholder)', 'Transfiguração (placeholder)', 'Poções (placeholder)', 'Voo com vassoura (placeholder)'],
+      'Os primeiros gestos de varinha',
+      'Quinze feitiços abrem o caminho de todo bruxo: a luz de Lumos, o escudo de Protego, a leveza de Wingardium Leviosa. Cada verbete traz o efeito, a luz, a classificação e o movimento de varinha — e, quando houver, o aprimoramento que se desbloqueia com a prática.',
       [{ art: 'owl', caption: 'Prancha I — A coruja e a carta' }, { art: 'broom', caption: 'Prancha II — Primeira aula de voo' }],
     ),
   },
@@ -326,7 +319,7 @@ export const books: BookData[] = [
     shortTitle: 'II',
     category: 'year',
     year: 2,
-    subtitle: 'Diários, elmos e sussurros na parede',
+    subtitle: 'Sumário de Feitiços · Livro II',
     motto: 'A herança de Slytherin não se discute no jantar.',
     spineLabel: 'SEGUNDO',
     size: 'tome',
@@ -343,10 +336,10 @@ export const books: BookData[] = [
       ribbon: '#8d2433',
     },
     spreads: yearSpreads(
+      2,
       'Segundo Ano',
-      'Diários, elmos e sussurros na parede',
-      'Os alunos já conhecem os corredores. Mandrágoras choram nas estufas e rumores de uma câmara antiga voltam a circular. Espaço reservado para o diário, a herdeira e os elfos que ninguém vê.',
-      ['Herbologia (placeholder)', 'História da Magia (placeholder)', 'Defesa Contra as Artes das Trevas (placeholder)'],
+      'Transfigurações e azarações de corredor',
+      'O segundo ano alarga o repertório: Incendio e Immobulus, as primeiras transfigurações em aves e ratos, e azarações que pedem cuidado — e um contrafeitiço à mão. Vinte e nove verbetes, cada um com seus aprimoramentos.',
       [{ art: 'diary', caption: 'Prancha I — O diário e o dente de basilisco' }, { art: 'cauldron', caption: 'Prancha II — Poção Polissuco, banheiro do segundo andar' }],
     ),
   },
@@ -356,7 +349,7 @@ export const books: BookData[] = [
     shortTitle: 'III',
     category: 'year',
     year: 3,
-    subtitle: 'O Expresso, o hipogrifo e o tempo',
+    subtitle: 'Sumário de Feitiços · Livro III',
     motto: 'Um simples vira-tempo já basta para complicar o horário.',
     spineLabel: 'TERCEIRO',
     size: 'tome',
@@ -373,10 +366,10 @@ export const books: BookData[] = [
       ribbon: '#2a623d',
     },
     spreads: yearSpreads(
+      3,
       'Terceiro Ano',
-      'O Expresso, o hipogrifo e o tempo',
-      'Hogsmeade abre as portas a quem tem autorização. Adivinhação na torre, Trato das Criaturas Magníficas no parque e o professor que ninguém espera. Guarde aqui o hipogrifo, o mapa e as voltas no tempo.',
-      ['Adivinhação (placeholder)', 'Trato das Criaturas (placeholder)', 'Aritmância (placeholder)'],
+      'Ventos, água e criaturas conjuradas',
+      'Trinta e quatro feitiços: Depulso e Ventus movem o campo, Aguamenti e Eletricus trazem os elementos, Avis enche o ar de pássaros. Parte deles evolui em vários aprimoramentos, catalogados na ordem em que se desbloqueiam.',
       [{ art: 'timeturner', caption: 'Prancha I — O Vira-Tempo' }, { art: 'snitch', caption: 'Prancha II — A Firebolt e o pomo' }],
     ),
   },
@@ -386,7 +379,7 @@ export const books: BookData[] = [
     shortTitle: 'IV',
     category: 'year',
     year: 4,
-    subtitle: 'O Cálice e as três tarefas',
+    subtitle: 'Sumário de Feitiços · Livro IV',
     motto: 'Nascido para isso, ou apenas o Cálice achou que sim.',
     spineLabel: 'QUARTO',
     size: 'tome',
@@ -403,10 +396,10 @@ export const books: BookData[] = [
       ribbon: '#0e1a40',
     },
     spreads: yearSpreads(
+      4,
       'Quarto Ano',
-      'O Cálice e as três tarefas',
-      'Anos de Torneio são raros: dragões, o lago, o labirinto. Visitantes de Beauxbatons e Durmstrang sentam-se no Salão. Estas páginas aguardam as tarefas, os pactos e o que o Cálice não deveria ter feito.',
-      ['Torneio Tribruxo (placeholder)', 'Etiqueta mágica (placeholder)', 'Feitiços avançados (placeholder)'],
+      'Duelo, escudo e maldições menores',
+      'O ano em que a varinha vira arma: Estupefaça, Expulso, Bombarda e Reducto, ao lado de curas como Ferula e Episkey. Trinta e cinco verbetes, com os feitiços de Pacote das Artes das Trevas devidamente assinalados.',
       [{ art: 'goblet', caption: 'Prancha I — O Cálice de Fogo' }, { art: 'hourglass', caption: 'Prancha II — As três tarefas, contra o tempo' }],
     ),
   },
@@ -416,7 +409,7 @@ export const books: BookData[] = [
     shortTitle: 'V',
     category: 'year',
     year: 5,
-    subtitle: 'N.O.M.s e a Ordem',
+    subtitle: 'Sumário de Feitiços · Livro V',
     motto: 'A inquisidora nunca está tão longe quanto parece.',
     spineLabel: 'QUINTO',
     size: 'tome',
@@ -433,10 +426,10 @@ export const books: BookData[] = [
       ribbon: '#5d2d6e',
     },
     spreads: yearSpreads(
+      5,
       'Quinto Ano',
-      'N.O.M.s e a Ordem',
-      'O ano dos exames que decidem o resto da vida bruxa. Defesa torna-se política, a Sala Precisa ensina o que o decreto proíbe, e a Armada de Dumbledore cabe neste espaço — quando quiserem preenchê-lo.',
-      ['N.O.M.s (placeholder)', 'Oclumência (placeholder)', 'Sala Precisa (placeholder)'],
+      'Mente, corda e clima',
+      'Vinte e quatro feitiços de N.O.M.: Incarcerous e Erecto, Geminio e Evanesco, Animus Novandi e Animus Pensandi. Aqui o Estupefaça revela a forma que o tornou célebre, e o tempo passa a obedecer a Meteolojinx.',
       [{ art: 'orb', caption: 'Prancha I — A profecia, Departamento de Mistérios' }, { art: 'quill', caption: 'Prancha II — Pena e tinteiro dos N.O.M.s' }],
     ),
   },
@@ -446,7 +439,7 @@ export const books: BookData[] = [
     shortTitle: 'VI',
     category: 'year',
     year: 6,
-    subtitle: 'N.I.E.M.s, poções do príncipe e horcruxes',
+    subtitle: 'Sumário de Feitiços · Livro VI',
     motto: 'O príncipe não assinou com o nome que usava na sala.',
     spineLabel: 'SEXTO',
     size: 'tome',
@@ -463,10 +456,10 @@ export const books: BookData[] = [
       ribbon: '#8a6a32',
     },
     spreads: yearSpreads(
+      6,
       'Sexto Ano',
-      'Poções do príncipe e horcruxes',
-      'Apenas quem passou nos N.O.M.s segue nas matérias avançadas: Aparatação, poções de nível N.I.E.M. e aulas particulares fora do horário. Reserve estas folhas para o livro anotado e as memórias.',
-      ['Aparatação (placeholder)', 'Poções N.I.E.M. (placeholder)', 'Aulas particulares (placeholder)'],
+      'Segredos, revelações e proteções maiores',
+      'Catorze feitiços de nível N.I.E.M.: Fidelius e Cave Inimicum guardam lugares, Homenum Revelio encontra quem se esconde, Capacious Extremis dobra o espaço. Feitiços de longa conjuração, para bruxos pacientes.',
       [{ art: 'locket', caption: 'Prancha I — O medalhão de Slytherin' }],
     ),
   },
@@ -476,7 +469,7 @@ export const books: BookData[] = [
     shortTitle: 'VII',
     category: 'year',
     year: 7,
-    subtitle: 'A batalha e o que vem depois',
+    subtitle: 'Sumário de Feitiços · Livro VII',
     motto: 'Hogwarts não se entrega.',
     spineLabel: 'SÉTIMO',
     size: 'tome',
@@ -493,10 +486,10 @@ export const books: BookData[] = [
       ribbon: '#ae0001',
     },
     spreads: yearSpreads(
+      7,
       'Sétimo Ano',
-      'A batalha e o que vem depois',
-      'O último ano deveria ser só N.I.E.M.s. Em certos tempos, a escola torna-se fortaleza. Estas páginas guardam espaço para a batalha, os que voltaram e o silêncio do Salão quando a guerra acaba.',
-      ['N.I.E.M.s (placeholder)', 'A Batalha de Hogwarts (placeholder)', 'O que se ensina depois (placeholder)'],
+      'Escudos absolutos e as Maldições Imperdoáveis',
+      'Doze feitiços encerram o sumário: Protego Maxima, Salvio Hexia e Piertotum Locomotor de um lado; do outro, Fogomaldito, Crucio e Avada Kedavra, registrados para que se saiba reconhecê-los. Só quem tem Pacote pode conjurá-los.',
       [{ art: 'phoenix', caption: 'Prancha I — A fênix, depois da batalha' }],
     ),
   },

@@ -8,6 +8,29 @@ export type ContentBlock =
   | { type: 'reserved'; label: string; hint: string }
   /** Engraved ink plate: `art` is the file stem under public/art/ink-*.webp */
   | { type: 'plate'; art: string; caption: string; large?: boolean }
+  /**
+   * One spell of the grimoire. Long entries run over several leaves: `part`
+   * is the leaf index (0 carries the name and the ledger), `parts` the total.
+   */
+  | { type: 'spell'; id: string; part?: number; parts?: number }
+  /** Search field + index of every spell in this tome (and the other tomes). */
+  | { type: 'spell-search'; year: number }
+
+export type SpellUpgrade = { label: string; locked: boolean; text: string }
+
+export type Spell = {
+  id: string
+  year: number
+  name: string
+  aliases: string[]
+  tag?: string
+  effect: string[]
+  light: string
+  classification: string
+  movement: string
+  requirement?: string
+  upgrades: SpellUpgrade[]
+}
 
 export type Spread = {
   left: ContentBlock[]

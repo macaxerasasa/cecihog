@@ -44,7 +44,20 @@ Trace o glifo dourado com o rato ou o dedo, a partir do nó brilhante. Com `pref
 
 ## Conteúdo
 
-Os volumes estão em `src/data/books.ts` (Hogwarts, Matérias, Casas e os sete anos). Os feitiços concretos ficam como espaços reservados.
+Os volumes estão em `src/data/books.ts` (Hogwarts, Matérias, Casas e os sete anos).
+
+### Sumário de Feitiços
+
+Os sete tomos de ano são o grimório: cada folha é um feitiço (nome, luz, classificação, movimento de varinha, efeito e aprimoramentos), e os verbetes longos continuam na folha seguinte. A primeira página dupla de cada tomo traz o **localizador**: um campo de busca que percorre os sete livros por nome, classificação, cor da luz, gesto ou trecho do texto, além do índice do ano com o número da página. Um resultado de outro ano abre o tomo certo na folha certa.
+
+Os dados vivem em `src/data/spells.json`, gerados a partir do documento compartilhado *Sumário de Feitiços*:
+
+```bash
+npm run spells                # baixa o Google Doc e regrava spells.json
+npm run spells -- sumario.txt # ou a partir de uma exportação .txt local
+```
+
+O importador (`scripts/import-spells.mjs`) espera cabeçalhos `PRIMEIRO ANO` … `SÉTIMO ANO` e blocos `NOME` / `Efeito:` / `Luz:` / `Classificação:` / `Movimento manual:` / `Requisito:` / `Aprimoramento (bloqueado):`. A paginação em folhas é calculada em `src/data/spells.ts`.
 
 ## Arte e texturas
 

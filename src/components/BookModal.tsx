@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { neighborIds } from '../data/books'
+import { bookIdOfYear, getSpell, spreadOfSpell } from '../data/spells'
+import { clearBookmark, setBookmark } from '../lib/bookmark'
 import type { BookData, LibraryPhase, OriginRect } from '../types'
+import { BookNavContext, type BookNav } from './BookNavContext'
 import { BookVolume, usePageFlip, type BookPose } from './BookVolume'
 
 type Props = {
@@ -54,6 +57,22 @@ export function BookModal({
   const returning = phase === 'toShelf'
   const inFlight = phase === 'toCenter' || returning
   const pages = usePageFlip(book.spreads.length, reduced, book.id)
+  const nav: BookNav = {
+    bookId: book.id,
+    goTo: pages.goTo,
+    openSpell: (id) => {
+      const spell = getSpell(id)
+      if (!spell) return
+      const target = bookIdOfYear(spell.year)
+      const spread = spreadOfSpell(id)
+      if (target === book.id) {
+        pages.goTo(spread)
+        return
+      }
+      setBookmark(target, spread)
+      onNavigate(target)
+    },
+  }
 
   useEffect(() => {
     const onResize = () => setDim(sizes())
@@ -67,14 +86,17 @@ export function BookModal({
 
   useEffect(() => {
     if (phase === 'closing' || phase === 'toShelf') {
+      clearBookmark(book.id)
       if (pages.turning) pages.onFlipEnd()
       else pages.cancelTurn()
     }
-  }, [phase, pages.cancelTurn, pages.onFlipEnd, pages.turning])
+  }, [phase, book.id, pages.cancelTurn, pages.onFlipEnd, pages.turning])
 
   useEffect(() => {
     if (phase !== 'open') return
     const onKey = (e: KeyboardEvent) => {
+      const el = e.target as HTMLElement | null
+      if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')) return
       if (e.key === 'ArrowRight') {
         e.preventDefault()
         pages.onTurn('next')
@@ -189,15 +211,17 @@ export function BookModal({
             <h2 id="book-dialog-title" className="sr-only">
               {book.title}
             </h2>
-            <BookVolume
-              book={book}
-              pose={pose}
-              reduced={reduced}
-              spread={pages.spread}
-              turning={pages.turning}
-              onTurn={pages.onTurn}
-              onFlipEnd={pages.onFlipEnd}
-            />
+            <BookNavContext.Provider value={nav}>
+              <BookVolume
+                book={book}
+                pose={pose}
+                reduced={reduced}
+                spread={pages.spread}
+                turning={pages.turning}
+                onTurn={pages.onTurn}
+                onFlipEnd={pages.onFlipEnd}
+              />
+            </BookNavContext.Provider>
           </div>
         </motion.div>
       </div>
@@ -262,8 +286,18 @@ export function BookModal({
                 disabled={!neighbors.prev}
                 onClick={() => neighbors.prev && onNavigate(neighbors.prev)}
               >
-                Tomo anterior
+                <span className="tab-hide">Tomo </span>anterior
               </button>
+              {book.category === 'year' ? (
+                <button
+                  type="button"
+                  className="nav-tab"
+                  disabled={pages.spread === 0 || !!pages.turning}
+                  onClick={() => pages.goTo(0)}
+                >
+                  Índice
+                </button>
+              ) : null}
               <button type="button" className="nav-tab" onClick={onRequestClose}>
                 Estante
               </button>
@@ -273,7 +307,7 @@ export function BookModal({
                 disabled={!neighbors.next}
                 onClick={() => neighbors.next && onNavigate(neighbors.next)}
               >
-                Próximo tomo
+                Próximo<span className="tab-hide"> tomo</span>
               </button>
             </div>
           </motion.div>
