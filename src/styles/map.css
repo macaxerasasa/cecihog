@@ -396,7 +396,7 @@ button {
 
 .place:hover .place-art,
 .place:focus-visible .place-art {
-  transform: translateY(-3px) scale(1.035);
+  transform: translateY(-2px) scale(1.02);
 }
 
 .place.is-active .place-art {

@@ -369,11 +369,14 @@ function Room({
   const bh = 32
   const by = b.y + b.h + 10
   const art = asset(`art/ink-${p.art}.webp`)
+  /* the inner floor, inset from the wall hatch, is the only place ink may sit */
+  const inner = { x: b.x + WALL + 4, y: b.y + WALL + 4, w: b.w - 2 * WALL - 8, h: b.h - 2 * WALL - 8 }
+  const clipId = `room-ink-${p.id}-${frame}`
   const artBox = isRoom
-    ? { x: b.x + b.w * 0.38, y: b.y + 16, w: b.w * 0.54, h: b.h - 32 }
+    ? { x: inner.x + inner.w * 0.3, y: inner.y + 6, w: inner.w * 0.58, h: inner.h - 12 }
     : p.kind === 'hall'
-      ? { x: cx - 112, y: b.y + 22, w: 224, h: b.h - 44 }
-      : { x: cx - 78, y: b.y + 26, w: 156, h: b.h - 52 }
+      ? { x: cx - 100, y: inner.y + 8, w: 200, h: inner.h - 16 }
+      : { x: cx - 64, y: inner.y + 10, w: 128, h: inner.h - 20 }
   const style = { '--d': `${1.15 + (b.x / FRAME[frame].w) * 0.5 + (b.y / FRAME[frame].h) * 0.6}s` } as CSSProperties
   const activate = (e: MouseEvent<SVGGElement>) => {
     if (disabled) return
@@ -399,17 +402,22 @@ function Room({
     >
       <rect className="place-hit" x={b.x - 8} y={b.y - 8} width={b.w + 16} height={b.h + bh + 44} rx={6} />
       <rect className="place-floor" x={b.x + WALL} y={b.y + WALL} width={b.w - 2 * WALL} height={b.h - 2 * WALL} />
+      <clipPath id={clipId}>
+        <rect x={inner.x} y={inner.y} width={inner.w} height={inner.h} />
+      </clipPath>
       {p.numeral ? (
         <text
           className={`place-numeral is-n${p.numeral.length}`}
-          x={b.x + 14}
-          y={b.h < 130 ? b.y + b.h * 0.64 : b.y + 38}
+          x={inner.x + 6}
+          y={inner.h < 110 ? inner.y + inner.h * 0.62 : inner.y + 26}
           textAnchor="start"
         >
           {p.numeral}
         </text>
       ) : null}
-      <image className="place-art" href={art} x={artBox.x} y={artBox.y} width={artBox.w} height={artBox.h} preserveAspectRatio="xMidYMid meet" />
+      <g clipPath={`url(#${clipId})`}>
+        <image className="place-art" href={art} x={artBox.x} y={artBox.y} width={artBox.w} height={artBox.h} preserveAspectRatio="xMidYMid meet" />
+      </g>
       <g className="place-banner" transform={`translate(${cx - bw / 2} ${by})`}>
         <path className="banner-ribbon" d={ribbon(bw, bh)} />
         <text className={`banner-name${p.name.length > 16 ? ' is-long' : ''}`} x={bw / 2} y={bh / 2 + 7} textAnchor="middle">
