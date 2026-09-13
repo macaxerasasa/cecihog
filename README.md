@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Servidor: `http://127.0.0.1:45217`. Em desenvolvimento, `?aberto` na URL pula o juramento.
+Servidor: `http://127.0.0.1:45217`. Cada visita começa no juramento; em desenvolvimento, `?aberto` na URL pula essa porta.
 
 ```bash
 npm run build

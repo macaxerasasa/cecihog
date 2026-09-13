@@ -16,7 +16,6 @@ const FoldOut = lazy(loadFoldOut)
 
 type Phase = 'idle' | FoldPhase
 
-const OATH_KEY = 'maroto-oath'
 const DRAW_MS = 2800
 
 export function MaraudersMap() {
@@ -28,8 +27,8 @@ export function MaraudersMap() {
 
   const [sworn, setSworn] = useState(() => {
     if (typeof window === 'undefined') return false
-    if (import.meta.env.DEV && new URLSearchParams(window.location.search).has('aberto')) return true
-    return window.sessionStorage.getItem(OATH_KEY) === '1'
+    // `?aberto` only in `npm run dev`, so shots and local work can skip the gate
+    return import.meta.env.DEV && new URLSearchParams(window.location.search).has('aberto')
   })
   const [drawn, setDrawn] = useState(false)
   const [fading, setFading] = useState(false)
@@ -205,7 +204,6 @@ export function MaraudersMap() {
   }, [requestClose])
 
   const swear = () => {
-    window.sessionStorage.setItem(OATH_KEY, '1')
     setSworn(true)
     setStatus('O mapa revela-se.')
   }
@@ -215,7 +213,6 @@ export function MaraudersMap() {
     setFading(true)
     setStatus('Travessura feita.')
     later(820, () => {
-      window.sessionStorage.removeItem(OATH_KEY)
       setFading(false)
       setSworn(false)
       syncRoute(null, true)

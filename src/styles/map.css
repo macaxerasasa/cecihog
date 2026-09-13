@@ -717,12 +717,21 @@ button {
   margin: 0;
   font: italic clamp(0.95rem, 1.3vw, 1.1rem) / 1.4 var(--font-ink);
   color: var(--ink-2);
+  opacity: 0;
+  animation: inkFade 0.8s ease forwards 0.2s;
 }
 
 .oath-phrase {
   margin: 0.55rem 0 1.4rem;
   font: 400 clamp(1.75rem, 4.4vw, 2.9rem) / 1.15 var(--font-script);
   color: var(--ink);
+  clip-path: inset(0 100% 0 0);
+  animation: lineWrite 1.15s var(--ease) forwards 0.5s;
+}
+
+.oath.is-waiting .oath-btn {
+  opacity: 0;
+  animation: inkFade 0.55s ease forwards 1.4s;
 }
 
 .oath-reveal {
