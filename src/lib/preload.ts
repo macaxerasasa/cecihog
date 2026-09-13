@@ -3,6 +3,8 @@ import { asset } from './asset'
 const HALL_ART = [
   'art/hall.webp',
   'art/hall-portrait.webp',
+  'art/case.webp',
+  'art/case-portrait.webp',
   'art/wood.webp',
   'art/leather.webp',
   'art/parchment.webp',
@@ -43,5 +45,12 @@ export function preloadReaderArt() {
     img.decoding = 'async'
     img.src = asset(path)
     img.decode().catch(() => {})
+  }
+  if (document.fonts) {
+    void document.fonts.load('400 16px Alegreya')
+    void document.fonts.load('italic 400 16px Alegreya')
+    void document.fonts.load('700 16px Alegreya')
+    void document.fonts.load('400 16px "Almendra SC"')
+    void document.fonts.load('400 16px "Almendra Display"')
   }
 }

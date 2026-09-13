@@ -9,9 +9,11 @@ import { HouseCorners } from './HouseCorners'
 import { LibraryEnvironment } from './LibraryEnvironment'
 import { Lighting } from './Lighting'
 import { WallSconces } from './WallSconces'
-import { GoldenSnitch } from './GoldenSnitch'
+import { FlameDefs } from './Candle'
 import { Particles } from './Particles'
 import { WandGate } from './WandGate'
+
+const GoldenSnitch = lazy(() => import('./GoldenSnitch'))
 
 /*
  * The reader (pages, spells, flight animation) is its own chunk: the hall
@@ -249,7 +251,9 @@ export function Library() {
         <div className="library is-gated">
           <WandGate reduced={reduced} onUnlocked={() => setUnlocked(true)} />
         </div>
-        <GoldenSnitch />
+        <Suspense fallback={null}>
+          <GoldenSnitch />
+        </Suspense>
       </>
     )
   }
@@ -262,6 +266,7 @@ export function Library() {
         reading={phase === 'open'}
         holding={holding}
       >
+        <FlameDefs />
         <Lighting />
         <WallSconces />
         <HouseCorners />
@@ -297,7 +302,9 @@ export function Library() {
           </Suspense>
         ) : null}
       </LibraryEnvironment>
-      <GoldenSnitch paused={holding} />
+      <Suspense fallback={null}>
+        <GoldenSnitch paused={holding} />
+      </Suspense>
     </>
   )
 }

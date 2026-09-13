@@ -32,7 +32,7 @@ export const Particles = memo(function Particles({ active, paused = false }: Pro
 
     const dots: Particle[] = []
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const count = reduced ? 12 : lite ? 18 : 42
+    const count = reduced ? 8 : lite ? 12 : 22
 
     const resize = () => {
       canvas.width = Math.max(1, Math.floor(window.innerWidth * dpr))

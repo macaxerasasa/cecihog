@@ -14,7 +14,7 @@ const WING_R = asset('snitch/wing-right.png')
 const ghostL = { '--wing': `url(${WING_L})` } as CSSProperties
 const ghostR = { '--wing': `url(${WING_R})` } as CSSProperties
 
-export function GoldenSnitch({ paused = false }: { paused?: boolean }) {
+export default function GoldenSnitch({ paused = false }: { paused?: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   const trailRef = useRef<HTMLDivElement>(null)
   const pausedRef = useRef(paused)

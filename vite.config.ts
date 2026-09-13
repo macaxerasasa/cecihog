@@ -24,6 +24,11 @@ const base = process.env.VITE_BASE || '/'
 export default defineConfig({
   base,
   plugins: [react(), spaFallback()],
+  build: {
+    target: 'es2022',
+    cssMinify: true,
+    modulePreload: { polyfill: false },
+  },
   server: {
     host: '127.0.0.1',
     port: 45217,
