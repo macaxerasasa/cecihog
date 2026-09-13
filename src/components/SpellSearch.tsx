@@ -24,7 +24,7 @@ function Result({ spell, year, hit, onPick }: { spell: Spell; year: number; hit?
           {spell.classification}
           {hit && WHERE_LABEL[hit.where] ? <em> · {WHERE_LABEL[hit.where]}</em> : null}
         </span>
-        <span className="hit-page">{here ? `pág. ${page + 1}` : `Livro ${YEAR_ROMAN[spell.year - 1]}`}</span>
+        <span className="hit-page">{here ? `dobra ${page + 1}` : `Sala ${YEAR_ROMAN[spell.year - 1]}`}</span>
       </button>
     </li>
   )
@@ -58,7 +58,7 @@ export function SpellSearch({ year }: { year: number }) {
           autoComplete="off"
           spellCheck={false}
           enterKeyHint="search"
-          aria-label="Procurar um feitiço nos sete tomos"
+          aria-label="Procurar um feitiço nas sete salas"
         />
         {query ? (
           <button type="button" className="finder-clear" aria-label="Limpar a busca" onClick={() => setQuery('')}>
@@ -78,7 +78,7 @@ export function SpellSearch({ year }: { year: number }) {
           {here.length ? (
             <>
               <p className="finder-group">
-                Neste tomo <span>{here.length}</span>
+                Nesta sala <span>{here.length}</span>
               </p>
               <ul className="finder-list">
                 {here.map((h) => (
@@ -90,7 +90,7 @@ export function SpellSearch({ year }: { year: number }) {
           {elsewhere.length ? (
             <>
               <p className="finder-group">
-                Em outros tomos <span>{elsewhere.length}</span>
+                Em outras salas <span>{elsewhere.length}</span>
               </p>
               <ul className="finder-list">
                 {elsewhere.slice(0, 24).map((h) => (
@@ -111,7 +111,9 @@ export function SpellSearch({ year }: { year: number }) {
               <Result key={s.id} spell={s} year={year} onPick={pick} />
             ))}
           </ul>
-          <p className="finder-note">A busca percorre os sete tomos — um feitiço de outro ano abre o livro certo na página certa.</p>
+          <p className="finder-note">
+            A busca percorre as sete salas — um feitiço de outro ano abre a sala certa, na dobra certa.
+          </p>
         </div>
       )}
     </div>

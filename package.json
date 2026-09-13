@@ -11,7 +11,6 @@
     "spells": "node scripts/import-spells.mjs"
   },
   "dependencies": {
-    "framer-motion": "^12.23.12",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },

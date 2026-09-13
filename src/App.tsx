@@ -1,5 +1,5 @@
-import { Library } from './components/Library'
+import { MaraudersMap } from './components/MaraudersMap'
 
 export default function App() {
-  return <Library />
+  return <MaraudersMap />
 }

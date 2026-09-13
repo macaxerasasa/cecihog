@@ -1,6 +1,6 @@
-# Hogwarts — Biblioteca
+# O Mapa do Maroto — Hogwarts
 
-Fan site interativo da biblioteca de Hogwarts. A entrada exige o gesto de varinha de **Alohomora** (no espírito do treino de feitiços de *Hogwarts Legacy*). Depois, a estante é o menu: dez tomos abrem em 3D.
+Fan site em forma de **Mapa do Maroto**: uma planta de Hogwarts em tinta sobre pergaminho dobrado. A entrada pede o juramento (toque a varinha no pergaminho); a tinta se espalha, o mapa se desenha e as salas passam a abrir **folhas dobradas** com o conteúdo — o castelo, as matérias, as casas e o sumário dos 163 feitiços dos sete anos, com busca.
 
 ## Como executar
 
@@ -9,94 +9,34 @@ npm install
 npm run dev
 ```
 
-Servidor: `http://127.0.0.1:45217`.
+Servidor: `http://127.0.0.1:45217`. Em desenvolvimento, `?aberto` na URL pula o juramento.
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Publicar no GitHub Pages (site `cecihog`)
+## Estrutura
 
-O repositório já traz o workflow `.github/workflows/deploy-pages.yml`, que faz o build e publica a cada push em `main`.
+- `src/components/Oath.tsx` — o juramento: veias de tinta a partir do toque e a apresentação dos senhores Aluado, Rabicho, Almofadinhas e Pontas.
+- `src/components/CastleMap.tsx` — a planta em SVG: salas com portas, corredores, escadas, bússola, floresta, lago e as pegadas que rondam os corredores (`Walkers.tsx`).
+- `src/components/FoldOut.tsx` — a folha que se ergue da sala e se desdobra em duas metades; as dobras seguintes viram na prega. `MapBlocks.tsx` desenha os blocos de conteúdo, `SpellEntry.tsx` os verbetes e `SpellSearch.tsx` a busca.
+- `src/data/` — os textos: `books.ts` (títulos, subtítulos, lemas), `content.ts` (páginas), `spells.json` (feitiços, importados do documento via `npm run spells`) e `map.ts` (onde cada sala fica na planta, em paisagem e em retrato).
+- `src/styles/map.css` — toda a estética: só transformações, opacidade e `clip-path` animam; o único filtro SVG (o tremor de traço à mão) fica numa camada estática.
 
-1. No GitHub, crie um repositório chamado **cecihog** (público, vazio, sem README).
-2. Envie o código:
+Cada sala tem endereço próprio (`/tomo/<id>`); o botão voltar dobra a folha. `Travessura feita` apaga a tinta e devolve o pergaminho em branco.
 
-   ```bash
-   git remote add github https://github.com/SEU-USUARIO/cecihog.git
-   git push -u github main
-   ```
+## Publicar
 
-3. No repositório, abra **Settings → Pages** e em **Build and deployment → Source** escolha **GitHub Actions**.
-4. Aguarde a action "Deploy to GitHub Pages" terminar (aba **Actions**).
-
-O site fica em `https://SEU-USUARIO.github.io/cecihog/`. O caminho base é resolvido pelo workflow a partir do nome do repositório; para testar o build com esse caminho localmente:
+**GitHub Pages** — o workflow `.github/workflows/deploy-pages.yml` publica a cada push em `main` (Settings → Pages → Source: GitHub Actions). O caminho base sai do nome do repositório; para testar localmente:
 
 ```bash
 VITE_BASE=/cecihog/ npm run build
 npm run preview
 ```
 
-## Publicar na Vercel (`cecihog.vercel.app`)
+**Vercel** — `vercel.json` já configura framework, saída e o rewrite de `/tomo/:id`. Importe o repositório em [vercel.com/new](https://vercel.com/new) e cada push publica sozinho.
 
-O projeto já traz `vercel.json` (framework Vite, saída em `dist/`, `base` = `/`). Basta importar o repositório:
+## Créditos visuais
 
-1. Em [vercel.com/new](https://vercel.com/new), escolha o repositório `macaxerasasa/cecihog`.
-2. Nome do projeto: `cecihog`. Framework detectado: Vite. Deixe build e saída como estão.
-3. Deploy. A partir daí, cada `git push` na `main` publica sozinho em `https://cecihog.vercel.app`.
-
-Também dá para publicar pela CLI: `npx vercel --prod` (pede login ou `VERCEL_TOKEN`).
-
-## Entrada
-
-Trace o glifo dourado com o rato ou o dedo, a partir do nó brilhante. Com `prefers-reduced-motion`, há um atalho acessível para completar o gesto.
-
-## Conteúdo
-
-Os volumes estão em `src/data/books.ts` (Hogwarts, Matérias, Casas e os sete anos).
-
-### Sumário de Feitiços
-
-Os sete tomos de ano são o grimório: cada folha é um feitiço (nome, luz, classificação, movimento de varinha, efeito e aprimoramentos), e os verbetes longos continuam na folha seguinte. A primeira página dupla de cada tomo traz o **localizador**: um campo de busca que percorre os sete livros por nome, classificação, cor da luz, gesto ou trecho do texto, além do índice do ano com o número da página. Um resultado de outro ano abre o tomo certo na folha certa.
-
-Os dados vivem em `src/data/spells.json`, gerados a partir do documento compartilhado *Sumário de Feitiços*:
-
-```bash
-npm run spells                # baixa o Google Doc e regrava spells.json
-npm run spells -- sumario.txt # ou a partir de uma exportação .txt local
-```
-
-O importador (`scripts/import-spells.mjs`) espera cabeçalhos `PRIMEIRO ANO` … `SÉTIMO ANO` e blocos `NOME` / `Efeito:` / `Luz:` / `Classificação:` / `Movimento manual:` / `Requisito:` / `Aprimoramento (bloqueado):`. A paginação em folhas é calculada em `src/data/spells.ts`.
-
-## Arte e texturas
-
-As pinturas e materiais em `public/art/` foram geradas por IA e otimizadas para a web (WebP):
-
-- `hall.webp` / `hall-portrait.webp` — o salão da biblioteca atrás da estante (paisagem e retrato); recebe um parallax leve com o rato e um zoom lento na revelação.
-- `gate.webp` — a porta gótica do portal Alohomora.
-- `wood.webp`, `leather.webp`, `parchment.webp` — ladrilhos sem emendas para a madeira da estante, o couro das lombadas e o papel das páginas.
-- `case.webp` / `case-portrait.webp` — a estante pintada (recorte com alfa, versões paisagem e retrato). As prateleiras reais (`.shelf-recess`) são posicionadas em percentagens medidas sobre a pintura, por isso os livros encaixam nos vãos.
-- `tool-band.webp`, `tool-frame.webp`, `tool-medallion.webp`, `tool-flourish.webp` — douração das lombadas (faixas, moldura do título em nine-slice, medalhão, florões), aplicada sobre o couro com `mix-blend-mode: screen`.
-- `cover-frame.webp`, `cover-medallion.webp` — a moldura e o brasão gravados na capa do livro aberto.
-- `page-border.webp` — a cercadura de vinhas iluminada das páginas (`mix-blend-mode: multiply`).
-- `prop-candelabra.webp`, `prop-sconce.webp` — o candelabro de cinco braços da cornija e a arandela de ferro da parede; só as chamas são desenhadas ao vivo (SVG sobre cada pavio medido na imagem), com a luz quente que elas jogam na madeira e na parede.
-- `prop-hourglass.webp`, `prop-orb.webp`, `prop-inkwell.webp`, `prop-potions.webp`, `prop-lantern.webp`, `prop-scrolls.webp`, `prop-stack.webp` — os objetos das prateleiras, recortados com transparência; brilhos do orbe, das poções e da lanterna são camadas CSS animadas por cima.
-- `ink-*.webp` — 18 pranchas de gravura a tinta (castelo, coruja, caldeirão, varinha, chapéu, pomo, ampulheta, orbe, pena, diário, cálice, fénix, medalhão, espada, vassoura, vira-tempo, mandrágora, chave) com fundo transparente, usadas nos blocos `plate` de `src/data/books.ts`.
-
-Durante o desenvolvimento, `http://127.0.0.1:45217/?aberto` salta o portal Alohomora e abre a estante directamente.
-
-Em telemóveis e ecrãs de toque o site entra num modo leve (sem desfoques, sem grão animado, sem parallax) para manter a fluidez.
-
-## Endereços
-
-Cada tomo aberto tem endereço próprio — `/tomo/quarto-ano`, `/tomo/casas`… — sem recarregar a página: abrir um livro empurra a entrada no histórico, o botão Voltar fecha (ou volta ao tomo anterior) e o título da aba muda. Links diretos funcionam nos dois hosts: a Vercel reescreve `/tomo/*` para a raiz (`vercel.json`) e, no GitHub Pages, o build gera `404.html` como cópia do `index.html`.
-
-O leitor (páginas, feitiços, animação de voo) é um pedaço separado do código, carregado em segundo plano enquanto o visitante ainda está no portão ou olhando a estante; a estante em si abre com menos da metade do JavaScript.
-
-## Controles
-
-- Traçar Alohomora para entrar
-- Clique ou toque num livro para o abrir
-- `Esc` fecha o tomo
-- Setas na estante movem o foco
+Pergaminhos e gravuras a tinta gerados por IA para este projeto; tipografia IM Fell English, IM Fell English SC, Pinyon Script e Homemade Apple (Google Fonts, servidas localmente).
