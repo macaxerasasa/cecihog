@@ -3,6 +3,12 @@ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { asset } from '../lib/asset'
 
 const TRAIL = 9
+/* The flight is simulated in fixed 60 Hz steps and the sprite is drawn at the
+   screen's refresh rate, interpolating between steps: the snitch covers the
+   same ground per second whether the page is running at 30, 60 or 120 fps,
+   instead of crawling whenever the frame rate dips. */
+const STEP = 1000 / 60
+const MAX_STEPS = 4
 const WING_L = asset('snitch/wing-left.png')
 const WING_R = asset('snitch/wing-right.png')
 const ghostL = { '--wing': `url(${WING_L})` } as CSSProperties
@@ -20,6 +26,7 @@ export function GoldenSnitch() {
     const sparks = Array.from(trail.children) as HTMLElement[]
 
     const pos = { x: window.innerWidth * 0.72, y: window.innerHeight * 0.28 }
+    const prev = { ...pos }
     const vel = { x: 1.1, y: 0.4 }
     const mouse = { x: -2000, y: -2000 }
     const history: { x: number; y: number }[] = []
@@ -33,8 +40,13 @@ export function GoldenSnitch() {
     window.addEventListener('pointermove', onMove)
 
     let raf = 0
-    const tick = () => {
+    let last = 0
+    let acc = STEP // first frame runs a step right away, as before
+    let speed = 0
+    const step = () => {
       t += 1
+      prev.x = pos.x
+      prev.y = pos.y
       const pad = 40
       const w = window.innerWidth
       const h = window.innerHeight
@@ -65,7 +77,7 @@ export function GoldenSnitch() {
       vel.x *= 0.935
       vel.y *= 0.935
 
-      const speed = Math.hypot(vel.x, vel.y)
+      speed = Math.hypot(vel.x, vel.y)
       const max = reduced ? 1.6 : 12
       if (speed > max) {
         vel.x = (vel.x / speed) * max
@@ -95,21 +107,40 @@ export function GoldenSnitch() {
         vel.y = -Math.abs(vel.y) - 0.4
       }
 
-      const bank = Math.max(-28, Math.min(28, vel.x * 2.6))
-      const pitch = Math.max(-10, Math.min(10, vel.y * 1.4))
-      el.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${bank + pitch}deg)`
-
       history.unshift({ x: pos.x, y: pos.y })
       if (history.length > TRAIL * 3) history.pop()
+    }
+
+    const tick = (now: number) => {
+      raf = requestAnimationFrame(tick)
+      if (!last) last = now
+      // a long gap (hidden tab, a stall) is not paid back as a burst of catch-up
+      acc = Math.min(acc + (now - last), STEP * MAX_STEPS)
+      last = now
+      let steps = 0
+      while (acc >= STEP && steps < MAX_STEPS) {
+        step()
+        acc -= STEP
+        steps++
+      }
+      if (t === 0) return
+
+      const k = acc / STEP
+      const x = prev.x + (pos.x - prev.x) * k
+      const y = prev.y + (pos.y - prev.y) * k
+      const bank = Math.max(-28, Math.min(28, vel.x * 2.6))
+      const pitch = Math.max(-10, Math.min(10, vel.y * 1.4))
+      el.style.transform = `translate(${x}px, ${y}px) rotate(${bank + pitch}deg)`
+
+      if (!steps) return
+      const glow = Math.min(1, speed / 4)
       sparks.forEach((s, i) => {
         const p = history[Math.min(history.length - 1, (i + 1) * 3)]
         if (!p) return
         const k = 1 - i / TRAIL
         s.style.transform = `translate(${p.x}px, ${p.y}px) scale(${0.35 + k * 0.65})`
-        s.style.opacity = String(k * 0.85 * Math.min(1, speed / 4))
+        s.style.opacity = String(k * 0.85 * glow)
       })
-
-      raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
 
