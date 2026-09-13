@@ -122,7 +122,7 @@ const contents: Record<string, Spread[]> = {
       { type: 'heading', text: 'Habilidades e Raças' },
       { type: 'subheading', text: 'Dons da mente, do sangue e da forma' },
       { type: 'ornament' },
-      plate({ art: 'mind', caption: 'Prancha I — O olhar que atravessa' }, true),
+      plate({ art: 'wand', caption: 'Prancha I — A varinha escolhe o bruxo' }, true),
       {
         type: 'paragraph',
         text: 'Nem todo poder se ensina numa sala de aula. Alguns nascem no sangue — a língua das cobras, o rosto que muda, a herança das veelas. Outros pedem anos de treino: a mente que invade, a mente que se fecha, o corpo que escolhe um animal e não larga mais. Esta dobra cataloga sete habilidades e três raças, cada uma com o que exige, o que oferece e o preço que cobra.',

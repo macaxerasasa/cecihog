@@ -96,8 +96,20 @@ function RoomInk({ p, frame }: { p: Place; frame: Frame }) {
   const b = p[frame]
   const k = walls(b, doorsOf(p, frame))
   const d = drawDelay(b.x, b.y, frame)
+  const art = asset(`art/ink-${p.art}.webp`)
+  const pad = p.kind === 'room' ? 22 : p.kind === 'wing' ? 28 : 36
   return (
     <g className="room-ink" style={d}>
+      {/* plates sit under the walls so a cream rectangle can never cut the ink */}
+      <image
+        className="place-art"
+        href={art}
+        x={b.x + pad}
+        y={b.y + pad}
+        width={b.w - pad * 2}
+        height={b.h - pad * 2}
+        preserveAspectRatio="xMidYMid meet"
+      />
       <path className="wall-hatch" d={k.ring} fillRule="evenodd" />
       <path className="ink wall outer" d={k.outer} pathLength={1} />
       <path className="ink wall inner" d={k.inner} pathLength={1} />
@@ -364,19 +376,9 @@ function Room({
 }) {
   const b = p[frame]
   const cx = b.x + b.w / 2
-  const isRoom = p.kind === 'room'
   const bw = Math.min(p.name.length * (p.name.length > 16 ? 11 : 12.4) + 48, b.w + 80)
   const bh = 32
   const by = b.y + b.h + 10
-  const art = asset(`art/ink-${p.art}.webp`)
-  /* the inner floor, inset from the wall hatch, is the only place ink may sit */
-  const inner = { x: b.x + WALL + 4, y: b.y + WALL + 4, w: b.w - 2 * WALL - 8, h: b.h - 2 * WALL - 8 }
-  const clipId = `room-ink-${p.id}-${frame}`
-  const artBox = isRoom
-    ? { x: inner.x + inner.w * 0.3, y: inner.y + 6, w: inner.w * 0.58, h: inner.h - 12 }
-    : p.kind === 'hall'
-      ? { x: cx - 100, y: inner.y + 8, w: 200, h: inner.h - 16 }
-      : { x: cx - 64, y: inner.y + 10, w: 128, h: inner.h - 20 }
   const style = { '--d': `${1.15 + (b.x / FRAME[frame].w) * 0.5 + (b.y / FRAME[frame].h) * 0.6}s` } as CSSProperties
   const activate = (e: MouseEvent<SVGGElement>) => {
     if (disabled) return
@@ -402,22 +404,16 @@ function Room({
     >
       <rect className="place-hit" x={b.x - 8} y={b.y - 8} width={b.w + 16} height={b.h + bh + 44} rx={6} />
       <rect className="place-floor" x={b.x + WALL} y={b.y + WALL} width={b.w - 2 * WALL} height={b.h - 2 * WALL} />
-      <clipPath id={clipId}>
-        <rect x={inner.x} y={inner.y} width={inner.w} height={inner.h} />
-      </clipPath>
       {p.numeral ? (
         <text
           className={`place-numeral is-n${p.numeral.length}`}
-          x={inner.x + 6}
-          y={inner.h < 110 ? inner.y + inner.h * 0.62 : inner.y + 26}
+          x={b.x + WALL + 8}
+          y={b.h < 130 ? b.y + b.h * 0.62 : b.y + WALL + 28}
           textAnchor="start"
         >
           {p.numeral}
         </text>
       ) : null}
-      <g clipPath={`url(#${clipId})`}>
-        <image className="place-art" href={art} x={artBox.x} y={artBox.y} width={artBox.w} height={artBox.h} preserveAspectRatio="xMidYMid meet" />
-      </g>
       <g className="place-banner" transform={`translate(${cx - bw / 2} ${by})`}>
         <path className="banner-ribbon" d={ribbon(bw, bh)} />
         <text className={`banner-name${p.name.length > 16 ? ' is-long' : ''}`} x={bw / 2} y={bh / 2 + 7} textAnchor="middle">

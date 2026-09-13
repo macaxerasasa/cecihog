@@ -386,21 +386,8 @@ button {
 }
 
 .place-art {
-  opacity: 0.92;
-  transform-box: fill-box;
-  transform-origin: 50% 100%;
-  transition:
-    transform 0.45s var(--ease),
-    opacity 0.4s ease;
-}
-
-.place:hover .place-art,
-.place:focus-visible .place-art {
-  transform: translateY(-2px) scale(1.02);
-}
-
-.place.is-active .place-art {
-  opacity: 0.3;
+  opacity: 0.88;
+  pointer-events: none;
 }
 
 .banner-ribbon {
