@@ -14,9 +14,11 @@ const WING_R = asset('snitch/wing-right.png')
 const ghostL = { '--wing': `url(${WING_L})` } as CSSProperties
 const ghostR = { '--wing': `url(${WING_R})` } as CSSProperties
 
-export function GoldenSnitch() {
+export function GoldenSnitch({ paused = false }: { paused?: boolean }) {
   const ref = useRef<HTMLDivElement>(null)
   const trailRef = useRef<HTMLDivElement>(null)
+  const pausedRef = useRef(paused)
+  pausedRef.current = paused
   const reduced = usePrefersReducedMotion()
 
   useEffect(() => {
@@ -113,6 +115,10 @@ export function GoldenSnitch() {
 
     const tick = (now: number) => {
       raf = requestAnimationFrame(tick)
+      if (pausedRef.current || document.visibilityState !== 'visible') {
+        last = 0
+        return
+      }
       if (!last) last = now
       // a long gap (hidden tab, a stall) is not paid back as a burst of catch-up
       acc = Math.min(acc + (now - last), STEP * MAX_STEPS)

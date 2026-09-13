@@ -1,6 +1,17 @@
 import { asset } from './asset'
 
-const HALL_ART = ['art/hall.webp', 'art/hall-portrait.webp', 'art/wood.webp', 'art/leather.webp', 'art/parchment.webp']
+const HALL_ART = [
+  'art/hall.webp',
+  'art/hall-portrait.webp',
+  'art/wood.webp',
+  'art/leather.webp',
+  'art/parchment.webp',
+  'art/prop-candelabra.webp',
+  'crests/gryffindor.webp',
+  'crests/slytherin.webp',
+  'crests/ravenclaw.webp',
+  'crests/hufflepuff.webp',
+]
 
 let started = false
 

@@ -131,7 +131,7 @@ export const HouseCorners = memo(function HouseCorners() {
           <Filigree house={house} />
           <div className="crest-wrap">
             <span className="crest-glow" />
-            <img src={asset(`crests/${house.id}.png`)} alt="" className="crest-img" draggable={false} />
+            <img src={asset(`crests/${house.id}.webp`)} alt="" className="crest-img" draggable={false} decoding="async" />
           </div>
         </div>
       ))}

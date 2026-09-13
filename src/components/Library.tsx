@@ -9,6 +9,7 @@ import { HouseCorners } from './HouseCorners'
 import { LibraryEnvironment } from './LibraryEnvironment'
 import { Lighting } from './Lighting'
 import { WallSconces } from './WallSconces'
+import { GoldenSnitch } from './GoldenSnitch'
 import { Particles } from './Particles'
 import { WandGate } from './WandGate'
 
@@ -240,56 +241,63 @@ export function Library() {
 
   const book = activeId ? getBook(activeId) : null
   const busy = phase !== 'idle' && phase !== 'boot' && phase !== 'open'
+  const holding = phase === 'toCenter' || phase === 'opening' || phase === 'open' || phase === 'closing'
 
   if (!unlocked) {
     return (
-      <div className="library is-gated">
-        <WandGate reduced={reduced} onUnlocked={() => setUnlocked(true)} />
-      </div>
+      <>
+        <div className="library is-gated">
+          <WandGate reduced={reduced} onUnlocked={() => setUnlocked(true)} />
+        </div>
+        <GoldenSnitch />
+      </>
     )
   }
 
   return (
-    <LibraryEnvironment
-      awake={awake}
-      busy={busy}
-      reading={phase === 'open'}
-      holding={phase === 'toCenter' || phase === 'opening' || phase === 'open' || phase === 'closing'}
-    >
-      <Lighting />
-      <WallSconces />
-      <HouseCorners />
-      <Particles active={awake} />
-      <header className="masthead">
-        <h1 data-text="Hogwarts">
-          <span>Hogwarts</span>
-        </h1>
-        <p>Biblioteca · Seção Restrita</p>
-      </header>
-      <div className="stage-wrap">
-        <Bookshelf busy={busy} activeId={activeId} onOpen={beginOpen} />
-      </div>
-      <p className="hint">
-        Toque um tomo<span className="hint-more"> para retirá-lo da estante</span>
-      </p>
-      <div className="sr-only" aria-live="polite">
-        {status}
-      </div>
-      {book && origin ? (
-        <Suspense fallback={null}>
-          <BookModal
-            key={book.id}
-            book={book}
-            origin={origin}
-            phase={phase}
-            reduced={reduced}
-            onOpened={handleOpened}
-            onClosed={handleClosed}
-            onRequestClose={requestClose}
-            onNavigate={navigateTo}
-          />
-        </Suspense>
-      ) : null}
-    </LibraryEnvironment>
+    <>
+      <LibraryEnvironment
+        awake={awake}
+        busy={busy}
+        reading={phase === 'open'}
+        holding={holding}
+      >
+        <Lighting />
+        <WallSconces />
+        <HouseCorners />
+        <Particles active={awake} paused={holding} />
+        <header className="masthead">
+          <h1 data-text="Hogwarts">
+            <span>Hogwarts</span>
+          </h1>
+          <p>Biblioteca · Seção Restrita</p>
+        </header>
+        <div className="stage-wrap">
+          <Bookshelf busy={busy} activeId={activeId} onOpen={beginOpen} />
+        </div>
+        <p className="hint">
+          Toque um tomo<span className="hint-more"> para retirá-lo da estante</span>
+        </p>
+        <div className="sr-only" aria-live="polite">
+          {status}
+        </div>
+        {book && origin ? (
+          <Suspense fallback={null}>
+            <BookModal
+              key={book.id}
+              book={book}
+              origin={origin}
+              phase={phase}
+              reduced={reduced}
+              onOpened={handleOpened}
+              onClosed={handleClosed}
+              onRequestClose={requestClose}
+              onNavigate={navigateTo}
+            />
+          </Suspense>
+        ) : null}
+      </LibraryEnvironment>
+      <GoldenSnitch paused={holding} />
+    </>
   )
 }

@@ -275,6 +275,36 @@ button {
   pointer-events: none;
 }
 
+/* A held tome sits in front of a veil (and the shelf itself is dimmed +
+   blurred). Every flicker behind that would force those filters to re-run;
+   pausing the infinite hall animations lets the GPU keep one cached bitmap. */
+.library.is-holding::after,
+.library.is-holding .window-light,
+.library.is-holding .candle-glow,
+.library.is-holding .house-glow,
+.library.is-holding .crest-glow,
+.library.is-holding .candle-flame,
+.library.is-holding .candle-halo,
+.library.is-holding .candle-spill,
+.library.is-holding .candelabra-glow,
+.library.is-holding .candelabra-pool,
+.library.is-holding .orb-halo,
+.library.is-holding .orb-nebula,
+.library.is-holding .potion-glow,
+.library.is-holding .lantern-glow,
+.library.is-holding .lantern-flame,
+.library.is-holding .case-halo,
+.library.is-holding .masthead h1 > span {
+  animation-play-state: paused;
+}
+
+body:has(.library.is-holding) .snitch-wing,
+body:has(.library.is-holding) .snitch-wing-ghost,
+body:has(.library.is-holding) .snitch-aura,
+body:has(.library.is-holding) .snitch-shine {
+  animation-play-state: paused;
+}
+
 .wall-grain {
   position: absolute;
   inset: 0;
@@ -296,6 +326,7 @@ button {
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  contain: layout style;
 }
 
 /* Every glow keeps its flicker on the host element and paints the blurred
@@ -414,6 +445,7 @@ button {
   inset: 0;
   z-index: 6;
   pointer-events: none;
+  contain: strict;
 }
 
 .masthead {
@@ -454,7 +486,6 @@ button {
 .masthead h1 > span {
   position: relative;
   display: block;
-  will-change: transform;
 }
 
 .masthead p {
@@ -1034,7 +1065,6 @@ button {
   animation: flameLick 1.1s ease-in-out infinite;
   animation-delay: var(--flicker-delay);
   transform-origin: 30px 54px;
-  will-change: transform;
 }
 
 .candle-halo {
@@ -1222,7 +1252,6 @@ button {
     transform 0.55s var(--ease-soft),
     filter 0.55s var(--ease-soft);
   filter: drop-shadow(-10px 14px 12px rgba(0, 0, 0, 0.55));
-  will-change: transform;
 }
 
 .book-btn:hover .book-mesh,
@@ -1231,6 +1260,7 @@ button {
   transform: rotateY(8deg) translateZ(26px) translateY(-8px);
   filter: drop-shadow(-18px 22px 16px rgba(0, 0, 0, 0.62))
     drop-shadow(0 0 12px rgba(212, 170, 80, 0.28));
+  will-change: transform;
 }
 
 .book-face {

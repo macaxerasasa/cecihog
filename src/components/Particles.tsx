@@ -10,28 +10,36 @@ type Particle = {
   vy: number
 }
 
-export const Particles = memo(function Particles({ active }: { active: boolean }) {
+type Props = {
+  active: boolean
+  paused?: boolean
+}
+
+export const Particles = memo(function Particles({ active, paused = false }: Props) {
   const ref = useRef<HTMLCanvasElement>(null)
+  const activeRef = useRef(active)
+  const pausedRef = useRef(paused)
+  activeRef.current = active
+  pausedRef.current = paused
 
   useEffect(() => {
     const canvas = ref.current
     if (!canvas) return
-    const ctx = canvas.getContext('2d')
+    const lite = window.matchMedia('(max-width: 740px), (pointer: coarse)').matches
+    const dpr = lite ? 1 : Math.min(window.devicePixelRatio || 1, 1.25)
+    const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true })
     if (!ctx) return
 
-    let raf = 0
     const dots: Particle[] = []
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const lite = window.matchMedia('(max-width: 740px), (pointer: coarse)').matches
     const count = reduced ? 12 : lite ? 18 : 42
 
     const resize = () => {
-      canvas.width = window.innerWidth * devicePixelRatio
-      canvas.height = window.innerHeight * devicePixelRatio
+      canvas.width = Math.max(1, Math.floor(window.innerWidth * dpr))
+      canvas.height = Math.max(1, Math.floor(window.innerHeight * dpr))
       canvas.style.width = `${window.innerWidth}px`
       canvas.style.height = `${window.innerHeight}px`
-      ctx.setTransform(1, 0, 0, 1, 0, 0)
-      ctx.scale(devicePixelRatio, devicePixelRatio)
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
 
     const spawn = (): Particle => ({
@@ -48,23 +56,23 @@ export const Particles = memo(function Particles({ active }: { active: boolean }
     resize()
     window.addEventListener('resize', resize)
 
+    let raf = 0
     const tick = () => {
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
-      if (active) {
-        for (const d of dots) {
-          d.x += d.vx
-          d.y += d.vy
-          d.a += Math.sin(d.y * 0.01) * 0.0008
-          if (d.y < -4 || d.x < -4 || d.x > window.innerWidth + 4) {
-            Object.assign(d, spawn(), { y: window.innerHeight + 2 })
-          }
-          ctx.beginPath()
-          ctx.fillStyle = `rgba(255, 214, 150, ${Math.max(0.04, Math.min(0.4, d.a))})`
-          ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2)
-          ctx.fill()
-        }
-      }
       raf = requestAnimationFrame(tick)
+      if (!activeRef.current || pausedRef.current || document.visibilityState !== 'visible') return
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight)
+      for (const d of dots) {
+        d.x += d.vx
+        d.y += d.vy
+        d.a += Math.sin(d.y * 0.01) * 0.0008
+        if (d.y < -4 || d.x < -4 || d.x > window.innerWidth + 4) {
+          Object.assign(d, spawn(), { y: window.innerHeight + 2 })
+        }
+        ctx.beginPath()
+        ctx.fillStyle = `rgba(255, 214, 150, ${Math.max(0.04, Math.min(0.4, d.a))})`
+        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2)
+        ctx.fill()
+      }
     }
     raf = requestAnimationFrame(tick)
 
@@ -72,7 +80,7 @@ export const Particles = memo(function Particles({ active }: { active: boolean }
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', resize)
     }
-  }, [active])
+  }, [])
 
   return <canvas ref={ref} className="particles-canvas" aria-hidden="true" />
 })

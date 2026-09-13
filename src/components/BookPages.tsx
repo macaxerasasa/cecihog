@@ -1,9 +1,10 @@
+import { memo } from 'react'
 import type { ContentBlock } from '../types'
 import { asset } from '../lib/asset'
 import { SpellEntry } from './SpellEntry'
 import { SpellSearch } from './SpellSearch'
 
-function Block({ block }: { block: ContentBlock }) {
+const Block = memo(function Block({ block }: { block: ContentBlock }) {
   switch (block.type) {
     case 'plate':
       return (
@@ -62,9 +63,9 @@ function Block({ block }: { block: ContentBlock }) {
     default:
       return null
   }
-}
+})
 
-export function BookPages({ blocks }: { blocks: ContentBlock[] }) {
+export const BookPages = memo(function BookPages({ blocks }: { blocks: ContentBlock[] }) {
   return (
     <>
       {blocks.map((block, i) => (
@@ -72,4 +73,4 @@ export function BookPages({ blocks }: { blocks: ContentBlock[] }) {
       ))}
     </>
   )
-}
+})
