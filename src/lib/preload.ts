@@ -17,3 +17,20 @@ export function preloadHallArt() {
     img.src = asset(path)
   }
 }
+
+const READER_ART = ['art/cover-frame.webp', 'art/cover-medallion.webp', 'art/page-border.webp']
+
+let readerStarted = false
+
+/* Fetch and decode the textures every open tome uses, so the first click does
+   not pay for image decoding in the middle of the flight animation. */
+export function preloadReaderArt() {
+  if (readerStarted || typeof window === 'undefined') return
+  readerStarted = true
+  for (const path of READER_ART) {
+    const img = new Image()
+    img.decoding = 'async'
+    img.src = asset(path)
+    img.decode().catch(() => {})
+  }
+}

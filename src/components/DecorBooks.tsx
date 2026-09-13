@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import { memo, type CSSProperties } from 'react'
 
 /*
  * Non-interactive tomes that fill the shelves around the real books.
@@ -34,7 +34,7 @@ export type DecoSpec = {
   bands?: 1 | 2 | 3
 }
 
-export function DecoBook({ leather, w, h, title, lean, mobile, bands = 2 }: DecoSpec) {
+export const DecoBook = memo(function DecoBook({ leather, w, h, title, lean, mobile, bands = 2 }: DecoSpec) {
   const p = LEATHERS[leather]
   const style = {
     '--leather': p.leather,
@@ -73,4 +73,4 @@ export function DecoBook({ leather, w, h, title, lean, mobile, bands = 2 }: Deco
       </span>
     </span>
   )
-}
+})

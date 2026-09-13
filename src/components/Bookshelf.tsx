@@ -1,4 +1,4 @@
-import { Fragment, type ReactNode } from 'react'
+import { Fragment, memo, type ReactNode } from 'react'
 import { yearBooks, worldBooks } from '../data/books'
 import { Book } from './Book'
 import { CrystalBall, FlatStack, Hourglass, Inkwell, Lantern, PotionVials, ScrollStack } from './ShelfProps'
@@ -20,7 +20,7 @@ const LOWER_BETWEEN: Record<number, ReactNode> = {
   2: <DecoBook leather="tan" w={2.2} h={78} bands={1} />,
 }
 
-export function Bookshelf({ busy, activeId, onOpen }: Props) {
+export const Bookshelf = memo(function Bookshelf({ busy, activeId, onOpen }: Props) {
   return (
     <div className="bookshelf-fit">
       <div className="bookshelf">
@@ -43,12 +43,7 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
           <DecoBook leather="navy" w={3.4} h={84} title="Astronomia" bands={3} mobile />
           {worldBooks.map((book, i) => (
             <Fragment key={book.id}>
-              <Book
-                book={book}
-                disabled={busy}
-                ghost={activeId === book.id}
-                onOpen={(el) => onOpen(book.id, el)}
-              />
+              <Book book={book} disabled={busy} ghost={activeId === book.id} onOpen={onOpen} />
               {UPPER_BETWEEN[i]}
             </Fragment>
           ))}
@@ -68,12 +63,7 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
           <DecoBook leather="olive" w={3} h={80} title="Alchimia" mobile />
           {yearBooks.map((book, i) => (
             <Fragment key={book.id}>
-              <Book
-                book={book}
-                disabled={busy}
-                ghost={activeId === book.id}
-                onOpen={(el) => onOpen(book.id, el)}
-              />
+              <Book book={book} disabled={busy} ghost={activeId === book.id} onOpen={onOpen} />
               {LOWER_BETWEEN[i]}
             </Fragment>
           ))}
@@ -85,4 +75,4 @@ export function Bookshelf({ busy, activeId, onOpen }: Props) {
       </div>
     </div>
   )
-}
+})

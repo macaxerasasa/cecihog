@@ -1,14 +1,16 @@
-import type { CSSProperties, KeyboardEvent } from 'react'
+import { memo, type CSSProperties, type KeyboardEvent } from 'react'
 import type { BookData } from '../types'
 
 type Props = {
   book: BookData
   disabled: boolean
   ghost: boolean
-  onOpen: (el: HTMLButtonElement) => void
+  onOpen: (id: string, el: HTMLButtonElement) => void
 }
 
-export function Book({ book, disabled, ghost, onOpen }: Props) {
+/* Memoised: the whole hall re-renders on every phase change of the reader,
+   and 21 three-dimensional spines are the bulk of that work. */
+export const Book = memo(function Book({ book, disabled, ghost, onOpen }: Props) {
   const style = {
     '--leather': book.palette.leather,
     '--leather-dark': book.palette.leatherDark,
@@ -20,7 +22,7 @@ export function Book({ book, disabled, ghost, onOpen }: Props) {
   const onKey = (e: KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
-      onOpen(e.currentTarget)
+      onOpen(book.id, e.currentTarget)
     }
   }
 
@@ -32,7 +34,7 @@ export function Book({ book, disabled, ghost, onOpen }: Props) {
       disabled={disabled}
       aria-label={`Abrir o tomo ${book.title}`}
       aria-haspopup="dialog"
-      onClick={(e) => onOpen(e.currentTarget)}
+      onClick={(e) => onOpen(book.id, e.currentTarget)}
       onKeyDown={onKey}
     >
       <span className="book-mesh" aria-hidden="true">
@@ -66,4 +68,4 @@ export function Book({ book, disabled, ghost, onOpen }: Props) {
       </span>
     </button>
   )
-}
+})

@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { asset } from '../lib/asset'
 
 type House = {
@@ -118,7 +119,7 @@ function Filigree({ house }: { house: House }) {
   )
 }
 
-export function HouseCorners() {
+export const HouseCorners = memo(function HouseCorners() {
   return (
     <div className="house-corners" aria-hidden="true">
       {HOUSES.map((house) => (
@@ -136,4 +137,4 @@ export function HouseCorners() {
       ))}
     </div>
   )
-}
+})

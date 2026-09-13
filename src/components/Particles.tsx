@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { memo, useEffect, useRef } from 'react'
 
 type Particle = {
   x: number
@@ -10,7 +10,7 @@ type Particle = {
   vy: number
 }
 
-export function Particles({ active }: { active: boolean }) {
+export const Particles = memo(function Particles({ active }: { active: boolean }) {
   const ref = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -75,4 +75,4 @@ export function Particles({ active }: { active: boolean }) {
   }, [active])
 
   return <canvas ref={ref} className="particles-canvas" aria-hidden="true" />
-}
+})

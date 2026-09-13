@@ -1,8 +1,8 @@
-import type { CSSProperties } from 'react'
+import { memo, type CSSProperties } from 'react'
 import { Candle } from './Candle'
 
 /* Iron scroll-arm sconces on the stone wall, one on each side at the same height. */
-export function WallSconces() {
+export const WallSconces = memo(function WallSconces() {
   return (
     <div className="wall-sconces" aria-hidden="true">
       {(['left', 'right'] as const).map((side, i) => (
@@ -16,4 +16,4 @@ export function WallSconces() {
       ))}
     </div>
   )
-}
+})

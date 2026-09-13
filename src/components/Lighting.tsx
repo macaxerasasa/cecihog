@@ -1,4 +1,6 @@
-export function Lighting() {
+import { memo } from 'react'
+
+export const Lighting = memo(function Lighting() {
   return (
     <div className="candles" aria-hidden="true">
       <span className="candle-glow a" />
@@ -12,4 +14,4 @@ export function Lighting() {
       <span className="house-glow huff" />
     </div>
   )
-}
+})

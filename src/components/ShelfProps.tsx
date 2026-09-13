@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { memo, type ReactNode } from 'react'
 import { asset } from '../lib/asset'
 
 type PropProps = { className?: string }
@@ -8,14 +8,14 @@ type PropProps = { className?: string }
  * things that should live — the orb's mist, the potions, the lantern's
  * candle — get a light overlay animated in CSS on top of the picture.
  */
-function Prop({ name, className = '', children }: PropProps & { name: string; children?: ReactNode }) {
+const Prop = memo(function Prop({ name, className = '', children }: PropProps & { name: string; children?: ReactNode }) {
   return (
     <span className={`shelf-prop ${name} ${className}`} aria-hidden="true">
       <img className="prop-art" src={asset(`art/prop-${name}.webp`)} alt="" draggable={false} />
       {children}
     </span>
   )
-}
+})
 
 export function ScrollStack({ className }: PropProps) {
   return <Prop name="scrolls" className={className} />

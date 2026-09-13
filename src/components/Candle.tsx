@@ -1,4 +1,4 @@
-import { useId, type CSSProperties } from 'react'
+import { memo, useId, type CSSProperties } from 'react'
 import { asset } from '../lib/asset'
 
 /*
@@ -21,7 +21,7 @@ type CandleProps = {
   style?: CSSProperties
 }
 
-export function Flame({ className = '' }: { className?: string }) {
+export const Flame = memo(function Flame({ className = '' }: { className?: string }) {
   // Gradient ids must be unique per instance: Chrome will not resolve a paint
   // server that lives inside a display:none subtree (the wall sconces on
   // phones), and every flame would otherwise share the first one in the DOM.
@@ -80,7 +80,7 @@ export function Flame({ className = '' }: { className?: string }) {
       </g>
     </svg>
   )
-}
+})
 
 export function Candle({ variant = 'a', className = '', style }: CandleProps) {
   const v = VARIANTS[variant]
@@ -112,7 +112,7 @@ const CANDELABRA_WICKS = [
   { x: 92.5, y: 16.3, d: -1.7 },
 ]
 
-export function Candelabra({ className = '', style }: { className?: string; style?: CSSProperties }) {
+export const Candelabra = memo(function Candelabra({ className = '', style }: { className?: string; style?: CSSProperties }) {
   return (
     <span className={`candelabra ${className}`} style={style} aria-hidden="true">
       <i className="candelabra-glow" />
@@ -129,4 +129,4 @@ export function Candelabra({ className = '', style }: { className?: string; styl
       ))}
     </span>
   )
-}
+})

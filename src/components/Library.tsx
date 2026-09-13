@@ -1,7 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { books, getBook } from '../data/books'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
-import { preloadHallArt } from '../lib/preload'
+import { preloadHallArt, preloadReaderArt } from '../lib/preload'
 import { readRoute, syncRoute } from '../lib/route'
 import type { LibraryPhase, OriginRect } from '../types'
 import { Bookshelf } from './Bookshelf'
@@ -76,8 +76,12 @@ export function Library() {
   useEffect(() => {
     if (!unlocked) return
     const w = window as Window & { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number }
-    if (w.requestIdleCallback) w.requestIdleCallback(() => void loadReader(), { timeout: 2500 })
-    else window.setTimeout(() => void loadReader(), 1200)
+    const warm = () => {
+      void loadReader()
+      preloadReaderArt()
+    }
+    if (w.requestIdleCallback) w.requestIdleCallback(warm, { timeout: 2500 })
+    else window.setTimeout(warm, 1200)
   }, [unlocked])
 
   const remember = (id: string, el: HTMLElement) => {
@@ -263,11 +267,7 @@ export function Library() {
         <p>Biblioteca · Seção Restrita</p>
       </header>
       <div className="stage-wrap">
-        <Bookshelf
-          busy={busy}
-          activeId={activeId}
-          onOpen={(id, el) => beginOpen(id, el)}
-        />
+        <Bookshelf busy={busy} activeId={activeId} onOpen={beginOpen} />
       </div>
       <p className="hint">
         Toque um tomo<span className="hint-more"> para retirá-lo da estante</span>
