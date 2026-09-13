@@ -13,18 +13,6 @@ export function GiftEntry({ id }: { id: string }) {
         {gift.aliases.length ? <p className="spell-alias">ou {gift.aliases[0]}</p> : null}
         <span className="spell-tag">{gift.tag}</span>
       </header>
-      <dl className="spell-meta">
-        <div>
-          <dt>Raridade</dt>
-          <dd>{gift.rarity}</dd>
-        </div>
-        {gift.requirement ? (
-          <div className="is-requirement">
-            <dt>Exige</dt>
-            <dd>{gift.requirement}</dd>
-          </div>
-        ) : null}
-      </dl>
       <figure className="ink-plate gift-plate">
         <img src={asset(`art/ink-${gift.art}.webp`)} alt={gift.caption} loading="lazy" decoding="async" />
         <figcaption>{gift.caption}</figcaption>

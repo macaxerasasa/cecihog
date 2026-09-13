@@ -45,7 +45,7 @@ export function GiftSearch() {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Nome, linhagem, raridade ou efeito…"
+          placeholder="Nome, linhagem ou efeito…"
           autoComplete="off"
           spellCheck={false}
           enterKeyHint="search"

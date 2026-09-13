@@ -8,8 +8,6 @@ export type Gift = {
   name: string
   aliases: string[]
   tag: string
-  rarity: string
-  requirement?: string
   text: string[]
   art: string
   caption: string
@@ -22,8 +20,6 @@ export const gifts: Gift[] = [
     name: 'Legilimência',
     aliases: ['Legilimens', 'invasão mental'],
     tag: 'Arte mental',
-    rarity: 'Treinável',
-    requirement: 'Feitiço Legilimens, contato visual e concentração',
     art: 'mind',
     caption: 'Prancha — O olhar que atravessa',
     text: [
@@ -38,8 +34,6 @@ export const gifts: Gift[] = [
     name: 'Oclumência',
     aliases: ['blindagem mental', 'Occlumens'],
     tag: 'Arte mental',
-    rarity: 'Treinável',
-    requirement: 'Barreiras mentais construídas com o tempo',
     art: 'occlumency',
     caption: 'Prancha — A fortaleza da mente',
     text: [
@@ -54,8 +48,6 @@ export const gifts: Gift[] = [
     name: 'Ofidioglossia',
     aliases: ['parsél', 'língua das cobras'],
     tag: 'Dom de sangue',
-    rarity: 'Inato · linhagem Gaunt',
-    requirement: 'Descendência dos Gaunt, herdeiros de Salazar Slytherin',
     art: 'serpent',
     caption: 'Prancha — A língua das cobras',
     text: [
@@ -70,8 +62,6 @@ export const gifts: Gift[] = [
     name: 'Ocultismo',
     aliases: ['afinidade elemental', 'magias elementais'],
     tag: 'Afinidade',
-    rarity: 'Treinável',
-    requirement: 'Estudo aprofundado dos elementos',
     art: 'elements',
     caption: 'Prancha — Fogo, água, terra e ar',
     text: [
@@ -85,8 +75,6 @@ export const gifts: Gift[] = [
     name: 'Metamorfomagia',
     aliases: ['metamorfomago', 'mudança de forma'],
     tag: 'Dom inato',
-    rarity: 'Inato · raro',
-    requirement: 'Nascido com o dom — sem varinha, poção ou feitiço',
     art: 'metamorph',
     caption: 'Prancha — O rosto que muda',
     text: [
@@ -101,8 +89,6 @@ export const gifts: Gift[] = [
     name: 'Clarividência',
     aliases: ['visões', 'profecia', 'vidência'],
     tag: 'Dom inato',
-    rarity: 'Inato · incontrolável',
-    requirement: 'As visões vêm quando querem — não quando se pede',
     art: 'clairvoyance',
     caption: 'Prancha — Fragmentos do que ainda não foi',
     text: [
@@ -117,8 +103,6 @@ export const gifts: Gift[] = [
     name: 'Animagia',
     aliases: ['animago', 'forma animal'],
     tag: 'Arte ensinada',
-    rarity: 'Treinável · anos de estudo',
-    requirement: 'Anos de treino — ou, em casos raros, talento natural',
     art: 'animagus',
     caption: 'Prancha — A forma fixa',
     text: [
@@ -133,8 +117,6 @@ export const gifts: Gift[] = [
     name: 'Meio gigante',
     aliases: ['meio-gigante', 'sangue de gigante'],
     tag: 'Linhagem',
-    rarity: 'Nascido',
-    requirement: 'Um dos pais é gigante',
     art: 'giant',
     caption: 'Prancha — O porte que não cabe na porta',
     text: [
@@ -148,8 +130,6 @@ export const gifts: Gift[] = [
     name: 'Lobisomem',
     aliases: ['licantropia', 'lobo'],
     tag: 'Maldição',
-    rarity: 'Infectado',
-    requirement: 'Mordida ou arranhão de lobisomem · lua cheia',
     art: 'werewolf',
     caption: 'Prancha — Sob a lua cheia',
     text: [
@@ -164,8 +144,6 @@ export const gifts: Gift[] = [
     name: 'Descendente de veela',
     aliases: ['veela', 'sangue de veela'],
     tag: 'Linhagem',
-    rarity: 'Nascido',
-    requirement: 'Fração da herança mágica das veelas',
     art: 'veela',
     caption: 'Prancha — Fogo e encanto',
     text: [
@@ -211,7 +189,7 @@ export function searchGifts(query: string): GiftHit[] {
       score = 70
       where = 'alias'
     } else {
-      const meta = normalize(`${g.tag} ${g.rarity} ${g.kind === 'skill' ? 'habilidade' : 'raca'} ${g.requirement ?? ''}`)
+      const meta = normalize(`${g.tag} ${g.kind === 'skill' ? 'habilidade' : 'raca'}`)
       if (words.every((w) => meta.includes(w))) {
         score = 50
         where = 'meta'
