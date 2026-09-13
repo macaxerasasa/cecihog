@@ -38,6 +38,16 @@ VITE_BASE=/cecihog/ npm run build
 npm run preview
 ```
 
+## Publicar na Vercel (`cecihog.vercel.app`)
+
+O projeto já traz `vercel.json` (framework Vite, saída em `dist/`, `base` = `/`). Basta importar o repositório:
+
+1. Em [vercel.com/new](https://vercel.com/new), escolha o repositório `macaxerasasa/cecihog`.
+2. Nome do projeto: `cecihog`. Framework detectado: Vite. Deixe build e saída como estão.
+3. Deploy. A partir daí, cada `git push` na `main` publica sozinho em `https://cecihog.vercel.app`.
+
+Também dá para publicar pela CLI: `npx vercel --prod` (pede login ou `VERCEL_TOKEN`).
+
 ## Entrada
 
 Trace o glifo dourado com o rato ou o dedo, a partir do nó brilhante. Com `prefers-reduced-motion`, há um atalho acessível para completar o gesto.
