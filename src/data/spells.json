@@ -1,0 +1,2420 @@
+[
+  {
+    "id": "alarte",
+    "year": 1,
+    "name": "Alarte",
+    "aliases": [],
+    "effect": [
+      "a varinha desempenha o papel de uma espécie de caixa de ressonância, produzindo um zunido alarmante de grande potência, capaz de causar desconforto auditivo em qualquer ser vivo numa área de 5x5 quadrados. É preciso enfatizar que o ruído não possui potencial desconfortante ao ponto de, por exemplo, impedir um indivíduo humano de realizar determinada ação. Trata-se, sumariamente, de um incômodo, e nada além."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "giro",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "a varinha desempenha o papel de uma espécie de caixa de ressonância, produzindo um zunido alarmante de grande potência, capaz de causar desconforto auditivo em qualquer ser vivo numa área de 10x10 quadrados. Diferente do primeiro, este som é capaz de conduzir o alvo à inconsciência se ouvido por longos períodos. Além disso, uma outra aplicação desse encanto é a capacidade de imitar uma variedade de sons. Importante ressaltar que esses sons, embora versáteis para fins estratégicos, não possuem a capacidade de atordoar ou causar danos físicos."
+      }
+    ]
+  },
+  {
+    "id": "alarte-ascendare",
+    "year": 1,
+    "name": "Alarte Ascendare",
+    "aliases": [],
+    "effect": [
+      "faz com que alvos atingidos disparem aos céus numa propulsão abrupta. O retorno à superfície, caso ocorra contra planos maciços — terrenos naturais, assoalhos, etc. —, acarretará traumatismos ósseos sérios. Bloqueável ou redirecionável via Protego;"
+    ],
+    "light": "laranja",
+    "classification": "Encantamento",
+    "movement": "apontar a varinha",
+    "upgrades": []
+  },
+  {
+    "id": "alohomora",
+    "year": 1,
+    "name": "Alohomora",
+    "aliases": [],
+    "effect": [
+      "encantamento utilizado para abrir fechaduras previamente seladas por magia, especialmente aquelas afetadas via Colloportus. Ao ser conjurado, o feitiço emite um baque silencioso, desencadeando uma onda mágica que desbloqueia a fechadura alvo."
+    ],
+    "light": "não há",
+    "classification": "Contra-Feitiço e Encantamento",
+    "movement": "giro e aceno",
+    "upgrades": []
+  },
+  {
+    "id": "cistem-aperio",
+    "year": 1,
+    "name": "Cistem Aperio",
+    "aliases": [],
+    "effect": [
+      "Produz uma explosão controlada ao ser lançado em baús, caixas ou outros contentores para abri-los de forma rápida, destrancando com facilidade esses objetos que podem guardar itens ou algo escondido."
+    ],
+    "light": "branco",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "expelliarmus",
+    "year": 1,
+    "name": "Expelliarmus",
+    "aliases": [],
+    "effect": [
+      "o feitiço, quando direcionado à mão armada de um bruxo, origina uma propulsão concentrada que força o alvo a se desarmar. O disparo é projetado de forma a compelir o bruxo a abrir a mão, resultando na desvinculação da sua posse mágica."
+    ],
+    "light": "escarlate",
+    "classification": "Encantamento",
+    "movement": "giro e estocada",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "o bruxo tem a habilidade de intensificar a força total do impacto e redirecionar o lampejo para outra região de sua escolha. Isso resulta em uma eclosão abrupta ao entrar em contato com a nova superfície, gerando uma força de impacto considerável que impulsiona o alvo com brutalidade para trás, podendo levá-lo à inconsciência."
+      }
+    ]
+  },
+  {
+    "id": "flipendo",
+    "year": 1,
+    "name": "Flipendo",
+    "aliases": [],
+    "effect": [
+      "conjura uma esfera luminosa de aproximadamente vinte centímetros de circunferência. Mediante contato físico, a esfera desloca corpos (inanimados ou não) com um impacto moderado (três quadrados). É possível que o conjurador redirecione a esfera uma única vez caso, por exemplo, erre o alvo. Esferas bloqueadas via Protego não podem ser redirecionadas."
+    ],
+    "light": "azul",
+    "classification": "Azaração",
+    "movement": "giro",
+    "upgrades": []
+  },
+  {
+    "id": "lumos",
+    "year": 1,
+    "name": "Lumos",
+    "aliases": [],
+    "effect": [
+      "origina um pequeno vórtice luminoso que se mantém fixo na ponta do condão mágico, sendo útil na iluminação de uma área de até 2x2 quadrados ao redor do bruxo conjurador. Não tem potencial para cegar a visão, e seu feixe não pode ser projetado direcionalmente."
+    ],
+    "light": "branca",
+    "classification": "Encantamento",
+    "movement": "aceno rápido",
+    "upgrades": []
+  },
+  {
+    "id": "lumos-solem",
+    "year": 1,
+    "name": "Lumos Solem",
+    "aliases": [],
+    "effect": [
+      "a varinha emite uma luz de origem mágica em sua extremidade oposta à mão, com a capacidade de iluminar amplos ambientes. Em termos ofensivos, o feixe luminoso pode ser direcionado para provocar cegueira e, em situações específicas de proximidade, causar queimaduras de primeiro grau. A luminosidade pode ser especialmente nociva a criaturas trévicas, de maneira que somente ser iluminado causa desconforto."
+    ],
+    "light": "branca",
+    "classification": "Encantamento",
+    "movement": "giro",
+    "upgrades": []
+  },
+  {
+    "id": "nox",
+    "year": 1,
+    "name": "Nox",
+    "aliases": [],
+    "effect": [
+      "contra-feitiço destinado a cancelar efeitos da conjuração Lumos ou Lumos Solem que tenham sido previamente lançados. A priori, serve como o único neutralizante eficaz para desfazer as iluminações mágicas criadas por esses encantos específicos."
+    ],
+    "light": "não há",
+    "classification": "Contra-Feitiço",
+    "movement": "giro",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "o bruxo pode utilizar o encantamento para nulificar qualquer fonte de luz, seja criada através de magia ou não. Ainda, é capaz de desfazer a criação de luz na varinha de um outro indivíduo, como a criada pelo Lumos."
+      }
+    ]
+  },
+  {
+    "id": "protego",
+    "year": 1,
+    "name": "Protego",
+    "aliases": [],
+    "effect": [
+      "o Feitiço Escudo é uma das principais ferramentas de combate e defesa do arsenal de qualquer bruxo minimamente experiente. Com um risco para cima em um movimento rápido, é capaz de materializar uma barreira defensiva e invisível que se comporta como um perfeito escudo no sentido de qualquer lampejo. Apesar de extremamente poderoso e conveniente, o Protego é incapaz de repelir as Três Maldições Imperdoáveis, o que o torna inútil contra, por exemplo, a Maldição da Morte."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "risco para cima",
+    "upgrades": [
+      {
+        "label": "Aprimoramento I",
+        "locked": true,
+        "text": "Aos bruxos inexperientes, o Protego é tão somente capaz de repelir feitiços em direções aleatórias. Conforme os anos passam e a prática prossegue, o usuário torna-se capaz de defender-se de objetos pequenos e feitiços mais complexos, como aqueles que conjuram massas de fogo, água ou vento."
+      },
+      {
+        "label": "Aprimoramento II",
+        "locked": true,
+        "text": "Já aos conhecedores das facetas do Feitiço Escudo e seus praticantes mais assíduos, é possível não só se defender de objetos grandes e corpos físicos e ataques massivos como, também, é possível repelir um lampejo de volta para o seu conjurador."
+      }
+    ]
+  },
+  {
+    "id": "reparo",
+    "year": 1,
+    "name": "Reparo",
+    "aliases": [],
+    "effect": [
+      "envolve determinada ruína de objetos não-mágicos para realocar as peças quebradas outrora, funcionando apenas se todas as peças do artefato quebrado estiverem próximas."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "giro contínuo",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "Nesta evolução, o bruxo consegue realizar este encantamento para reparar objetos mágicos danificados, como uma varinha, por exemplo. Para isso é necessário praticar, fazendo sempre giros contínuos e efetuando a reparação de objetos não-mágicos, ao ponto do bruxo conseguir consertar uma mala encantada ou um vidro mágico."
+      }
+    ]
+  },
+  {
+    "id": "specialis-revelio",
+    "year": 1,
+    "name": "Specialis Revelio",
+    "aliases": [],
+    "effect": [
+      "identifica os ingredientes de uma poção específica ou os encantamentos imbuídos em um objeto específico, nunca usado em larga escala. Varia de acordo com o conhecimento do próprio bruxo que conjurou o encantamento de revelação. É uma variação mais simples do feitiço Revelio."
+    ],
+    "light": "amarelo",
+    "classification": "Encantamento",
+    "movement": "giro",
+    "upgrades": []
+  },
+  {
+    "id": "susfors",
+    "year": 1,
+    "name": "Susfors",
+    "aliases": [],
+    "effect": [
+      "Transforma objetos em porcos para indivíduos experientes em Transfiguração, pode ser utilizado como azaração, transformando o adversário temporariamente em um porco. Este efeito dura apenas três turnos caso não seja revertido."
+    ],
+    "light": "não possui",
+    "classification": "Azaração",
+    "movement": "Giro e aponta para o alvo",
+    "upgrades": []
+  },
+  {
+    "id": "verdimillious",
+    "year": 1,
+    "name": "Verdimillious",
+    "aliases": [],
+    "effect": [
+      "A ponta da varinha se ilumina como um sinalizador, criando um feitiço impactante pouco nocivo, projetado para gerar impulsos de energia que, inicialmente, causam danos mínimos à epiderme humana. Desenvolvido com a intenção de desorientar ou debilitar o oponente ao longo do tempo, exigindo uma sucessão de golpes para infligir um dano significativo."
+    ],
+    "light": "verde",
+    "classification": "Encantamento impactante",
+    "movement": "aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "Com a experiência adequada e na utilização frequente do feitiço, o jovem bruxo consegue expandir a força do impacto do feixe luminoso, que ao entrar em contato com superfícies mais sólidas, como rochas e paredes, causará um impacto capaz de destruí-las em segundos."
+      }
+    ]
+  },
+  {
+    "id": "wingardium-leviosa",
+    "year": 1,
+    "name": "Wingardium Leviosa",
+    "aliases": [],
+    "effect": [
+      "feitiço básico de levitação. O usuário encanta um objeto específico para que ele seja elevado no mesmo eixo por até cinco turno. Não funciona com objetos em movimento. Pode ser finalizado através do contrafeitiço geral."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "giro e aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "o feitiço de levitação funciona de maneira mais complexa, podendo encantar até três objetos de uma vez. Ao contrário da primeira versão, os objetos podem seguir seu conjurador em pleno voo pelo ar, performando acrobacias diversas."
+      }
+    ]
+  },
+  {
+    "id": "arania-exumai",
+    "year": 2,
+    "name": "Arania Exumai",
+    "aliases": [],
+    "effect": [
+      "repele aranhas, independentemente de sua natureza ser mágica ou comum, lançando uma explosão fumegante. O impacto do feitiço varia diretamente conforme o tamanho das aranhas atingidas, influenciando o resultado da repulsão."
+    ],
+    "light": "branco",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "arresto-momentum",
+    "year": 2,
+    "name": "Arresto Momentum",
+    "aliases": [],
+    "effect": [
+      "projeta uma força mágica capaz de diminuir a velocidade de objetos do tamanho de até uma cadeira que estejam em queda livre, até o ponto em que ele estaciona próximo à superfície de impacto, flutuando alguns centímetros acima, sendo liberado segundos após para concluir a trajetória sem sofrer danos consideráveis."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "o feitiço adquire força o suficiente para ser utilizado em seres vivos de tamanho adulto. Com algum esforço, pode executar em grupos de até três pessoas."
+      }
+    ]
+  },
+  {
+    "id": "avifors",
+    "year": 2,
+    "name": "Avifors",
+    "aliases": [],
+    "effect": [
+      "transfigura, por meio de um lampejo azul, um objeto de menor escala em uma ave. Estes objetos geralmente compartilham de um mesmo peso de uma ave comum. Pedras de médio porte e partes de estátua são os candidatos mais adequados a este tipo de transformação na sua forma simplificada."
+    ],
+    "light": "azul",
+    "classification": "Transfiguração",
+    "movement": "giro anti-horário e dois acenos",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "Em uma evolução especializada, o bruxo consegue transfigurar qualquer objeto em uma ave, variando em tamanho por conta da escala e peso dos materiais-alvo. O escopo é ampliado para, também, possibilitar com que certas criaturas, como Cava-Charcos e Explosivins, sejam transformadas em pássaros, direcionando comandos diretos simples a elas. Podem servir para atrapalhar uma situação ou defender seu conjurador de lampejos desavisados."
+      }
+    ]
+  },
+  {
+    "id": "colloportus",
+    "year": 2,
+    "name": "Colloportus",
+    "aliases": [],
+    "effect": [
+      "constitui um selo mágico em portas, trincos, passagens ou cadeados, tornando impossível abri-los sem o uso do contra-feitiço específico. A aplicação desse feitiço cria uma barreira mágica, resistente mesmo contra tentativas de dissipação com Finite Incantatem."
+    ],
+    "light": "prata",
+    "classification": "Encantamento",
+    "movement": "giro",
+    "upgrades": []
+  },
+  {
+    "id": "colovaria",
+    "year": 2,
+    "name": "Colovaria",
+    "aliases": [],
+    "effect": [
+      "modifica a cor e textura primordial de objetos específicos, proporcionando uma variedade que abrange as cores do espectro do arco-íris. Vale destacar que sua aplicação é vetada em objetos previamente modificados por magia."
+    ],
+    "light": "definida pelo conjurador",
+    "classification": "Encantamento",
+    "movement": "giro contínuo",
+    "upgrades": []
+  },
+  {
+    "id": "densaugeo",
+    "year": 2,
+    "name": "Densaugeo",
+    "aliases": [],
+    "effect": [
+      "imprime um crescimento descontrolado nos dentes dianteiros. A cada três turnos, estes se projetam aproximadamente 5 centímetros à frente, criando uma condição visualmente impactante e desconfortável para a vítima."
+    ],
+    "light": "amarela",
+    "classification": "Sortilégio",
+    "movement": "giro",
+    "upgrades": []
+  },
+  {
+    "id": "engorgio",
+    "year": 2,
+    "name": "Engorgio",
+    "aliases": [],
+    "effect": [
+      "induz o crescimento descontrolado de objetos e seres. Pode ser empregado continuamente em animais, contudo, é aconselhável que o conjurador possua conhecimento prévio do contrafeitiço Reduccio. Este feitiço não surte efeito quando aplicado em organismos vivos."
+    ],
+    "light": "azul claro",
+    "classification": "Encantamento",
+    "movement": "risco frontal",
+    "upgrades": []
+  },
+  {
+    "id": "esfreguifaca",
+    "year": 2,
+    "name": "Esfreguifaça",
+    "aliases": [],
+    "effect": [
+      "Feitiço utilizado para ensaboar e limpar um local. Caso utilizado contra um bruxo, faz com que sua boca se encha de sabão."
+    ],
+    "light": "azul",
+    "classification": "Encantamento e Azaração",
+    "movement": "apontar a varinha para o alvo",
+    "upgrades": []
+  },
+  {
+    "id": "everte-statum",
+    "year": 2,
+    "name": "Everte Statum",
+    "aliases": [],
+    "effect": [
+      "impacta o alvo, impulsionando-o aos ares e fazendo-o voar por alguns metros em piruetas contínuas, resultando em uma queda dolorosa no chão. A intensidade e precisão desse feitiço podem aumentar significativamente com a experiência do bruxo, refinada ao longo dos anos de prática."
+    ],
+    "light": "laranja",
+    "classification": "Encantamento",
+    "movement": "apontar a varinha para o alvo",
+    "upgrades": []
+  },
+  {
+    "id": "fera-verto",
+    "year": 2,
+    "name": "Fera Verto",
+    "aliases": [],
+    "effect": [
+      "é capaz de transformar um animal de pequeno porte em um determinado objeto de igual tamanho e proporção, podendo ser através do movimento contrário ao do feitiço original."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "giro anti-horário",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "a experiência cumulativa do bruxo o permite, com o passar do tempo, evoluir o tamanho dos animais metamorfoseados e itens que virarão."
+      }
+    ]
+  },
+  {
+    "id": "finite-incantatem",
+    "year": 2,
+    "name": "Finite Incantatem",
+    "aliases": [],
+    "effect": [
+      "encerra o curso de certas azarações e encantamentos, impondo término às adversidades magicamente ocasionadas. Cabe precisar que as azarações passíveis de encerramento via Finite Incantatem se encontram devidamente discriminadas. Além disso, embora interrompa efeitos, este contrafeitiço não reverte danos já instaurados."
+    ],
+    "light": "prata",
+    "classification": "Contra-Feitiço",
+    "movement": "giro e aceno",
+    "upgrades": []
+  },
+  {
+    "id": "furnunculus",
+    "year": 2,
+    "name": "Furnunculus",
+    "aliases": [],
+    "effect": [
+      "Maldição de azaração das espinhas. Faz com que o alvo atingido sinta uma forte irritação na pele. Em questão de segundos o seu rosto começa a se embolotar de espinhas. O único jeito de se reverter à maldição é fazendo uma poção de Cura de Fervura. Se este feitiço for realizado em conjunto com Locomotor Wibbly, a vítima vê seu rosto brotando pequenos tentáculos por todo o rosto."
+    ],
+    "light": "ouro",
+    "classification": "Arte das Trevas",
+    "movement": "aceno",
+    "requirement": "Pacote Artes das Trevas",
+    "upgrades": []
+  },
+  {
+    "id": "homorfo",
+    "year": 2,
+    "name": "Homorfo",
+    "aliases": [],
+    "effect": [
+      "feitiço de destransfiguração utilizado em animagos. Utilizando do condão para mirar um indivíduo transformado, o bruxo desconfigura a transformação do animal e o traz de volta à forma humana, com consciência. Necessário três turnos."
+    ],
+    "light": "não há",
+    "classification": "Contra-Feitiço e Encantamento",
+    "movement": "girar até o fim da destransfiguração",
+    "upgrades": []
+  },
+  {
+    "id": "immobulus",
+    "year": 2,
+    "name": "Immobulus",
+    "aliases": [],
+    "effect": [
+      "diminui a velocidade de um corpo, dificultando a movimentação dos membros e a locomoção. Inicialmente, só surte efeito em pequenas criaturas, como goblins, diabretes e semelhantes."
+    ],
+    "light": "azul",
+    "classification": "Encantamento",
+    "movement": "risco frontal",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": false,
+        "text": "o feitiço pode ser utilizado em humanos adultos, diminuindo a velocidade de seus movimentos assim como supracitado. Em pequenas criaturas, o feitiço é muito mais efetivo, realmente paralisando o corpo."
+      }
+    ]
+  },
+  {
+    "id": "impedimenta",
+    "year": 2,
+    "name": "Impedimenta",
+    "aliases": [],
+    "effect": [
+      "retarda momentaneamente os movimentos de um indivíduo, impedindo-o de concluir qualquer ação posterior ao lançamento do feitiço. O efeito persiste por dois turnos e diminui ao longo do período circunscrito."
+    ],
+    "light": "vermelha",
+    "classification": "Azaração",
+    "movement": "aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "o usuário é capaz de desacelerar e posteriormente parar determinados movimentos no ar, seja de objetos ou de elementos, desde que seja respeitada uma distância superior a cinco quadrados. Ainda, é possível reverter a trajetória exercida por esses materiais e extingui-los no processo."
+      }
+    ]
+  },
+  {
+    "id": "incendio",
+    "year": 2,
+    "name": "Incendio",
+    "aliases": [],
+    "effect": [
+      "emite uma sequência composta por três linguetas de fogo. Embora essas labaredas não possuam potencial para causar impactos significativos ou grandes infernos, sua utilidade reside na formação de focos incendiários. Apesar da quantidade modesta, as labaredas revelam-se altamente propagadas, percorrendo até três quadrados de distância."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração e Elemental",
+    "movement": "giro e aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento I",
+        "locked": true,
+        "text": "é capaz de criar labaredas de fogo que, eventualmente, são atiradas em esferas de no máximo vinte centímetros, explodindo em uma área de 2x2 quadrados ao atingir o local-alvo."
+      },
+      {
+        "label": "Aprimoramento II",
+        "locked": true,
+        "text": "é capaz de manusear labaredas pré-existentes, sejam criadas através de meios mágicos ou não, modulando-as para que possam ser redirecionadas e/ou aos poucos extinguidas. Seu alcance, entretanto, está limitado às chamas que conseguiria alcançar através do tato e visão."
+      },
+      {
+        "label": "Aprimoramento III",
+        "locked": true,
+        "text": "[Incendio Erupto] consiste na evolução da potência do feitiço. As labaredas de chamas são muitíssimo maiores e mais quentes, podendo incinerar quaisquer coisas em cinco quadrados de distância, semelhante a um lança-chamas. Neste estágio torna-se realmente problemático caso não haja responsabilidade em seu uso."
+      }
+    ]
+  },
+  {
+    "id": "lacarnum-inflamari",
+    "year": 2,
+    "name": "Lacarnum Inflamari",
+    "aliases": [],
+    "effect": [
+      "ateia fogo individualmente em itens suscetíveis à combustão, como peças de roupas, papéis, entre outros."
+    ],
+    "light": "laranja",
+    "classification": "Encantamento, Azaração e Elemental",
+    "movement": "giro com aceno",
+    "upgrades": []
+  },
+  {
+    "id": "locomotor-mortis",
+    "year": 2,
+    "name": "Locomotor Mortis",
+    "aliases": [],
+    "effect": [
+      "tece um laço mágico e translúcido em torno das pernas da vítima, seja humano ou animal, promovendo a união inescapável e efêmera de seus membros inferiores. Este feitiço hábil, ao atingir seu alvo, obstaculiza a locomoção da vítima, impondo uma momentânea restrição à sua liberdade de movimento. A duração desse feitiço é efêmera, estendendo-se por meros dois turnos, após os quais a vítima recupera a mobilidade perdida."
+    ],
+    "light": "roxo",
+    "classification": "Arte das Trevas",
+    "movement": "giro anti-horário",
+    "requirement": "Pacote Artes das Trevas",
+    "upgrades": []
+  },
+  {
+    "id": "locomotor-wibbly",
+    "year": 2,
+    "name": "Locomotor Wibbly",
+    "aliases": [],
+    "effect": [
+      "Maldição das Pernas de Gelatina, também conhecida como Azaração das Pernas de Gelatina, é um feitiço sombrio que fazia com que as pernas da vítima entre em colapso, como se estivessem transformadas em gelatina. Este feitiço teria efeitos colaterais desagradáveis se usado em conjunto com a Azaração da Espinha, ou seja, fazendo com que pequenos tentáculos brotassem por todo o rosto da vítima."
+    ],
+    "light": "laranja",
+    "classification": "Arte das Trevas",
+    "movement": "aceno",
+    "requirement": "Pacote Artes das Trevas",
+    "upgrades": []
+  },
+  {
+    "id": "orchideous",
+    "year": 2,
+    "name": "Orchideous",
+    "aliases": [],
+    "effect": [
+      "encantamento de transfiguração simples que, quando aplicado a um espaço específico, transforma-o instantaneamente em um cenário encantador com a aparição de um belo buquê de flores. O feitiço resulta em pétalas frescas e um aroma agradável, proporcionando uma experiência sensorial única."
+    ],
+    "light": "rosa",
+    "classification": "Transfiguração",
+    "movement": "giro",
+    "upgrades": []
+  },
+  {
+    "id": "pimentatus",
+    "year": 2,
+    "name": "Pimentatus",
+    "aliases": [],
+    "effect": [
+      "Também conhecida como a azaração picante, faz o alvo ter um hálito fervente semelhante a fogo, provocando ardência na boca."
+    ],
+    "light": "laranja",
+    "classification": "Azaração",
+    "movement": "Giro anti-horário",
+    "upgrades": []
+  },
+  {
+    "id": "reducio",
+    "year": 2,
+    "name": "Reducio",
+    "aliases": [],
+    "effect": [
+      "habilita, ao bruxo, o encolhimento de objetos à sua escolha. Desprovido de limitações físicas, o feiticeiro manipula dimensões com destreza, redefinindo a natureza dos objetos por meio de uma prática refinada em feitiços transfiguratórios."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "giro anti-horário",
+    "upgrades": []
+  },
+  {
+    "id": "reparifors",
+    "year": 2,
+    "name": "Reparifors",
+    "aliases": [],
+    "effect": [
+      "Reverte envenenamento e paralisia menores aplicadas em indivíduos ou alimentos. Não reverte Petrificus Totalus."
+    ],
+    "light": "roxo",
+    "classification": "Medibruxaria",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "revelio",
+    "year": 2,
+    "name": "Revelio",
+    "aliases": [],
+    "effect": [
+      "feitiço relevador. O feitiço de revelação tem um portfólio amplo de utilizações, funcionando para revelar magias escondidas ou especificidades mágicas de determinado objeto, animal ou poção, como, por exemplo, o quanto cada material pode ser hostil. É muito utilizado para descobrir pistas escondidas ou ocultas em determinados lugares."
+    ],
+    "light": "amarelo",
+    "classification": "Encantamento",
+    "movement": "giro",
+    "upgrades": []
+  },
+  {
+    "id": "rictusempra",
+    "year": 2,
+    "name": "Rictusempra",
+    "aliases": [],
+    "effect": [
+      "alvejando especificamente a barriga de seu alvo, o conjurador o submete a uma incessante vontade de rir causada por cócegas, durando, a princípio, dois turnos. Durante esse tempo a outra pessoa será incapaz de manter um estado combativo devido às gargalhadas, e quando o feitiço cessar se verá com o fôlego abalado."
+    ],
+    "light": "prata",
+    "classification": "Azaração",
+    "movement": "corte frontal",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "a duração da azaração passa a ser indeterminada, persistindo até que o feitiço Finite Incantatem seja utilizado sobre o alvo ou até que ele desmaie, o que acontece por falta de ar caso ele permaneça por mais de cinco turnos sob efeito da azaração."
+      }
+    ]
+  },
+  {
+    "id": "serpensortia",
+    "year": 2,
+    "name": "Serpensortia",
+    "aliases": [],
+    "effect": [
+      "o bruxo é capaz de conjurar uma serpente pela ponta de sua varinha, impelindo-a com uma impulsão na direção do local-alvo desejado. Naturalmente, a serpente revela-se nociva em circunstâncias específicas, nas quais a presença humana pode representar uma condição perigosa para o réptil. Importante ressaltar que a cobra não está sob o controle direto do bruxo conjurador, podendo, inclusive, vir a atacá-lo."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "giro rápido",
+    "upgrades": []
+  },
+  {
+    "id": "vipera-evanesca",
+    "year": 2,
+    "name": "Vipera Evanesca",
+    "aliases": [],
+    "effect": [
+      "encantamento utilizado para extinguir serpentes e víboras, desde que não detenham características mágicas. O animal é atingido pelo lampejo e então é consumido no mesmo lugar em que está, transformando-se em uma espécie de poeira que desaparece."
+    ],
+    "light": "dourada",
+    "classification": "Contra-Feitiço",
+    "movement": "corte frontal",
+    "upgrades": []
+  },
+  {
+    "id": "tarantallegra",
+    "year": 2,
+    "name": "Tarantallegra",
+    "aliases": [],
+    "effect": [
+      "este encantamento, desencadeado com um gesto e uma melodia mágica, conduz o alvo a uma dança frenética e sem coordenação. O efeito cativante persiste por até quatro turnos, durante os quais a vítima é compelida a dançar involuntariamente. Posteriormente, o domínio da dança diminui gradativamente, desvanecendo-se ao longo de três rodadas. Também se aplica a objetos."
+    ],
+    "light": "vermelha",
+    "classification": "Azaração",
+    "movement": "giro ou estocada",
+    "upgrades": []
+  },
+  {
+    "id": "zipsy",
+    "year": 2,
+    "name": "Zipsy",
+    "aliases": [],
+    "effect": [
+      "Cria um jorro de confetes, serpentinas e luzes da ponta da varinha. Utilizado diretamente contra um bruxo, pode deixar o alvo zonzo por apenas um turno quando ainda não se conhece as propriedades mágicas deste encantamento."
+    ],
+    "light": "rosa",
+    "classification": "Encantamento/Transfiguratório",
+    "movement": "",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "O feitiço utilizado em bruxos de modo ofensivo em uma batalha, faz com que o efeito de tontura proveniente do estouro dos confetes deixa o adversário atordoado por dois turnos."
+      }
+    ]
+  },
+  {
+    "id": "collare",
+    "year": 3,
+    "name": "Collare",
+    "aliases": [],
+    "effect": [
+      "fixa objetos nas paredes, teto ou chão, que são impossibilitados de caírem enquanto estão sob o feitiço. O efeito colante é permanente, com um tempo de duração natural que são necessários retoques. Quando imposto ao contra-feitiço geral pode ser facilmente anulado."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "apontar a varinha",
+    "upgrades": []
+  },
+  {
+    "id": "depulso",
+    "year": 3,
+    "name": "Depulso",
+    "aliases": [],
+    "effect": [
+      "o bruxo desencadeia uma impulsão tremeluzente que atinge um objeto, propelindo-o descontroladamente por uma distância de até cinco quadrados. Essa força de impulsão reduz-se para dois quadrados se o objeto em questão estiver sendo previamente impulsionado por outro feitiço de característica semelhante. Vale ressaltar que o feitiço não é efetivo em objetos de médio porte, como sofás, caixas ou cadeiras."
+    ],
+    "light": "vermelho",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "a evolução deste feitiço permite fazer com que o impulso direcionado à pessoas ou objetos seja muito maior, em até oito quadrados, colocando-a numa posição de isolamento durante o impacto. Agora os objetos maiores como caixas, cadeiras e até as pessoas de estatura média conseguem ser impulsionadas pelo feitiço. Não são impactadas, e tão somente empurradas para longe."
+      }
+    ]
+  },
+  {
+    "id": "trevus",
+    "year": 3,
+    "name": "Trevus",
+    "aliases": [],
+    "effect": [
+      "manifesta-se como um lampejo negro que deixa para trás um traço trévico. Ao estabelecer contato com a epiderme da vítima, irá marcá-la permanentemente numa queimadura irreversível. Além da ardência que perdura, no mínimo, um dia, a marca se tornará insuportável quando a vítima estiver na presença de seu agressor."
+    ],
+    "light": "preta",
+    "classification": "Sortilégio, Elemental e Arte das Trevas",
+    "movement": "giro e aceno",
+    "requirement": "Pacote Arte das Trevas",
+    "upgrades": []
+  },
+  {
+    "id": "diffindo",
+    "year": 3,
+    "name": "Diffindo",
+    "aliases": [],
+    "effect": [
+      "feitiço utilizado para realizar o corte de vinhas e cordas, precisando de uma sequência em casos onde o aglomerado do material seja abundante, como por exemplo, nos ninhos de Visgo do Diabo."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "corte no ar",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "pode ser utilizado para romper os ligamentos de correntes, necessitando da mesma frequência da utilização em cordas e vinhas, caso seja uma material de grande espessura ou muito abundante."
+      }
+    ]
+  },
+  {
+    "id": "dissendium",
+    "year": 3,
+    "name": "Dissendium",
+    "aliases": [],
+    "effect": [
+      "Utilizado para abrir passagens que não estão sendo bloqueadas por algum outro tipo de magia. Neste caso, é possível revelar passagens secretas livres de destraves, como liberar um alçapão bloqueado por uma estátua."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "Toque da varinha na passagem",
+    "upgrades": []
+  },
+  {
+    "id": "escorrego",
+    "year": 3,
+    "name": "Escorrego",
+    "aliases": [],
+    "effect": [
+      "Torna o alvo do feitiço em algo extremamente escorregadio. Contra-feitiço comum do Feitiço Antiderrapante."
+    ],
+    "light": "anil",
+    "classification": "Azaração",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "esferi",
+    "year": 3,
+    "name": "Esferi",
+    "aliases": [],
+    "effect": [
+      "conjura uma esfera moderadamente pequena que é propulsionada na direção do alvo a partir da varinha do bruxo invocador, pode ser usada para atacar seus adversários ou defender-se de ataques físicos, já que o objeto evocado não é um encantamento intangível ou um lampejo. De acordo com a experiência do bruxo, o tamanho da esfera pode ser ampliado e outras propriedades adicionais podem ser postas em sua estrutura, como espinhos, relevos contundentes e outras opções que cabem na criatividade do bruxo."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "giro",
+    "upgrades": []
+  },
+  {
+    "id": "expecto-exumai",
+    "year": 3,
+    "name": "Expecto Exumai",
+    "aliases": [],
+    "effect": [
+      "faz com que afaste um fantasma e disperse-o ( a intensidade do feitiço aumenta conforme a experiência adquirida nos anos)."
+    ],
+    "light": "prata",
+    "classification": "Encantamento",
+    "movement": "risco para cima",
+    "upgrades": []
+  },
+  {
+    "id": "flagrate",
+    "year": 3,
+    "name": "Flagrate",
+    "aliases": [],
+    "effect": [
+      "através do manuseio da varinha, o usuário pode criar formatações pirocinéticas, elas flutuam no ar ou podem ser fixadas em uma superfície, sendo permanentes até que seja extinguida pelo contrafeitiço geral."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "correspondente à criação",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "além do efeito primordial do feitiço de formatação pirocinética, o encantamento pode se tornar uma ameaça pelas mãos de bruxos mal intencionados. Uma vez direcionado a um alvo, o Flagrate é capaz de marcar a pele, criando símbolos de identificação sobre a epiderme ou cicatrizes. A ação é desconfortável e dolorosa para quem sofre com o processo de marcação. Os sinais podem ser extinguidos pelo contrafeitiço geral."
+      }
+    ]
+  },
+  {
+    "id": "herbivicus",
+    "year": 3,
+    "name": "Herbivicus",
+    "aliases": [],
+    "effect": [
+      "por meio do manuseio constante da varinha, o bruxo exerce uma influência no crescimento acelerado de plantas. Além disso, é viável realizar movimentos específicos enquanto o bruxo conjurador mantém sua atenção no encanto. Observa-se que as plantas adquirem a capacidade de agarrar, prender e até mesmo chicotear, dependendo do tamanho e natureza da flora em questão. Faz-se necessário um turno para o crescimento das plantas, e um segundo para manipulações adicionais."
+    ],
+    "light": "verde",
+    "classification": "Encantamento",
+    "movement": "Aceno e movimentos correspondentes com a varinha",
+    "upgrades": []
+  },
+  {
+    "id": "lapifors",
+    "year": 3,
+    "name": "Lapifors",
+    "aliases": [],
+    "effect": [
+      "semelhante ao encantamento Fera Verto, o feitiço em questão pode metamorfosear uma criatura ou objeto de pequeno porte em um coelho de igual tamanho, sendo a vítima, a partir da feitura do feitiço, suscetível ao controle do conjurador para a realização de simples tarefas. A transformação tem a duração de três turnos, podendo aumentar conforme a experiência de quem a lança."
+    ],
+    "light": "verde",
+    "classification": "Transfiguração",
+    "movement": "apontar a varinha ao alvo",
+    "upgrades": []
+  },
+  {
+    "id": "locomotor",
+    "year": 3,
+    "name": "Locomotor",
+    "aliases": [],
+    "effect": [
+      "confere ao bruxo a maestria sobre um objeto de porte médio, facultando-lhe a capacidade de movê-lo com graciosidade em qualquer direção de sua preferência. Difere do Wingardium Leviosa no sentido de que não se trata de um efeito contínuo: é somente possível redirecionar o objeto uma única vez."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "melofors",
+    "year": 3,
+    "name": "Melofors",
+    "aliases": [],
+    "effect": [
+      "conjura, instantaneamente, uma abóbora ao redor da cabeça de quem é atingido, sem distinção de espécie — limitações podem surgir, contudo, quando a cabeça do atingido é excessivamente grande para caber uma abóbora. A abóbora só será conjurada quando o lampejo acertar a cabeça de alguém. Se atingir outro local do corpo, nada acontece;"
+    ],
+    "light": "laranja",
+    "classification": "Azaração",
+    "movement": "apontar a varinha à cabeça do alvo",
+    "upgrades": []
+  },
+  {
+    "id": "mictoris",
+    "year": 3,
+    "name": "Mictoris",
+    "aliases": [],
+    "effect": [
+      "acomete o alvo na azaração da cachoeira, que resulta numa vontade intensa de urinar. Depois do quinto ano, a potência do feitiço faz com que o alvo tire água do joelho instantâneamente."
+    ],
+    "light": "amarelada",
+    "classification": "Azaração",
+    "movement": "apontar a varinha ao torso do alvo",
+    "upgrades": []
+  },
+  {
+    "id": "mobiliarbus",
+    "year": 3,
+    "name": "Mobiliarbus",
+    "aliases": [],
+    "effect": [
+      "assegura o deslocamento de plantas e objetos de madeira ao bel prazer, de modo contínuo (isto é, até que o conjurador determine o fim do encantamento). Com gestos precisos da varinha, ele assume o controle desses elementos."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "obscuro",
+    "year": 3,
+    "name": "Obscuro",
+    "aliases": [],
+    "effect": [
+      "constitui a criação imediata de uma venda negra diante dos olhos da vítima que, obstruindo o campo visual. Se executado com maior preparo, o que requer dois turnos, esse feitiço priva integralmente a percepção ocular do inimigo, imergindo-o em um véu escuro que impede qualquer discernimento do ambiente circundante."
+    ],
+    "light": "preta",
+    "classification": "Transfiguração",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "oppugno",
+    "year": 3,
+    "name": "Oppugno",
+    "aliases": [],
+    "effect": [
+      "o bruxo consegue, através da fórmula mágica, influenciar pequenas criaturas ou objetos a agirem sob sua tutela por um breve período. A ação atribuída ao que fora encantado requer clareza e concentração da parte do conjurador, caso contrário o efeito do encantamento é suspenso e os objetos ou criaturas voltam ao estado normal."
+    ],
+    "light": "não há",
+    "classification": "Azaração",
+    "movement": "não há",
+    "upgrades": []
+  },
+  {
+    "id": "petrificus-totalus",
+    "year": 3,
+    "name": "Petrificus Totalus",
+    "aliases": [],
+    "effect": [
+      "enrijece os membros do ser atingido ao ponto de causar paralisia absoluta e imediata. A duração dessa condição, em um cenário sem intervenção externa, estende-se por uma hora. Sua eficácia pode ser bloqueada por meio de Protego e revertida através de Finite Incantatem, proporcionando uma dinâmica estratégica nos confrontos mágicos."
+    ],
+    "light": "cinza",
+    "classification": "Sortilégio",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "quietus",
+    "year": 3,
+    "name": "Quietus",
+    "aliases": [],
+    "effect": [
+      "possibilita a harmonia após a dissonância acústica provocada por Sonorus. Este contrafeitiço restaura o tom da voz amplificada à sua forma original e harmônica."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "toque na jugular",
+    "upgrades": []
+  },
+  {
+    "id": "relaxo",
+    "year": 3,
+    "name": "Relaxo",
+    "aliases": [
+      "Relashio"
+    ],
+    "effect": [
+      "feitiço de aquecimento acelerado. O feitiço relaxo influencia a agitação das moléculas de determinado material, exceto materiais biologicamente ativos, fazendo com que o material em questão aqueça ao ponto de romper. Se utilizado em ambientes aquáticos, a água é ejetada em uma propulsão aquecida."
+    ],
+    "light": "vermelha",
+    "classification": "Azaração",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "reparifarge",
+    "year": 3,
+    "name": "Reparifarge",
+    "aliases": [],
+    "effect": [
+      "retorna transfigurações mal sucedidas ou incompletas ao seu estado natural."
+    ],
+    "light": "branco",
+    "classification": "Transfiguração",
+    "movement": "giro anti-horário",
+    "upgrades": []
+  },
+  {
+    "id": "ridikkulus",
+    "year": 3,
+    "name": "Ridikkulus",
+    "aliases": [],
+    "effect": [
+      "o feitiço para Repelir Bicho-Papão, conhecido como Riddikulus, é utilizado como uma defesa eficaz contra essas criaturas. Ao ser conjurado, o feitiço faz com que o bicho-papão assuma, de maneira involuntária, uma forma hilariante para o conjurador. Essa transformação anula a habilidade da criatura de aterrorizar a vítima, transformando o encontro assustador em algo mais palatável e até mesmo cômico."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "silencio",
+    "year": 3,
+    "name": "Silencio",
+    "aliases": [],
+    "effect": [
+      "em posse da varinha, o usuário pode encantar determinado indivíduo a ser privado de sua voz por um período indefinido de turnos, necessitando a utilização do contrafeitiço geral (conjurado por uma terceira pessoa) para cessar o efeito."
+    ],
+    "light": "não há",
+    "classification": "Sortilégio",
+    "movement": "giro",
+    "upgrades": []
+  },
+  {
+    "id": "sonorus",
+    "year": 3,
+    "name": "Sonorus",
+    "aliases": [],
+    "effect": [
+      "nas situações de urgência ou para comunicados de ampla magnitude, este feitiço amplifica a voz do bruxo, emitindo um som potente que envolve aqueles ao redor. A ressonância resultante assemelha-se à clareza de um microfone sem fio, conferindo ao bruxo uma presença sonora notável."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "giro",
+    "upgrades": []
+  },
+  {
+    "id": "spongify",
+    "year": 3,
+    "name": "Spongify",
+    "aliases": [],
+    "effect": [
+      "torna uma superfície flexível ao ponto de servir de cama elástica."
+    ],
+    "light": "verde",
+    "classification": "Encantamento e Transfiguração",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "skurge",
+    "year": 3,
+    "name": "Skurge",
+    "aliases": [],
+    "effect": [
+      "feitiço usado para limpar o ectoplasma verde pegajoso criado por fantasmas. O efeito do encantamento também pode ser usado para assustar espíritos, como poltergeists, por exemplo."
+    ],
+    "light": "verde",
+    "classification": "Encantamento",
+    "movement": "rodopio",
+    "upgrades": []
+  },
+  {
+    "id": "tergeo",
+    "year": 3,
+    "name": "Tergeo",
+    "aliases": [],
+    "effect": [
+      "configura a ponta da varinha como uma espécie de aspirador mágico. Conforme o bruxo aprimora suas habilidades, a capacidade de absorção do Tergeo expande-se, permitindo a limpeza de uma variedade cada vez maior de sujeiras. A magia fluida deste encantamento evolui com o nível de proficiência do bruxo, proporcionando uma solução encantadora para a limpeza mágica."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "sacolejo",
+    "upgrades": []
+  },
+  {
+    "id": "ventus",
+    "year": 3,
+    "name": "Ventus",
+    "aliases": [],
+    "effect": [
+      "o bruxo direciona sua varinha na direção desejada, desencadeando uma lufada de vento moderada que é gerada a partir do próprio ambiente. Essa corrente de ar é habilidosa em redirecionar objetos de pequeno a médio porte, incluindo formações ígneas que estejam sendo projetadas através de jatos ou similares. Quando conjurada na direção de chamas crepitantes, a corrente de ar não apenas influencia o fogo, mas também o intensifica, conferindo uma sinergia singular entre o vento mágico e as labaredas, o que pode, inclusive, ser prejudicial à sua situação em combate."
+    ],
+    "light": "não há",
+    "classification": "Elemental",
+    "movement": "Aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "o efeito do encantamento é intensificado, de maneira que o bruxo consegue desencadear poderosas lufadas de vento que, segundo sua vontade no momento da conjuração do feitiço, atira seres vivos para uma distância de até 5 metros, objetos para uma distância de até 8 metros e até mesmo proteger-se de outros elementos da natureza através de uma redoma formulada pelo ar circulando ao redor de si mesmo."
+      }
+    ]
+  },
+  {
+    "id": "waddiwasi",
+    "year": 3,
+    "name": "Waddiwasi",
+    "aliases": [],
+    "effect": [
+      "torna o bruxo capaz de mover qualquer objeto, independente de seu peso — claro, contanto que não seja algo fora de escala — para outras posições dentro de um espaço. Pode movimentar mesas com um aceno da varinha, ajustar a posição de cadeiras e poltronas com floreios e fazer a mesma coisa com qualquer coisa, exceto objetos encantados para não serem movidos e varinhas empunhadas."
+    ],
+    "light": "não há",
+    "classification": "Azaração",
+    "movement": "curso desejado pelo bruxo",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "o efeito do encantamento aprimora-se para o bruxo combatente, que consegue furtar o controle de objetos manipulados por outros bruxos via Wingardium Leviosa, Locomotor ou pelo próprio Waddiwasi."
+      }
+    ]
+  },
+  {
+    "id": "eletricus",
+    "year": 3,
+    "name": "Eletricus",
+    "aliases": [],
+    "effect": [
+      "dispara um relâmpago controlado em direção ao alvo. Diferenciando-se de impactantes, esse feitiço se caracteriza pela descarga elétrica que fornece ao contato, podendo atordoar brevemente o alvo e até mesmo energizar dispositivos elétricos."
+    ],
+    "light": "azul",
+    "classification": "Elemental",
+    "movement": "giro com aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento I",
+        "locked": true,
+        "text": "[Eletricus Duo] Se compreende como aprimoramento do feitiço elétrico o aumento em sua potência e estrago. Com a experiência do bruxo, ele é capaz de manejar uma descarga elétrica muito maior, podendo ocasionar uma síncope no alvo."
+      },
+      {
+        "label": "Aprimoramento II",
+        "locked": true,
+        "text": "[Eletricus Tria] Agora, o feitiço se torna realmente mortal, afinal, carrega uma descarga elétrica poderosíssima que acarreta também em queimaduras de segundo grau ao contato, levando o alvo ao colapso nervoso instantâneamente. Em superfícies, pode fazer a eletricidade percorrer até alvos para atordoá-los e é claro, contra objetos, queima-os de uma só vez. É necessário muita experiência para atingir esta etapa."
+      }
+    ]
+  },
+  {
+    "id": "aguamenti",
+    "year": 3,
+    "name": "Aguamenti",
+    "aliases": [
+      "Aquamenti"
+    ],
+    "effect": [
+      "inicialmente, o bruxo conjura um disparo hidrocinético através do feixe de sua varinha em direção ao alvo, umedecendo a área atingida e provocando um impacto que se aprimora gradualmente ao longo dos anos de experiência."
+    ],
+    "light": "não há",
+    "classification": "Elemental",
+    "movement": "giro",
+    "upgrades": [
+      {
+        "label": "Aprimoramento I",
+        "locked": true,
+        "text": "o feitiço de geração hidrocinética pode ser aplicado em fontes d’água preexistentes, permitindo a manipulação do líquido em volume semelhantes aos de uma caixa d’água pequena (aproximadamente 500 litros). Essa habilidade possibilita a criação de barreiras disformes ou esferas de contenção. Além disso, o feitiço pode ser empregado para enfrentar incêndios ou criaturas flamejantes, apresentando uma duração máxima de quatro turnos."
+      },
+      {
+        "label": "Aprimoramento II",
+        "locked": true,
+        "text": "[Aqua Erupto] caracteriza-se pela evolução da potência do feitiço. Uma enxurrada de água é liberta da ponta da varinha de forma incessante, como um hidrante que engloba cinco quadrados de distância."
+      }
+    ]
+  },
+  {
+    "id": "avis",
+    "year": 3,
+    "name": "Avis",
+    "aliases": [],
+    "effect": [
+      "permite ao bruxo invocar aves não-mágicas com base em sua experiência. A variedade em quantidades, tipos e tamanhos das aves invocadas depende do nível de habilidade do conjurador. Inicialmente, o bruxo está limitado a três pássaros de pequeno porte, como canários. Vale ressaltar que essas aves não podem ser controladas diretamente pelo bruxo, sendo necessário o uso de Oppugno para tal fim."
+    ],
+    "light": "azul",
+    "classification": "Transfiguração",
+    "movement": "dois solavancos da esquerda para a direita",
+    "upgrades": [
+      {
+        "label": "Aprimoramento I",
+        "locked": true,
+        "text": "ao alcançar níveis avançados de habilidade em Avis, a capacidade de conjurar pássaros de grande porte, como albatrozes e águias, é desbloqueada. No entanto, essa destreza vem acompanhada de uma restrição: o número de conjurações possíveis é limitado à metade da capacidade padrão. Alternativamente, pode-se optar por invocar um único pássaro de grande porte, como um avestruz."
+      },
+      {
+        "label": "Aprimoramento II",
+        "locked": true,
+        "text": "este aprimoramento permite conjurar uma quantidade maior de aves, alcançando até dez pássaros simultaneamente. Contudo, a limitação está no tamanho dessas aves, restringindo-se a pássaros de pequeno porte."
+      },
+      {
+        "label": "Aprimoramento III",
+        "locked": true,
+        "text": "as aves invocadas por Avis estão sob total domínio do conjurador. Funcionando como se já tivesse utilizado o feitiço Oppugno, pode-se controlar essas aves para realizar ações específicas. Entretanto, caso a intenção seja usá-las ofensivamente, somente no turno seguinte à conjuração poderão atacar. Essas aves não podem ser afetadas por Oppugno de outros bruxos, uma vez que já estão sob controle total."
+      }
+    ]
+  },
+  {
+    "id": "petrus",
+    "year": 3,
+    "name": "Petrus",
+    "aliases": [],
+    "effect": [
+      "produz uma série de três pedras de 10 centímetros de circunferência, sendo uma das extremidades pontiagudas o bastante para causar escoriações perigosas. O bruxo consegue facilmente direcionar as pedras na direção de um alvo."
+    ],
+    "light": "não há",
+    "classification": "Elemental",
+    "movement": "giro e aceno",
+    "upgrades": []
+  },
+  {
+    "id": "petrus-pontus",
+    "year": 3,
+    "name": "Petrus Pontus",
+    "aliases": [],
+    "effect": [
+      "cria uma sucessão de três pedras pontiagudas que são atiradas em um único alvo, todas com diâmetro de no máximo 20 centímetros."
+    ],
+    "light": "não há",
+    "classification": "Elemental e Transfiguração",
+    "movement": "giro e aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "estende a possibilidade de conjuração de três pedras pontiagudas para quatro pedras pontiagudas que podem ser atiradas em até dois alvos — ou duas partes distintas do mesmo alvo —, todas com diâmetro de no máximo 20 centímetros."
+      }
+    ]
+  },
+  {
+    "id": "accio",
+    "year": 4,
+    "name": "Accio",
+    "aliases": [],
+    "effect": [
+      "o bruxo é capaz de convocar qualquer objeto que tenha em mente, erguendo a varinha no sentido do que deseja trazer para mais perto ou, em casos de maior experiência, simplesmente utilizando a fórmula mágica para puxar o item para perto. Com bruxos mais experientes, é possível aumentar a efetividade do feitiço, tragando todo e qualquer parafernália que o estudante tenha em mente. É possível utilizá-la para puxar varinhas soltas e largadas, mas as varinhas empunhadas por seus respectivos proprietários são um objeto que não pode ser puxado. Objetos encantados contra o Accio também não podem ser puxados."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "erguer a varinha",
+    "upgrades": []
+  },
+  {
+    "id": "anteoculatia",
+    "year": 4,
+    "name": "Anteoculatia",
+    "aliases": [],
+    "effect": [
+      "faz pequenos chifres crescerem na testa de um indivíduo, causando um desconforto que se assemelha a uma apontada na cabeça. A azaração pode ser contida com Finite Incantatem, embora o contrafeitiço não consiga eliminar as marcas deixadas por ela, que só podem ser reduzidas com poções e produtos para a pele."
+    ],
+    "light": "cinza",
+    "classification": "Azaração",
+    "movement": "apontar a varinha ao alvo",
+    "upgrades": []
+  },
+  {
+    "id": "slugulus-eructo",
+    "year": 4,
+    "name": "Slugulus Eructo",
+    "aliases": [],
+    "effect": [
+      "ao ser lançado, azara um indivíduo, desencadeando a peculiar reação de regurgitar lesmas em intervalos fixos de quatro turnos. Durante o turno afetado, a vítima se encontra totalmente imersa na tarefa de lidar com as lesmas recém-regurgitadas, tornando-se incapaz de realizar qualquer outra ação significativa."
+    ],
+    "light": "verde",
+    "classification": "Sortilégio",
+    "movement": "giro e estocada firme",
+    "upgrades": []
+  },
+  {
+    "id": "arenofilus",
+    "year": 4,
+    "name": "Arenofilus",
+    "aliases": [],
+    "effect": [
+      "o bruxo conjura um jato de areia que se expande de maneira gradual, oferecendo duas abordagens distintas. Na primeira, para os bruxos inexperientes, o feitiço resulta em um jato de impacto corpóreo, capaz de arrastar um indivíduo por até quatro quadrados."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "giro",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "por outro lado, a segunda modalidade projeta um efeito sobre o ambiente, criando uma pequena tempestade de areia que demanda manutenção por meio do condão mágico. Essa tempestade, no ápice de sua expansão, cobre uma área máxima de 5x5 quadrados."
+      }
+    ]
+  },
+  {
+    "id": "ascendio",
+    "year": 4,
+    "name": "Ascendio",
+    "aliases": [],
+    "effect": [
+      "erguer a varinha no sentido vertical, como um risco direto para cima, é responsável por fazer o bruxo ganhar uma impulsão súbita, cobrindo vários metros de altura para alcançar, por exemplo, beiradas ou objetos que estejam muito elevados em algum espaço. É tido como um feitiço de mobilidade, com sua serventia geralmente lida como um modo de ultrapassar obstáculos."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "erguer a varinha",
+    "upgrades": []
+  },
+  {
+    "id": "asper",
+    "year": 4,
+    "name": "Asper",
+    "aliases": [],
+    "effect": [
+      "Torna um objeto em algo mais rugoso, difícil de escorregar. Contra-feitiço comum da Azaração Escorregadia."
+    ],
+    "light": "laranja",
+    "classification": "Encantamento",
+    "movement": "meio giro",
+    "upgrades": []
+  },
+  {
+    "id": "bombarda",
+    "year": 4,
+    "name": "Bombarda",
+    "aliases": [],
+    "effect": [
+      "comumente empregado em fechaduras e barras de metal trancafiadas, trata-se de um feitiço de explosão controlada. As explosões são naturalmente barulhentas e inapropriadas para atos furtivos, além de gerarem impactos que podem afetar as coisas ao redor da região atingida. É bastante efetivo contra estruturas de metais ferrosos e pesados. No entanto, as explosões resultantes são inerentemente barulhentas, tornando-as inadequadas para ações furtivas. Seu impacto, embora focalizado, reverbera além da área imediata, afetando objetos e estruturas ao redor."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "corte frontal",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "[Bombarda Maxima] Versão em larga escala de Bombarda. A centelha produzida por este feitiço possui poderio para detonar estruturas de grande porte, tais como árvores, paredes ou mezaninos. Trata-se, no entanto, de um feitiço inofensivo a corpos orgânicos animados (leia-se seres humanos e criaturas). Bloqueável ou redirecionável via Protego;"
+      }
+    ]
+  },
+  {
+    "id": "bocaporca",
+    "year": 4,
+    "name": "Bocaporca",
+    "aliases": [],
+    "effect": [
+      "traz o pior gosto possível para a boca do alvo da maldição, adequando-se naturalmente ao que o adversário encontra de mais repulsivo para causar o vômito que é incontrolável. Além dos efeitos iniciais, deixa os efeitos residuais de mau hálito, dificultando interações ou trazendo, simplesmente, um desconforto ao alvo atingido. Finite encerra a duração do gosto repulsivo."
+    ],
+    "light": "laranja",
+    "classification": "Azaração",
+    "movement": "corte frontal",
+    "upgrades": []
+  },
+  {
+    "id": "calvorio",
+    "year": 4,
+    "name": "Calvorio",
+    "aliases": [],
+    "effect": [
+      "Conhecida como a Maldição da Perda de Cabelo. Remove o cabelo do alvo. Finite não remove o feito, sendo recomendado a (Inserir Poção que cresce cabelo) para ter os cabelos de volta."
+    ],
+    "light": "roxo",
+    "classification": "Azaração",
+    "movement": "Aceno para baixo",
+    "upgrades": []
+  },
+  {
+    "id": "cabeca-de-bolha",
+    "year": 4,
+    "name": "Cabeça-De-Bolha",
+    "aliases": [],
+    "effect": [
+      "cria um compartimento isolado para permitir a respiração em ambientes inadequados ou regiões submersas. Em tese, é capaz de filtrar e fazer a troca de gases com o restante do espaço, garantindo que o bruxo tenha um fluxo constante de oxigênio e não precise se preocupar em idas e voltas desnecessárias."
+    ],
+    "light": "não há",
+    "classification": "Encantamento e Transfiguração",
+    "movement": "movimento ao redor do rosto",
+    "upgrades": []
+  },
+  {
+    "id": "carpe-retractum",
+    "year": 4,
+    "name": "Carpe Retractum",
+    "aliases": [],
+    "effect": [
+      "cria uma corda mágica que pode ser utilizada para agarrar um objeto e trazê-lo para si. Além disso, as variações permitem que seja utilizado na criação de uma corda resistente que se liberta da extremidade do condão, podendo ser usada, posteriormente, como peso de medida entre dois objetos."
+    ],
+    "light": "não há",
+    "classification": "Encantamento e Transfiguração",
+    "movement": "giro e aceno",
+    "upgrades": []
+  },
+  {
+    "id": "cicatriccio",
+    "year": 4,
+    "name": "Cicatriccio",
+    "aliases": [],
+    "effect": [
+      "induz a gradual cicatrização de uma lesão. É inútil contra grandes feridas ou as que foram feitas através das Artes das Trevas."
+    ],
+    "light": "branca",
+    "classification": "Medibruxaria",
+    "movement": "apontar na direção do ferimento",
+    "upgrades": []
+  },
+  {
+    "id": "distorccio",
+    "year": 4,
+    "name": "Distorccio",
+    "aliases": [],
+    "effect": [
+      "torna um item irreconhecível através da distorção. O número de feitiços de reparação necessários para restaurá-lo à sua forma original é relativa à quantidade de vezes que o encantamento foi realizado com sucesso. Para bruxos inexperientes, conjurar este feitiço em objetos mágicos é impossível, assim como descaracterizar um objeto comum de forma permanente."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "giro anti-horário",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "é capaz de distorcer um item comum permanentemente, inutilizando feitiços de reparo. Agora, abrange objetos mágicos, como relíquias, podendo distorcê-los livremente de maneira reversível. Enquanto estiver em sua forma adulterada, o item não poderá ser utilizado."
+      }
+    ]
+  },
+  {
+    "id": "emancipare",
+    "year": 4,
+    "name": "Emancipare",
+    "aliases": [],
+    "effect": [
+      "feitiço da libertação, fazendo com que cordas ou amarras se separem de forma instantânea. Único contra-feitiço para a azaração Brachiabindo, uma vez que Finite Incantatem não fornece resultados."
+    ],
+    "light": "não há",
+    "classification": "Contra-Feitiço",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "emendo",
+    "year": 4,
+    "name": "Emendo",
+    "aliases": [],
+    "effect": [
+      "utilizado como principal meio de tratamento para fraturas, ossos trincados e danos no esqueleto; é capaz de consertar os danos de modo confiável, apesar de ser um feitiço extremamente perigoso no caso de falhas. Na pior das hipóteses, pode demolir por completo a estrutura óssea do bruxo alvo, ou simplesmente sumir com os seus ossos. Sua conjuração pode, ainda, ser proclamada de maneira diferente, utilizando o nome do osso na língua mãe como prefixo ao Emendo."
+    ],
+    "light": "azul",
+    "classification": "Medibruxaria",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "estupefaca",
+    "year": 4,
+    "name": "Estupefaça",
+    "aliases": [],
+    "effect": [
+      "A conjuração do feitiço Estupefaça submete uma vítima designada (o que inclui criaturas sencientes de pequeno e médio porte) ao estupor, isto é, a um estado de não consciência. Tal estado difere substancialmente do que reconhecemos como inconsciência, posto que não há, durante o estupor, atividade psíquica (sonhos, por exemplo). Em princípio, quando convocado por quartanistas, o feitiço se manifesta como mera força de repulsão, capaz de interceptar investidas e afastar agressores. Essa habilidade permite desalojá-los de suas posições defensivas ao impeli-los para longe, tornando-os vulneráveis.",
+      "É a partir do quinto ano que o Estupefaça se revela como uma ferramenta eficiente e não letal nos conflitos. Nesse estágio, resulta em incapacitação temporária de outros adversários, preservando-os num sono que se estende por vinte minutos. Adiante, na última etapa de evolução (sexto e sétimo anos), torna-se apenas via Enervarte."
+    ],
+    "light": "vermelha",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "o bruxo combatente é capaz de definir aspectos mais precisos como distância e curso, no ápice de sua experiência, pode atirar um alvo para trás para removê-lo de posições específicas, nocauteando-o ou não no processo. Pode causar efeitos combinados, como usar um estupefaça que não empurra ou causa impacto físico, mas tão somente desacorda o adversário, gerando agora a possibilidade de fazer abates furtivos."
+      }
+    ]
+  },
+  {
+    "id": "expecto-patronum",
+    "year": 4,
+    "name": "Expecto Patronum",
+    "aliases": [],
+    "tag": "Merecimento",
+    "effect": [
+      "inicialmente, o Expecto Patronum conjura um vórtice de energia esbranquiçada, capaz de limitar a aproximação de Dementadores ou, ainda, afastá-los mediante avanço deste mesmo turbilhão. A área inicial em que o vórtice pode se projetar é de 3x3 quadrados, mas sua progressão pode ser expandida mediante a elaboração do encanto, que varia de acordo com a lembrança utilizada em sua criação."
+    ],
+    "light": "azul",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "o usuário pode performar a criação de um corpo físico e ao mesmo tempo etéreo através da conjuração do encanto, normalmente a energia se formata na essência de uma animal ou criatura, que pode viajar por longas distâncias ou atuar no afugentamento de dementadores em uma área de até 6x6 quadrados ao redor do bruxo."
+      }
+    ]
+  },
+  {
+    "id": "cutare",
+    "year": 4,
+    "name": "Cutare",
+    "aliases": [],
+    "effect": [
+      "materializa uma lâmina de quinze centímetros de extensão e a impulsiona verticalmente rumo ao ponto fixado pelo bruxo durante o momento de conjuração. Ainda que relativamente longa, não possui uma largura avantajada — por isso, usuários do feitiço optam por alvejar regiões físicas cujas chances de acerto são, em tese, maiores, a exemplo do abdômen e do tronco. A priori, não bloqueável via Protego;"
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "risco vertical",
+    "upgrades": []
+  },
+  {
+    "id": "protego-horribilis",
+    "year": 4,
+    "name": "Protego Horribilis",
+    "aliases": [],
+    "effect": [
+      "estabelece uma película resistente contra as Artes das Trevas. Esta redoma, uma extensão refinada do Protego Totalum, representa uma linha intransponível de defesa, sendo imune à maioria dos feitiços obscuros. Notavelmente, o Protego Horribilis é formidável o suficiente para resistir a uma gama diversificada de feitiços, excluindo apenas a temível maldição Avada Kedavra, que permanece como a única exceção à sua invulnerabilidade. Sua performance relativamente complexa (requer-se dois turnos para uma conjuração bem-sucedida) inviabiliza o uso de Protego Totalum em um duelo.;"
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "expulso",
+    "year": 4,
+    "name": "Expulso",
+    "aliases": [],
+    "effect": [
+      "Desencadeia um jato de pressão de magnitude colossal. O diferencial específico do Expulso está justamente no arco descrito pelo alvo atingido; seres de proporções médias ou humanóides podem ser repelidos em sua totalidade pelo espaço desejado pelo invocador, mas criaturas muito grandes — que são normalmente resistentes aos impactantes — demonstram uma resiliência maior, recebendo tão somente os danos do choque. Difere de um feitiço impactante tradicional, como o Verdimillious, na medida em que não se trata de um lampejo com potencial para deslocar corpos — enquanto este último dissiparia pela interceptação de, a título de exemplo, uma cadeira, o Expulso seguiria rumo ao alvo originalmente designado, conduzindo consigo, inclusive, o objeto situado em intermédio."
+    ],
+    "light": "dourada",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "ferula",
+    "year": 4,
+    "name": "Ferula",
+    "aliases": [],
+    "effect": [
+      "conjura ataduras e, em casos específicos, talas que se enrolam e se apertam ao redor de um ferimento ou machucado específico. Além disso, os itens médicos que foram transfigurados pelo medibruxo possuem uma propriedade analgésica na região, aliviando a dor e acelerando, com isso, o processo de cura. É válido lembrar que é impossível curar imediatamente, através do Férula, grandes machucados."
+    ],
+    "light": "não há",
+    "classification": "Medibruxaria",
+    "movement": "rodopio",
+    "upgrades": []
+  },
+  {
+    "id": "flagelum",
+    "year": 4,
+    "name": "Flagelum",
+    "aliases": [],
+    "effect": [
+      "Conjura um lampejo de alta velocidade que, ao entrar em contato com quaisquer regiões do corpo, provoca um efeito muito semelhante ao de um chicote. Enquanto ativa, a execução de demais feitiços é vedada; fazê-lo causa a fragmentação imediata do chicote. Não bloqueável via Protego."
+    ],
+    "light": "escarlate",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "glacius",
+    "year": 4,
+    "name": "Glacius",
+    "aliases": [],
+    "effect": [
+      "aos bruxos mais inexperientes, compete o uso do Glacius através de um jato de ar frio que pode ser direcionado em qualquer sentido desejado; o feitiço é capaz de congelar, com diferentes graus e níveis de exposição, objetos, líquidos e outras superfícies, como tecido e metal."
+    ],
+    "light": "não há",
+    "classification": "Elemental",
+    "movement": "erguer a varinha",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": false,
+        "text": "já aos bruxos mais experientes, o Glacius pode ser utilizado em projéteis velozes e congelantes que, ao atingir um membro específico, podem congelá-lo por completo. Além disso, as versões mais poderosas do Glacius podem interferir diretamente no corpo de adversários ou alvos, podendo congelar completamente as criaturas de menor escala, como grindylows e outras na mesma faixa de tamanho."
+      }
+    ]
+  },
+  {
+    "id": "illegibulus",
+    "year": 4,
+    "name": "Illegibulus",
+    "aliases": [],
+    "effect": [
+      "encantamento aplicável em palavras grafadas sobre qualquer plano. O texto designado sofre uma metamorfose distinta, tornando-se completamente ininteligível e desafiando qualquer tentativa de compreensão. As palavras se entrelaçam em uma dança caótica, embaralhando-se de maneira peculiar, afastando-se completamente da norma linguística. Este feitiço peculiar fornece ao bruxo uma ferramenta eficaz para ocultar informações, garantindo que apenas aqueles familiarizados com sua magia possam decifrar o enigma resultante."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "impervius",
+    "year": 4,
+    "name": "Impervius",
+    "aliases": [],
+    "effect": [
+      "reveste superfícies alvo com uma película mágica não perceptível, tornando a zona física impermeável a líquidos, incluindo a água. Sem prejudicar a estética ou a funcionalidade da superfície, Impervius cria, em suma, uma defesa invisível contra a penetração de líquidos."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "inflatus",
+    "year": 4,
+    "name": "Inflatus",
+    "aliases": [],
+    "effect": [
+      "infla o alvo como um balão. O efeito só pode ser retardado por um terceiro através do contra-feitiço Finite Incantatem. Quando o alvo inflar em sua capacidade máxima, explodirá em confetes que serão expulsos das cavidades."
+    ],
+    "light": "transparente",
+    "classification": "Sortilégio",
+    "movement": "aceno com estocada",
+    "upgrades": []
+  },
+  {
+    "id": "magicus-extremos",
+    "year": 4,
+    "name": "Magicus Extremos",
+    "aliases": [],
+    "effect": [
+      "executável apenas entre três ou mais pessoas, este feitiço deve ser conjurado de forma simultânea para que faça efeito. Se realizado da maneira correta, os próximos três feitiços lançados pelos bruxos envolvidos serão fortalecidos, recebendo temporariamente seu primeiro aprimoramento (se houver) e atuando com o dobro da força normal. Os bruxos devem estar a no máximo 3 quadrados de distância um do outro."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "giro rápido com aceno",
+    "upgrades": []
+  },
+  {
+    "id": "mimblewimble",
+    "year": 4,
+    "name": "Mimblewimble",
+    "aliases": [],
+    "effect": [
+      "Enrola a língua do alvo em um nó, prevenindo uma fala coerente Geralmente esta azaração é proibida em duelos formais. Essa azaração não impede que o adversário fale, mas ele sente dificuldade nos primeiros dois turnos."
+    ],
+    "light": "roxo",
+    "classification": "Azaração",
+    "movement": "aceno horizontal",
+    "upgrades": []
+  },
+  {
+    "id": "reducto",
+    "year": 4,
+    "name": "Reducto",
+    "aliases": [],
+    "effect": [
+      "provoca a implosão de objetos de pequeno porte, como jarros, copos, pequenas caixas e embrulhos. O termo \"implosão\" refere-se ao processo em que o objeto é colapsado para dentro de si mesmo, resultando em sua destruição. A resistência do material em questão desempenha um papel crucial no resultado final, podendo afetar a eficácia do feitiço, tornando-o falho ou parcial em certas circunstâncias. Cabe notar que, para objetos de maior porte, como mesas, a habilidade de implodir apenas se manifesta no sétimo ano de estudo mágico avançado."
+    ],
+    "light": "preta",
+    "classification": "Encantamento e Arte das Trevas",
+    "movement": "risco em diagonal à direita, depois à esquerda",
+    "requirement": "Pacote Artes das Trevas",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": false,
+        "text": "a implosão pode ser originada para atingir organismos vivos, como plantas, vinhas, e pequenas criaturas; entretanto, a utilização em seres vivos não causa implosão, mas uma laceração dolorida e passível de tratamento a longo prazo."
+      }
+    ]
+  },
+  {
+    "id": "rennervate",
+    "year": 4,
+    "name": "Rennervate",
+    "aliases": [],
+    "effect": [
+      "similar à ação de um desfibrilador, este feitiço opera com o propósito de despertar seres inconscientes. No entanto, é importante notar que Rennervate não possui o poder de reanimar vítimas estuporadas. Seu efeito, como uma corrente mágica revitalizante, tem a habilidade singular de restaurar a consciência àqueles que foram subjugados à inconsciência."
+    ],
+    "light": "vermelha",
+    "classification": "Contra-Feitiço e Medibruxaria",
+    "movement": "risco em direção ao alvo",
+    "upgrades": []
+  },
+  {
+    "id": "secandi",
+    "year": 4,
+    "name": "Secandi",
+    "aliases": [],
+    "effect": [
+      "ao atingir pequenos corpos d'água, como poças e lagoas, a ponta da varinha consegue sugar poças d’água menores. É ineficaz contra corpos d'água maiores como grandes lagos, sendo portanto inevitável que o bruxo tente atravessar uma lagoa sem se molhar ou não enxergar o que pode ter dentro da poça."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "para cima e depois desce devagar",
+    "upgrades": []
+  },
+  {
+    "id": "separefeito",
+    "year": 4,
+    "name": "Separefeito",
+    "aliases": [],
+    "effect": [
+      "Contra-maldição do feitiço Locomotor Mortis, utilizado para prender as pernas da vítima. Neste caso, com um lampejo arroxeado, as pernas do alvo são separadas de forma instantânea, liberando-o das amarras da maldição. Embora livre, é possível sentir um formigamento passageiro e dormente nas pernas."
+    ],
+    "light": "roxo",
+    "classification": "Contra-Feitiço",
+    "movement": "03 giros no sentido horário",
+    "upgrades": []
+  },
+  {
+    "id": "vermillious",
+    "year": 4,
+    "name": "Vermillious",
+    "aliases": [],
+    "effect": [
+      "invoca uma pequena quantidade de faíscas brilhantes que se assemelham a fogos de artifício. Os tons de vermelho são diversos e podem aumentar, tanto em quantidade quanto em cor, de acordo com a experiência do bruxo que as conjura. É muito utilizado como um sinalizador de perigo em algumas situações."
+    ],
+    "light": "vermelho",
+    "classification": "Encantamento",
+    "movement": "Apontar a varinha para o céu",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "[Vermillious Duo] Diferentemente de um encantamento utilizado apenas para sinalização, com o aprimoramento, o bruxo consegue realizar um impacto maior com este feitiço quando estiver lutando contra um adversário, impactando-o bruscamente para trás e arremessando seu corpo em segundos caso não consiga proteger-se deste impacto. O feixe se expande e fica ainda mais avermelhado no momento da realização, diferenciando-se do feitiço alarmante e passando a ser um impactante."
+      }
+    ]
+  },
+  {
+    "id": "confringo",
+    "year": 4,
+    "name": "Confringo",
+    "aliases": [],
+    "effect": [
+      "origina uma esfera de explosão reluzente descontrolada, que atinge uma área aleatória dentro dos limites da conjuração. A explosão tem alto poder destrutivo e pode detonar uma área de 4x4 quadrados."
+    ],
+    "light": "laranja",
+    "classification": "Maldição",
+    "movement": "corte frontal",
+    "requirement": "Pacote Artes das Trevas",
+    "upgrades": []
+  },
+  {
+    "id": "brachiabindo",
+    "year": 4,
+    "name": "Brachiabindo",
+    "aliases": [],
+    "effect": [
+      "amarra os cadarços de um indivíduo ao acertar os seus pés, desequilibrando-o ou inibindo eventuais movimentações em razão da possibilidade de queda. O contra-feitiço geral (Finite Incantatem) não desempenha resultado imediato se utilizado nesta situação, sendo indicado que o bruxo corte os nós para se desprender mais rápido. Existe a possibilidade do bruxo em um estado avançado de desempenho realizar o contra-feitiço Emancipare para liberar as amarras mágicas."
+    ],
+    "light": "não há",
+    "classification": "Azaração e Encantamento",
+    "movement": "Dois giro no sentido anti-horário",
+    "upgrades": []
+  },
+  {
+    "id": "anapneo",
+    "year": 5,
+    "name": "Anapneo",
+    "aliases": [],
+    "effect": [
+      "o feitiço tem como principal utilidade desbloquear as vias respiratórias de um indivíduo, uma vez que tenham sido obstruídas de alguma forma, seja sob efeitos de envenenamento, afogamento ou diversos. Importante ressaltar que, apesar da desobstrução, não significa que danos oriundos da causa primária sejam desfeitos, isto é: a laceração, dor, inchaços, permanecem, necessitando tratamento médico específico."
+    ],
+    "light": "não há",
+    "classification": "Medibruxaria",
+    "movement": "aproximar a varinha das narinas",
+    "upgrades": []
+  },
+  {
+    "id": "abelhacorpus",
+    "year": 5,
+    "name": "Abelhacorpus",
+    "aliases": [],
+    "effect": [
+      "evoca, a partir do ápice da varinha, um feixe luminoso de coloração amarelada. A luz dá forma a uma abelha pequena que se direciona ao rosto do oponente, criando na região marcada um inchaço e vermelhidão, semelhante a uma picada de abelha. A pele do alvo fica irritada até que o feitiço seja cessado, dificultando o adversário em proferir corretamente um próximo feitiço, e depois apenas deixando-o sentir o incômodo ardente da pseudo-picada."
+    ],
+    "light": "amarelo",
+    "classification": "Azaração",
+    "movement": "Dois arcos para baixo",
+    "upgrades": []
+  },
+  {
+    "id": "appare-vestigium",
+    "year": 5,
+    "name": "Appare Vestigium",
+    "aliases": [],
+    "effect": [
+      "feitiço de rastreamento. O usuário projeta uma poeira amarela a partir de sua varinha em uma área de até 6x6 quadrados, mentalizando um alvo em específico. Caso o alvo tenha, eventualmente, passado por aquela região, a imagem dos movimentos e ações são projetadas através de uma miragem escarlate."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "animus-novandi",
+    "year": 5,
+    "name": "Animus Novandi",
+    "aliases": [],
+    "effect": [
+      "concede a objetos inanimados e não-mágicos a capacidade de realizar ações sem depender de apoio externo. Contudo, a cognição desses objetos permanece limitada, obedecendo a um padrão pré-determinado pelo bruxo conjurador. Ao longo de três anos de estudo mágico avançado (quinto, sexto e sétimo), a complexidade das ações que os objetos podem realizar evolui progressivamente. No quinto ano de estudo, objetos animados podem realizar ações simples, como abrir ou fechar uma porta, realizar pequenos movimentos lineares, ou girar em torno de um eixo pré-determinado. Ao alcançar o sexto ano, a complexidade das ações aumenta, permitindo que esses objetos realizem tarefas mais intrincadas, como organizar pequenos itens em um padrão específico, girar uma chave na fechadura ou seguir um trajeto predefinido. No ápice do sétimo ano, objetos sob o efeito de Animus Novandi atingem um nível notável de sofisticação. Eles podem executar tarefas complexas, como montar quebra-cabeças, realizar movimentos coordenados que imitam ações humanas simples, ou até mesmo interagir de maneira adaptativa com o ambiente ao seu redor, respondendo a estímulos específicos."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "aceno e giro lento",
+    "upgrades": []
+  },
+  {
+    "id": "animus-pensandi",
+    "year": 5,
+    "name": "Animus Pensandi",
+    "aliases": [],
+    "effect": [
+      "no quinto ano de estudo, objetos dotados de cognição demonstram pensamentos rudimentares, como reagir a movimentos à sua volta, adaptar-se a mudanças de luz e até mesmo reconhecer padrões simples. Se, por exemplo, colocados em um labirinto, esses objetos podem começar a conceber estratégias básicas para encontrar a saída. Ao alcançar o sexto ano, a capacidade cognitiva desses objetos evolui para uma elaboração mais sofisticada de pensamentos. Eles não apenas reagem a estímulos imediatos, mas também antecipam eventos futuros. Se colocados em uma situação onde uma barreira bloqueia seu caminho, os objetos podem gerar planos para contornar ou superar o obstáculo. Finalmente, no sétimo ano, objetos sob o efeito de Animus Pensandi atingem um nível de pensamento verdadeiramente adaptativo. Por exemplo, em uma situação de jogo de estratégia, podem avaliar o cenário, antecipar as ações dos adversários e desenvolver estratégias dinâmicas para otimizar suas próprias chances de sucesso."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "rodopio e aceno",
+    "upgrades": []
+  },
+  {
+    "id": "colloportus-5",
+    "year": 5,
+    "name": "Colloportus",
+    "aliases": [],
+    "effect": [
+      "constitui um selo mágico em portas, trincos, passagens ou cadeados, tornando impossível abri-los sem o uso do contra-feitiço específico. A aplicação desse feitiço cria uma barreira mágica, resistente mesmo contra tentativas de dissipação com Finite Incantatem."
+    ],
+    "light": "prata",
+    "classification": "Encantamento",
+    "movement": "giro",
+    "upgrades": []
+  },
+  {
+    "id": "denigro",
+    "year": 5,
+    "name": "Denigro",
+    "aliases": [],
+    "effect": [
+      "com propriedades corrosivas para objetos não-mágicos. Denigro inicia um processo de oxidação elementar lento que tem como funcionalidade apodrecer ou desgastar certo utensílio através da ferrugem. É normalmente utilizado em correntes e pequenos minerais que decorrem de extrações. O tempo de duração pode ser modificado de acordo com a experiência do bruxo."
+    ],
+    "light": "marrom",
+    "classification": "Encantamento e Transfiguração",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "descendo",
+    "year": 5,
+    "name": "Descendo",
+    "aliases": [],
+    "effect": [
+      "induz mudanças gravitacionais intensas em um objeto designado. Através reparação de uma pressão mágica distinta, o objeto selecionado é compelido a cair da superfície em que se encontra, resultando em um movimento descendente provocado pela alteração na força gravitacional. Este feitiço oferece uma abordagem mágica para manipular a queda de objetos, proporcionando uma utilidade prática em situações diversas."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "condução para baixo na vertical",
+    "upgrades": []
+  },
+  {
+    "id": "ebublio",
+    "year": 5,
+    "name": "Ebublio",
+    "aliases": [],
+    "effect": [
+      "quando direcionada para a silhueta da vítima, uma enorme bolha do tamanho do seu corpo é envolvida até que a pessoa seja aprisionada por um período curto de tempo (01 turno). É um feitiço conhecido como encantamento de contenção, impedindo os adversários de se moverem. Fica a critério do juiz de um duelo permitir a utilização deste feitiço na batalha."
+    ],
+    "light": "verde",
+    "classification": "Encantamento",
+    "movement": "Meio giro",
+    "upgrades": []
+  },
+  {
+    "id": "entomorfis",
+    "year": 5,
+    "name": "Entomorfis",
+    "aliases": [],
+    "effect": [
+      "poderia ser usado para induzir qualidades semelhantes a insetos em uma vítima por um curto período de tempo. Isso os priva de sua capacidade de falar, forçando-os a engatinhar e dotando-os de antenas. Em modo geral, fornece qualidade de insetóides por três turnos, limitando a sua capacidade cognitiva."
+    ],
+    "light": "roxo",
+    "classification": "Azaração/Transfiguração",
+    "movement": "duas parábolas para cima",
+    "upgrades": []
+  },
+  {
+    "id": "erecto",
+    "year": 5,
+    "name": "Erecto",
+    "aliases": [],
+    "effect": [
+      "o feitiço armador é amplamente utilizado para montagem de objetos, uma vez que não tenham sido danificados. Seus efeitos são diversos, desde auxílio no armamento de barracas à montagem de quebra-cabeças, malas e escadas. O encanto ergue, monta e configura o objeto-alvo para sua utilização padrão."
+    ],
+    "light": "amarela",
+    "classification": "Encantamento",
+    "movement": "apontar a varinha até o final do feitiço",
+    "upgrades": []
+  },
+  {
+    "id": "estupefaca-5",
+    "year": 5,
+    "name": "Estupefaça",
+    "aliases": [],
+    "effect": [
+      "A conjuração do feitiço Estupefaça submete uma vítima designada (o que inclui criaturas sencientes de pequeno e médio porte) ao estupor, isto é, a um estado de não consciência. Tal estado difere substancialmente do que reconhecemos como inconsciência, posto que não há, durante o estupor, atividade psíquica (sonhos, por exemplo). Em princípio, quando convocado por quartanistas, o feitiço se manifesta como mera força de repulsão, capaz de interceptar investidas e afastar agressores. Essa habilidade permite desalojá-los de suas posições defensivas ao impeli-los para longe, tornando-os vulneráveis.",
+      "É a partir do quinto ano que o Estupefaça se revela como uma ferramenta eficiente e não letal nos conflitos. Nesse estágio, resulta em incapacitação temporária de outros adversários, preservando-os num sono que se estende por vinte minutos. Adiante, na última etapa de evolução (sexto e sétimo anos), torna-se apenas via Enervarte."
+    ],
+    "light": "vermelha",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "o bruxo combatente é capaz de definir aspectos mais precisos como distância e curso, no ápice de sua experiência, pode atirar um alvo para trás para removê-lo de posições específicas, nocauteando-o ou não no processo. Pode causar efeitos combinados, como usar um estupefaça que não empurra ou causa impacto físico, mas tão somente desacorda o adversário, gerando agora a possibilidade de fazer abates furtivos."
+      }
+    ]
+  },
+  {
+    "id": "evanesco",
+    "year": 5,
+    "name": "Evanesco",
+    "aliases": [],
+    "effect": [
+      "de maneira gradual e a partir de grande concentração e o movimento constante da varinha, desaparece com objetos. Os objetos desaparecidos não podem ser reconjurados. É um feitiço extremamente complexo, que demanda tempo e está mais suscetível à falha do que ao sucesso. Objetos imbuídos com magia não sofrem com os efeitos desse encantamento."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "giro constante",
+    "upgrades": []
+  },
+  {
+    "id": "enjalius",
+    "year": 5,
+    "name": "Enjalius",
+    "aliases": [],
+    "effect": [
+      "conjura uma jaula de tamanho expansível forte o suficiente para enjaular os mais variados espécimes mágicos; a jaula detém capacidade inquebrável (senão por encantamentos específicos) e anula propriedades comuns a animais mágicos, como fogo de dragão, a capacidade de telecinese do bezerro apaixonado ou a modificação de tamanho de um occami."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "giro e aceno",
+    "upgrades": []
+  },
+  {
+    "id": "finestra",
+    "year": 5,
+    "name": "Finestra",
+    "aliases": [],
+    "effect": [
+      "modifica estruturas superficiais a base de vidro — reduzindo-as —, e as estilhaça em partículas que são seguras para o toque. O processo não deixa cacos ou fragmentos espalhados pelo chão ou ar e não proporciona barulho estrondoso que possa ser detectado."
+    ],
+    "light": "cinza",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "flechum",
+    "year": 5,
+    "name": "Flechum",
+    "aliases": [],
+    "effect": [
+      "Materializa uma flecha de haste longa e fina, com seção circular e extremidade metálica. Goza de assustadora capacidade de penetração: caso propulsionada há mais de quinze metros (quadrados) de distância, pode trespassar alvo humano, sendo, portanto, letal."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "Aceno decrescente, rodopio, corte vertical",
+    "upgrades": []
+  },
+  {
+    "id": "geminio",
+    "year": 5,
+    "name": "Geminio",
+    "aliases": [],
+    "effect": [
+      "o feitiço de gêmeos duplica objetos magicamente encantados para que eles sejam duplicados mediante situações específicas; o bruxo pode utilizar o feitiço com a intenção de tornar duplo o objeto em sua posse de maneira imediata, como também pode utilizá-lo como um mecanismo de defesa, de maneira que o objeto duplique quando for tocado ou furtado."
+    ],
+    "light": "prata",
+    "classification": "Arte das Trevas e Encantamento",
+    "movement": "aceno",
+    "requirement": "Pacote Artes das Trevas",
+    "upgrades": []
+  },
+  {
+    "id": "incarcerous",
+    "year": 5,
+    "name": "Incarcerous",
+    "aliases": [],
+    "effect": [
+      "magia especializada na criação instantânea de cordas, sendo utilizado para conjurar amarras na direção de um alvo específico. Este feitiço tem a notável capacidade de envolver o alvo, restringindo movimentos ao enroscar cordas ao redor de suas pernas, cintura ou até mesmo pescoço, dependendo da intenção do conjurador."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "giro e aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento I",
+        "locked": true,
+        "text": "o conjurador utiliza o feitiço encarceramento para conjurar tramas de ar que são capazes de desempenhar efeito semelhante ao de cordas mágicas, podendo ser utilizado para agarrar um alvo e mantê-lo sob tutela durante a constância do encanto."
+      },
+      {
+        "label": "Aprimoramento II",
+        "locked": true,
+        "text": "apesar de ser reconhecido por sua eficácia na conjuração de cordas para fins de contenção, conjuradores mais avançados são capazes de explorar aplicações diversificadas do Incarcerous. Essa versatilidade pode se manifestar na criação de padrões intricados, manipulação das cordas para propósitos artísticos ou mesmo em cenários mais complexos que exigem um controle preciso sobre o elemento conjurado."
+      }
+    ]
+  },
+  {
+    "id": "meteolojinx",
+    "year": 5,
+    "name": "Meteolojinx",
+    "aliases": [],
+    "effect": [
+      "feitiço de modificação climática. O encanto modifica o clima de um determinado ambiente para que nuvens tempestuosas sejam criadas, ocasionando uma chuva torrencial. Importante ressaltar que o feitiço não está limitado a ambientes externos e que a tempestade está fora do controle do bruxo conjurador."
+    ],
+    "light": "azul",
+    "classification": "Encantamento",
+    "movement": "giro e aceno",
+    "upgrades": []
+  },
+  {
+    "id": "meteolojinx-recanto",
+    "year": 5,
+    "name": "Meteolojinx Recanto",
+    "aliases": [],
+    "effect": [
+      "contrafeitiço do encantamento Metelojinx, acabando com os efeitos do encantamento de modificação climática."
+    ],
+    "light": "dourada",
+    "classification": "Contra-Feitiço",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "kadabrus",
+    "year": 5,
+    "name": "Kadabrus",
+    "aliases": [],
+    "effect": [
+      "feitiço que dispara um relâmpago de prata na direção do alvo, caracterizando-o principalmente como impactante de combate."
+    ],
+    "light": "prata",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "[Kadabrus Duo] Aumenta de forma bastante significativa o poder de ataque do feitiço. A luz do relâmpago pode iluminar uma sala por completo e destruir alvos mais frágeis como fechaduras enferrujadas, cristais, entre outros. Também é possível fraturar alguns ossos dos adversários."
+      }
+    ]
+  },
+  {
+    "id": "scarlatum",
+    "year": 5,
+    "name": "Scarlatum",
+    "aliases": [],
+    "effect": [
+      "gera um lampejo escarlate que atinge determinada superfície para promover um impacto que cresce conforme a distância percorrida. Até quatro quadrados, o feitiço tem potencial para arrastar um homem adulto por dois quadrados, algo semelhante a quem é puxado pelas vestes, sem causar hematomas ou dores intensas. De quatro acima, o impacto é forte o bastante para arrastar um homem adulto por até quatro quadrados; o golpe pode deixar hematomas e a força é como de quem é atingido por um objeto pesado em movimento."
+    ],
+    "light": "vermelho",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "[Scarlatum Duo] Aumenta de forma bastante significativa o poder de ataque do feitiço. A luz do relâmpago pode iluminar uma sala por completo e destruir alvos dependendo da distância percorrida como caixas, portas, cristais, entre outros. Também é possível fraturar alguns ossos dos adversários."
+      }
+    ]
+  },
+  {
+    "id": "repello-trouxatum",
+    "year": 5,
+    "name": "Repello Trouxatum",
+    "aliases": [],
+    "effect": [
+      "Como o próprio nome já sugere, ele repele aqueles que não são bruxos (ou os trouxas). Quando um trouxa pisa no local enfeitiçado, lembra instantaneamente de que precisa fazer algo e sai do local. Ele também pode distorcer o local para olhares trouxas, impedindo de que as pessoas não-mágicas fiquem sem acesso ao universo da magia. É importante manter os trouxas longe para evitar retaliações ao mundo em que bruxos socializam."
+    ],
+    "light": "branca",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "nebulus",
+    "year": 5,
+    "name": "Nebulus",
+    "aliases": [],
+    "effect": [
+      "recobre um perímetro previamente circunscrito com camadas espessas de neblina. Após dois turnos de conclusão do encantamento, o campo delimitado (que não pode, exceto via aprimoramento, ultrapassar quinze quadrados) assegura a obstrução visual daqueles ali inseridos."
+    ],
+    "light": "não há",
+    "classification": "Encantamento e Elemental",
+    "movement": "aceno horizontal e rodopios",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "o bruxo amplia o campo delimitado para um raio de vinte quadrados, bem como conclui a execução do encantamento em um turno. O encantamento perdura por até seis turnos."
+      }
+    ]
+  },
+  {
+    "id": "capacious-extremis",
+    "year": 6,
+    "name": "Capacious Extremis",
+    "aliases": [],
+    "effect": [
+      "Aumenta o espaço no interior de objetos, como por exemplo bolsas, maletas e outros do tipo sem afetar o seu exterior, aumentando sua capacidade de comportar coisas e tornando-as mais leves enquanto estiver no interior. É um feitiço extremamente complexo e avançado, necessitando habilidade no ramo de encantamentos."
+    ],
+    "light": "não há",
+    "classification": "Encantamento e Transfiguração",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "cave-inimicum",
+    "year": 6,
+    "name": "Cave Inimicum",
+    "aliases": [],
+    "effect": [
+      "este feitiço atua de modo a confrontar aquele que o conjurador assume como adversário — não oferta nenhum tipo de proteção contra magia e, no entanto, torna o bruxo invisível aos olhos de seu nêmesis. Caso desejado, é possível conferir, ao encantamento em questão, um critério de coletividade: isto é, todos os perseguidores de feiticeiros inseridos num dado perímetro (6x6 quadrados) serão entendidos enquanto inimigos e, portanto, suscetíveis aos efeitos da “cegueira”. É preciso enfatizar que encantamentos de proteção não admitem execuções não-verbais."
+    ],
+    "light": "prata",
+    "classification": "Encantamento",
+    "movement": "aceno frontal, corte horizontal e mira fixa aos céus",
+    "upgrades": []
+  },
+  {
+    "id": "confundus",
+    "year": 6,
+    "name": "Confundus",
+    "aliases": [],
+    "effect": [
+      "causa uma breve confusão mental no alvo, desconcentrando-o de sua atual tarefa durante alguns segundos."
+    ],
+    "light": "rosa",
+    "classification": "Azaração que evolui para Sortilégio",
+    "movement": "aceno da varinha",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "desencadeia uma intensa onda de confusão mental no alvo. Essa perturbação é potencializada significativamente, onde o alvo torna-se irracional por quatro turnos. Não é possível controlar a vítima, tampouco repetir o feitiço assim que o efeito acabar."
+      }
+    ]
+  },
+  {
+    "id": "episkey",
+    "year": 6,
+    "name": "Episkey",
+    "aliases": [],
+    "effect": [
+      "feitiço conhecido por sua utilidade na reparação de lesões contundentes e para remendar de forma rápida e aflitiva pequenas fraturas. A princípio, regenera lábios cortados, pequenos rasgos na pele e fraturas nasais, porém, com a experiência do bruxo, é capaz de remendar fraturas maiores com mais rapidez, apesar de ser impossível se livrar da dor que esse feitiço causa no momento em que atua já que, a princípio, foi criado para trazer guerreiros de volta ao campo o mais rápido possível em guerras antigas. Essa dor entretanto é passageira e também elimina aflições posteriores, podendo ser usada até mesmo contra dores de cabeça. Episkey também pode ser utilizado como contra-feitiço de Petrificus Totalus."
+    ],
+    "light": "não há",
+    "classification": "Medibruxaria e Contra-Feitiço",
+    "movement": "apontar na direção da lesão",
+    "upgrades": []
+  },
+  {
+    "id": "fidelius",
+    "year": 6,
+    "name": "Fidelius",
+    "aliases": [],
+    "effect": [
+      "o Feitiço Fidelius, um encantamento de origens misteriosas, é uma magia extraordinariamente complexa e poderosa, destinada a ocultar um segredo vital. Aquele que guarda o segredo é designado como o Fiel do Segredo. Uma residência protegida por este feitiço torna-se invisível, intangível, inatingível e à prova de som, conferindo-lhe uma defesa singular. Ao lançar o feitiço, é possível escolher múltiplas pessoas como Fiéis do Segredo, embora permaneça incerto se há limites quanto ao número de indivíduos que podem compartilhar o mesmo segredo dessa maneira. Após o falecimento do Fiel do Segredo, todos aqueles que aprenderam o segredo antes da morte tornam-se os novos Fiéis. Caso o Fiel opte por não revelar o segredo a ninguém, o mistério perece com ele. Os critérios para qualificar-se como Fiel do Segredo permanecem desconhecidos. Contudo, aparentemente, é necessário que alguém tenha a capacidade de divulgar o segredo, o que poderia explicar por que criaturas incapazes de falar a língua humana não são escolhidas, assim como elfos domésticos que podem ser ordenados por seus mestres a guardar silêncio, substituindo assim o livre arbítrio. Isto implica dizer que, ao realizar o Fidelius, todas as informações relativas a ele serão magicamente escondidas de terceiros, como eventuais pistas, papéis com escritas ou rastros daquele eventual segredo."
+    ],
+    "light": "dourada",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "glisseo",
+    "year": 6,
+    "name": "Glisseo",
+    "aliases": [],
+    "effect": [
+      "torna uma superfície íngreme, lisa e escorregadia, de maneira que seja suscetível a deslizamentos. É uma técnica hábil para manipular o ambiente e se mover mais rapidamente."
+    ],
+    "light": "dourada",
+    "classification": "Encantamento e Transfiguração",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "homenum-revelio",
+    "year": 6,
+    "name": "Homenum Revelio",
+    "aliases": [],
+    "effect": [
+      "com a ponta da varinha, o usuário a utiliza como um bússola, utilizando a extremidade para identificar a presença de seres humanos ou humanóides que estejam invisíveis de alguma forma, seja propositalmente ou não; caso exista uma forma de vida na direção indicada pelo condão, ela se tornará vermelha."
+    ],
+    "light": "vermelha",
+    "classification": "Encantamento",
+    "movement": "apontar a varinha",
+    "upgrades": []
+  },
+  {
+    "id": "inanimatus-conjurus",
+    "year": 6,
+    "name": "Inanimatus Conjurus",
+    "aliases": [],
+    "effect": [
+      "feitiço transfiguratório avançado que é capaz de alterar completamente o design do interior de um lugar. No começo, o bruxo é capaz de alterar uma sala pequena, e com a evolução de experiência, é capaz de efetuá-lo em lugares cada vez maiores."
+    ],
+    "light": "não há",
+    "classification": "Encantamento e Transfiguração",
+    "movement": "giro contínuo",
+    "upgrades": []
+  },
+  {
+    "id": "incarcerous-nerus",
+    "year": 6,
+    "name": "Incarcerous Nerus",
+    "aliases": [],
+    "effect": [
+      "magia especializada na criação instantânea de cordas amaldiçoadas, sendo utilizada no mesmo propósito do feitiço Incarcerous. O diferencial está nas cordas negras que deixam as manchas negras, que queimam até a derme da vítima."
+    ],
+    "light": "não há",
+    "classification": "Arte das Trevas, Transfiguração e Elemental",
+    "movement": "giro e aceno",
+    "requirement": "Pacote Artes das Trevas",
+    "upgrades": []
+  },
+  {
+    "id": "mutare-vox",
+    "year": 6,
+    "name": "Mutare Vox",
+    "aliases": [],
+    "effect": [
+      "sendo as cordas vocais os verdadeiros alvos do encantamento, enlaça-as sob o processo de modificação e as comprime para que se adaptem a um tom mais grosso e fechado — ou fino — de acordo com a repetição do movimento da varinha. A voz torna-se irreconhecível nos primeiros instantes, mas pode ser facilmente detectada com o passar do tempo por quem a ouve."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "surgito",
+    "year": 6,
+    "name": "Surgito",
+    "aliases": [],
+    "effect": [
+      "remover de charme, este feitiço consiste em reparar um encantamento básico, como azarações que envolvem a manipulação psíquica. Caso um bruxo esteja hipnotizado, por exemplo, basta realizar este contra-feitiço para desencantá-lo da transe.. A pessoa em hipnose precisa esperar um turno antes de voltar ao seu estado normal."
+    ],
+    "light": "branco",
+    "classification": "Contra-Feitiço",
+    "movement": "Descer a varinha para baixo e depois girar em 360°",
+    "upgrades": []
+  },
+  {
+    "id": "scorbutare",
+    "year": 6,
+    "name": "Scorbutare",
+    "aliases": [],
+    "effect": [
+      "quando atinge a boca do alvo, provoca a criação de feridas infectadas dentro da região que, com o passar dos minutos, inflamam e sangram continuamente. O encantamento trévico causa, também, o apodrecimento gradual dos dentes da vítima, assim como o impedimento da fala através das seguidas infecções provocadas pelo feitiço. Não há contra-feitiço, exigindo o uso de poções curativas para sanar as lesões bucais."
+    ],
+    "light": "verde",
+    "classification": "Sortilégio",
+    "movement": "giro horário",
+    "upgrades": []
+  },
+  {
+    "id": "tempesta",
+    "year": 6,
+    "name": "Tempesta",
+    "aliases": [],
+    "effect": [
+      "O bruxo invoca uma descarga elétrica de baixa intensidade na direção-alvo. Esta descarga, embora de força moderada, é suficiente para gerar um desconforto estático momentâneo, paralisando temporariamente o corpo e suas reações. Este efeito pode ser evitado em circunstâncias específicas, nas quais o indivíduo alvo tenha meios de isolar-se da descarga."
+    ],
+    "light": "azul",
+    "classification": "Encantamento",
+    "movement": "giro e aceno",
+    "upgrades": [
+      {
+        "label": "Aprimoramento",
+        "locked": true,
+        "text": "o bruxo em questão demonstra uma manipulação exemplar da eletricidade desencadeada pelo encanto, permitindo-lhe administrar descarga de intensidade variável conforme a necessidade. Adicionalmente, o contato com o disparo elétrico pode eventualmente resultar em queimaduras na pele. E em alguns casos de bruxos mais experientes, quando já formados em feitiços, consegue manipular uma onda de raios similares à relâmpagos que invadem os céus, explodindo um local no entorno de 4x4 quadrados."
+      }
+    ]
+  },
+  {
+    "id": "vulnera-sanentur",
+    "year": 6,
+    "name": "Vulnera Sanentur",
+    "aliases": [],
+    "tag": "Bloqueado",
+    "effect": [
+      "Feitiço médico avançado, utilizado somente por bruxos competentes na área de medibruxaria, sendo um encantamento capaz de coagular o sangue, limpar feridas e suturar cortes, tudo de uma única vez. É muito útil contra ferimentos causados por criaturas das trevas ou maldições. Entretanto, observe que a redoma curativa que se cria na ferida é realizada de forma lenta, ao passo que o bruxinho deverá aguardar dois turnos para que o ferimento se feche por completo."
+    ],
+    "light": "branca",
+    "classification": "Medibruxaria Avançada",
+    "movement": "giro de 90° graus em frente à ferida",
+    "upgrades": []
+  },
+  {
+    "id": "conjunctivitus",
+    "year": 7,
+    "name": "Conjunctivitus",
+    "aliases": [],
+    "effect": [
+      "causa uma irritação descomunal no olho da vítima, replicando os efeitos da conjuntivite que é comumente vista nos trouxas. Quando lançado por bruxos mais experientes, o dano ocular é mais abrangente e bruto, podendo causar danos na vista — como manchas na visão, redução do campo visível e outros efeitos adversos — até a cegueira completa. Pode ser revertido ao consumir uma poção ocular. Dura por tempo indeterminado."
+    ],
+    "light": "amarela",
+    "classification": "Arte das Trevas",
+    "movement": "nenhum",
+    "requirement": "Pacote Artes das Trevas",
+    "upgrades": []
+  },
+  {
+    "id": "deprimo",
+    "year": 7,
+    "name": "Deprimo",
+    "aliases": [],
+    "effect": [
+      "submete um objeto ou estruturas a uma grande pressão. Os objetos atingidos são comprimidos a níveis exagerados e os mais delicados podem ser quebrados a partir desta força. Paredes não metalizadas, por outro lado, são facilmente destruídas. Por toda essa facilidade e potência, caracteriza-se como um feitiço de classes avançadas."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "giro constante",
+    "upgrades": []
+  },
+  {
+    "id": "mutare-face",
+    "year": 7,
+    "name": "Mutare Face",
+    "aliases": [],
+    "effect": [
+      "remodela a estética facial de uma pessoa, induzindo alterações na estrutura óssea, muscular e em outras áreas da região. Com uma duração padrão de três turnos, o tempo pode ser prolongado à medida que o conjurador aprimora sua habilidade mágica. Embora complexo, Mutare Face se faz um método versátil para transformações temporárias, permitindo ao bruxo esculpir a aparência do rosto conforme sua vontade e experiência."
+    ],
+    "light": "não há",
+    "classification": "Transfiguração",
+    "movement": "apontar para o rosto do alvo",
+    "upgrades": []
+  },
+  {
+    "id": "fogomaldito",
+    "year": 7,
+    "name": "Fogomaldito",
+    "aliases": [
+      "Pestis Incendium"
+    ],
+    "effect": [
+      "o bruxo conjura uma quantidade verdadeiramente avassaladora de energia mágica da extrema ponta de sua varinha, resultando em um feitiço conhecido como Fogomaldito, com potencial extremamente destrutivo. Uma vez lançado, o feitiço espalha um jato ininterrupto de labaredas, inicialmente controladas pelos movimentos do condão. Com o passar do tempo, essas chamas podem adquirir formas de criaturas ou até mesmo rostos humanos. De maneira incerta, as labaredas, magicamente criadas, buscam consumir tudo o que tocam, apresentando uma preferência intrigante por organismos vivos. Feitiços protetivos de barreira são capazes de limitar a expansão do Fogomaldito, porém, desfazer as chamas torna-se uma tarefa inviável, a menos que ocorra a própria consumação de seus atos. Este feitiço representa uma manifestação de poder mágico altamente destrutivo e desafiador de controlar."
+    ],
+    "light": "não há",
+    "classification": "Arte das Trevas e Elemental",
+    "movement": "aceno brusco",
+    "requirement": "Pacote Artes das Trevas",
+    "upgrades": []
+  },
+  {
+    "id": "piertotum-locomotor",
+    "year": 7,
+    "name": "Piertotum Locomotor",
+    "aliases": [],
+    "effect": [
+      "o usuário encanta formas inanimadas, como estátuas, para agirem sob seu comando à mercê de uma tarefa específica. O objeto em questão adquire as propriedades que teria se fosse uma forma realmente viva, como as chamas que um dragão pode baforar ou as lâminas afiadas que uma armadura carrega. Dura quinze turnos."
+    ],
+    "light": "não há",
+    "classification": "Encantamento e Transfiguração",
+    "movement": "aceno",
+    "upgrades": []
+  },
+  {
+    "id": "protego-diabolica",
+    "year": 7,
+    "name": "Protego Diabolica",
+    "aliases": [],
+    "effect": [
+      "o usuário gira sua varinha no ar e espalha uma espécie de círculo flamejante de coloração escura, cercando o adversário dentro dele, e que é mantido em um giro constante segundo o comando da varinha do indivíduo em questão. É um feitiço de extrema periculosidade e demanda inabalável competência; O círculo compreende uma área de no máximo 7x7 quadrados, e seu crescimento é gradativo. O alvo que estiver dentro deste círculo pirocinético será acometido por impactos danosos, com potencial queimaduras desfigurantes. Aliados no mesmo círculo são considerados ilesos deste amuleto sombrio."
+    ],
+    "light": "não há",
+    "classification": "Arte das Trevas e Elemental",
+    "movement": "giro constante até formar um grande círculo",
+    "requirement": "Pacote Artes das Trevas",
+    "upgrades": []
+  },
+  {
+    "id": "protego-totalum",
+    "year": 7,
+    "name": "Protego Totalum",
+    "aliases": [],
+    "effect": [
+      "execução avançada do tradicional Protego. Trata-se, a exemplo de sua versão mais básica, de um feitiço destinado a defletir lampejos. Aqui, entretanto, a defesa se manifesta numa cúpula que abraça o conjurador e os demais inseridos numa zona que, potencialmente, estende-se em até quatro metros (ou quadrados). É possível estilhaçá-la com feitiços de considerável poder destrutivo lançados em sequência — são exemplos Confringo, Bombarda, Expulso etc. Não é eficaz contra maldições oriundas de Arte das Trevas. Sua performance relativamente complexa (requer-se dois turnos para uma conjuração bem-sucedida) inviabiliza o uso de Protego Totalum em um duelo."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "corte frontal",
+    "upgrades": []
+  },
+  {
+    "id": "protego-maxima",
+    "year": 7,
+    "name": "Protego Maxima",
+    "aliases": [],
+    "effect": [
+      "execução avançada do tradicional Protego. Diferenciando-se de Protego Totalum, a execução deste feitiço compreende incalculáveis tamanhos de sua barreira protetora, como por exemplo, sendo capaz de proteger até mesmo Hogwarts por inteira. Um único bruxo não é capaz de conjurar Protego Maxima sozinho, necessitando da ajuda de ao menos mais três aliados para concluir a conjuração de modo que a barreira seja eficaz. Uma vez concluída com sucesso, não é possível penetrar a barreira nem mesmo com Arte das Trevas, sendo necessário obrigar os bruxos que conjuraram a proteção a desfazê-la, o que também acontece se estes mesmos bruxos vierem a falecer. É possível penetrar o escudo de Protego Maxima com o feitiço Perdere, criado justamente para se opor ao feitiço de proteção em guerras antigas."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "corte descendente contra o terreno que se deseja proteger",
+    "upgrades": []
+  },
+  {
+    "id": "salvio-hexia",
+    "year": 7,
+    "name": "Salvio Hexia",
+    "aliases": [],
+    "effect": [
+      "não se trata, per se, de uma barreira; Salvio Hexia interfere na própria manifestação de feitiços inimigos, fazendo com que lampejos se dispersem no ar antes de atingir qualquer alvo pretendido. A área protegida pelo Salvio Hexia, assim, transforma-se em um refúgio imune ao potencial ofensivo de feitiços adversários. Sua performance relativamente complexa (requer-se dois turnos para uma conjuração bem-sucedida) inviabiliza o uso de Protego Totalum em um duelo."
+    ],
+    "light": "não há",
+    "classification": "Encantamento",
+    "movement": "aceno, corte transversal",
+    "upgrades": []
+  },
+  {
+    "id": "perdere",
+    "year": 7,
+    "name": "Perdere",
+    "aliases": [],
+    "effect": [
+      "feitiço criado para destruir a barreira protetora criada por Protego Maxima. Também pode ser usado contra as outras versões de Protego, mas por sua natureza especialmente complicada, essa utilização não é comum. Perdere cria um raio que vai da varinha do bruxo até a barreira mágica e, aos poucos, desintegra-a. Esse feitiço que trabalha como um aríete necessita de três ou mais bruxos unidos para concretizá-lo com sucesso, entretanto, um bruxo extremamente poderoso pode efetuá-la para destruir barreiras mais simples."
+    ],
+    "light": "branco",
+    "classification": "Encantamento e Contra-Feitiço",
+    "movement": "estocada frontal",
+    "upgrades": []
+  },
+  {
+    "id": "crucio",
+    "year": 7,
+    "name": "Crucio",
+    "aliases": [
+      "Cruciatus"
+    ],
+    "effect": [
+      "uma das Três Maldições Imperdoáveis, a Maldição da Tortura é uma das ferramentas mais desumanas que o trevista pode empregar ao lidar com seus adversários. Não se sabe ao certo quais são os meios usados para aplicar a dor direta ao alvo, mas se acredita ao longo de anos de estudo que é uma combinação do estímulo irracional de todos os nervos de dor com a junção da intenção do bruxo invocador em causar dor. A intenção é a parte mais importante da fórmula do Cruciatus, posto que o invocador precisa desejar com toda a força de seu ser infligir a mais absoluta dor contra um alvo específico. Por outro lado, o bruxo ou ser atingido é tomado por uma dor incontrolável e irracional, impossível de ser escapada, que distorce completamente todos os conceitos anteriormente estabelecidos de sofrimento. Além do sofrimento físico, há o sofrimento psicológico, tendo em vista que a utilização da Maldição da Tortura em um alvo específico por tempo o bastante pode afundá-lo na insanidade clínica, deixando-o catatônico."
+    ],
+    "light": "não há",
+    "classification": "Arte das Trevas",
+    "movement": "apontar a varinha",
+    "requirement": "Pacote Artes das Trevas",
+    "upgrades": []
+  },
+  {
+    "id": "avada-kedavra",
+    "year": 7,
+    "name": "Avada Kedavra",
+    "aliases": [],
+    "effect": [
+      "uma das Três Maldições Imperdoáveis, a Maldição da Morte é o ápice das ferramentas que um trevista pode utilizar contra seus oponentes, sendo a mácula final na alma de todo e qualquer bruxo que ouse conjurar o feitiço para eliminar outro feiticeiro, criatura ou ser. O feitiço conjura um lampejo retilíneo em forma de raio verde que trafega até o alvo desejado com extrema velocidade, criando um clarão subsequente que culmina na morte do oponente atingido. A morte é indolor e não causa danos físicos aparentes ao corpo atingido, simplesmente derrubando-o e encerrando qualquer traço de vida do alvo. Os únicos meios de evitar o Avada Kedavra é se refugiando por detrás de algum objeto físico, estando acima dos oito quadrados de distância para se esquivar efetivamente, desaparatando ou iniciando o efeito deliberado do Priori Incantatem, criando uma conexão entre as duas varinhas de núcleo de origem idêntica para que o rastro físico impeça o contato com o corpo."
+    ],
+    "light": "verde",
+    "classification": "Arte das Trevas",
+    "movement": "tracejo de um raio",
+    "requirement": "Pacote Artes das Trevas",
+    "upgrades": []
+  }
+]
