@@ -22,7 +22,7 @@ npm run preview
 - `src/components/CastleMap.tsx` — a planta em SVG: salas com portas, corredores, escadas, bússola, floresta, lago, passagens secretas tracejadas e as pegadas que rondam os corredores (`Walkers.tsx`).
 - `src/components/YourSteps.tsx` — no desktop, as pegadas do próprio leitor seguem a varinha sob a faixa "Você", e a luz da ponta aquece o pergaminho ao redor.
 - `src/components/FoldOut.tsx` — a folha que se ergue da sala e se desdobra em duas metades; as dobras seguintes viram na prega. `MapBlocks.tsx` desenha os blocos de conteúdo, `SpellEntry.tsx` os verbetes e `SpellSearch.tsx` a busca.
-- `src/data/` — os textos: `books.ts` (títulos, subtítulos, lemas), `content.ts` (páginas), `gifts.ts` (habilidades e raças, com índice), `spells.json` (feitiços, importados do documento via `npm run spells`) e `map.ts` (onde cada sala fica na planta, em paisagem e em retrato).
+- `src/data/` — os textos: `books.ts` (títulos, subtítulos, lemas), `content.ts` (páginas: Ambientação, Habilidades e Raças, Sistemas e Regras), `gifts.ts` (habilidades e raças, com índice), `spells.json` (feitiços, importados do documento via `npm run spells`) e `map.ts` (onde cada sala fica na planta, em paisagem e em retrato).
 - `src/styles/map.css` — toda a estética: só transformações, opacidade e `clip-path` animam; o único filtro SVG (o tremor de traço à mão) fica numa camada estática.
 
 Cada sala tem endereço próprio (`/tomo/<id>`); o botão voltar dobra a folha. `Travessura feita` apaga a tinta e devolve o pergaminho em branco.

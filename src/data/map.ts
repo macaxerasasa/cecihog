@@ -90,7 +90,7 @@ export const places: Place[] = [
   {
     id: 'racas',
     name: 'Sistemas e Regras',
-    note: 'Como o castelo se mede',
+    note: 'Conjuração e o duelo formal',
     kind: 'wing',
     art: 'hat',
     l: { x: 1142, y: 236, w: 330, h: 212 },

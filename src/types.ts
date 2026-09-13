@@ -19,6 +19,8 @@ export type ContentBlock =
   | { type: 'gift'; id: string }
   /** Search field + index of every skill and race in that sheet. */
   | { type: 'gift-search' }
+  /** Clickable table of contents that turns to a spread of this sheet. */
+  | { type: 'toc'; heading?: string; items: { label: string; note?: string; spread: number }[] }
 
 export type SpellUpgrade = { label: string; locked: boolean; text: string }
 

@@ -3,6 +3,7 @@ import type { ContentBlock } from '../types'
 import { asset } from '../lib/asset'
 import { GiftEntry } from './GiftEntry'
 import { GiftSearch } from './GiftSearch'
+import { SheetToc } from './SheetToc'
 import { SpellEntry } from './SpellEntry'
 import { SpellSearch } from './SpellSearch'
 
@@ -55,6 +56,8 @@ const Block = memo(function Block({ block }: { block: ContentBlock }) {
       return <GiftEntry id={block.id} />
     case 'gift-search':
       return <GiftSearch />
+    case 'toc':
+      return <SheetToc heading={block.heading} items={block.items} />
     case 'reserved':
       return (
         <div className="ink-reserved">
