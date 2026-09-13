@@ -114,7 +114,6 @@ function RoomInk({ p, frame }: { p: Place; frame: Frame }) {
       <path className="ink wall outer" d={k.outer} pathLength={1} />
       <path className="ink wall inner" d={k.inner} pathLength={1} />
       <path className="ink jamb" d={k.jambs} pathLength={1} />
-      <path className="ink swing" d={k.arcs} pathLength={1} />
     </g>
   )
 }
