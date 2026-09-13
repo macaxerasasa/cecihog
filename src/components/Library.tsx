@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { books, getBook } from '../data/books'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { preloadHallArt } from '../lib/preload'
+import { readRoute, syncRoute } from '../lib/route'
 import type { LibraryPhase, OriginRect } from '../types'
-import { BookModal } from './BookModal'
 import { Bookshelf } from './Bookshelf'
 import { HouseCorners } from './HouseCorners'
 import { LibraryEnvironment } from './LibraryEnvironment'
@@ -11,6 +11,14 @@ import { Lighting } from './Lighting'
 import { WallSconces } from './WallSconces'
 import { Particles } from './Particles'
 import { WandGate } from './WandGate'
+
+/*
+ * The reader (pages, spells, flight animation) is its own chunk: the hall
+ * loads without it and fetches it while the visitor is still at the gate or
+ * looking at the shelf.
+ */
+const loadReader = () => import('./BookModal')
+const BookModal = lazy(loadReader)
 
 const OPEN_COVER_MS = 1280
 const CLOSE_COVER_MS = 1280
@@ -65,6 +73,13 @@ export function Library() {
     preloadHallArt()
   }, [])
 
+  useEffect(() => {
+    if (!unlocked) return
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number }
+    if (w.requestIdleCallback) w.requestIdleCallback(() => void loadReader(), { timeout: 2500 })
+    else window.setTimeout(() => void loadReader(), 1200)
+  }, [unlocked])
+
   const remember = (id: string, el: HTMLElement) => {
     const r = el.getBoundingClientRect()
     const rect = { x: r.left, y: r.top, width: r.width, height: r.height }
@@ -87,6 +102,9 @@ export function Library() {
       const rect = origins.current[id]
       if (!rect) return
       clearTimers()
+      void loadReader()
+      syncRoute(id)
+      document.title = `${book.title} — Biblioteca de Hogwarts`
       setActiveId(id)
       setOrigin(rect)
       setStatus(`Abrindo o tomo ${book.title}.`)
@@ -122,6 +140,10 @@ export function Library() {
     setOrigin(null)
     setPhase('idle')
     setStatus('De volta à estante.')
+    if (!queued) {
+      syncRoute(null, true)
+      document.title = 'Hogwarts — Biblioteca'
+    }
     if (queued) {
       later(40, () => {
         const slot = document.querySelector<HTMLButtonElement>(`button[aria-label="Abrir o tomo ${getBook(queued)?.title}"]`)
@@ -139,6 +161,10 @@ export function Library() {
     if (phaseRef.current !== 'open') return
     clearTimers()
     setStatus('Fechando o tomo.')
+    // a plain close steps back to the hall's entry, so the history stays clean
+    if (!queueRef.current && window.history.state?.book === activeIdRef.current && readRoute()) {
+      window.history.back()
+    }
     if (reduced) {
       finishClose()
       return
@@ -161,6 +187,34 @@ export function Library() {
     queueRef.current = id
     requestClose()
   }
+
+  const shelfSlot = (id: string) =>
+    document.querySelector<HTMLButtonElement>(`button[aria-label="Abrir o tomo ${getBook(id)?.title}"]`) ?? undefined
+
+  /* Back / forward: the address decides which tome is open. */
+  useEffect(() => {
+    const onPop = () => {
+      const id = readRoute()
+      if (id && getBook(id)) {
+        if (id !== activeIdRef.current) beginOpen(id, shelfSlot(id))
+      } else if (phaseRef.current === 'open') {
+        requestClose()
+      }
+    }
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+  }, [beginOpen, requestClose])
+
+  /* Arriving on a tome's address: pull it from the shelf once the hall is up. */
+  const deepLinked = useRef(false)
+  useEffect(() => {
+    if (!awake || phase !== 'idle' || deepLinked.current) return
+    deepLinked.current = true
+    const id = readRoute()
+    if (!id || !getBook(id)) return
+    const t = window.setTimeout(() => beginOpen(id, shelfSlot(id)), reduced ? 0 : 500)
+    return () => window.clearTimeout(t)
+  }, [awake, phase, beginOpen, reduced])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -220,17 +274,19 @@ export function Library() {
         {status}
       </div>
       {book && origin ? (
-        <BookModal
-          key={book.id}
-          book={book}
-          origin={origin}
-          phase={phase}
-          reduced={reduced}
-          onOpened={handleOpened}
-          onClosed={handleClosed}
-          onRequestClose={requestClose}
-          onNavigate={navigateTo}
-        />
+        <Suspense fallback={null}>
+          <BookModal
+            key={book.id}
+            book={book}
+            origin={origin}
+            phase={phase}
+            reduced={reduced}
+            onOpened={handleOpened}
+            onClosed={handleClosed}
+            onRequestClose={requestClose}
+            onNavigate={navigateTo}
+          />
+        </Suspense>
       ) : null}
     </LibraryEnvironment>
   )

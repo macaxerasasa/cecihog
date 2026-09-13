@@ -63,7 +63,6 @@ export type BookData = {
   wear: number
   tilt: number
   heightNudge: number
-  spreads: Spread[]
 }
 
 export type LibraryPhase =

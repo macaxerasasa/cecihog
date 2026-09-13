@@ -9,6 +9,7 @@ export type BookPose = 'closed' | 'opening' | 'opened' | 'closing'
 
 type Props = {
   book: BookData
+  spreads: Spread[]
   pose: BookPose
   reduced: boolean
   spread: number
@@ -59,21 +60,22 @@ function Parchment({
 
 export function BookVolume({
   book,
+  spreads,
   pose,
   spread,
   turning,
   onTurn,
   onFlipEnd,
 }: Props) {
-  const max = book.spreads.length - 1
-  const current = book.spreads[spread] ?? book.spreads[0]
-  const nextSpread = book.spreads[Math.min(max, spread + 1)]
-  const prevSpread = book.spreads[Math.max(0, spread - 1)]
+  const max = spreads.length - 1
+  const current = spreads[spread] ?? spreads[0]
+  const nextSpread = spreads[Math.min(max, spread + 1)]
+  const prevSpread = spreads[Math.max(0, spread - 1)]
 
   const leftSpread = turning === 'prev' ? (prevSpread ?? current) : current
   const rightSpread = turning === 'next' ? (nextSpread ?? current) : current
   const incoming = turning === 'next' ? nextSpread : prevSpread
-  const stampOf = (sp: Spread | undefined) => (sp ? book.spreads.indexOf(sp) : -1)
+  const stampOf = (sp: Spread | undefined) => (sp ? spreads.indexOf(sp) : -1)
 
   const canPrev = spread > 0 && !turning && pose === 'opened'
   const canNext = spread < max && !turning && pose === 'opened'

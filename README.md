@@ -88,6 +88,12 @@ Durante o desenvolvimento, `http://127.0.0.1:45217/?aberto` salta o portal Aloho
 
 Em telemóveis e ecrãs de toque o site entra num modo leve (sem desfoques, sem grão animado, sem parallax) para manter a fluidez.
 
+## Endereços
+
+Cada tomo aberto tem endereço próprio — `/tomo/quarto-ano`, `/tomo/casas`… — sem recarregar a página: abrir um livro empurra a entrada no histórico, o botão Voltar fecha (ou volta ao tomo anterior) e o título da aba muda. Links diretos funcionam nos dois hosts: a Vercel reescreve `/tomo/*` para a raiz (`vercel.json`) e, no GitHub Pages, o build gera `404.html` como cópia do `index.html`.
+
+O leitor (páginas, feitiços, animação de voo) é um pedaço separado do código, carregado em segundo plano enquanto o visitante ainda está no portão ou olhando a estante; a estante em si abre com menos da metade do JavaScript.
+
 ## Controles
 
 - Traçar Alohomora para entrar

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { neighborIds } from '../data/books'
+import { getSpreads } from '../data/content'
 import { bookIdOfYear, getSpell, spreadOfSpell } from '../data/spells'
 import { clearBookmark, setBookmark } from '../lib/bookmark'
 import type { BookData, LibraryPhase, OriginRect } from '../types'
@@ -39,7 +40,7 @@ function poseFrom(phase: LibraryPhase): BookPose {
   return 'closed'
 }
 
-export function BookModal({
+export default function BookModal({
   book,
   origin,
   phase,
@@ -56,7 +57,8 @@ export function BookModal({
   const showUi = phase === 'open'
   const returning = phase === 'toShelf'
   const inFlight = phase === 'toCenter' || returning
-  const pages = usePageFlip(book.spreads.length, reduced, book.id)
+  const spreads = getSpreads(book.id)
+  const pages = usePageFlip(spreads.length, reduced, book.id)
   const nav: BookNav = {
     bookId: book.id,
     goTo: pages.goTo,
@@ -214,6 +216,7 @@ export function BookModal({
             <BookNavContext.Provider value={nav}>
               <BookVolume
                 book={book}
+                spreads={spreads}
                 pose={pose}
                 reduced={reduced}
                 spread={pages.spread}
@@ -266,7 +269,7 @@ export function BookModal({
                   ›
                 </button>
                 <div className="spread-dots" role="tablist" aria-label="Cadernos deste tomo">
-                  {book.spreads.map((_, i) => (
+                  {spreads.map((_, i) => (
                     <button
                       key={i}
                       type="button"
