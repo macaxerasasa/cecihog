@@ -430,7 +430,7 @@ export const CastleMap = memo(function CastleMap({ frame, lite, activeId, busy, 
           <RoomInk key={p.id} p={p} frame={frame} />
         ))}
       </g>
-      <Walkers frame={frame} lite={lite} />
+      <Walkers frame={frame} lite={lite} paused={busy} />
       <g className="places">
         {places.map((p) => (
           <Room key={p.id} p={p} frame={frame} active={activeId === p.id} disabled={busy} onOpen={open} />

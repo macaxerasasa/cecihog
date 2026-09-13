@@ -140,18 +140,58 @@ export const corridors: Record<Frame, string[]> = {
   ],
 }
 
-/* Routes the wandering footprints follow (closed loops, SVG path syntax). */
-export const walks: Record<Frame, { name: string; path: string; seconds: number }[]> = {
+/*
+ * Who roams the corridors, and how. Each walker lays one print per step
+ * along a route (SVG path syntax, there and back): `stride` is the distance
+ * between prints in map units, `cadence` the time between steps in ms, and
+ * `rest` the chance per step of stopping for a moment.
+ */
+export type Gait = 'foot' | 'paw'
+export type Walk = {
+  name: string
+  path: string
+  gait: Gait
+  stride: number
+  cadence: [min: number, max: number]
+  rest: number
+  /* a poltergeist does not keep to the line: sideways scatter and turn jitter */
+  restless?: boolean
+}
+
+const filch = (path: string): Walk => ({
+  name: 'Argo Filch',
+  path,
+  gait: 'foot',
+  stride: 28,
+  cadence: [520, 640],
+  rest: 0.045,
+})
+const norra = (path: string): Walk => ({
+  name: 'Madame Nor-r-a',
+  path,
+  gait: 'paw',
+  stride: 14,
+  cadence: [250, 330],
+  rest: 0.05,
+})
+const peeves = (path: string): Walk => ({
+  name: 'Pirraça',
+  path,
+  gait: 'foot',
+  stride: 34,
+  cadence: [280, 620],
+  rest: 0.03,
+  restless: true,
+})
+
+export const walks: Record<Frame, Walk[]> = {
   l: [
     // the caretaker paces the whole corridor and back
-    { name: 'Argo Filch', path: 'M 150 560 H 1450 L 150 560', seconds: 96 },
+    filch('M 150 560 H 1450 L 150 560'),
     // the cat keeps to the east half, down the wing's stair and along
-    { name: 'Madame Nor-r-a', path: 'M 1307 456 V 560 H 930 L 1307 560 V 456', seconds: 64 },
+    norra('M 1307 456 V 560 H 930 L 1307 560 V 456'),
     // the poltergeist comes down one wing and up the other
-    { name: 'Pirraça', path: 'M 293 456 V 560 H 600 V 480 L 600 560 H 293 V 456', seconds: 70 },
+    peeves('M 293 456 V 560 H 600 V 480 L 600 560 H 293 V 456'),
   ],
-  p: [
-    { name: 'Argo Filch', path: 'M 500 520 V 1400 L 500 520', seconds: 84 },
-    { name: 'Madame Nor-r-a', path: 'M 270 596 V 572 H 730 V 596 L 730 572 H 270 V 596', seconds: 64 },
-  ],
+  p: [filch('M 500 520 V 1400 L 500 520'), norra('M 270 596 V 572 H 730 V 596 L 730 572 H 270 V 596')],
 }

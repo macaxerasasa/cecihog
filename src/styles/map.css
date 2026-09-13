@@ -428,64 +428,65 @@ button {
   pointer-events: none;
 }
 
-.walker-feet,
-.walker-tag {
-  offset-distance: 0%;
-  animation: walk var(--t, 60s) linear infinite;
-  animation-delay: var(--o, 0s);
+.walk-guide {
+  fill: none;
+  stroke: none;
+  visibility: hidden;
 }
 
-.walker-feet {
-  offset-rotate: auto;
-}
-
-.walker-feet.is-trail {
-  animation-delay: calc(var(--o, 0s) + var(--lag, -1s));
-}
-
-.walker-tag {
-  offset-rotate: 0deg;
-}
-
-@keyframes walk {
-  to {
-    offset-distance: 100%;
-  }
-}
-
-.foot use {
+/* each print lands as a wet blot and dries darker as the next ones fall,
+   then pales with age; opacity steps down per age with a soft transition */
+.print {
   fill: var(--ink);
-  opacity: 0.82;
+  opacity: 0.9;
+  transition: opacity 0.7s ease;
 }
 
-.foot.l {
-  animation: stepL 0.78s steps(1, end) infinite;
+.print-ink {
+  animation: stamp 0.42s cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  transform-origin: 0 0;
 }
 
-.foot.r {
-  animation: stepR 0.78s steps(1, end) infinite;
-}
-
-@keyframes stepL {
-  0%,
-  58% {
+@keyframes stamp {
+  from {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+  60% {
     opacity: 1;
   }
-  59%,
-  100% {
-    opacity: 0;
+  to {
+    transform: scale(1);
   }
 }
 
-@keyframes stepR {
-  0%,
-  40% {
-    opacity: 0;
-  }
-  41%,
-  100% {
-    opacity: 1;
-  }
+.print[data-age='1'] {
+  opacity: 0.86;
+}
+.print[data-age='2'] {
+  opacity: 0.74;
+}
+.print[data-age='3'] {
+  opacity: 0.6;
+}
+.print[data-age='4'] {
+  opacity: 0.47;
+}
+.print[data-age='5'] {
+  opacity: 0.35;
+}
+.print[data-age='6'] {
+  opacity: 0.24;
+}
+.print[data-age='7'] {
+  opacity: 0.12;
+}
+.print[data-age='8'] {
+  opacity: 0;
+}
+
+.walker-tag {
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .tag-ribbon {
@@ -498,12 +499,6 @@ button {
 .tag-name {
   font: 400 14.5px var(--font-caps);
   letter-spacing: 0.04em;
-}
-
-.is-holding .walker-feet,
-.is-holding .walker-tag,
-.is-holding .foot {
-  animation-play-state: paused;
 }
 
 /* --------------------------------------------------------------------------
@@ -1695,9 +1690,7 @@ button {
     transition-duration: 0.01ms !important;
   }
 
-  .walker-feet,
-  .walker-tag,
-  .foot {
+  .print-ink {
     animation: none !important;
   }
 }

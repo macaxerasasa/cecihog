@@ -36,6 +36,15 @@ export function InkDefs() {
         <circle cx="5.9" cy="-7.6" r="1.1" fill="var(--ink)" />
       </symbol>
 
+      {/* a cat's paw: the pad and four toes, toes toward -y */}
+      <symbol id="paw" viewBox="-8 -8 16 16" overflow="visible">
+        <ellipse cx="0" cy="2.4" rx="3.9" ry="3.1" fill="var(--ink)" />
+        <ellipse cx="-4.6" cy="-1.2" rx="1.5" ry="1.9" fill="var(--ink)" transform="rotate(-20 -4.6 -1.2)" />
+        <ellipse cx="-1.7" cy="-4.2" rx="1.5" ry="1.9" fill="var(--ink)" />
+        <ellipse cx="1.7" cy="-4.2" rx="1.5" ry="1.9" fill="var(--ink)" />
+        <ellipse cx="4.6" cy="-1.2" rx="1.5" ry="1.9" fill="var(--ink)" transform="rotate(20 4.6 -1.2)" />
+      </symbol>
+
       {/* a pine of the Forbidden Forest */}
       <symbol id="pine" viewBox="0 0 20 30" overflow="visible">
         <path
