@@ -69,8 +69,8 @@ const yearRooms: Place[] = YEAR_IDS.map((id, i) => {
 export const places: Place[] = [
   {
     id: 'ambientacao',
-    name: 'Salão Principal',
-    note: 'Hogwarts — o castelo e o mundo mágico',
+    name: 'Ambientação',
+    note: 'Salão Principal — o castelo e o mundo mágico',
     kind: 'hall',
     art: 'castle',
     l: { x: 590, y: 208, w: 420, h: 268 },
@@ -79,8 +79,8 @@ export const places: Place[] = [
   },
   {
     id: 'habilidades',
-    name: 'Sala de Feitiços',
-    note: 'Matérias — as artes ensinadas',
+    name: 'Habilidades e Raças',
+    note: 'As artes ensinadas e as origens',
     kind: 'wing',
     art: 'wand',
     l: { x: 128, y: 236, w: 330, h: 212 },
@@ -89,8 +89,8 @@ export const places: Place[] = [
   },
   {
     id: 'racas',
-    name: 'Salas Comunais',
-    note: 'Casas — quatro fundadores',
+    name: 'Sistemas e Regras',
+    note: 'Como o castelo se mede',
     kind: 'wing',
     art: 'hat',
     l: { x: 1142, y: 236, w: 330, h: 212 },

@@ -372,8 +372,17 @@ button {
 }
 
 .place-numeral {
-  font: 400 64px var(--font-caps);
-  opacity: 0.5;
+  font: 400 28px var(--font-caps);
+  letter-spacing: 0.04em;
+  opacity: 0.48;
+}
+
+.place-numeral.is-n1 {
+  font-size: 34px;
+}
+
+.place-numeral.is-n3 {
+  font-size: 22px;
 }
 
 .place-art {
@@ -410,6 +419,11 @@ button {
 .banner-name {
   font: 400 21px var(--font-caps);
   letter-spacing: 0.05em;
+}
+
+.banner-name.is-long {
+  font-size: 16px;
+  letter-spacing: 0.03em;
 }
 
 .place-note {

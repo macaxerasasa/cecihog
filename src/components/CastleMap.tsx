@@ -365,12 +365,12 @@ function Room({
   const b = p[frame]
   const cx = b.x + b.w / 2
   const isRoom = p.kind === 'room'
-  const bw = p.name.length * 12.4 + 48
+  const bw = Math.min(p.name.length * (p.name.length > 16 ? 11 : 12.4) + 48, b.w + 80)
   const bh = 32
   const by = b.y + b.h + 10
   const art = asset(`art/ink-${p.art}.webp`)
   const artBox = isRoom
-    ? { x: b.x + b.w * 0.5, y: b.y + 22, w: b.w * 0.44, h: b.h - 44 }
+    ? { x: b.x + b.w * 0.38, y: b.y + 16, w: b.w * 0.54, h: b.h - 32 }
     : p.kind === 'hall'
       ? { x: cx - 112, y: b.y + 22, w: 224, h: b.h - 44 }
       : { x: cx - 78, y: b.y + 26, w: 156, h: b.h - 52 }
@@ -400,14 +400,19 @@ function Room({
       <rect className="place-hit" x={b.x - 8} y={b.y - 8} width={b.w + 16} height={b.h + bh + 44} rx={6} />
       <rect className="place-floor" x={b.x + WALL} y={b.y + WALL} width={b.w - 2 * WALL} height={b.h - 2 * WALL} />
       {p.numeral ? (
-        <text className="place-numeral" x={b.x + b.w * 0.27} y={b.y + b.h * 0.66} textAnchor="middle">
+        <text
+          className={`place-numeral is-n${p.numeral.length}`}
+          x={b.x + 14}
+          y={b.h < 130 ? b.y + b.h * 0.64 : b.y + 38}
+          textAnchor="start"
+        >
           {p.numeral}
         </text>
       ) : null}
       <image className="place-art" href={art} x={artBox.x} y={artBox.y} width={artBox.w} height={artBox.h} preserveAspectRatio="xMidYMid meet" />
       <g className="place-banner" transform={`translate(${cx - bw / 2} ${by})`}>
         <path className="banner-ribbon" d={ribbon(bw, bh)} />
-        <text className="banner-name" x={bw / 2} y={bh / 2 + 7} textAnchor="middle">
+        <text className={`banner-name${p.name.length > 16 ? ' is-long' : ''}`} x={bw / 2} y={bh / 2 + 7} textAnchor="middle">
           {p.name}
         </text>
       </g>
