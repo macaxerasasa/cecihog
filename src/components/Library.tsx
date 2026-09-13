@@ -257,7 +257,9 @@ export function Library() {
       <HouseCorners />
       <Particles active={awake} />
       <header className="masthead">
-        <h1>Hogwarts</h1>
+        <h1 data-text="Hogwarts">
+          <span>Hogwarts</span>
+        </h1>
         <p>Biblioteca · Seção Restrita</p>
       </header>
       <div className="stage-wrap">

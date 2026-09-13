@@ -93,6 +93,7 @@ export function Candle({ variant = 'a', className = '', style }: CandleProps) {
   } as CSSProperties
   return (
     <span className={`candle candle-${variant} ${className}`} style={vars} aria-hidden="true">
+      <i className="candle-spill" />
       <img className="candle-art" src={asset(`art/${v.art}`)} alt="" draggable={false} />
       <Flame />
     </span>
@@ -114,6 +115,8 @@ const CANDELABRA_WICKS = [
 export function Candelabra({ className = '', style }: { className?: string; style?: CSSProperties }) {
   return (
     <span className={`candelabra ${className}`} style={style} aria-hidden="true">
+      <i className="candelabra-glow" />
+      <i className="candelabra-pool" />
       <img className="candle-art" src={asset('art/prop-candelabra.webp')} alt="" draggable={false} />
       {CANDELABRA_WICKS.map((w, i) => (
         <span

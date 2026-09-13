@@ -5,6 +5,8 @@ import { asset } from '../lib/asset'
 const TRAIL = 9
 const WING_L = asset('snitch/wing-left.png')
 const WING_R = asset('snitch/wing-right.png')
+const ghostL = { '--wing': `url(${WING_L})` } as CSSProperties
+const ghostR = { '--wing': `url(${WING_R})` } as CSSProperties
 
 export function GoldenSnitch() {
   const ref = useRef<HTMLDivElement>(null)
@@ -96,7 +98,6 @@ export function GoldenSnitch() {
       const bank = Math.max(-28, Math.min(28, vel.x * 2.6))
       const pitch = Math.max(-10, Math.min(10, vel.y * 1.4))
       el.style.transform = `translate(${pos.x}px, ${pos.y}px) rotate(${bank + pitch}deg)`
-      el.style.setProperty('--speed', String(Math.min(1, speed / max)))
 
       history.unshift({ x: pos.x, y: pos.y })
       if (history.length > TRAIL * 3) history.pop()
@@ -127,10 +128,10 @@ export function GoldenSnitch() {
       </div>
       <div className="snitch" ref={ref} aria-hidden="true">
         <span className="snitch-aura" />
-        <span className="snitch-wing-ghost is-far is-left" style={{ backgroundImage: `url(${WING_L})` }} />
-        <span className="snitch-wing-ghost is-far is-right" style={{ backgroundImage: `url(${WING_R})` }} />
-        <span className="snitch-wing-ghost is-left" style={{ backgroundImage: `url(${WING_L})` }} />
-        <span className="snitch-wing-ghost is-right" style={{ backgroundImage: `url(${WING_R})` }} />
+        <span className="snitch-wing-ghost is-far is-left" style={ghostL} />
+        <span className="snitch-wing-ghost is-far is-right" style={ghostR} />
+        <span className="snitch-wing-ghost is-left" style={ghostL} />
+        <span className="snitch-wing-ghost is-right" style={ghostR} />
         <img className="snitch-wing is-left" src={WING_L} alt="" draggable={false} />
         <img className="snitch-wing is-right" src={WING_R} alt="" draggable={false} />
         <img className="snitch-ball" src={asset('snitch/ball.png')} alt="" draggable={false} />

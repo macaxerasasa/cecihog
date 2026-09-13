@@ -19,7 +19,7 @@
 }
 
 .gold-text,
-.masthead h1,
+.masthead h1 > span,
 .wand-copy h1,
 .cover-title h2 {
   background: var(--gold-text);
@@ -106,16 +106,20 @@ button {
   inset: 0;
   pointer-events: none;
   z-index: 8;
+  /* pure black multiplied over an opaque backdrop is exactly (1 - a) * backdrop,
+     which is what plain source-over gives too; skipping the blend spares the
+     compositor a full-screen backdrop copy every frame */
   background:
     radial-gradient(ellipse at 50% 46%, transparent 38%, rgba(0, 0, 0, 0.62) 100%),
     linear-gradient(90deg, rgba(0, 0, 0, 0.5), transparent 16%, transparent 84%, rgba(0, 0, 0, 0.5));
-  mix-blend-mode: multiply;
 }
 
 .library::after {
   content: '';
   position: absolute;
-  inset: -20%;
+  /* grainShift only wanders ~1.2%, so a 3% bleed keeps the edges covered
+     with roughly half the texture of the old -20% */
+  inset: -3%;
   pointer-events: none;
   z-index: 9;
   opacity: 0.09;
@@ -294,14 +298,31 @@ button {
   pointer-events: none;
 }
 
-.candle-glow {
+/* Every glow keeps its flicker on the host element and paints the blurred
+   gradient on a ::before: a blur on the animated (composited) element is
+   re-applied by the GPU every frame, on a plain child it is baked once. */
+.candle-glow,
+.house-glow {
   position: absolute;
+  border-radius: 50%;
+}
+.candle-glow::before,
+.house-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--glow);
+}
+
+.candle-glow {
   width: 280px;
   height: 280px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 186, 92, 0.22), rgba(180, 80, 20, 0.05) 46%, transparent 70%);
-  filter: blur(8px);
+  --glow: radial-gradient(circle, rgba(255, 186, 92, 0.22), rgba(180, 80, 20, 0.05) 46%, transparent 70%);
   animation: candleFlicker 3.6s ease-in-out infinite;
+}
+.candle-glow::before {
+  filter: blur(8px);
 }
 
 .candle-glow.a {
@@ -325,35 +346,35 @@ button {
 }
 
 .house-glow {
-  position: absolute;
   width: 180px;
   height: 180px;
-  border-radius: 50%;
-  filter: blur(18px);
   opacity: 0.35;
   animation: candleFlicker 5.4s ease-in-out infinite;
+}
+.house-glow::before {
+  filter: blur(18px);
 }
 .house-glow.gryff {
   left: 8%;
   top: 22%;
-  background: radial-gradient(circle, rgba(174, 0, 1, 0.45), transparent 70%);
+  --glow: radial-gradient(circle, rgba(174, 0, 1, 0.45), transparent 70%);
 }
 .house-glow.slyt {
   right: 10%;
   top: 28%;
-  background: radial-gradient(circle, rgba(26, 71, 42, 0.5), transparent 70%);
+  --glow: radial-gradient(circle, rgba(26, 71, 42, 0.5), transparent 70%);
   animation-delay: -1s;
 }
 .house-glow.rav {
   left: 18%;
   bottom: 12%;
-  background: radial-gradient(circle, rgba(14, 26, 64, 0.55), transparent 70%);
+  --glow: radial-gradient(circle, rgba(14, 26, 64, 0.55), transparent 70%);
   animation-delay: -2s;
 }
 .house-glow.huff {
   right: 16%;
   bottom: 10%;
-  background: radial-gradient(circle, rgba(236, 185, 57, 0.28), transparent 70%);
+  --glow: radial-gradient(circle, rgba(236, 185, 57, 0.28), transparent 70%);
   animation-delay: -0.6s;
 }
 
@@ -414,7 +435,26 @@ button {
   font-size: clamp(1.25rem, 2.6vw, 1.95rem);
   letter-spacing: 0.34em;
   text-transform: uppercase;
+}
+/* The title is drawn twice: a static copy underneath carries the drop
+   shadows (a shadow only reads glyph alpha, so its fill colour is moot), and
+   the span on top carries the sheen animation on its own layer. The h1 is a
+   compositor layer over the animated hall, so a filter on it would be re-run
+   every frame, and the sheen would re-raster the blurred shadow every frame. */
+.masthead h1 {
+  position: relative;
+}
+.masthead h1::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: #d4b056;
   filter: drop-shadow(0 2px 0 rgba(60, 30, 4, 0.9)) drop-shadow(0 6px 18px rgba(0, 0, 0, 0.7));
+}
+.masthead h1 > span {
+  position: relative;
+  display: block;
+  will-change: transform;
 }
 
 .masthead p {
@@ -472,7 +512,6 @@ button {
   position: absolute;
   width: clamp(150px, 16vw, 250px);
   height: clamp(150px, 16vw, 250px);
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
 }
 
 .house-corner.tl { top: 0; left: 0; }
@@ -480,6 +519,7 @@ button {
 .house-corner.bl { bottom: 0; left: 0; transform: scaleY(-1); }
 .house-corner.br { bottom: 0; right: 0; transform: scale(-1, -1); }
 
+/* the corner's drop shadow goes on the pieces, not the (composited) corner */
 .corner-filigree {
   position: absolute;
   inset: 0;
@@ -487,6 +527,7 @@ button {
   height: 100%;
   overflow: visible;
   opacity: 0.92;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
 }
 
 .crest-wrap {
@@ -503,9 +544,15 @@ button {
   position: absolute;
   inset: -30%;
   border-radius: 50%;
+  animation: crestBreath 5.5s ease-in-out infinite;
+}
+.crest-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
   background: radial-gradient(circle, var(--house-glow), transparent 68%);
   filter: blur(6px);
-  animation: crestBreath 5.5s ease-in-out infinite;
 }
 
 .house-corner.tr .crest-glow { animation-delay: -1.4s; }
@@ -524,7 +571,8 @@ button {
   object-fit: contain;
   filter:
     drop-shadow(0 3px 2px rgba(0, 0, 0, 0.7))
-    drop-shadow(0 0 10px var(--house-glow));
+    drop-shadow(0 0 10px var(--house-glow))
+    drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
   user-select: none;
 }
 
@@ -558,9 +606,21 @@ button {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: url('/art/case.webp') center / 100% 100% no-repeat;
-  filter: drop-shadow(0 28px 36px rgba(0, 0, 0, 0.55));
   pointer-events: none;
+  --case-art: url('/art/case.webp');
+}
+
+/* The artwork and its drop shadow live on a plain pseudo-element: the case
+   itself gets promoted to a compositor layer (it sits over the animated hall),
+   and a filter on a promoted layer is re-run every frame. On a child that is
+   not promoted, the shadow is rasterised once and cached. */
+.case::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--case-art) center / 100% 100% no-repeat;
+  filter: drop-shadow(0 28px 36px rgba(0, 0, 0, 0.55));
 }
 
 /* Brass nameplate on the frieze, under the carved cartouche */
@@ -690,8 +750,7 @@ button {
   align-self: flex-end;
   pointer-events: none;
   z-index: 3;
-  /* ground shadow plus a faint warm rim so iron and dark wood keep an edge */
-  filter: drop-shadow(-7px 10px 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 2px rgba(255, 200, 130, 0.4));
+  --prop-shadow: drop-shadow(-7px 10px 8px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 2px rgba(255, 200, 130, 0.4));
 }
 
 /* the renders are lit like product shots; pull them down into the shelf's dusk */
@@ -702,6 +761,17 @@ button {
   height: auto;
   user-select: none;
   filter: brightness(0.9) contrast(1.04) saturate(0.96);
+}
+
+/* Ground shadow plus a faint warm rim so iron and dark wood keep an edge. It
+   used to sit on .shelf-prop, but each prop is a 3D scene leaf (a compositor
+   layer), and the GPU re-runs a layer's filter every frame; on the picture
+   and the contact ellipse it is rasterised once. */
+.prop-art {
+  filter: brightness(0.9) contrast(1.04) saturate(0.96) var(--prop-shadow);
+}
+.shelf-prop::after {
+  filter: var(--prop-shadow);
 }
 
 .shelf-prop.scrolls {
@@ -818,7 +888,7 @@ button {
   z-index: 3;
 }
 .stack-pedestal .shelf-prop {
-  filter: drop-shadow(-4px 6px 6px rgba(0, 0, 0, 0.55));
+  --prop-shadow: drop-shadow(-4px 6px 6px rgba(0, 0, 0, 0.55));
   margin: 0;
 }
 .stack-pedestal .shelf-prop.hourglass {
@@ -842,15 +912,28 @@ button {
   mix-blend-mode: screen;
   transform: translate(-50%, -50%);
 }
+.orb-halo::before,
+.orb-nebula::before,
+.potion-glow::before,
+.lantern-glow::before,
+.lantern-flame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--glow);
+}
 
 .orb-halo {
   left: 50%;
   top: 31%;
   width: 150%;
   aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(178, 132, 255, 0.42), rgba(120, 82, 220, 0.14) 38%, transparent 64%);
-  filter: blur(6px);
+  --glow: radial-gradient(circle, rgba(178, 132, 255, 0.42), rgba(120, 82, 220, 0.14) 38%, transparent 64%);
   animation: glowPulse 5s ease-in-out infinite;
+}
+.orb-halo::before {
+  filter: blur(6px);
 }
 
 .orb-nebula {
@@ -858,7 +941,7 @@ button {
   top: 31%;
   width: 86%;
   aspect-ratio: 1;
-  background: conic-gradient(
+  --glow: conic-gradient(
     from 0deg,
     transparent,
     rgba(205, 170, 255, 0.38) 18%,
@@ -868,29 +951,35 @@ button {
     rgba(230, 210, 255, 0.28) 88%,
     transparent
   );
-  filter: blur(5px);
   animation: nebulaSpin 14s linear infinite;
+}
+.orb-nebula::before {
+  filter: blur(5px);
 }
 
 .potion-glow {
   top: 56%;
   width: 34%;
   aspect-ratio: 1;
-  filter: blur(4px);
   animation: glowPulse 4.2s ease-in-out infinite;
 }
-.potion-glow.a { left: 22%; background: radial-gradient(circle, rgba(110, 255, 130, 0.55), transparent 62%); }
-.potion-glow.b { left: 50%; top: 50%; background: radial-gradient(circle, rgba(255, 70, 70, 0.5), transparent 62%); animation-delay: -1.4s; }
-.potion-glow.c { left: 78%; top: 60%; background: radial-gradient(circle, rgba(255, 190, 70, 0.55), transparent 62%); animation-delay: -2.6s; }
+.potion-glow::before {
+  filter: blur(4px);
+}
+.potion-glow.a { left: 22%; --glow: radial-gradient(circle, rgba(110, 255, 130, 0.55), transparent 62%); }
+.potion-glow.b { left: 50%; top: 50%; --glow: radial-gradient(circle, rgba(255, 70, 70, 0.5), transparent 62%); animation-delay: -1.4s; }
+.potion-glow.c { left: 78%; top: 60%; --glow: radial-gradient(circle, rgba(255, 190, 70, 0.55), transparent 62%); animation-delay: -2.6s; }
 
 .lantern-glow {
   left: 50%;
   top: 60%;
   width: 190%;
   aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(255, 176, 80, 0.5), rgba(255, 120, 30, 0.14) 40%, transparent 66%);
-  filter: blur(8px);
+  --glow: radial-gradient(circle, rgba(255, 176, 80, 0.5), rgba(255, 120, 30, 0.14) 40%, transparent 66%);
   animation: glowPulse 3.2s ease-in-out infinite;
+}
+.lantern-glow::before {
+  filter: blur(8px);
 }
 
 .lantern-flame {
@@ -898,9 +987,11 @@ button {
   top: 60%;
   width: 26%;
   aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(255, 246, 200, 0.95), rgba(255, 170, 60, 0.6) 45%, transparent 70%);
-  filter: blur(1.5px);
+  --glow: radial-gradient(circle, rgba(255, 246, 200, 0.95), rgba(255, 170, 60, 0.6) 45%, transparent 70%);
   animation: lanternFlicker 0.9s ease-in-out infinite;
+}
+.lantern-flame::before {
+  filter: blur(1.5px);
 }
 
 @keyframes glowPulse {
@@ -952,21 +1043,30 @@ button {
   animation-delay: var(--flicker-delay);
 }
 
-/* warm spill on the wood and the wall around the flame */
-.candle::after {
-  content: '';
+/* warm spill on the wood and the wall around the flame (the flicker runs on
+   the element, the blurred gradient is painted once on its ::before) */
+.candle-spill {
   position: absolute;
   left: var(--wick-x, 50%);
   top: var(--wick-y, 3%);
   width: 320%;
   aspect-ratio: 1;
   transform: translate(-50%, -42%);
-  background: radial-gradient(circle at 50% 50%, rgba(255, 170, 70, 0.3), rgba(255, 120, 40, 0.08) 42%, transparent 68%);
-  filter: blur(6px);
   mix-blend-mode: screen;
   animation: candleFlicker 3.2s ease-in-out infinite;
   animation-delay: var(--flicker-delay);
   z-index: -1;
+}
+.candle-spill::before,
+.candelabra-glow::before,
+.candelabra-pool::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+.candle-spill::before {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 170, 70, 0.3), rgba(255, 120, 40, 0.08) 42%, transparent 68%);
+  filter: blur(6px);
 }
 
 /* Candelabra standing behind the crown moulding: the layer sits under the
@@ -990,34 +1090,36 @@ button {
 }
 
 /* the cluster of flames throws light back onto the wall and the wood */
-.candelabra::before {
-  content: '';
+.candelabra-glow {
   position: absolute;
   left: 50%;
   top: 16%;
   width: 260%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(255, 178, 84, 0.36), rgba(255, 128, 44, 0.12) 38%, transparent 66%);
-  filter: blur(12px);
   mix-blend-mode: screen;
   animation: candleFlicker 3.4s ease-in-out infinite;
   z-index: -1;
 }
+.candelabra-glow::before {
+  background: radial-gradient(circle, rgba(255, 178, 84, 0.36), rgba(255, 128, 44, 0.12) 38%, transparent 66%);
+  filter: blur(12px);
+}
 /* and pools on the block it stands on */
-.candelabra::after {
-  content: '';
+.candelabra-pool {
   position: absolute;
   left: 50%;
   bottom: -3%;
   width: 170%;
   height: 16%;
   transform: translateX(-50%);
-  background: radial-gradient(ellipse at 50% 60%, rgba(255, 176, 86, 0.38), rgba(255, 140, 50, 0.1) 50%, transparent 72%);
-  filter: blur(4px);
   mix-blend-mode: screen;
   animation: candleFlicker 4.1s ease-in-out infinite reverse;
   z-index: -1;
+}
+.candelabra-pool::before {
+  background: radial-gradient(ellipse at 50% 60%, rgba(255, 176, 86, 0.38), rgba(255, 140, 50, 0.1) 50%, transparent 72%);
+  filter: blur(4px);
 }
 
 .crown-candelabra {
@@ -1076,7 +1178,9 @@ button {
   flex: 0 0 auto;
   container-type: size;
   overflow: visible;
-  transform-style: preserve-3d;
+  /* the mesh is projected flat into the button's plane (the shelf's settle
+     animation used to force this); the perspective still shapes the mesh */
+  transform-style: flat;
   perspective: 1500px;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
@@ -2397,10 +2501,6 @@ body:has(.library.is-holding) .snitch-trail {
 .book-btn:focus-visible .book-mesh {
   transform: rotateY(6deg) translateZ(34px) translateY(-10px);
 }
-.book-btn:not(.deco):hover ~ .book-btn:not(.deco),
-.book-btn:not(.deco):hover ~ .book-btn.deco {
-  translate: 2px 0;
-}
 .book-btn:hover .spine-title,
 .book-btn:focus-visible .spine-title {
   text-shadow:
@@ -2699,7 +2799,7 @@ body:has(.library.is-holding) .snitch-trail {
     height: auto;
   }
   .case {
-    background-image: url('/art/case-portrait.webp');
+    --case-art: url('/art/case-portrait.webp');
   }
   .shelf-recess {
     left: 11.6%;
@@ -3282,7 +3382,6 @@ body:has(.library.is-holding) .snitch-trail {
   transform-origin: 51.25% 78.5%;
   pointer-events: none;
   will-change: transform;
-  --speed: 0;
   filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.45));
 }
 
@@ -3333,13 +3432,19 @@ body:has(.library.is-holding) .snitch-trail {
   animation: snitchFlapL 0.042s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
   z-index: 2;
 }
+/* the ghost wings flap on the compositor; their soft blur is painted once
+   on a ::before instead of being re-filtered on the moving layer each frame */
 .snitch-wing-ghost {
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
   opacity: 0.3;
-  filter: blur(0.5px);
   animation-delay: -0.021s;
   z-index: 1;
+}
+.snitch-wing-ghost::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--wing) 0 0 / 100% 100% no-repeat;
+  filter: blur(0.5px);
 }
 
 .snitch-wing.is-left,
@@ -3360,8 +3465,10 @@ body:has(.library.is-holding) .snitch-trail {
 }
 .snitch-wing-ghost.is-far {
   opacity: 0.18;
-  filter: blur(0.9px);
   animation-delay: -0.031s;
+}
+.snitch-wing-ghost.is-far::before {
+  filter: blur(0.9px);
 }
 
 @keyframes snitchFlapL {
@@ -3394,9 +3501,16 @@ body:has(.library.is-holding) .snitch-trail {
   margin: -5px 0 0 -5px;
   border-radius: 50%;
   opacity: 0;
-  background: radial-gradient(circle, #fff6d0 0 25%, rgba(255, 200, 80, 0.9) 45%, rgba(255, 150, 40, 0) 75%);
-  filter: blur(0.4px);
+  --spark: radial-gradient(circle, #fff6d0 0 25%, rgba(255, 200, 80, 0.9) 45%, rgba(255, 150, 40, 0) 75%);
   will-change: transform, opacity;
+}
+.snitch-spark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--spark);
+  filter: blur(0.4px);
 }
 .snitch-spark:nth-child(odd) {
   width: 7px;
@@ -3404,13 +3518,13 @@ body:has(.library.is-holding) .snitch-trail {
   margin: -3.5px 0 0 -3.5px;
 }
 .snitch-spark:nth-child(3n) {
-  background: radial-gradient(circle, #fff 0 20%, rgba(255, 225, 150, 0.9) 40%, transparent 75%);
+  --spark: radial-gradient(circle, #fff 0 20%, rgba(255, 225, 150, 0.9) 40%, transparent 75%);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .candle-flame,
   .candle-halo,
-  .candle::after,
+  .candle-spill,
   .candle-glow,
   .house-glow,
   .library.is-awake .bookshelf-fit,
@@ -3458,8 +3572,17 @@ body:has(.library.is-holding) .snitch-trail {
   pointer-events: none;
   background: url('/art/hall.webp') center 42% / cover no-repeat;
   background-color: #0a0605;
-  transform: translate3d(calc(var(--px, 0) * -12px), calc(var(--py, 0) * -7px), 0);
+  /* 2D translate: on phones (no parallax) the painting stays in the root
+     layer, so the grain and stone blends over it are baked once at raster */
+  transform: translate(calc(var(--px, 0) * -12px), calc(var(--py, 0) * -7px));
   transition: transform 1.1s var(--ease-soft);
+}
+
+/* mice drive the parallax; keep the painting on its own layer so it never re-rasters */
+@media (pointer: fine) {
+  .hall-art {
+    transform: translate3d(calc(var(--px, 0) * -12px), calc(var(--py, 0) * -7px), 0);
+  }
 }
 
 @media (max-aspect-ratio: 4/5) {
@@ -3470,7 +3593,9 @@ body:has(.library.is-holding) .snitch-trail {
 }
 
 .library.is-awake .hall-art {
-  animation: hallZoom 2.6s var(--ease-cinematic) both;
+  /* entrance keyframes end on the resting styles, so they fill backwards only:
+     a finished forwards-fill keeps the layer composited for the whole session */
+  animation: hallZoom 2.6s var(--ease-cinematic) backwards;
 }
 
 @keyframes hallZoom {
@@ -3546,7 +3671,7 @@ body:has(.library.is-holding) .snitch-trail {
 }
 
 .library.is-awake .shelf-recess > * {
-  animation: shelfSettle 0.95s var(--ease-cinematic) both;
+  animation: shelfSettle 0.95s var(--ease-cinematic) backwards;
   animation-delay: calc(0.3s + var(--n, 0) * 36ms);
 }
 .library.is-awake .shelf-recess.lower > * {
@@ -3584,11 +3709,11 @@ body:has(.library.is-holding) .snitch-trail {
 }
 
 .library.is-awake .crown-candelabra .flame-svg {
-  animation: candleIgnite 0.7s ease-out both;
+  animation: candleIgnite 0.7s ease-out backwards;
   animation-delay: calc(0.9s + var(--n, 0) * 140ms);
 }
-.library.is-awake .crown-candelabra::before,
-.library.is-awake .crown-candelabra::after {
+.library.is-awake .crown-candelabra .candelabra-glow,
+.library.is-awake .crown-candelabra .candelabra-pool {
   animation-delay: 1.2s;
 }
 
@@ -3606,7 +3731,7 @@ body:has(.library.is-holding) .snitch-trail {
 }
 
 /* ---- Gilded details ---- */
-.masthead h1 {
+.masthead h1 > span {
   background-size: 100% 260%;
   animation: goldSheen 8s ease-in-out infinite;
 }
@@ -3771,8 +3896,8 @@ body:has(.library.is-holding) .snitch-trail {
   .hall-art,
   .library.is-awake .shelf-recess > *,
   .library.is-awake .crown-candelabra .flame-svg,
-  .candelabra::before,
-  .candelabra::after,
+  .candelabra-glow,
+  .candelabra-pool,
   .masthead h1,
   .gate-burst > *,
   .wand-gate.is-success::after,
@@ -3824,12 +3949,20 @@ body:has(.library.is-holding) .snitch-trail {
   }
   .case-halo,
   .crest-glow,
-  .house-corner,
-  .shelf-prop,
-  .stack-pedestal .shelf-prop,
+  .crest-glow::before,
+  .corner-filigree,
+  .shelf-prop::after,
   .crown-candelabra,
   .wall-sconce {
     filter: none;
+  }
+  .crest-img {
+    filter:
+      drop-shadow(0 3px 2px rgba(0, 0, 0, 0.7))
+      drop-shadow(0 0 10px var(--house-glow));
+  }
+  .prop-art {
+    filter: brightness(0.9) contrast(1.04) saturate(0.96);
   }
   .book-mesh,
   .book-btn:hover .book-mesh,
@@ -3842,7 +3975,7 @@ body:has(.library.is-holding) .snitch-trail {
   .book-btn.deco .book-mesh {
     opacity: 0.86;
   }
-  .candle::after {
+  .candle-spill {
     display: none;
   }
   .veil {
@@ -3861,7 +3994,7 @@ body:has(.library.is-holding) .snitch-trail {
   .snitch-trail {
     display: none;
   }
-  .snitch-wing-ghost {
+  .snitch-wing-ghost::before {
     filter: none;
   }
   .snitch-aura {
@@ -3898,13 +4031,13 @@ body:has(.library.is-holding) .snitch-trail {
   .burst-rays {
     display: none;
   }
-  .masthead h1 {
+  .masthead h1 > span {
     animation: none;
   }
   .book-spine::after {
     display: none;
   }
-  .case {
+  .case::before {
     filter: none;
   }
   /* same reveal without the animated blur */
