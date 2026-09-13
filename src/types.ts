@@ -15,6 +15,10 @@ export type ContentBlock =
   | { type: 'spell'; id: string; part?: number; parts?: number }
   /** Search field + index of every spell in this tome (and the other tomes). */
   | { type: 'spell-search'; year: number }
+  /** One verbete of Habilidades e Raças. */
+  | { type: 'gift'; id: string }
+  /** Search field + index of every skill and race in that sheet. */
+  | { type: 'gift-search' }
 
 export type SpellUpgrade = { label: string; locked: boolean; text: string }
 

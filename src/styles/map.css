@@ -1231,6 +1231,14 @@ button {
   width: min(78%, 320px);
 }
 
+.gift-plate {
+  margin-bottom: 0.7rem;
+}
+
+.gift-plate img {
+  width: min(48%, 168px);
+}
+
 .ink-plate figcaption {
   margin-top: 0.35rem;
   font: italic 0.86rem var(--font-ink);

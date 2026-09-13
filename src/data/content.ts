@@ -1,4 +1,5 @@
 import type { ContentBlock, Spread } from '../types'
+import { layoutGifts } from './gifts'
 import { layoutYear, spellsOfYear } from './spells'
 
 type Plate = { art: string; caption: string }
@@ -116,59 +117,19 @@ const contents: Record<string, Spread[]> = {
       ],
     },
     ],
-  habilidades: [
-    {
-      left: [
-        { type: 'heading', text: 'Matérias' },
-        { type: 'subheading', text: 'O currículo de Hogwarts' },
-        { type: 'ornament' },
-        plate({ art: 'wand', caption: 'Prancha I — A varinha escolhe o bruxo' }, true),
-        {
-          type: 'paragraph',
-          text: 'Sete anos, dezenas de salas e um horário que desafia a lógica das escadas. As matérias obrigatórias moldam o bruxo; as opcionais — Runicas, Aritmancia, Trato das Criaturas, Alquimia — revelam a vocação.',
-        },
-      ],
-      right: [
-        {
-          type: 'entries',
-          items: [
-            { title: 'Feitiços', text: 'Encantamentos, precisão do gesto e a palavra certa. Torre de Ravenclaw, em geral.' },
-            { title: 'Transfiguração', text: 'A mais elegante e a mais implacável. McGonagall não tolera sapos a meio caminho.' },
-            { title: 'Poções', text: 'Masmorras, caldeirões e a diferença entre infusão e explosão.' },
-            { title: 'Defesa Contra as Artes das Trevas', text: 'O posto que ninguém consegue manter por muito tempo.' },
-            { title: 'Herbologia', text: 'Estufas, mandrágoras e luvas de dragão.' },
-            { title: 'Astronomia', text: 'Torre mais alta, à meia-noite, com telescópio.' },
-          ],
-        },
-      ],
-    },
-    {
-      left: [
-        { type: 'subheading', text: 'Exames' },
-        plate({ art: 'mandrake', caption: 'Prancha II — Mandrágora jovem, Estufa Três' }),
-        {
-          type: 'list',
-          items: [
-            'N.O.M.s — quinto ano, a base de tudo.',
-            'N.I.E.M.s — sétimo ano, especialização.',
-            'Quadribol não conta para o quadro — mas conta para a alma.',
-          ],
-        },
-      ],
-      right: [
-        {
-          type: 'reserved',
-          label: 'Matérias — Currículo geral',
-          hint: 'Espaço para o horário das aulas, professores e salas (torre, masmorras, estufas).',
-        },
-        {
-          type: 'reserved',
-          label: 'Professores',
-          hint: 'Retratos, salas e peculiaridades de cada cátedra.',
-        },
-      ],
-    },
+  habilidades: layoutGifts({
+    left: [
+      { type: 'heading', text: 'Habilidades e Raças' },
+      { type: 'subheading', text: 'Dons da mente, do sangue e da forma' },
+      { type: 'ornament' },
+      plate({ art: 'mind', caption: 'Prancha I — O olhar que atravessa' }, true),
+      {
+        type: 'paragraph',
+        text: 'Nem todo poder se ensina numa sala de aula. Alguns nascem no sangue — a língua das cobras, o rosto que muda, a herança das veelas. Outros pedem anos de treino: a mente que invade, a mente que se fecha, o corpo que escolhe um animal e não larga mais. Esta dobra cataloga sete habilidades e três raças, cada uma com o que exige, o que oferece e o preço que cobra.',
+      },
     ],
+    right: [{ type: 'gift-search' }],
+  }),
   racas: [
     {
       left: [

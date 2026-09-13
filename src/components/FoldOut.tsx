@@ -2,6 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProp
 import { neighborIds } from '../data/books'
 import { getSpreads } from '../data/content'
 import { placeOf } from '../data/map'
+import { spreadOfGift } from '../data/gifts'
 import { bookIdOfYear, getSpell, spreadOfSpell } from '../data/spells'
 import { clearBookmark, peekBookmark, setBookmark } from '../lib/bookmark'
 import type { OriginRect } from '../types'
@@ -122,6 +123,7 @@ export default function FoldOut({
       setBookmark(target, at)
       onNavigate(target)
     },
+    openGift: (id) => goTo(spreadOfGift(id)),
   }
 
   useEffect(() => {

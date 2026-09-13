@@ -7,6 +7,8 @@ export type BookNav = {
   goTo: (spread: number) => void
   /** Open the leaf of a spell, turning to another tome when needed. */
   openSpell: (id: string) => void
+  /** Open a skill or race verbete in the open sheet. */
+  openGift: (id: string) => void
 }
 
 export const BookNavContext = createContext<BookNav | null>(null)

@@ -1,6 +1,8 @@
 import { memo, type CSSProperties } from 'react'
 import type { ContentBlock } from '../types'
 import { asset } from '../lib/asset'
+import { GiftEntry } from './GiftEntry'
+import { GiftSearch } from './GiftSearch'
 import { SpellEntry } from './SpellEntry'
 import { SpellSearch } from './SpellSearch'
 
@@ -49,6 +51,10 @@ const Block = memo(function Block({ block }: { block: ContentBlock }) {
       return <SpellEntry id={block.id} part={block.part} parts={block.parts} />
     case 'spell-search':
       return <SpellSearch year={block.year} />
+    case 'gift':
+      return <GiftEntry id={block.id} />
+    case 'gift-search':
+      return <GiftSearch />
     case 'reserved':
       return (
         <div className="ink-reserved">
