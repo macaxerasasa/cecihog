@@ -201,7 +201,7 @@ export function BookModal({
           }}
         >
           <div
-            className="held-stage"
+            className={`held-stage ${phase === 'open' && !pages.turning ? 'is-flat' : ''}`}
             style={{ width: dim.w, height: dim.h }}
             onClick={(e) => e.stopPropagation()}
             role="dialog"

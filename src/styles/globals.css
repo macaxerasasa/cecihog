@@ -4459,3 +4459,23 @@ body:has(.library.is-holding) .snitch-trail {
     height: 8px;
   }
 }
+
+/*
+ * Chrome mis-hits scrollable leaves inside a preserve-3d scene: taps on parts
+ * of a page land on the stage or the volume instead of the input or the
+ * links. Once the book lies open and no leaf is mid-flip, the 3D stack is
+ * flattened; the flight and the page flips get it back.
+ */
+.held-stage.is-flat,
+.held-stage.is-flat .held-book,
+.held-stage.is-flat .volume,
+.held-stage.is-flat .cover-swing {
+  transform-style: flat;
+}
+
+/* the resting left leaf keeps its ink while a page flips over it: the
+   ink-in animation's composited fill state otherwise drops out of the 3D scene */
+.held-book.is-turning-next .left-page-rest .page-inner > *,
+.held-book.is-turning-prev .left-page-rest .page-inner > * {
+  animation: none;
+}
