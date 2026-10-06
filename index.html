@@ -1,20 +1,58 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#d9c393" />
-    <meta
-      name="description"
-      content="O Mapa do Maroto: a planta de Hogwarts em tinta sobre pergaminho — salas, casas, matérias e o sumário dos 163 feitiços dos sete anos."
-    />
-    <link rel="preload" as="image" href="/map/parchment-landscape.webp" media="(min-aspect-ratio: 5/6)" />
-    <link rel="preload" as="image" href="/map/parchment-portrait.webp" media="(max-aspect-ratio: 5/6)" />
-    <title>Mapa do Maroto — Hogwarts</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jujutsu Kaisen: Era Maldita</title>
+  <meta name="description" content="Há uma ordem natural para todas as coisas: os fracos tendem a cair, os fortes tendem a prevalecer.">
+  <meta name="theme-color" content="#09080a">
+  <link rel="icon" href="https://i.imgur.com/4flZ0iI.png">
+  <meta property="og:title" content="Jujutsu Kaisen: Era Maldita">
+  <meta property="og:description" content="Há uma ordem natural para todas as coisas: os fracos tendem a cair, os fortes tendem a prevalecer.">
+  <meta property="og:image" content="https://i.imgur.com/WHe4bHI.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Yuji+Syuku&display=swap">
+  <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+  <a class="skip" href="#app">Pular para o conteúdo</a>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <div class="curtain" id="curtain" aria-hidden="true"><span>呪</span></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header" id="site-header">
+    <a href="/" data-link class="brand" aria-label="Início">
+      <span class="brand__seal" aria-hidden="true">呪</span>
+      <span class="brand__name" id="brand-name"></span>
+    </a>
+    <nav class="site-nav" aria-label="Principal">
+      <ul id="nav-list"></ul>
+    </nav>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Abrir menu">
+      <span></span><span></span>
+    </button>
+  </header>
+
+  <div class="drawer" id="drawer">
+    <nav aria-label="Menu">
+      <ol id="drawer-list"></ol>
+    </nav>
+  </div>
+
+  <main id="app" tabindex="-1"></main>
+
+  <footer class="site-footer">
+    <span class="site-footer__seal" aria-hidden="true">呪術</span>
+    <p id="footer-text"></p>
+  </footer>
+
+  <script>if (location.hostname.endsWith("github.io")) window.HASH_ROUTER = true;</script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/tecnicas-texto.js"></script>
+  <script src="assets/js/sistemas-texto.js"></script>
+  <script src="assets/js/vantagens-texto.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
 </html>
