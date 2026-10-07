@@ -310,6 +310,47 @@
       ${pager("/familias")}`;
   };
 
+  pages["/fichas"] = () => {
+    const P = D.fichas;
+    const list = P.characters || [];
+    if (!list.length) {
+      return `
+        ${pageHero("/fichas", P.title, P.intro)}
+        <div class="wrap">
+          <section class="empty-archive">
+            <span class="empty-archive__seal" aria-hidden="true">倉</span>
+            <h2 class="section-title">Nenhuma ficha registrada</h2>
+            <p>As fichas dos feiticeiros aparecem aqui assim que forem cadastradas.</p>
+          </section>
+        </div>
+        ${pager("/fichas")}`;
+    }
+    const grades = GRADE_ORDER.filter(g => list.some(c => c.grade === g));
+    return `
+      ${pageHero("/fichas", P.title, P.intro)}
+      <div class="wrap" data-filter-root>
+        ${filterBar({ placeholder: "Buscar feiticeiro, classe ou técnica…", chips: grades, chipLabel: "Todos os graus" })}
+        <ul class="roster">
+          ${list.map(c => `
+            <li class="reveal" data-grade="${c.grade || ""}" data-text="${norm([c.name, c.className, c.technique, c.player].join(" "))}">
+              <article class="card-char">
+                <span class="card-char__img">
+                  ${c.image ? `<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()">` : ""}
+                  <span class="card-char__initial">${(c.name || "?").trim()[0]}</span>
+                  ${GRADE_KANJI[c.grade] ? `<span class="card-char__grade">${GRADE_KANJI[c.grade]}</span>` : ""}
+                </span>
+                <span class="card-char__name">${c.name || ""}</span>
+                <span class="card-char__class">${[c.className, c.technique].filter(Boolean).join(" · ")}</span>
+                ${c.player ? `<span class="card-char__class">Jogador: ${c.player}</span>` : ""}
+                ${c.bio && c.bio.length ? `<div class="card-char__bio">${paras(c.bio)}</div>` : ""}
+              </article>
+            </li>`).join("")}
+          ${emptyState}
+        </ul>
+      </div>
+      ${pager("/fichas")}`;
+  };
+
   /* Lê assets/js/sistemas-texto.js (marcadores #, ##, ###, -) e monta as seções */
   function parseSistemas(raw) {
     const sections = [];
@@ -596,7 +637,8 @@
     const fr = $("[data-filter-root]", root);
     if (fr) {
       const keyAttr = fr.querySelector("[data-grade]") ? "grade" : "cat";
-      const sel = path === "/arsenal" ? ".weapon" : path === "/tecnicas" ? ".tech" : ".adv";
+      const sel = path === "/fichas" ? ".roster > li[data-text]"
+        : path === "/arsenal" ? ".weapon" : path === "/tecnicas" ? ".tech" : ".adv";
       wireFilter(fr, sel, el => el.dataset.text, el => el.dataset[keyAttr]);
     }
 

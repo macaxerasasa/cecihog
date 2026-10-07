@@ -27,6 +27,7 @@ window.SITE_DATA = {
     { path: "/classes",    label: "Classes",    kanji: "役割",   blurb: "Os estilos de luta dos feiticeiros." },
     { path: "/cronologia", label: "Cronologia", kanji: "年表",   blurb: "Os eventos que moldaram este mundo." },
     { path: "/familias",   label: "Famílias",   kanji: "呪遺産", blurb: "As linhagens e suas técnicas herdadas." },
+    { path: "/fichas",     label: "Fichas",     kanji: "倉庫",   blurb: "Registro dos feiticeiros em jogo." },
     { path: "/sistemas",   label: "Sistemas",   kanji: "規則",   blurb: "Regras, atributos e combate." },
     { path: "/tecnicas",   label: "Técnicas",   kanji: "呪術",   blurb: "Central de técnicas amaldiçoadas." },
     { path: "/vantagens",  label: "Vantagens",  kanji: "利点",   blurb: "Talentos e aptidões especiais." }
@@ -63,7 +64,7 @@ window.SITE_DATA = {
         ]
       },
       {
-        title: "Excalibur", grade: "Um", owner: "Brandon Cromwell",
+        title: "Excalibur", grade: "Um", owner: "Desconhecido",
         paragraphs: [
           "A arma histórica das Lendas Arturianas, foi criada pelo feiticeiro medieval Merlim, um exorcista jujutsu de grau especial em seu campo. Além de seu fio ser aperfeiçoado ao máximo, também é capaz de remover-se da mão de seu utilizador, lutando por ele ao uso de técnicas misteriosas de levitação e esgrima avançada, essa que um dia foi usada pelo jujutsu-shi Rei Arthur. Possui o histórico de centenas de guerras, batalhas e duelos travados, sendo uma arma conhecida até mesmo por humanos que nada sabem sobre jujutsu e que, erroneamente, a associam com uma espécie de magia rudimentar."
         ]
@@ -920,6 +921,24 @@ window.SITE_DATA = {
         ]
       }
     ]
+  },
+
+  /* ---------------------------------------------------------------- */
+  /* Fichas dos personagens. Para adicionar um, copie o modelo abaixo para
+     dentro de "characters": [ ... ] (separando cada ficha por vírgula):
+     {
+       name: "Nome do Personagem",
+       grade: "Um",                  // Esp., Um, Dois, Três ou Quatro
+       className: "Lutadores",
+       player: "Nome do jogador",
+       technique: "Nome da técnica",
+       image: "",                    // link de imagem (opcional)
+       bio: ["Parágrafo sobre o personagem."]
+     } */
+  fichas: {
+    title: "Registro de Feiticeiros",
+    intro: [],
+    characters: []
   },
 
   /* ---------------------------------------------------------------- */
