@@ -67,37 +67,37 @@ Todos os feiticeiros são naturalmente mais velozes do que não feiticeiros, já
 O atributo incide diretamente na capacidade de um indivíduo de percorrer distâncias e quão rápido ele o fará, mas também abrange tópicos como agilidade de corpo. Um exorcista veloz pode impedir fugas e escapadas de seus inimigos, assim como evitar batalhas que não deseja ou executar ataques surpresa especialmente efetivos.
 
 Ranque 1
-É mais rápido do que um atleta humano da categoria de corrida, corre o número habitual de quadrados — três — e executa feitos acima do comum de velocidade, como mudar de curso repentinamente ou iniciar um pique veloz em uma direção qualquer, mesmo sem muito suporte ou impulso para isso.
+É mais rápido do que um atleta humano da categoria de corrida, corre o número habitual de metros — três — e executa feitos acima do comum de velocidade, como mudar de curso repentinamente ou iniciar um pique veloz em uma direção qualquer, mesmo sem muito suporte ou impulso para isso.
 
 Ranque 2
-Aumenta a velocidade de corrida, agora acomodando nos quatro quadrados por locomoção e aumentando a distância entre si mesmo e os atletas humanos. Poderia disputar com um campeão olímpico e ainda sairia por cima, mostrando-se um verdadeiro zênite de velocidade para parâmetros mundanos. Os piques podem alcançar veículos ainda em aceleração, mas já superam bicicletas ou qualquer coisa nessa escala de velocidade acima de um humano e abaixo de um veículo normal.
+Aumenta a velocidade de corrida, agora acomodando nos quatro metros por locomoção e aumentando a distância entre si mesmo e os atletas humanos. Poderia disputar com um campeão olímpico e ainda sairia por cima, mostrando-se um verdadeiro zênite de velocidade para parâmetros mundanos. Os piques podem alcançar veículos ainda em aceleração, mas já superam bicicletas ou qualquer coisa nessa escala de velocidade acima de um humano e abaixo de um veículo normal.
 
 Ranque 3
-Segue correndo por quatro quadrados, mas deixa para trás, em termos de aceleração, todo e qualquer humano, e com uma boa folga entre si mesmo e o adversário. Já se torna uma ameaça para as maldições mais lentas e incapazes de acompanhar os ímpetos velozes, podendo partir de um ponto ao outro durante um ataque para confundir o adversário ou se mover em zigue-zague, tornando-se um alvo confuso e sempre em movimento.
+Segue correndo por quatro metros, mas deixa para trás, em termos de aceleração, todo e qualquer humano, e com uma boa folga entre si mesmo e o adversário. Já se torna uma ameaça para as maldições mais lentas e incapazes de acompanhar os ímpetos velozes, podendo partir de um ponto ao outro durante um ataque para confundir o adversário ou se mover em zigue-zague, tornando-se um alvo confuso e sempre em movimento.
 
 Ranque 4
-Atinge velocidades que tornam-no capaz de alcançar carros populares em velocidade normal, podendo abordá-los de acordo com sua própria vontade, seja saltando em cima deles se for corajoso e rápido o suficiente ou empurrando-os ou agarrando-os se tiver a força para fazê-lo. Caminha cinco quadrados por turno, podendo encurtar a distância subitamente ou aumentar ela com tanta velocidade quanto. Começa a se tornar um feiticeiro conhecido pela sua velocidade.
+Atinge velocidades que tornam-no capaz de alcançar carros populares em velocidade normal, podendo abordá-los de acordo com sua própria vontade, seja saltando em cima deles se for corajoso e rápido o suficiente ou empurrando-os ou agarrando-os se tiver a força para fazê-lo. Caminha cinco metros por turno, podendo encurtar a distância subitamente ou aumentar ela com tanta velocidade quanto. Começa a se tornar um feiticeiro conhecido pela sua velocidade.
 
 Ranque 5
 Os carros populares mais lentos do mercado são superados e os normais passam a demonstrar uma dificuldade de deixar o feiticeiro para trás, mesmo em sua velocidade máxima, automóveis esportivos que alcançam altas taxas de velocidade ainda podem apresentar um problema ao exorcista, mas nas condições corretas, pode parar mesmo inimigos nessas circunstâncias. Torna-se rápido o bastante para que tudo que não possua, ao menos, Velocidade de Ranque 3 o veja como um ligeiro borrão, podendo perdê-lo de vista. No quesito de ataques, torna-se ligeiro o bastante nos golpes, mas contra um lutador competente, logo se verá acompanhado.
 
 Ranque 6
-Chega perto do pináculo da velocidade que um feiticeiro comum consegue alcançar sem nenhum tipo de aprimoramento através de sua Técnica Amaldiçoada, consegue encurtar a distância contra um alvo específico como um borrão, contanto que ele esteja abaixo de Ranque 4 de velocidade, o que o tornará incapaz de acompanhá-lo de modo eficaz com os olhos e, também, o corpo. Consegue se mover em até cinco quadrados a cada turno e seis se estiver se movendo sem quaisquer impedimentos. Em pique livre, chega nos quinhentos quilômetros por hora.
+Chega perto do pináculo da velocidade que um feiticeiro comum consegue alcançar sem nenhum tipo de aprimoramento através de sua Técnica Amaldiçoada, consegue encurtar a distância contra um alvo específico como um borrão, contanto que ele esteja abaixo de Ranque 4 de velocidade, o que o tornará incapaz de acompanhá-lo de modo eficaz com os olhos e, também, o corpo. Consegue se mover em até cinco metros a cada turno e seis se estiver se movendo sem quaisquer impedimentos. Em pique livre, chega nos quinhentos quilômetros por hora.
 
 Ranque 7
 Finalmente alcança os setecentos quilômetros por hora em pique livre, sendo um feiticeiro muito veloz e no topo de sua capacidade nas condições supracitadas. Tudo abaixo de Ranque 5 não consegue acompanhá-lo de modo consistente, e você se torna ainda mais feroz com os punhos, podendo atacar duas vezes no mesmo turno com um tempo de reposição de três turnos entre cada utilização dessa habilidade especial.
 
 Ranque 8
 Feitiçaria de Projeção, Rota Celestial: Toji e Exceções
-Ao uso de sua Técnica Amaldiçoada, o feiticeiro é capaz de atingir valores ligeiramente acima de Mach 1, quebrando as escalas anteriores de velocidade para chegar em valores tão absurdos que torna-se praticamente impossível acompanhá-lo em corrida se o adversário não estiver adequadamente preparado. Os piques nesse estágio, quando complementados pela habilidade, tornam-se, também, ferramentas de destruição, aumentando a massa de seus golpes físicos para debulhar os adversários. Anda sete quadrados e pode atacar três vezes no mesmo turno, com quatro turnos de reposição.
+Ao uso de sua Técnica Amaldiçoada, o feiticeiro é capaz de atingir valores ligeiramente acima de Mach 1, quebrando as escalas anteriores de velocidade para chegar em valores tão absurdos que torna-se praticamente impossível acompanhá-lo em corrida se o adversário não estiver adequadamente preparado. Os piques nesse estágio, quando complementados pela habilidade, tornam-se, também, ferramentas de destruição, aumentando a massa de seus golpes físicos para debulhar os adversários. Anda sete metros e pode atacar três vezes no mesmo turno, com quatro turnos de reposição.
 
 Ranque 9
 Feitiçaria de Projeção e Exceções
-Agora atinge Mach 2, duas vezes mais rápido do que a velocidade do som. Seus ataques tornam-se mais destrutivos, sua velocidade supera qualquer veículo conhecido pelo homem, pela duração dos frames da Feitiçaria de Projeção aplicada em seu próprio corpo. A fricção e a Força G começam a representar um perigo para o usuário, que precisa utilizar sua própria energia amaldiçoada para mitigar os efeitos atmosféricos e térmicos no corpo para não entrar em combustão espontânea ou quebrar os ossos do corpo. Anda nove quadrados e pode atacar quatro vezes no mesmo turno, com cinco turnos de reposição.
+Agora atinge Mach 2, duas vezes mais rápido do que a velocidade do som. Seus ataques tornam-se mais destrutivos, sua velocidade supera qualquer veículo conhecido pelo homem, pela duração dos frames da Feitiçaria de Projeção aplicada em seu próprio corpo. A fricção e a Força G começam a representar um perigo para o usuário, que precisa utilizar sua própria energia amaldiçoada para mitigar os efeitos atmosféricos e térmicos no corpo para não entrar em combustão espontânea ou quebrar os ossos do corpo. Anda nove metros e pode atacar quatro vezes no mesmo turno, com cinco turnos de reposição.
 
 Ranque 10
 Feitiçaria de Projeção e Exceções
-Chega em Mach 3, só não sendo mais rápido em terra do que teletransportes instantâneos, que são o que ocupam o Ranque 10 da categoria de Velocidade. Os golpes são imensamente poderosos e podem derrubar inimigos bem resistentes se aplicados corretamente. Desaparece em borrões e quase não é visto por qualquer coisa que esteja abaixo de Ranque 7, isso porque estes, que estão nesse exato nível, já demonstram certa dificuldade. Anda onze quadrados e pode atacar cinco vezes no mesmo turno, com seis turnos de reposição.
+Chega em Mach 3, só não sendo mais rápido em terra do que teletransportes instantâneos, que são o que ocupam o Ranque 10 da categoria de Velocidade. Os golpes são imensamente poderosos e podem derrubar inimigos bem resistentes se aplicados corretamente. Desaparece em borrões e quase não é visto por qualquer coisa que esteja abaixo de Ranque 7, isso porque estes, que estão nesse exato nível, já demonstram certa dificuldade. Anda onze metros e pode atacar cinco vezes no mesmo turno, com seis turnos de reposição.
 
 # Resistência
 O valor que mede a resistência geral do feiticeiro, calculando quanto ele é capaz de suportar de dano físico e sobre a avaria do cansaço, também relatando quantos feitiços podem atingir o jujutsu-shi diretamente e quais são as únicas coisas capazes de matá-lo ou machucá-lo adequadamente.
@@ -189,10 +189,10 @@ Ranque 2
 O feiticeiro é incapaz de expandir o domínio ou usar uma das técnicas relacionadas com a arte.
 
 Ranque 3
-O feiticeiro é capaz de expandir domínios simples, delimitando uma área de até três por três quadrados ao redor do próprio corpo, defendendo-se das técnicas de Acerto Garantido e conseguindo atacar qualquer coisa que acesse o domínio, mesmo sendo prejudicado quando um adversário utiliza a Amplificação de Domínio.
+O feiticeiro é capaz de expandir domínios simples, delimitando uma área de até três por três metros ao redor do próprio corpo, defendendo-se das técnicas de Acerto Garantido e conseguindo atacar qualquer coisa que acesse o domínio, mesmo sendo prejudicado quando um adversário utiliza a Amplificação de Domínio.
 
 Ranque 4
-O feiticeiro é capaz de expandir domínios simples, delimitando uma área de até seis por seis quadrados ao redor do próprio corpo, defendendo-se das técnicas de Acerto Garantido e conseguindo atacar qualquer coisa que acesse o domínio, mesmo sendo prejudicado quando um adversário utiliza a Amplificação de Domínio.
+O feiticeiro é capaz de expandir domínios simples, delimitando uma área de até seis por seis metros ao redor do próprio corpo, defendendo-se das técnicas de Acerto Garantido e conseguindo atacar qualquer coisa que acesse o domínio, mesmo sendo prejudicado quando um adversário utiliza a Amplificação de Domínio.
 
 Ranque 5
 O feiticeiro já é capaz de usar uma Expansão de Domínio completa, podendo estabelecer suas limitações, aparência e efeitos ao uso de sua Técnica Inata, utilizando-a dentro da área limítrofe para executar feitos específicos. A técnica Desmantelar e Partir pode, por exemplo, ser usada dentro de uma Expansão de Domínio e desfrutar da propriedade Acerto Garantido para executar um Desmantelar em seu adversário sem chance de esquiva.
@@ -376,8 +376,6 @@ Por isso não é exagero pensar que técnicas desse tipo consomem praticamente c
 - Uma Expansão de Domínio gasta dez espaços de técnica de um feiticeiro, então se ele possuir quinze técnicas para utilizar no começo de uma batalha, após expandir, ele terá somente cinco técnicas. Para propósitos narrativos, a organização pode resolver ignorar essa regra ou pendência para um jogador, ou fazê-lo quando em posse de um dos inimigos de trama;
 
 - Os Domínios Simples nunca, em hipótese alguma, vão superar uma Expansão de Domínio completa, sendo capazes de tão somente anular o efeito de Acerto Garantido, mas ainda tornando-os suscetíveis para as demais mazelas presentes em uma expansão territorial completa;
-
-- Todo jogador tem direito a criar o interior de sua própria Expansão de Domínio, podendo carregar o teleporte anexo ao quarto em seu inventário para que possa, no momento devido, receber os direitos dentro do quarto para posicionar o mobi e levar todos que foram pegos para dentro da expansão. Caso não haja uma, será imaginada uma área teórica de 8x8 quadrados a partir do jogador no quarto em que estiver naquele momento;
 
 - Todas as propriedades devem ser declaradas assim que a Expansão de Domínio é utilizada, descrevendo a proporção de dificuldade de entrada e saída, lembrando que são proporcionalmente inversas — um domínio difícil de sair é um domínio mais fácil de entrar. Além disso, outras propriedades importantes devem ser declaradas abertamente nas ações, para a boa competição e uso em batalhas;
 
