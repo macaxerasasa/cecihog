@@ -426,9 +426,16 @@
       if (!l) continue;
       let j = i + 1;
       while (j < lines.length && !lines[j]) j++;
-      if (isSlots(lines[j] || "")) {
-        cur = { name: l, slots: lines[j].slice(1, -1), intro: [], levels: [] };
+      const nextLine = lines[j] || "";
+      const isKind = s => /^Técnica (Inata|Herdada)$/.test(s);
+      if (isSlots(nextLine) || isKind(nextLine)) {
+        cur = { name: l, slots: isSlots(nextLine) ? nextLine.slice(1, -1) : "", kind: isKind(nextLine) ? nextLine : "", intro: [], levels: [] };
         items.push(cur); target = cur.intro; i = j;
+        // vagas e tipo podem vir juntos, em qualquer ordem
+        let k = j + 1;
+        while (k < lines.length && !lines[k]) k++;
+        if (!cur.kind && isKind(lines[k] || "")) { cur.kind = lines[k]; i = k; }
+        else if (!cur.slots && isSlots(lines[k] || "")) { cur.slots = lines[k].slice(1, -1); i = k; }
         continue;
       }
       if (cur && isLevel(l)) {
@@ -483,7 +490,8 @@
                   ${catOf(t) !== "Outras" ? `<span class="tag">${catOf(t)}</span>` : ""}
                   ${tag.owner ? `<span class="tag tag--ghost">${tag.owner}</span>` : ""}
                   ${exclusive ? `<span class="tag tag--ghost">${exclusive}</span>` : ""}
-                  <span class="tag tag--ghost" title="Vagas">(${t.slots})</span>
+                  ${t.kind ? `<span class="tag tag--ghost">${t.kind}</span>` : ""}
+                  ${t.slots ? `<span class="tag tag--ghost" title="Vagas">(${t.slots})</span>` : ""}
                 </span>
                 <span class="tech__chev" aria-hidden="true"></span>
               </summary>
