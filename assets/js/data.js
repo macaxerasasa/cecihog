@@ -977,7 +977,8 @@ window.SITE_DATA = {
       "Cópia Amaldiçoada":                   { symbol: "写" },
       "Fala Amaldiçoada":                    { symbol: "言" },
       "Construção Amaldiçoada":              { symbol: "築" },
-      "Manipulação de Sangue":               { symbol: "血" }
+      "Manipulação de Sangue":               { symbol: "血" },
+      "Cobrança Amaldiçoada":                { symbol: "債" }
     }
   },
 
