@@ -228,7 +228,7 @@ Vai para além dos cem graus negativos se necessário, mas não consegue fazer n
 Ao gastar quinze espaços de técnica, consegue criar um titã de gelo de proporções imensas — vinte e cinco metros —, que caminha e luta ao seu lado. A criatura é capaz de emitir os efeitos de congelamento do usuário original, além de obedecer todos os seus comandos, mesmo que não seja um shikigami.
 
 Desmantelar e Partir
-(1/2)
+(0/2)
 Surgindo em dois feiticeiros que cresceram em períodos ou locais diferentes, o Desmantelar e Partir é uma técnica exclusivamente ofensiva que consegue moldar a vontade de seu usuário em cortes imbuídos de energia amaldiçoada, permitindo-o utilizar sua habilidade de modo dinâmico para cumprir algum propósito de seu desejo. Nada, senão a força e o alcance dos cortes, aumenta ao longo do tempo, e conforme o usuário refinar sua própria técnica, ele se torna capaz de cortar mais, ou capaz de cortar coisas que, outrora, não conseguia.
 
 Nível Um

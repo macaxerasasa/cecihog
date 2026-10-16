@@ -718,7 +718,6 @@ window.SITE_DATA = {
               "Um feiticeiro comum com uma grande técnica, você é capaz de criar cortes físicos ao seu redor, utilizando dois parâmetros bem definidos para as duas variações da habilidade. Com grande dinamicidade e capacidade de adaptação, o feiticeiro pode utilizar os golpes de longe, de perto ou de média distância, utilizando-os de acordo com a conveniência dentro da batalha."
             ],
             receives: ["Recebe <b>Técnica</b> de <b>Ranque 3</b>.", "Recebe <b>Energia Amaldiçoada</b> de <b>Ranque 3</b>."],
-            holders: { label: "Os Primeiros", names: ["Sato Isamu", "Alexander Kang"] },
             technique: {
               name: "Utilização da Técnica",
               paragraphs: [
@@ -735,7 +734,6 @@ window.SITE_DATA = {
               "Após o seu nascimento e infância, o feiticeiro se descobriu detentor de uma técnica que desafiava as normas naturais. Ao tocar alguma pessoa ou maldição, pode moldar sua alma de acordo com as próprias vontades, criando precipitações corporais que traduzem-se em deformações que podem matar, debilitar ou curar um alvo permanentemente, de modo que supera, em momentos, a Técnica de Maldição Reversa."
             ],
             receives: ["Recebe <b>Técnica</b> de <b>Ranque 4</b>.", "Recebe <b>Energia Amaldiçoada</b> de <b>Ranque 3</b>."],
-            holders: { label: "O Primeiro", names: ["Vazio"] },
             technique: {
               name: "Utilização da Técnica",
               paragraphs: [
@@ -751,7 +749,6 @@ window.SITE_DATA = {
               "O “poder de fogo absoluto” fora visto pela última vez em 2017, no Japão, nas mãos de um estudante já morto. Através das misteriosas obras do jujutsu, outro usuário foi reencarnado com aquele poder depois de passar anos sem demonstrar qualquer tipo de técnica inata. O usuário agora descobre a si mesmo como um feiticeiro jujutsu, sem qualquer tipo de conhecimento prévio acerca desse mundo insano de extermínio de maldições e tramas políticas."
             ],
             receives: ["Recebe <b>Técnica</b> de <b>Ranque 5</b>."],
-            holders: { label: "O Segundo", names: ["Franz Patton"] },
             technique: {
               name: "Utilização da Técnica",
               paragraphs: [
@@ -767,7 +764,6 @@ window.SITE_DATA = {
               "Por razões inexplicáveis, o feiticeiro sente uma conexão com outros dois feiticeiros que ele ainda desconhece, mas que receberam seus poderes a partir de uma catástrofe que ocorreu no Japão. Todo feiticeiro minimamente instruído sabe que o jujutsu — lido como conceito abstrato ou não — possui consciência, e desde a destruição da Terra do Sol Nascente e a criação espontânea da população humana convertida em maldições, a natureza da feitiçaria compensou o lado oposto com três usuários de técnicas inatas poderosas."
             ],
             receives: ["Recebe <b>Técnica</b> de <b>Ranque 5</b>."],
-            holders: { label: "O Primeiro", names: ["Marek Domachesky"] },
             technique: {
               name: "Utilização da Técnica",
               paragraphs: [
@@ -782,7 +778,6 @@ window.SITE_DATA = {
               "Após as águas e o fogo, o último usuário possui uma conexão sobrenatural com a terra e as plantas, mesmo que não controle as plantas convencionais. Sua energia amaldiçoada infecta o “solo” e autoriza a criação de plantas amaldiçoadas de todo tipo, mesmo que a utilização principal seja através de madeira. Seus poderes de criação espontânea são assustadores, podendo manejar grandes formações naturais que desafiam a concepção comum."
             ],
             receives: ["Recebe <b>Técnica</b> de <b>Ranque 4</b>.", "Recebe <b>Energia Amaldiçoada</b> de <b>Ranque 4</b>."],
-            holders: { label: "O Primeiro", names: ["Awinita Chapawee"] },
             technique: {
               name: "Utilização da Técnica",
               paragraphs: [
@@ -924,21 +919,46 @@ window.SITE_DATA = {
   },
 
   /* ---------------------------------------------------------------- */
-  /* Fichas dos personagens. Para adicionar um, copie o modelo abaixo para
-     dentro de "characters": [ ... ] (separando cada ficha por vírgula):
-     {
-       name: "Nome do Personagem",
-       grade: "Um",                  // Esp., Um, Dois, Três ou Quatro
-       className: "Lutadores",
-       player: "Nome do jogador",
-       technique: "Nome da técnica",
-       image: "",                    // link de imagem (opcional)
-       bio: ["Parágrafo sobre o personagem."]
-     } */
+  /* Fichas dos personagens.
+     group: "alto-escalao", "professores" ou "alunos" (define a aba).
+     image: coloque a imagem em assets/img/ e escreva o caminho, ex.:
+            "assets/img/nome.webp" (ou um link de imagem da internet).
+     attributes: de 0 a 10 — exceto Invocação de Shikigami, que vai de 0 a 5.
+     Para adicionar alguém, copie uma ficha inteira (de { até }) e cole depois
+     dela, separando por vírgula. */
   fichas: {
     title: "Registro de Feiticeiros",
     intro: [],
-    characters: []
+    groups: [
+      { id: "alto-escalao", label: "Alto Escalão", kanji: "上層部" },
+      { id: "professores",  label: "Professores",  kanji: "教師" },
+      { id: "alunos",       label: "Alunos",       kanji: "生徒" }
+    ],
+    characters: [
+      {
+        group: "professores",
+        name: "Victoria Conway",
+        image: "assets/img/victoria-conway.webp",
+        age: "34 anos",
+        className: "Lutador",
+        technique: "Paradoxo",
+        occupation: "Professora da Escola de Jujutsu dos Estados Unidos",
+        nationality: "Estadunidense",
+        question: "Por qual motivo se tornou uma feiticeira jujutsu?",
+        answer: [
+          "Desde jovem, Victoria demonstrava uma afinidade extraordinária com a energia amaldiçoada, despertando uma técnica inata tão poderosa quanto difícil de compreender. Após presenciar as consequências da atuação de maldições sobre pessoas incapazes de enxergá-las, decidiu dedicar sua vida ao mundo jujutsu. Com os anos, tornou-se uma feiticeira experiente, reconhecida tanto por sua capacidade de combate quanto pelo domínio de sua técnica. Atualmente, atua como professora na Escola de Jujutsu dos Estados Unidos, onde busca preparar uma nova geração de feiticeiros para enfrentar os perigos que ela própria conheceu."
+        ],
+        attributes: {
+          "Força": 7,
+          "Velocidade": 7,
+          "Resistência": 8,
+          "Energia Amaldiçoada": 9,
+          "Expansão de Domínio": 7,
+          "Técnica": 8,
+          "Invocação de Shikigami": 3
+        }
+      }
+    ]
   },
 
   /* ---------------------------------------------------------------- */

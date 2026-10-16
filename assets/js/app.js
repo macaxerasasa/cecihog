@@ -310,46 +310,110 @@
       ${pager("/familias")}`;
   };
 
+  /* ---- Fichas: abas por grupo, cartões e ficha completa com estrelas ---- */
+  const ATTR_MAX = { "Invocação de Shikigami": 5 };
+  const attrMax = name => ATTR_MAX[name] || 10;
+  const STAR = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"/></svg>`;
+  const stars = (value, max) =>
+    `<span class="stars" role="img" aria-label="${value} de ${max}">${Array.from({ length: max }, (_, k) => `<i class="${k < value ? "on" : ""}" style="--k:${k}">${STAR}</i>`).join("")}</span>`;
+
+  function charImg(c, cls) {
+    return `<span class="${cls}">
+      ${c.image ? `<img src="${c.image}" alt="${c.name}" loading="lazy" onerror="this.remove()">` : ""}
+      <span class="card-char__initial" aria-hidden="true">${(c.name || "?").trim()[0]}</span>
+    </span>`;
+  }
+
   pages["/fichas"] = () => {
     const P = D.fichas;
     const list = P.characters || [];
-    if (!list.length) {
-      return `
-        ${pageHero("/fichas", P.title, P.intro)}
-        <div class="wrap">
-          <section class="empty-archive">
-            <span class="empty-archive__seal" aria-hidden="true">倉</span>
-            <h2 class="section-title">Nenhuma ficha registrada</h2>
-            <p>As fichas dos feiticeiros aparecem aqui assim que forem cadastradas.</p>
-          </section>
-        </div>
-        ${pager("/fichas")}`;
-    }
-    const grades = GRADE_ORDER.filter(g => list.some(c => c.grade === g));
+    const groups = P.groups || [];
+    const inGroup = g => list.map((c, i) => ({ c, i })).filter(x => x.c.group === g.id);
+    const first = groups.find(g => inGroup(g).length) || groups[0];
     return `
       ${pageHero("/fichas", P.title, P.intro)}
-      <div class="wrap" data-filter-root>
-        ${filterBar({ placeholder: "Buscar feiticeiro, classe ou técnica…", chips: grades, chipLabel: "Todos os graus" })}
-        <ul class="roster">
-          ${list.map(c => `
-            <li class="reveal" data-grade="${c.grade || ""}" data-text="${norm([c.name, c.className, c.technique, c.player].join(" "))}">
-              <article class="card-char">
-                <span class="card-char__img">
-                  ${c.image ? `<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()">` : ""}
-                  <span class="card-char__initial">${(c.name || "?").trim()[0]}</span>
-                  ${GRADE_KANJI[c.grade] ? `<span class="card-char__grade">${GRADE_KANJI[c.grade]}</span>` : ""}
-                </span>
-                <span class="card-char__name">${c.name || ""}</span>
-                <span class="card-char__class">${[c.className, c.technique].filter(Boolean).join(" · ")}</span>
-                ${c.player ? `<span class="card-char__class">Jogador: ${c.player}</span>` : ""}
-                ${c.bio && c.bio.length ? `<div class="card-char__bio">${paras(c.bio)}</div>` : ""}
-              </article>
-            </li>`).join("")}
-          ${emptyState}
-        </ul>
+      <div class="wrap">
+        <div class="roster-tabs" role="tablist" aria-label="Categorias de fichas">
+          ${groups.map(g => `
+            <button role="tab" class="roster-tab" data-rtab="${g.id}" aria-selected="${g === first}">
+              <span class="roster-tab__kanji" aria-hidden="true">${g.kanji}</span>
+              <span class="roster-tab__label">${g.label}</span>
+              <span class="roster-tab__count">${inGroup(g).length}</span>
+            </button>`).join("")}
+        </div>
+        ${groups.map(g => {
+          const items = inGroup(g);
+          return `
+          <section class="roster-panel" role="tabpanel" data-rpanel="${g.id}" ${g === first ? "" : "hidden"}>
+            ${items.length ? `
+              <ul class="roster">
+                ${items.map(({ c, i }) => `
+                  <li>
+                    <button class="card-char" data-char="${i}" aria-haspopup="dialog">
+                      ${charImg(c, "card-char__img")}
+                      <span class="card-char__name">${c.name}</span>
+                      <span class="card-char__class">${[c.className, c.technique].filter(Boolean).join(" · ")}</span>
+                      ${c.occupation ? `<span class="card-char__occ">${c.occupation}</span>` : ""}
+                    </button>
+                  </li>`).join("")}
+              </ul>` : `
+              <div class="empty-archive">
+                <span class="empty-archive__seal" aria-hidden="true">${g.kanji.slice(0, 1)}</span>
+                <h2 class="section-title">Nenhuma ficha em ${g.label}</h2>
+                <p>As fichas desta categoria aparecem aqui assim que forem cadastradas.</p>
+              </div>`}
+          </section>`;
+        }).join("")}
       </div>
+      <dialog class="profile" id="profile" aria-label="Ficha do personagem"></dialog>
       ${pager("/fichas")}`;
   };
+
+  function openProfile(i) {
+    const c = D.fichas.characters[i];
+    const g = (D.fichas.groups || []).find(x => x.id === c.group) || { label: "", kanji: "" };
+    const facts = [
+      ["Idade", c.age], ["Classe", c.className], ["Técnica Inata", c.technique],
+      ["Ocupação", c.occupation], ["Nacionalidade", c.nationality]
+    ].filter(f => f[1]);
+    const attrs = Object.entries(c.attributes || {});
+    const dlg = $("#profile");
+    dlg.innerHTML = `
+      <div class="profile__inner">
+        <button class="profile__close" aria-label="Fechar ficha" data-close>✕</button>
+        <div class="profile__side">
+          ${charImg(c, "profile__img")}
+          <dl class="profile__facts">
+            ${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}
+          </dl>
+        </div>
+        <div class="profile__main">
+          <p class="eyebrow"><span>${g.kanji}</span> ${g.label}</p>
+          <h2 class="profile__name">${c.name}</h2>
+          ${c.question ? `
+            <section class="profile__block">
+              <h3 class="profile__h3">${c.question}</h3>
+              <div class="prose">${paras(c.answer)}</div>
+            </section>` : ""}
+          ${attrs.length ? `
+            <section class="profile__block">
+              <h3 class="profile__h3">Atributos</h3>
+              <ul class="attrs">
+                ${attrs.map(([name, v]) => `
+                  <li class="attr">
+                    <span class="attr__name">${name}</span>
+                    ${stars(v, attrMax(name))}
+                    <span class="attr__val"><b>${v}</b>/${attrMax(name)}</span>
+                  </li>`).join("")}
+              </ul>
+            </section>` : ""}
+        </div>
+      </div>`;
+    dlg.showModal();
+    dlg.scrollTop = 0;
+    $("[data-close]", dlg).addEventListener("click", () => dlg.close());
+    dlg.onclick = e => { if (e.target === dlg) dlg.close(); };
+  }
 
   /* Lê assets/js/sistemas-texto.js (marcadores #, ##, ###, -) e monta as seções */
   function parseSistemas(raw) {
@@ -768,12 +832,17 @@
     const fr = $("[data-filter-root]", root);
     if (fr) {
       const keyAttr = fr.querySelector("[data-grade]") ? "grade" : "cat";
-      const sel = path === "/fichas" ? ".roster > li[data-text]"
-        : path === "/arsenal" ? ".weapon" : path === "/tecnicas" ? ".tech" : ".adv";
+      const sel = path === "/arsenal" ? ".weapon" : path === "/tecnicas" ? ".tech" : ".adv";
       wireFilter(fr, sel, el => el.dataset.text, el => el.dataset[keyAttr]);
     }
 
     wireJackpot(root);
+
+    $$(".roster-tab", root).forEach(tab => tab.addEventListener("click", () => {
+      $$(".roster-tab", root).forEach(t => t.setAttribute("aria-selected", t === tab));
+      $$(".roster-panel", root).forEach(p => p.hidden = p.dataset.rpanel !== tab.dataset.rtab);
+    }));
+    $$("[data-char]", root).forEach(b => b.addEventListener("click", () => openProfile(+b.dataset.char)));
 
     $$(".class-tab", root).forEach(tab => tab.addEventListener("click", () => {
       $$(".class-tab", root).forEach(t => t.setAttribute("aria-selected", t === tab));
