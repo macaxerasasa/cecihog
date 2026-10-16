@@ -978,7 +978,23 @@ window.SITE_DATA = {
       "Fala Amaldiçoada":                    { symbol: "言" },
       "Construção Amaldiçoada":              { symbol: "築" },
       "Manipulação de Sangue":               { symbol: "血" },
-      "Cobrança Amaldiçoada":                { symbol: "債" }
+      "Cobrança Amaldiçoada":                { symbol: "債" },
+      "Trem Privado do Amor Puro": {
+        symbol: "賭",
+        /* painel especial que aparece dentro da técnica, depois dos níveis */
+        system: {
+          title: "Sistema de Jackpot",
+          subtitle: "Trem Privado do Amor Puro — Aposta Mortal Indolente",
+          intro: "O Jackpot é o principal benefício concedido pela Expansão de Domínio do feiticeiro, permitindo que o feiticeiro receba uma quantidade ilimitada de energia amaldiçoada durante um período determinado. Para adaptar essa mecânica ao RPG, todos os benefícios possuem duração estabelecida em turnos, que varia conforme a nivelação da técnica. As rolagens servem exclusivamente para determinar se o Jackpot foi conquistado, não concedendo bônus, penalidades ou efeitos adicionais.",
+          rulesTitle: "Funcionamento das Apostas",
+          rules: "Ao manifestar sua Expansão de Domínio, o feiticeiro poderá realizar uma rolagem de 1d20 por turno, sendo necessário obter um resultado natural de 20 para conquistar o Jackpot. Qualquer resultado inferior representa uma tentativa fracassada, sem conceder qualquer benefício. O usuário poderá continuar realizando apostas enquanto seu domínio permanecer ativo, mas somente poderá receber os efeitos do Jackpot quando conquistar a combinação vencedora. Uma vez obtido o prêmio, os benefícios começam no turno seguinte e permanecem ativos durante a quantidade de turnos determinada por seu nível.",
+          tiers: [
+            { level: "Nível Três", turns: 2, text: "Ao conquistar o Jackpot, o feiticeiro recebe energia amaldiçoada ilimitada durante dois turnos completos, podendo utilizar suas técnicas e reforçar seu corpo sem consumir suas reservas. Durante esse período, todos os gastos convencionais de energia amaldiçoada são ignorados, permitindo que o usuário combata de maneira agressiva sem sofrer desgaste energético. Entretanto, ainda não recebe regeneração automática, permanecendo vulnerável a ferimentos e danos físicos. Após o encerramento dos dois turnos, suas reservas retornam ao funcionamento convencional e o benefício desaparece completamente." },
+            { level: "Nível Quatro", turns: 4, text: "O Jackpot passa a conceder todos os seus benefícios durante quatro turnos completos, proporcionando energia amaldiçoada ilimitada e a ativação automática da Técnica Reversa Amaldiçoada. Enquanto o efeito permanecer ativo, o feiticeiro consegue regenerar ferimentos graves, restaurar membros perdidos e recuperar danos internos sem realizar qualquer esforço consciente, tornando-se virtualmente imortal durante sua duração. A regeneração acontece continuamente, permitindo que sobreviva a ataques normalmente fatais, desde que seu corpo não seja completamente neutralizado antes da recuperação. Ao término dos quatro turnos, tanto a energia ilimitada quanto a regeneração automática desaparecem." },
+            { level: "Nível Cinco", turns: 5, text: "O feiticeiro alcança o funcionamento completo do Jackpot, mantendo energia amaldiçoada ilimitada e regeneração automática durante cinco turnos completos. Nesse estágio, sua principal vantagem consiste na capacidade de utilizar novamente a Expansão de Domínio após o encerramento do benefício, permitindo que realize novas apostas para conquistar outros Jackpots consecutivos. Caso obtenha um novo prêmio, receberá novamente todos os benefícios durante cinco turnos, podendo repetir esse processo enquanto possuir condições de continuar apostando. Entretanto, os efeitos não podem ser acumulados ou prolongados por qualquer outro meio, sendo necessário conquistar um novo Jackpot para reiniciar sua duração." }
+          ]
+        }
+      }
     }
   },
 

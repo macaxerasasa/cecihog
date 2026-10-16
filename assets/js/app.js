@@ -463,6 +463,128 @@
     return html;
   }
 
+  /* Painel especial "Sistema de Jackpot" (técnicas com system em data.js) */
+  const LEVEL_KANJI = { "Um": "壱", "Dois": "弐", "Três": "参", "Quatro": "肆", "Cinco": "伍", "Único": "唯" };
+  function jackpotHtml(s) {
+    const reel = `<span class="reel"><span class="reel__strip"><b>7</b></span></span>`;
+    return `
+      <section class="jackpot" data-jackpot>
+        <header class="jackpot__head">
+          <div class="slot" data-slot role="button" tabindex="0" aria-label="Girar a máquina de jackpot">
+            <div class="jackpot__machine">
+              <div class="jackpot__marquee" aria-hidden="true">大当たり</div>
+              <div class="jackpot__lights" aria-hidden="true"><i class="g"></i><i class="r"></i><i class="o"></i></div>
+              <div class="jackpot__reels" aria-hidden="true">${reel}${reel}${reel}<span class="jackpot__payline"></span></div>
+              <div class="jackpot__tray" aria-hidden="true"></div>
+            </div>
+            <div class="lever" aria-hidden="true"><span class="lever__arm"><span class="lever__ball"></span></span><span class="lever__base"></span></div>
+            <span class="slot__hint">Puxe a alavanca</span>
+          </div>
+          <div class="jackpot__titles">
+            <p class="jackpot__eyebrow">大当たり</p>
+            <h3 class="jackpot__title">${s.title}</h3>
+            <p class="jackpot__sub">${s.subtitle}</p>
+          </div>
+        </header>
+        <p class="jackpot__intro">${s.intro}</p>
+        <div class="jackpot__rules">
+          <div class="d20" aria-hidden="true">
+            <svg viewBox="0 0 100 100"><polygon points="50,3 93,27 93,73 50,97 7,73 7,27"/><path d="M50,3 L50,35 M7,27 L50,35 L93,27 M50,35 L93,73 L7,73 Z M7,73 L50,97 L93,73"/></svg>
+            <b>20</b>
+          </div>
+          <div>
+            <h4 class="jackpot__h4"><span>壱</span>${s.rulesTitle}</h4>
+            <p>${s.rules}</p>
+          </div>
+        </div>
+        <ol class="jackpot__tiers">
+          ${s.tiers.map(t => `
+            <li class="tier">
+              <div class="tier__head">
+                <span class="tier__kanji">${LEVEL_KANJI[t.level.replace("Nível ", "")] || "級"}</span>
+                <span class="tier__level">${t.level}</span>
+                <span class="tier__turns"><b>${t.turns}</b> turnos</span>
+              </div>
+              <div class="tier__meter" aria-hidden="true">${Array.from({ length: 5 }, (_, k) => `<i class="${k < t.turns ? "on" : ""}"></i>`).join("")}</div>
+              <p>${t.text}</p>
+            </li>`).join("")}
+        </ol>
+      </section>`;
+  }
+
+  /* Caça-níquel decorativo: a alavanca gira os três rolos, que param um de cada vez.
+     Às vezes sai 7 7 7 e a máquina comemora. Não tem regra de jogo, é só visual. */
+  function wireJackpot(root) {
+    const SYMBOLS = ["7", "桜", "鐘", "星", "銭"];
+    const pick = () => SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+    $$("[data-jackpot]", root).forEach(box => {
+      const slot = $("[data-slot]", box);
+      const reels = $$(".reel", box);
+      let busy = false;
+
+      const result = () => {
+        if (Math.random() < 0.2) return ["7", "7", "7"];
+        let r = [pick(), pick(), pick()];
+        if (r[0] === r[1] && r[1] === r[2]) r[2] = SYMBOLS[(SYMBOLS.indexOf(r[2]) + 1) % SYMBOLS.length];
+        return r;
+      };
+
+      const spin = () => {
+        if (busy) return;
+        busy = true;
+        box.classList.remove("is-win");
+        box.classList.add("is-spinning");
+        slot.classList.add("is-pulled");
+        setTimeout(() => slot.classList.remove("is-pulled"), 450);
+        const target = result();
+        let done = 0;
+
+        reels.forEach((reel, k) => {
+          const strip = $(".reel__strip", reel);
+          const h = reel.clientHeight;
+          const current = strip.lastElementChild ? strip.lastElementChild.textContent : "7";
+          const filler = Array.from({ length: 14 + k * 6 }, pick);
+          const symbols = [current, ...filler, target[k]];
+          strip.style.transition = "none";
+          strip.style.transform = "translateY(0)";
+          strip.innerHTML = symbols.map(s => `<b>${s}</b>`).join("");
+
+          let ended = false;
+          const finish = () => {
+            if (ended) return;
+            ended = true;
+            strip.style.transition = "none";
+            strip.innerHTML = `<b>${target[k]}</b>`;
+            strip.style.transform = "translateY(0)";
+            reel.classList.add("is-stopped");
+            setTimeout(() => reel.classList.remove("is-stopped"), 260);
+            if (++done === reels.length) {
+              box.classList.remove("is-spinning");
+              if (target.every(s => s === "7")) box.classList.add("is-win");
+              busy = false;
+            }
+          };
+
+          if (reduceMotion) { finish(); return; }
+          void strip.offsetHeight; // aplica a posição inicial antes de animar
+          const dur = 1.1 + k * 0.45;
+          strip.style.transition = `transform ${dur}s cubic-bezier(.12,.75,.2,1.02)`;
+          strip.style.transform = `translateY(-${(symbols.length - 1) * h}px)`;
+          strip.addEventListener("transitionend", finish, { once: true });
+          setTimeout(finish, dur * 1000 + 250); // garantia caso o navegador não avise o fim
+        });
+      };
+
+      slot.addEventListener("click", spin);
+      slot.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); spin(); }
+      });
+      // gira sozinha uma vez quando a técnica é aberta
+      const details = box.closest("details");
+      if (details) details.addEventListener("toggle", () => { if (details.open) setTimeout(spin, 350); });
+    });
+  }
+
   let tecCache;
   pages["/tecnicas"] = () => {
     const P = D.tecnicas;
@@ -504,6 +626,7 @@
                       <div class="level__text">${linesToHtml(l.lines)}</div>
                     </section>`).join("")}
                 </div>
+                ${tag.system ? jackpotHtml(tag.system) : ""}
               </div>
             </details>`;
           }).join("")}
@@ -649,6 +772,8 @@
         : path === "/arsenal" ? ".weapon" : path === "/tecnicas" ? ".tech" : ".adv";
       wireFilter(fr, sel, el => el.dataset.text, el => el.dataset[keyAttr]);
     }
+
+    wireJackpot(root);
 
     $$(".class-tab", root).forEach(tab => tab.addEventListener("click", () => {
       $$(".class-tab", root).forEach(t => t.setAttribute("aria-selected", t === tab));
