@@ -1012,7 +1012,7 @@ window.SITE_DATA = {
         age: "27 anos",
         className: "Mestre das Armas",
         technique: "Criação de Armas Amaldiçoadas",
-        occupation: "Feiticeira Jujutsu de Primeiro Grau",
+        occupation: "Feiticeira de Primeiro Grau",
         nationality: "Estadunidense",
         question: "Por qual motivo se tornou uma feiticeira jujutsu?",
         answer: [
