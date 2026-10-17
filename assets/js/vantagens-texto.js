@@ -27,7 +27,7 @@ Seja por antecedentes ou por mérito próprio, seu personagem possui um valor gi
 Recebe Energia Amaldiçoada de Ranque 8.
 
 Maldição Especial Vinculada
-(0/1)
+(0/2)
 
 Ao longo da vida do feiticeiro, algum evento vinculou sua alma com alguma outra, mais especificamente, com a de uma maldição de grau especial. Extremamente poderosa, ela é anexada a um objeto da escolha do jogador, podendo ser invocada em situações críticas ou quando voluntariamente chamada pelo seu usuário. Ao contrário da Técnica da Manipulação de Maldições, o detentor dessa vantagem não pode trocar de maldição, entregá-la para outra pessoa ou deixá-la de usar por opção, principalmente em ocasiões que envolvam o risco de vida.
 
@@ -82,7 +82,8 @@ Duas faces da mesma moeda, dois extremos, duas vidas espelhadas e, ainda assim, 
 
 Rota Mechamaru
 
-Recebe Energia Amaldiçoada de Ranque 8.
+Recebe Energia Amaldiçoada de Ranque 9.
+Recebe a Técnica de Manipulação de Marionetes.
 Recebe Técnica de Ranque 6.
 Recebe Expansão de Domínio de Ranque 6.
 
@@ -97,7 +98,7 @@ Recebe Resistência de Ranque 6.
 Atributos de Energia Amaldiçoada, Técnica e Expansão de Domínio travados no Ranque 0. Apesar de ser cunhado como um atributo de menor escala, não é exagero dizer que o usuário dessa vantagem possui um número nulo de energia amaldiçoada, portanto sendo incapaz de usar feitiços ou expansões.
 
 Corpo Amaldiçoado
-(0/2)
+(0/3)
 
 Criado por outro feiticeiro, seu corpo foi inoculado com energia amaldiçoada e você criou consciência por conta própria. Capaz de sustentar grandes quantidades de dano e combater por um tempo indeterminado, produz a própria energia amaldiçoada, tornando-se uma figura completamente independente de seu criador.
 
@@ -116,17 +117,17 @@ Recebe Energia Amaldiçoada de Ranque 5.
 Vantagens com o propósito de complementar as builds dos jogadores, tornando-as mais distintas ou aumentando ainda mais a proficiência de um feiticeiro em algum campo ou aspecto de domínio, para além disso, podem ser adquiridas ao lado das vantagens principais.
 
 Versatilidade Armada
-(0/2)
+(0/5)
 
 Jogadores com essa vantagem conseguem utilizar Armas Amaldiçoadas ou armas comuns com certa facilidade, assimilando seu funcionamento e adicionando-o ao seu estilo de combate sem muita dificuldade.
 
 Mestre Combatente
-(0/2)
+(0/5)
 
 Ao adquirir essa vantagem o feiticeiro se torna um combatente físico formidável, despontando em contendas desarmadas. Ao possuir Mestre Combatente, é possível esquivar-se duas vezes seguidas a cada cinco turnos.
 
 Escolhido Pelo Raio
-(0/1)
+(0/3)
 
 Ao possuir essa vantagem, o feiticeiro poderá utilizar as características da característica Escolhidos pelo Raio, que os lutadores possuem nativamente. Isso aumenta a margem de acerto crítico do Raio Negro para 19-20 e 18-20 após a primeira experiência, também permitindo que o usuário embarque em uma Sequência de Kokusen.
 
@@ -141,7 +142,7 @@ Riqueza
 Vindo de uma família humana ou de feiticeiros, o xamã é especialmente abastado com grande valor aquisitivo e monetário. É possível possuir uma riqueza grande ou algo acima, sendo necessário se aderir, tão somente, a valores realistas e que não ultrapassem a escala do mundo real. Essa riqueza pode ser utilizada em uma miríade de situações pontuais ou ter sua utilidade acentuada ao longo do desenvolvimento do personagem.
 
 Fama
-(0/3)
+(0/5)
 
 Vindo de uma família humana ou de feiticeiros, o xamã tornou-se alguém famoso a partir de seus próprios méritos ou por algum evento importante envolvendo seu nome. A fama abre precedentes para uma série de oportunidades e situações, como inimigos evitando combate direto com o feiticeiro ou julgando-o fraco por algum motivo específico. Ser famoso também influencia a classe designada ao exorcista.
 

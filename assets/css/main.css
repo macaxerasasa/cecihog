@@ -540,6 +540,8 @@ html { scrollbar-color: var(--blood-2) var(--ink); }
 .card-char__img img + .card-char__initial,
 .profile__img img + .card-char__initial { display: none; }
 .card-char__occ { font-size: .85rem; line-height: 1.4; color: var(--bone-3); }
+.card-char__nick { font: italic 400 .95rem/1 var(--f-body); text-transform: none; color: var(--blood); }
+.profile__nick { margin: -.2em 0 .6em !important; font: italic 400 1.25rem/1.2 var(--f-body); color: var(--blood) !important; }
 .card-char:focus-visible .card-char__img { border-color: var(--blood); }
 
 /* abas Alto Escalão / Professores / Alunos */

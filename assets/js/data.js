@@ -942,7 +942,7 @@ window.SITE_DATA = {
         age: "34 anos",
         className: "Lutador",
         technique: "Paradoxo",
-        occupation: "Professora da Escola de Jujutsu dos Estados Unidos",
+        occupation: "Feiticeira de Grau Especial",
         nationality: "Estadunidense",
         question: "Por qual motivo se tornou uma feiticeira jujutsu?",
         answer: [
@@ -956,6 +956,76 @@ window.SITE_DATA = {
           "Expansão de Domínio": 7,
           "Técnica": 8,
           "Invocação de Shikigami": 3
+        }
+      },
+      {
+        group: "professores",
+        name: "Vincent Callahan",
+        nickname: "Rex",
+        image: "assets/img/vincent-callahan.webp",
+        age: "42 anos",
+        className: "Lutador",
+        technique: "Atavismo Primordial",
+        occupation: "Feiticeiro de Primeiro Grau",
+        nationality: "Estadunidense",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Nascido com uma aparência reptiliana em decorrência de sua técnica inata, Vincent passou boa parte da infância sendo tratado como uma aberração. Sua força física extraordinária e sua resistência incomum despertaram a atenção de feiticeiros, que reconheceram seu potencial e o introduziram ao mundo jujutsu. Inicialmente, tornou-se feiticeiro para encontrar um lugar onde não fosse julgado por sua aparência, mas, com o passar dos anos, descobriu uma verdadeira paixão pelo combate e pela proteção dos mais fracos. Atualmente, trabalha como professor na Escola de Jujutsu dos Estados Unidos, sendo conhecido por sua personalidade descontraída, seu humor peculiar e sua brutalidade impressionante durante as batalhas."
+        ],
+        attributes: {
+          "Força": 9,
+          "Velocidade": 6,
+          "Resistência": 9,
+          "Energia Amaldiçoada": 7,
+          "Expansão de Domínio": 5,
+          "Técnica": 8,
+          "Invocação de Shikigami": 2
+        }
+      },
+      {
+        group: "professores",
+        name: "Darius Pilestedt",
+        image: "assets/img/darius-pilestedt.webp",
+        age: "29 anos",
+        className: "Encantador",
+        technique: "Ilusão Amaldiçoada",
+        occupation: "Feiticeiro de Primeiro Grau",
+        nationality: "Estadunidense",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Darius cresceu na família Pilestedt, uma linhagem de feiticeiros conhecida pelo domínio da Ilusão Amaldiçoada. Desde pequeno, foi submetido a treinamentos rigorosos para dominar sua técnica hereditária, aprendendo que uma batalha poderia ser vencida antes mesmo do primeiro golpe. Entretanto, sua decisão de seguir o caminho dos feiticeiros veio após perder seu irmão mais velho durante uma missão, quando uma maldição conseguiu manipular os sentidos de toda a equipe. Determinado a impedir que outras pessoas sofressem o mesmo destino, aperfeiçoou suas habilidades até alcançar o Primeiro Grau, tornando-se um especialista em manipulação sensorial e combate psicológico."
+        ],
+        attributes: {
+          "Força": 7,
+          "Velocidade": 7,
+          "Resistência": 6,
+          "Energia Amaldiçoada": 9,
+          "Expansão de Domínio": 8,
+          "Técnica": 9,
+          "Invocação de Shikigami": 3
+        }
+      },
+      {
+        group: "professores",
+        name: "Scarlett Browning",
+        image: "assets/img/scarlett-browning.webp",
+        age: "27 anos",
+        className: "Mestre das Armas",
+        technique: "Criação de Armas Amaldiçoadas",
+        occupation: "Feiticeira Jujutsu de Primeiro Grau",
+        nationality: "Estadunidense",
+        question: "Por qual motivo se tornou uma feiticeira jujutsu?",
+        answer: [
+          "Scarlett nasceu na família Browning, uma linhagem tradicional de feiticeiros reconhecida pela habilidade de transformar energia amaldiçoada em armamentos extraordinários. Desde a infância, foi ensinada a enxergar as armas não apenas como instrumentos de combate, mas como itens poderosos. Entretanto, sua trajetória tomou um rumo diferente quando sua família sofreu um ataque de maldições que resultou na morte de seu pai, um renomado feiticeiro que dedicara a vida à fabricação de ferramentas amaldiçoadas. Determinada a superar o legado paterno, Scarlett abandonou os métodos tradicionais de sua linhagem e desenvolveu um estilo de combate próprio, baseado na criação instantânea de armamentos durante as batalhas. Sua habilidade, acompanhada de uma personalidade confiante, provocadora e extremamente competitiva, permitiu que alcançasse o Primeiro Grau ainda jovem. Atualmente, atua como feiticeira independente nos Estados Unidos, aceitando missões de alto risco e buscando aperfeiçoar continuamente suas criações."
+        ],
+        attributes: {
+          "Força": 7,
+          "Velocidade": 8,
+          "Resistência": 6,
+          "Energia Amaldiçoada": 8,
+          "Expansão de Domínio": 6,
+          "Técnica": 9,
+          "Invocação de Shikigami": 2
         }
       }
     ]
@@ -999,6 +1069,7 @@ window.SITE_DATA = {
       "Construção Amaldiçoada":              { symbol: "築" },
       "Manipulação de Sangue":               { symbol: "血" },
       "Cobrança Amaldiçoada":                { symbol: "債" },
+      "Manipulação de Marionetes":           { symbol: "傀" },
       "Trem Privado do Amor Puro": {
         symbol: "賭",
         /* painel especial que aparece dentro da técnica, depois dos níveis */
