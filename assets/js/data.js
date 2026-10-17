@@ -1070,6 +1070,8 @@ window.SITE_DATA = {
       "Manipulação de Sangue":               { symbol: "血" },
       "Cobrança Amaldiçoada":                { symbol: "債" },
       "Manipulação de Marionetes":           { symbol: "傀" },
+      "Julgamento Amaldiçoado":              { symbol: "裁" },
+      "Técnica das Dez Sombras":             { symbol: "影", owner: "Holloway", category: "Herdadas" },
       "Trem Privado do Amor Puro": {
         symbol: "賭",
         /* painel especial que aparece dentro da técnica, depois dos níveis */
