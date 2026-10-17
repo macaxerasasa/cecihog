@@ -351,7 +351,7 @@
                   <li>
                     <button class="card-char" data-char="${i}" aria-haspopup="dialog">
                       ${charImg(c, "card-char__img")}
-                      <span class="card-char__name">${c.name}</span>
+                      <span class="card-char__name">${c.name}${c.nickname ? ` <em class="card-char__nick">“${c.nickname}”</em>` : ""}</span>
                       <span class="card-char__class">${[c.className, c.technique].filter(Boolean).join(" · ")}</span>
                       ${c.occupation ? `<span class="card-char__occ">${c.occupation}</span>` : ""}
                     </button>
@@ -373,7 +373,7 @@
     const c = D.fichas.characters[i];
     const g = (D.fichas.groups || []).find(x => x.id === c.group) || { label: "", kanji: "" };
     const facts = [
-      ["Idade", c.age], ["Classe", c.className], ["Técnica Inata", c.technique],
+      ["Apelido", c.nickname], ["Idade", c.age], ["Classe", c.className], ["Técnica Inata", c.technique],
       ["Ocupação", c.occupation], ["Nacionalidade", c.nationality]
     ].filter(f => f[1]);
     const attrs = Object.entries(c.attributes || {});
@@ -390,6 +390,7 @@
         <div class="profile__main">
           <p class="eyebrow"><span>${g.kanji}</span> ${g.label}</p>
           <h2 class="profile__name">${c.name}</h2>
+          ${c.nickname ? `<p class="profile__nick">“${c.nickname}”</p>` : ""}
           ${c.question ? `
             <section class="profile__block">
               <h3 class="profile__h3">${c.question}</h3>
