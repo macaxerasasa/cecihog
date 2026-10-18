@@ -391,9 +391,9 @@
           <p class="eyebrow"><span>${g.kanji}</span> ${g.label}</p>
           <h2 class="profile__name">${c.name}</h2>
           ${c.nickname ? `<p class="profile__nick">“${c.nickname}”</p>` : ""}
-          ${c.question ? `
+          ${c.question || (c.answer && c.answer.length) ? `
             <section class="profile__block">
-              <h3 class="profile__h3">${c.question}</h3>
+              <h3 class="profile__h3">${c.question || "História"}</h3>
               <div class="prose">${paras(c.answer)}</div>
             </section>` : ""}
           ${attrs.length ? `

@@ -44,7 +44,7 @@ window.SITE_DATA = {
     /* grade (classificação): "Esp.", "Um", "Dois", "Três" ou "Quatro" */
     items: [
       {
-        title: "Pesadelo Desperto", grade: "Dois", owner: "Desconhecido",
+        title: "Pesadelo Desperto", grade: "Dois", owner: "Taka Onizuka",
         paragraphs: [
           "Forjada por um antigo ferreiro que de conhecimentos mágicos gozava, Pesadelo Desperto é uma lâmina pouco conhecida, considerada como lendária. É dito que ela absorve a energia negativa de seus alvos, sejam maldições ou humanos, e toma para si os aspectos do medo e do temor.",
           "Quando empunhada, não brilha nem mesmo no maior dos clarões, negra como ébano, e pode canalizar a essência do medo presente em sua composição. Cada corte gera feridas que causam não somente dano físico mas também espiritual e psicológico, paralisando um inimigo que seja suscetível a emoções por um turno através de um bombardeio de visões horríveis."
@@ -1113,6 +1113,119 @@ window.SITE_DATA = {
           "Energia Amaldiçoada": 4,
           "Expansão de Domínio": 2,
           "Técnica": 6,
+          "Invocação de Shikigami": 1
+        }
+      },
+      {
+        group: "alunos",
+        name: "Taka Onizuka",
+        image: "assets/img/taka-onizuka.webp",
+        age: "16 anos",
+        className: "Mestre de Armas",
+        technique: "Não possui (Restrição Celestial Física)",
+        occupation: "Feiticeiro de Quarto Grau",
+        /* sem pergunta: o texto aparece com o título "História" */
+        answer: [
+          "Último herdeiro de uma linhagem de Portadores de Lâminas Mortais, os Onizuka fizeram de sua espada um legado durante o período Sengoku. Por séculos, seus descendentes carregaram o mesmo juramento: jamais permitir que o caminho da espada sucumbisse.",
+          "Agora, na Era Moderna, Taka é o único nome dessa linhagem. Frio, impassível e tão letal quanto a lâmina negra que empunha, encontrou na Academia Jujutsu o único lugar onde seu legado ainda poderia existir.",
+          "Um Onizuka sem fluxo amaldiçoado; e, ainda assim, um Onizuka perfeito."
+        ],
+        attributes: {
+          "Força": 6,
+          "Velocidade": 6,
+          "Resistência": 6,
+          "Energia Amaldiçoada": 0,
+          "Expansão de Domínio": 0,
+          "Técnica": 0,
+          "Invocação de Shikigami": 0
+        }
+      },
+      {
+        group: "alunos",
+        name: "Kaito Mizuhara",
+        image: "assets/img/kaito-mizuhara.webp",
+        age: "18 anos",
+        className: "Encantador",
+        technique: "Manipulação de Marionetes",
+        occupation: "Feiticeiro de Quarto Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Não foi a vocação que levou Kaito Mizuhara ao jujutsu, mas a necessidade. Nasceu num corpo que a própria família considerava defeituoso, consumido pelo mesmo poder que lhe corria nas veias, e cresceu entre vidros, unguentos e o desdém dos seus, como quem é guardado, mas não amado. Restava-lhe provar que a ruína da carne não impede a grandeza do espírito, e que aquilo que a Casa descartou por inútil haveria de ser, um dia, o que ela mais teria a temer."
+        ],
+        attributes: {
+          "Força": 0,
+          "Velocidade": 0,
+          "Resistência": 0,
+          "Energia Amaldiçoada": 9,
+          "Expansão de Domínio": 7,
+          "Técnica": 8,
+          "Invocação de Shikigami": 0
+        }
+      },
+      {
+        group: "alunos",
+        name: "Hayase Rin",
+        image: "assets/img/hayase-rin.webp",
+        age: "15 anos",
+        className: "Lutador",
+        technique: "Manipulação de Sangue",
+        occupation: "Feiticeira de Quarto Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Ressentimento. Rin ainda guarda em seu coração o sentimento de culpa por ter fraquejado quando ele mais precisou. Quando viu e não pôde fazer absolutamente nada... Tornar-se uma feiticeira jujutsu é, ao mesmo tempo, uma autopunição e seu mais profundo desejo de redenção diante daquele que já partiu deste mundo. Ser forte parece ser a única resposta!"
+        ],
+        attributes: {
+          "Força": 3,
+          "Velocidade": 3,
+          "Resistência": 3,
+          "Energia Amaldiçoada": 5,
+          "Expansão de Domínio": 1,
+          "Técnica": 4,
+          "Invocação de Shikigami": 1
+        }
+      },
+      {
+        group: "alunos",
+        name: "Wang Sun Jing",
+        nickname: "Sun",
+        image: "assets/img/wang-sun-jing.webp",
+        age: "15 anos",
+        className: "Lutador",
+        technique: "Chamas Amaldiçoadas",
+        occupation: "Feiticeira de Quarto Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Em 2009, sob a política do filho único na China, Sun Jing nasceu como a segunda filha de um casal que já tinha o filho perfeito. Após tentarem abortá-la sem sucesso por mais de quatro meses, seus pais a venderam para uma rede internacional de tráfico humano, e ela foi levada para os Estados Unidos. Com o desmantelamento do grupo, Jing passou a viver em um orfanato sob a vigilância de feiticeiros devido à imensa energia amaldiçoada que carregava, sendo forçada a se tornar feiticeira para continuar sob estrito controle."
+        ],
+        attributes: {
+          "Força": 2,
+          "Velocidade": 2,
+          "Resistência": 2,
+          "Energia Amaldiçoada": 10,
+          "Expansão de Domínio": 1,
+          "Técnica": 5,
+          "Invocação de Shikigami": 1
+        }
+      },
+      {
+        group: "alunos",
+        name: "Shinjou Kanae",
+        image: "assets/img/shinjou-kanae.webp",
+        age: "17 anos",
+        className: "Encantadora",
+        technique: "Cobrança Amaldiçoada",
+        occupation: "Feiticeira de Quarto Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Dinheiro, é claro. Sou rica, sempre fui, mas não é como se eu me contentasse com pouco. Demorei um tempinho pra entender que meus investimentos não estavam sendo inteligentes e, sinceramente, a fortuna de papai não vai durar pra sempre. Então... dizem que o trabalho edifica o homem, e como estamos in america , sabemos que no pain, no gain. Yesss, girl! Passe os dinheirinhos, pague suas dívidas!"
+        ],
+        attributes: {
+          "Força": 1,
+          "Velocidade": 4,
+          "Resistência": 3,
+          "Energia Amaldiçoada": 7,
+          "Expansão de Domínio": 4,
+          "Técnica": 4,
           "Invocação de Shikigami": 1
         }
       }
