@@ -1027,6 +1027,94 @@ window.SITE_DATA = {
           "Técnica": 9,
           "Invocação de Shikigami": 2
         }
+      },
+      {
+        group: "alunos",
+        name: "Ryoji Holloway",
+        image: "assets/img/ryoji-holloway.webp",
+        age: "16 anos",
+        className: "Invocador de Shikigamis",
+        technique: "Dez Sombras",
+        occupation: "Feiticeiro de Terceiro Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Ryoji era apenas mais um garoto, simples e dedicado. Isso quando você se lembra que nasceu em uma família amaldiçoada com o dom de criaturas abissais do mundo jujutsu. Ryoji herdou a capacidade de contrato dos mais poderosos shikigamis de sua época, desde de cedo destinado a carregar o fardo de possuir uma bomba nuclear em suas mãos. Trabalhando com esse peso cruel que acabou formando uma personalidade apática onde se esconde em ironias. Entrando para a escola jujutsu com o desejo de se aprimorar e possuir a capacidade de aguentar seus próprios poderes no futuro, no final querendo ser livre."
+        ],
+        attributes: {
+          "Força": 2,
+          "Velocidade": 3,
+          "Resistência": 3,
+          "Energia Amaldiçoada": 5,
+          "Expansão de Domínio": 1,
+          "Técnica": 6,
+          "Invocação de Shikigami": 4
+        }
+      },
+      {
+        group: "alunos",
+        name: "Leo Wolfe",
+        image: "assets/img/leo-wolfe.webp",
+        age: "18 anos",
+        className: "Encantador",
+        technique: "Absolute Kälte",
+        occupation: "Feiticeiro de Terceiro Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Liberdade. Não apenas aquela que se conquista rompendo correntes ou cruzando fronteiras, mas a liberdade de espírito, de pensamento e, acima de tudo, de escolha. Foi por isso que Leo escolheu se tornar um feiticeiro jujutsu. Não por patriotismo, tampouco por um desejo cego de honrar o sangue que corre em suas veias."
+        ],
+        attributes: {
+          "Força": 1,
+          "Velocidade": 1,
+          "Resistência": 1,
+          "Energia Amaldiçoada": 8,
+          "Expansão de Domínio": 4,
+          "Técnica": 7,
+          "Invocação de Shikigami": 1
+        }
+      },
+      {
+        group: "alunos",
+        name: "Shinsou Browning",
+        image: "assets/img/shinsou-browning.webp",
+        age: "17 anos",
+        className: "Mestre das Armas",
+        technique: "Criação de Armas Amaldiçoadas",
+        occupation: "Feiticeiro de Terceiro Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Pouco se sabe dos seus motivos, mas a insistência dos pais e dos julgamentos que poderia receber de terceiros fora um dos, senão o fator crucial para sua entrada no mundo Jujutsu e, claro, seguir adiante em seus planos ocultos. Diferente de sua família, Shinsou não se importa tanto com prestigios e metas a serem cumpridas; ele quer fazer o seu sem que precise impressionar alguém."
+        ],
+        attributes: {
+          "Força": 3,
+          "Velocidade": 3,
+          "Resistência": 2,
+          "Energia Amaldiçoada": 6,
+          "Expansão de Domínio": 1,
+          "Técnica": 6,
+          "Invocação de Shikigami": 1
+        }
+      },
+      {
+        group: "alunos",
+        name: "Suzume Yamaguchi",
+        image: "assets/img/suzume-yamaguchi.webp",
+        age: "15 anos",
+        className: "Encantadora",
+        technique: "Fala Amaldiçoada",
+        occupation: "Feiticeira de Quarto Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Quando criança, acabou machucando alguns amigos ao usar sua técnica amaldiçoada sem saber compreender suas habilidades. Marcada pelo ocorrido, decidiu ingressar na escola Jujutsu para aprender a controlar seu poder e garantir que aquilo nunca mais se repetisse, usando suas habilidades para proteger e ajudar outras pessoas. Para evitar machucar alguém novamente, passou a limitar seu vocabulário a ingredientes de Taiyaki, um doce japonês que ela adora, utilizando palavras como Komugi, Anko, Satõ, Miruku e Taiyaki para se comunicar."
+        ],
+        attributes: {
+          "Força": 2,
+          "Velocidade": 4,
+          "Resistência": 4,
+          "Energia Amaldiçoada": 4,
+          "Expansão de Domínio": 2,
+          "Técnica": 6,
+          "Invocação de Shikigami": 1
+        }
       }
     ]
   },
