@@ -1431,6 +1431,29 @@ window.SITE_DATA = {
           "Técnica": 5,
           "Invocação de Shikigami": 1
         }
+      },
+      {
+        group: "professores",
+        name: "Conrad Hargrove",
+        image: "assets/img/conrad-hargrove.webp",
+        age: "46 anos",
+        className: "Lutador",
+        technique: "Acúmulo Cinético",
+        occupation: "Feiticeiro Jujutsu de Primeiro Grau e Professor de Combate da Escola de Jujutsu dos Estados Unidos",
+        nationality: "Estadunidense",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Conrad Hargrove nunca foi um homem de muitas palavras. Nascido em uma família sem qualquer ligação com a comunidade jujutsu, passou boa parte da juventude servindo às Forças Armadas dos Estados Unidos, onde desenvolveu uma disciplina inabalável e uma obsessão quase doentia pelo aperfeiçoamento físico. Sua vida mudou drasticamente durante uma operação militar, quando sua unidade foi dizimada por uma maldição que nenhum dos soldados conseguia enxergar. Conrad sobreviveu graças ao despertar de sua técnica inata, capaz de absorver e acumular energia cinética para liberá-la através de golpes devastadores. Após o incidente, foi recrutado por feiticeiros estadunidenses e rapidamente conquistou reconhecimento por sua brutalidade em combate e extraordinária resistência física. Ao longo de décadas, tornou-se um dos combatentes corpo a corpo mais respeitados do país, construindo uma reputação de homem inflexível, extremamente exigente e absolutamente intolerante com a negligência. Atualmente, atua como professor de combate na Escola de Jujutsu dos Estados Unidos, onde seus treinamentos são conhecidos por levarem os estudantes aos próprios limites. Apesar da aparência intimidadora e da personalidade severa, Conrad possui um profundo senso de responsabilidade por seus alunos, acreditando que a verdadeira força de um feiticeiro não está em sua técnica, mas em sua capacidade de continuar lutando quando tudo parece perdido."
+        ],
+        attributes: {
+          "Força": 9,
+          "Velocidade": 7,
+          "Resistência": 9,
+          "Energia Amaldiçoada": 8,
+          "Expansão de Domínio": 5,
+          "Técnica": 8,
+          "Invocação de Shikigami": 1
+        }
       }
     ]
   },
