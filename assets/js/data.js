@@ -1054,7 +1054,7 @@ window.SITE_DATA = {
         group: "alunos",
         name: "Leo Wolfe",
         image: "assets/img/leo-wolfe.webp",
-        age: "18 anos",
+        age: "16 anos",
         className: "Encantador",
         technique: "Absolute Kälte",
         occupation: "Feiticeiro de Terceiro Grau",
@@ -1076,7 +1076,7 @@ window.SITE_DATA = {
         group: "alunos",
         name: "Shinsou Browning",
         image: "assets/img/shinsou-browning.webp",
-        age: "17 anos",
+        age: "16 anos",
         className: "Mestre das Armas",
         technique: "Criação de Armas Amaldiçoadas",
         occupation: "Feiticeiro de Terceiro Grau",
@@ -1144,7 +1144,7 @@ window.SITE_DATA = {
         group: "alunos",
         name: "Kaito Mizuhara",
         image: "assets/img/kaito-mizuhara.webp",
-        age: "18 anos",
+        age: "16 anos",
         className: "Encantador",
         technique: "Manipulação de Marionetes",
         occupation: "Feiticeiro de Quarto Grau",
@@ -1211,7 +1211,7 @@ window.SITE_DATA = {
         group: "alunos",
         name: "Shinjou Kanae",
         image: "assets/img/shinjou-kanae.webp",
-        age: "17 anos",
+        age: "16 anos",
         className: "Encantadora",
         technique: "Cobrança Amaldiçoada",
         occupation: "Feiticeira de Quarto Grau",
@@ -1226,6 +1226,118 @@ window.SITE_DATA = {
           "Energia Amaldiçoada": 7,
           "Expansão de Domínio": 4,
           "Técnica": 4,
+          "Invocação de Shikigami": 1
+        }
+      },
+      {
+        group: "alunos",
+        name: "Byakko",
+        image: "assets/img/byakko.webp",
+        age: "16 anos",
+        className: "Mestre de Barreira",
+        technique: "Transfiguração Ociosa",
+        occupation: "Feiticeiro de Quarto Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Auto-evolução. Byakko nasceu sem compreender completamente seu propósito no mundo, o \"papel\" que deveria cumprir — a forma de sua alma. Vendo-se diferente dos demais membros de sua espécie, ele busca no aprendizado e cotidiano dos humanos feiticeiros a oportunidade de observar e entender os sentimentos novos que sente — os violentos e os \"pacíficos\" —, e assim evoluir para uma existência superior como espírito amaldiçoado."
+        ],
+        attributes: {
+          "Força": 1,
+          "Velocidade": 3,
+          "Resistência": 1,
+          "Energia Amaldiçoada": 6,
+          "Expansão de Domínio": 5,
+          "Técnica": 5,
+          "Invocação de Shikigami": 1
+        }
+      },
+      {
+        group: "alunos",
+        name: "Armand de Rochefort",
+        image: "assets/img/armand-de-rochefort.webp",
+        age: "16 anos",
+        className: "Encantador",
+        technique: "Desmantelar & Partir",
+        occupation: "Feiticeiro de Quarto Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "O tato com o mundo Jujutsu se iniciou desde o seu nascimento. Da noite para o dia, as flores do jardim amanheceram cortadas ao meio, fissuras foram encontradas na estrutura da residência e, por fim, a taxa de enfermos na cidade foi alavancada por um mês inteiro. Armand, desde cedo, foi orientado para ser o suprassumo de sua linhagem, refinando a energia negativa pelo seu corpo e adequando o controle sobre ela. Tomando o título de jujutsu-shi antes da chegada de Séraphin, seu irmão mais novo, estava determinado a representar o legado dos Rochefort para a nova era, justificando os fins pelos seus próprios meios, ainda que controversos e maculados."
+        ],
+        attributes: {
+          "Força": 3,
+          "Velocidade": 2,
+          "Resistência": 2,
+          "Energia Amaldiçoada": 8,
+          "Expansão de Domínio": 2,
+          "Técnica": 3,
+          "Invocação de Shikigami": 1
+        }
+      },
+      {
+        group: "alunos",
+        name: "Séraphin de Rochefort",
+        image: "assets/img/seraphin-de-rochefort.webp",
+        age: "16 anos",
+        className: "Encantador",
+        technique: "Desmantelar e Partir",
+        occupation: "Feiticeiro de Quarto Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "A Técnica de Desmantelamento nunca foi uma individualidade dentro da linhagem de Rochefort. O primeiro de prestígio a fragmentar pequenas civilizações da França foi Enguerrand de Rochefort, alguns contos dos quais sugerem ter engravidado inúmeras mulheres pelos vilarejos que passou, enquanto outros afirmam ter falecido em combate contra Nikan Yansa. Depois, veio Isabeau, que deu espaço a Octavien antes de uma sucessão de incontáveis e afamados xamãs. Fatos são poucos, mas um deles é o de que a chegada tardia de Séraphin à América, após a ingressão na instituição Jujutsu de Armand, seu irmão mais velho, não cheira bem, e pode representar o prelúdio das mais sujas e diversas barbáries destinadas ao povo americano e quaisquer outros."
+        ],
+        attributes: {
+          "Força": 2,
+          "Velocidade": 3,
+          "Resistência": 2,
+          "Energia Amaldiçoada": 7,
+          "Expansão de Domínio": 4,
+          "Técnica": 5,
+          "Invocação de Shikigami": 1
+        }
+      },
+      {
+        group: "alunos",
+        name: "Kerr Keegan",
+        image: "assets/img/kerr-keegan.webp",
+        age: "16 anos",
+        className: "Lutador",
+        technique: "Projeção",
+        occupation: "Feiticeiro de Quarto Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Motivações decepcionantes à honra do mundo Jujutsu. Keegan brigava com humanos por diversão, contudo, uma hora ficou sem graça. Queria adversários mais fortes, gente que pudesse bater de volta e fazer cada luta valer a pena. Foi essa fome de confusão que o levou à organização, sendo aceito como uma imprevisibilidade necessária e efetiva.",
+          "Não acredita em mérito, dever ou dogma nenhum. Quer receber em dia, arrumar entretenimento de primeira e encontrar alguém que aguente mais de dois golpes. É um sádico narciso: quanto mais forte o adversário, mais se diverte."
+        ],
+        attributes: {
+          "Força": 4,
+          "Velocidade": 2,
+          "Resistência": 4,
+          "Energia Amaldiçoada": 7,
+          "Expansão de Domínio": 1,
+          "Técnica": 4,
+          "Invocação de Shikigami": 1
+        }
+      },
+      {
+        group: "alunos",
+        name: "Harusha Volkov",
+        nickname: "Haru",
+        image: "assets/img/harusha-volkov.webp",
+        age: "14 anos",
+        className: "Lutadora",
+        technique: "Elemento Raio",
+        occupation: "Feiticeiro de Quarto Grau",
+        /* sem pergunta: o texto aparece com o título "História" */
+        answer: [
+          "Eles me perguntam o motivo pelo qual eu me tornei um feiticeiro… Mas isso é tão óbvio! Me chamam de Harusha Volkov, mas eu prefiro apenas \"Haru\", e eu só quero bater, só quero luta, só quero ficar mais forte, não ligo pra herói nem pra vilão nem pra salvar ninguém, eu quero alguém que me bata de verdade, alguém mais forte que eu, e se não achar eu mesma me jogo no perigo até achar, eu gosto quando dói, gosto quando o outro grita, gosto quando eu também quase morro porque é divertido, as pessoas falam que eu sou doida, que eu sou criança maluca e que eu tenho tendências ruins mas eu não ligo, eu só quero briga, quero poder e quero alguém que me faça sentir medo de verdade, porque se não tiver medo não é luta de verdade."
+        ],
+        attributes: {
+          "Força": 6,
+          "Velocidade": 6,
+          "Resistência": 6,
+          "Energia Amaldiçoada": 2,
+          "Expansão de Domínio": 1,
+          "Técnica": 1,
           "Invocação de Shikigami": 1
         }
       }
