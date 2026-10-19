@@ -1340,6 +1340,97 @@ window.SITE_DATA = {
           "Técnica": 1,
           "Invocação de Shikigami": 1
         }
+      },
+      {
+        group: "alunos",
+        name: "Kenzan Metsubō",
+        image: "assets/img/kenzan-metsubo.webp",
+        age: "16 anos",
+        className: "Lutador",
+        technique: "Cópia Amaldiçoada",
+        occupation: "Feiticeiro de Quarto Grau",
+        /* sem pergunta: o texto aparece com o título "História" */
+        answer: [
+          "Nunca foi alguém que soubesse lidar com limites, muito menos aceitar que outras pessoas lhe dissessem como deveria se comportar. Seu temperamento agressivo e a aversão a qualquer forma de autoridade fizeram dele uma presença inconveniente por onde passou.",
+          "Tornou-se feiticeiro não por altruísmo ou senso de responsabilidade, mas porque encontrou naquele mundo um espaço onde sua natureza indisciplinada poderia existir sem tantas amarras. Para ele, estar ali era uma escolha própria, não uma dívida com ninguém."
+        ],
+        attributes: {
+          "Força": 2,
+          "Velocidade": 2,
+          "Resistência": 5,
+          "Energia Amaldiçoada": 7,
+          "Expansão de Domínio": 3,
+          "Técnica": 3,
+          "Invocação de Shikigami": 1
+        }
+      },
+      {
+        group: "professores",
+        name: "Sloane Valentine",
+        image: "assets/img/sloane-valentine.webp",
+        age: "29 anos",
+        className: "Encantador",
+        technique: "Técnica do Pesadelo",
+        occupation: "Feiticeira Jujutsu mais poderosa dos Estados Unidos",
+        nationality: "Estadunidense",
+        question: "Por qual motivo se tornou uma feiticeira jujutsu?",
+        answer: [
+          "Sloane Valentine nunca precisou provar absolutamente nada a ninguém. Nascida em uma família extremamente influente de Nova York, cresceu cercada de luxo, privilégios e uma confiança quase insuportável em suas próprias capacidades. Desde a infância, demonstrava um talento aterrorizante para a manipulação de pesadelos, sendo capaz de transformar os medos mais profundos de suas vítimas em experiências que ultrapassavam os limites da realidade. Seu ingresso no mundo jujutsu não aconteceu por necessidade ou por algum desejo heroico de proteger a humanidade, mas pela simples curiosidade de descobrir até onde seu poder poderia chegar. Ao longo dos anos, Sloane conquistou uma reputação praticamente intocável, derrotando maldições extraordinariamente perigosas e superando feiticeiros considerados lendas dentro da comunidade estadunidense. Atualmente, é reconhecida como a feiticeira mais poderosa dos Estados Unidos, uma posição que sustenta com uma naturalidade desconcertante. Sua personalidade extravagante, arrogante e provocadora contrasta com sua inteligência excepcional e seu domínio assustador da energia amaldiçoada. Embora frequentemente demonstre desinteresse pelas responsabilidades que acompanham sua posição, sua simples presença é suficiente para alterar o rumo de qualquer confronto. Para Sloane, o verdadeiro poder não consiste em matar seus adversários, mas em fazê-los desejar nunca terem cruzado seu caminho."
+        ],
+        attributes: {
+          "Força": 8,
+          "Velocidade": 8,
+          "Resistência": 7,
+          "Energia Amaldiçoada": 9,
+          "Expansão de Domínio": 10,
+          "Técnica": 10,
+          "Invocação de Shikigami": 5
+        }
+      },
+      {
+        group: "alunos",
+        name: "Vinicius Galvão",
+        nickname: "Vinnie",
+        image: "assets/img/vinicius-galvao.webp",
+        age: "15 anos",
+        className: "Mestre de Barreira",
+        technique: "Estação do Amor Puro",
+        occupation: "Feiticeiro de Quarto Grau",
+        /* sem pergunta: o texto aparece com o título "História" */
+        answer: [
+          "Vinicius entrou para o colégio de jujutsu brasileiro por dinheiro. Não havia vocação nem dívida de honra por trás da escolha. Desde garoto apostava em qualquer coisa de resultado incerto, de rifa de bairro a partida de sinuca, e quando soube que a escola pagava bolsa, adicional por missão e parte do valor dos contratos de exorcismo, viu ali a maior mesa que alguém já lhe oferecera. Arriscar a própria vida por uma renda que nenhum ofício lhe daria na mesma idade lhe pareceu uma boa aposta, e ele nunca foi de recusar uma."
+        ],
+        attributes: {
+          "Força": 2,
+          "Velocidade": 2,
+          "Resistência": 3,
+          "Energia Amaldiçoada": 7,
+          "Expansão de Domínio": 3,
+          "Técnica": 4,
+          "Invocação de Shikigami": 1
+        }
+      },
+      {
+        group: "alunos",
+        name: "Charlotte Pilestedt",
+        image: "assets/img/charlotte-pilestedt.webp",
+        age: "15 anos",
+        className: "Encantadora",
+        technique: "Ilusão Amaldiçoada",
+        occupation: "Feiticeira de Terceiro Grau",
+        question: "Por qual motivo se tornou um feiticeiro jujutsu?",
+        answer: [
+          "Charlotte Pilestedt cresceu junto de seu irmão mais velho, Darius Pilestedt, em uma família pertencente a uma linhagem de feiticeiros conhecida pelo domínio da Ilusão Amaldiçoada. Desde cedo, acompanhou o desenvolvimento das habilidades do irmão, encontrando nele uma referência para sua própria trajetória. Foi sob a orientação de Darius que iniciou seus treinamentos ainda nova, aprendendo a manipular os sentidos e a compreender as possibilidades de sua técnica inata. Com o tempo, o interesse inicial transformou-se em um objetivo próprio: tornar-se uma feiticeira jujutsu capaz de dominar suas habilidades por mérito próprio, sem deixar de lado os ensinamentos que recebeu do irmão."
+        ],
+        attributes: {
+          "Força": 1,
+          "Velocidade": 2,
+          "Resistência": 2,
+          "Energia Amaldiçoada": 6,
+          "Expansão de Domínio": 5,
+          "Técnica": 5,
+          "Invocação de Shikigami": 1
+        }
       }
     ]
   },
