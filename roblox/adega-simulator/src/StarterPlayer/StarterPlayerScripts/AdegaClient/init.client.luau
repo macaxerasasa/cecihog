@@ -74,21 +74,21 @@ local function unlockText(level)
 	end
 	for _, product in Config.Products do
 		if product.level == level then
-			table.insert(names, product.icon .. " " .. product.name)
+			table.insert(names, product.name)
 		end
 	end
 	for _, role in Config.Staff do
 		if role.level == level then
-			table.insert(names, role.icon .. " " .. role.name)
+			table.insert(names, role.name)
 		end
 	end
 	if #names == 0 then
 		return "Mais clientes e mais vagas na equipe!"
 	end
 	if #names > 4 then
-		return "Liberado: " .. table.concat(names, ", ", 1, 4) .. " e mais " .. (#names - 4)
+		return "Liberou " .. table.concat(names, ", ", 1, 4) .. " e mais " .. (#names - 4) .. " itens"
 	end
-	return "Liberado: " .. table.concat(names, ", ")
+	return "Liberou " .. table.concat(names, ", ")
 end
 
 local function start(name, module)
@@ -116,7 +116,7 @@ noticeEvent.OnClientEvent:Connect(function(text, kind, extra)
 	if kind == "resumo" then
 		Hud.summary(extra or {})
 	elseif kind == "nivel" and type(extra) == "table" and extra.level then
-		Hud.banner("NÍVEL " .. extra.level .. "!", unlockText(extra.level))
+		Hud.banner("Nível " .. extra.level, unlockText(extra.level))
 	else
 		Hud.toast(text, kind)
 	end

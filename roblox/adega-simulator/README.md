@@ -40,7 +40,7 @@ Clientes têm paciência: a barra no balão vai do verde ao vermelho. Se ningué
   - atendente de balcão;
   - segurança e DJ (melhoram a avaliação e o movimento).
 
-  Cada funcionário pode ser treinado até 5 estrelas, ficando mais rápido.
+  Cada funcionário pode ser treinado até 5 estrelas, ficando mais rápido. Em **Personalizar** você troca o nome, a pele, as cores da camisa, da calça e do sapato, o cabelo ou chapéu (11 estilos) e a cor do cabelo, vendo o boneco girar ao vivo.
 - **Terreno:** começa com 36 x 36 e chega a 84 x 84.
 - **Estilo:** 6 pisos e 8 cores de parede.
 - **Dia e noite:** um dia dura 14 minutos. Das 18h às 2h é o horário nobre, com 50% mais clientes e o neon aceso. Às 6h aparece o resumo do dia.
@@ -48,7 +48,10 @@ Clientes têm paciência: a barra no balão vai do verde ao vermelho. Se ningué
 
 ### Modo construção
 
-São 50 móveis em 5 categorias: Mesas, Bar, Paredes, Decoração e Luzes e som. O catálogo mostra uma miniatura 3D de cada um.
+São 97 móveis em 8 categorias: Mesas, Cadeiras, Balcões, Equipamentos, Paredes, Decoração, Plantas e Luzes e som. O catálogo mostra uma miniatura 3D de cada um.
+- **Mesas e cadeiras são separadas:** os clientes só sentam em cadeiras com a frente virada para uma mesa ou balcão de bar. Ao arrastar uma cadeira perto de uma mesa, ela gira sozinha para a mesa. A prévia fica amarela quando a cadeira não está virada para nada.
+- **Bar do seu jeito:** encaixe balcões retos, de canto e de ponta redonda (também há vitrine, pia, LED e mármore) e coloque banquetas na frente. O garçom pega os pedidos prontos no balcão mais perto.
+- **Tapetes, fitas de LED, guarda-sol, pergolado e varais:** ficam no chão ou no alto, então dá para pôr mesas junto.
 - **Colocar:** clique num móvel do catálogo e mova a prévia pela grade. Verde quer dizer que dá para colocar e vermelho que não dá.
 - **Editar:** clique num móvel já colocado para mover, girar ou vender (devolve 60% do preço).
 - **Paredes:** ficam transparentes enquanto você constrói.
@@ -86,7 +89,9 @@ python3 roblox/adega-simulator/tools/build_place.py
 src/
 ├── ReplicatedStorage/AdegaShared/     (Folder, usado pelo servidor e pelo cliente)
 │   ├── Config.luau                    números do jogo, cardápio, equipe, estilos, missões, avaliações
-│   ├── Catalog.luau                   os 50 móveis e o desenho 3D de cada um
+│   ├── Catalog.luau                   os 97 móveis e o desenho 3D de cada um
+│   ├── Looks.luau                     aparência dos bonecos (cores, cabelos e chapéus)
+│   ├── Models.luau                    bebidas e comidas em 3D
 │   └── Util.luau                      formatação e a adega inicial
 ├── ServerScriptService/AdegaServer/   (Script)
 │   ├── init.server.luau               mundo, iluminação, jogadores, economia, missões, ações
@@ -99,6 +104,7 @@ src/
 └── StarterPlayer/StarterPlayerScripts/AdegaClient/   (LocalScript)
     ├── init.client.luau               liga tudo e recebe o estado do servidor
     ├── UI.luau                        tema e componentes
+    ├── Icons.luau                     ícones desenhados
     ├── Hud.luau                       interface da tela
     ├── Panels.luau                    janelas de Equipe, Cardápio, Avaliações, Expandir e Estilo
     └── Build.luau                     modo construção

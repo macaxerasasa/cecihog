@@ -1,40 +1,49 @@
--- UI: tema e componentes da interface (painéis, botões, janelas, barras e animações).
+-- UI: tema e componentes da interface (cartões claros, botões, janelas, barras, ícones 3D).
 
 local TweenService = game:GetService("TweenService")
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+
+local Shared = ReplicatedStorage:WaitForChild("AdegaShared")
+local Models = require(Shared:WaitForChild("Models"))
+local Looks = require(Shared:WaitForChild("Looks"))
 
 local UI = {}
 
 local rgb = Color3.fromRGB
 
 UI.T = {
-	bg = rgb(16, 12, 26),
-	panel = rgb(28, 22, 44),
-	card = rgb(40, 32, 62),
-	cardLight = rgb(56, 46, 86),
-	line = rgb(98, 76, 152),
-	text = rgb(248, 244, 255),
-	muted = rgb(176, 166, 204),
-	gold = rgb(255, 196, 40),
-	orange = rgb(255, 128, 40),
-	neon = rgb(178, 84, 255),
-	pink = rgb(255, 80, 170),
-	green = rgb(56, 210, 116),
-	greenDark = rgb(26, 140, 76),
-	red = rgb(236, 72, 88),
-	blue = rgb(70, 150, 255),
-	cyan = rgb(60, 210, 230),
-	locked = rgb(70, 64, 92),
+	panel = rgb(255, 255, 255),
+	card = rgb(245, 243, 248),
+	cardDark = rgb(232, 228, 238),
+	bg = rgb(238, 235, 242),
+	line = rgb(226, 221, 232),
+	text = rgb(36, 31, 46),
+	muted = rgb(132, 124, 146),
+	gold = rgb(255, 149, 0),
+	goldDark = rgb(222, 104, 0),
+	green = rgb(52, 199, 89),
+	greenDark = rgb(30, 150, 65),
+	red = rgb(255, 69, 58),
+	blue = rgb(0, 122, 255),
+	purple = rgb(175, 82, 222),
+	teal = rgb(48, 176, 199),
+	pink = rgb(255, 55, 135),
+	locked = rgb(214, 210, 220),
+	dim = rgb(12, 8, 20),
 }
 local T = UI.T
 
-UI.Fonts = {
-	title = Enum.Font.FredokaOne,
-	bold = Enum.Font.GothamBold,
-	black = Enum.Font.GothamBlack,
-	body = Enum.Font.GothamMedium,
-	light = Enum.Font.Gotham,
+local FAMILY = "rbxasset://fonts/families/BuilderSans.json"
+UI.F = {
+	regular = Font.new(FAMILY, Enum.FontWeight.Regular),
+	medium = Font.new(FAMILY, Enum.FontWeight.Medium),
+	bold = Font.new(FAMILY, Enum.FontWeight.Bold),
+	extra = Font.new(FAMILY, Enum.FontWeight.ExtraBold),
+	heavy = Font.new(FAMILY, Enum.FontWeight.Heavy),
 }
+local F = UI.F
 
 function UI.create(className, props, children)
 	local instance = Instance.new(className)
@@ -61,14 +70,10 @@ end
 function UI.stroke(color, thickness, transparency)
 	return create("UIStroke", {
 		Color = color or T.line,
-		Thickness = thickness or 1.5,
+		Thickness = thickness or 1,
 		Transparency = transparency or 0,
 		ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
 	})
-end
-
-function UI.gradient(a, b, rotation)
-	return create("UIGradient", { Color = ColorSequence.new(a, b), Rotation = rotation or 90 })
 end
 
 function UI.pad(top, right, bottom, left)
@@ -83,19 +88,20 @@ function UI.pad(top, right, bottom, left)
 	})
 end
 
-function UI.list(direction, padding, align)
+function UI.list(direction, padding, align, valign)
 	return create("UIListLayout", {
 		FillDirection = direction or Enum.FillDirection.Vertical,
 		Padding = UDim.new(0, padding or 8),
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		HorizontalAlignment = align or Enum.HorizontalAlignment.Left,
+		VerticalAlignment = valign or Enum.VerticalAlignment.Top,
 	})
 end
 
 function UI.label(props)
 	local defaults = {
 		BackgroundTransparency = 1,
-		Font = UI.Fonts.bold,
+		FontFace = F.bold,
 		TextColor3 = T.text,
 		TextSize = 16,
 		TextXAlignment = Enum.TextXAlignment.Left,
@@ -113,30 +119,32 @@ function UI.tween(instance, time, props, style, direction)
 	return tween
 end
 
+-- Cartão branco com borda suave.
 function UI.panel(props)
 	local frame = create("Frame", {
 		BackgroundColor3 = T.panel,
-		BackgroundTransparency = 0.06,
 		BorderSizePixel = 0,
 	})
 	for key, value in props do
 		frame[key] = value
 	end
 	UI.corner(16).Parent = frame
-	UI.stroke(T.line, 1.5, 0.35).Parent = frame
-	UI.gradient(rgb(255, 255, 255), rgb(208, 198, 232)).Parent = frame
+	UI.stroke(rgb(0, 0, 0), 1, 0.9).Parent = frame
 	return frame
 end
 
--- Botão com hover e clique animados. style: "green", "gold", "red", "dark", "neon", "blue"
+-- Botões --------------------------------------------------------------------------------------------
+-- A cor vem do BackgroundColor3; o degradê é só claro/escuro (branco -> cinza), então o texto não some.
+
 local BUTTON_STYLES = {
-	green = { T.green, T.greenDark, rgb(255, 255, 255) },
-	gold = { T.gold, T.orange, rgb(60, 25, 0) },
-	red = { T.red, rgb(170, 40, 60), rgb(255, 255, 255) },
-	dark = { T.cardLight, T.card, T.text },
-	neon = { T.neon, rgb(110, 40, 200), rgb(255, 255, 255) },
-	blue = { T.blue, rgb(40, 90, 200), rgb(255, 255, 255) },
-	locked = { T.locked, rgb(50, 46, 66), T.muted },
+	green = { T.green, rgb(255, 255, 255) },
+	gold = { T.gold, rgb(255, 255, 255) },
+	red = { T.red, rgb(255, 255, 255) },
+	blue = { T.blue, rgb(255, 255, 255) },
+	purple = { T.purple, rgb(255, 255, 255) },
+	light = { T.card, T.text },
+	ghost = { T.card, T.muted },
+	locked = { T.locked, rgb(120, 114, 132) },
 }
 
 function UI.button(props, onClick)
@@ -145,10 +153,10 @@ function UI.button(props, onClick)
 	local colors = BUTTON_STYLES[style]
 	local button = create("TextButton", {
 		AutoButtonColor = false,
-		BackgroundColor3 = rgb(255, 255, 255),
-		Font = UI.Fonts.black,
-		TextSize = 15,
-		TextColor3 = colors[3],
+		BackgroundColor3 = colors[1],
+		FontFace = F.extra,
+		TextSize = 16,
+		TextColor3 = colors[2],
 		Text = "",
 		BorderSizePixel = 0,
 	})
@@ -156,18 +164,16 @@ function UI.button(props, onClick)
 		button[key] = value
 	end
 	UI.corner(12).Parent = button
-	local grad = UI.gradient(colors[1], colors[2])
-	grad.Name = "Cor"
-	grad.Parent = button
+	create("UIGradient", { Name = "Sombra", Color = ColorSequence.new(rgb(255, 255, 255), rgb(225, 225, 225)), Rotation = 90, Parent = button })
 	local scale = create("UIScale", { Parent = button })
 	button.MouseEnter:Connect(function()
-		UI.tween(scale, 0.12, { Scale = 1.05 })
+		UI.tween(scale, 0.12, { Scale = 1.04 })
 	end)
 	button.MouseLeave:Connect(function()
 		UI.tween(scale, 0.12, { Scale = 1 })
 	end)
 	button.MouseButton1Down:Connect(function()
-		UI.tween(scale, 0.08, { Scale = 0.93 })
+		UI.tween(scale, 0.08, { Scale = 0.94 })
 	end)
 	button.MouseButton1Up:Connect(function()
 		UI.tween(scale, 0.18, { Scale = 1 }, Enum.EasingStyle.Back)
@@ -180,11 +186,8 @@ end
 
 function UI.setButtonStyle(button, style)
 	local colors = BUTTON_STYLES[style]
-	local grad = button:FindFirstChild("Cor")
-	if grad then
-		grad.Color = ColorSequence.new(colors[1], colors[2])
-	end
-	button.TextColor3 = colors[3]
+	button.BackgroundColor3 = colors[1]
+	button.TextColor3 = colors[2]
 end
 
 function UI.shake(frame)
@@ -198,21 +201,13 @@ function UI.shake(frame)
 	end)
 end
 
-function UI.bar(parent, props)
-	local track = create("Frame", {
-		BackgroundColor3 = T.bg,
-		BorderSizePixel = 0,
-		Parent = parent,
-	}, { UI.corner("full") })
+-- Barra de progresso. Devolve (trilho, preenchimento).
+function UI.bar(parent, props, color)
+	local track = create("Frame", { BackgroundColor3 = T.cardDark, BorderSizePixel = 0, Parent = parent }, { UI.corner("full") })
 	for key, value in props do
-		if key ~= "ColorA" and key ~= "ColorB" then
-			track[key] = value
-		end
+		track[key] = value
 	end
-	local fill = create("Frame", { Size = UDim2.fromScale(0, 1), BackgroundColor3 = rgb(255, 255, 255), BorderSizePixel = 0, Parent = track }, {
-		UI.corner("full"),
-		UI.gradient(props.ColorA or T.neon, props.ColorB or T.pink, 0),
-	})
+	local fill = create("Frame", { Size = UDim2.fromScale(0, 1), BackgroundColor3 = color or T.gold, BorderSizePixel = 0, Parent = track }, { UI.corner("full") })
 	return track, fill
 end
 
@@ -222,13 +217,99 @@ function UI.stars(rating)
 	local text = string.rep("★", full)
 	local shown = full
 	if half and full < 5 then
-		text ..= '<font transparency="0.35">★</font>'
+		text ..= '<font transparency="0.45">★</font>'
 		shown += 1
 	end
 	if shown < 5 then
-		text ..= '<font transparency="0.8">' .. string.rep("★", 5 - shown) .. "</font>"
+		text ..= '<font transparency="0.82">' .. string.rep("★", 5 - shown) .. "</font>"
 	end
 	return text
+end
+
+-- Pílula pequena com texto (etiquetas).
+function UI.chip(parent, text, color, props)
+	local chip = create("TextLabel", {
+		AutomaticSize = Enum.AutomaticSize.X,
+		Size = UDim2.fromOffset(0, 22),
+		BackgroundColor3 = color or T.gold,
+		Text = text,
+		TextColor3 = rgb(255, 255, 255),
+		FontFace = F.extra,
+		TextSize = 12,
+		Parent = parent,
+	}, { UI.corner("full"), UI.pad(0, 9, 0, 9) })
+	for key, value in props or {} do
+		chip[key] = value
+	end
+	return chip
+end
+
+-- Objetos 3D em ViewportFrame ------------------------------------------------------------------------
+
+local function frameCamera(viewport, model, direction, fov, tighten)
+	local camera = Instance.new("Camera")
+	camera.FieldOfView = fov or 30
+	local center, extent = model:GetBoundingBox()
+	local distance = extent.Magnitude / 2 / math.tan(math.rad(camera.FieldOfView / 2)) * (tighten or 1)
+	camera.CFrame = CFrame.lookAt(center.Position + direction.Unit * distance, center.Position)
+	camera.Parent = viewport
+	viewport.CurrentCamera = camera
+	return camera
+end
+
+-- Bebida do cardápio em 3D.
+function UI.product(product, size, props)
+	local viewport = create("ViewportFrame", {
+		Size = UDim2.fromOffset(size, size),
+		BackgroundTransparency = 1,
+		Ambient = rgb(205, 200, 215),
+		LightColor = rgb(255, 250, 240),
+		LightDirection = Vector3.new(-0.5, -1, -0.6),
+	})
+	for key, value in props or {} do
+		viewport[key] = value
+	end
+	local model = Models.product(product, CFrame.new())
+	model.Parent = viewport
+	frameCamera(viewport, model, Vector3.new(0.35, 0.45, -1), 30, 1.02)
+	return viewport
+end
+
+-- Retrato do boneco com a aparência dada. Devolve (viewport, modelo).
+function UI.avatar(look, size, props, fullBody)
+	local viewport = create("ViewportFrame", {
+		Size = UDim2.fromOffset(size, size),
+		BackgroundTransparency = 1,
+		Ambient = rgb(200, 196, 210),
+		LightColor = rgb(255, 250, 244),
+		LightDirection = Vector3.new(-0.4, -0.8, -1),
+	})
+	for key, value in props or {} do
+		viewport[key] = value
+	end
+	local template = Shared:FindFirstChild("BonecoModelo")
+	if template == nil then
+		return viewport, nil
+	end
+	local world = create("WorldModel", { Parent = viewport })
+	local model = template:Clone()
+	model:PivotTo(CFrame.new(0, 0, 0) * CFrame.Angles(0, math.pi, 0))
+	model.Parent = world
+	Looks.apply(model, look)
+	local camera = Instance.new("Camera")
+	camera.FieldOfView = 28
+	local head = model:FindFirstChild("Head")
+	if fullBody or head == nil then
+		local center, extent = model:GetBoundingBox()
+		local distance = extent.Y / 2 / math.tan(math.rad(14)) * 1.08
+		camera.CFrame = CFrame.lookAt(center.Position + Vector3.new(0.25, 0.1, 1).Unit * distance, center.Position)
+	else
+		local focus = head.Position - Vector3.new(0, 0.55, 0)
+		camera.CFrame = CFrame.lookAt(focus + Vector3.new(0.35, 0.15, 1).Unit * 6.2, focus)
+	end
+	camera.Parent = viewport
+	viewport.CurrentCamera = camera
+	return viewport, model
 end
 
 -- Escala ------------------------------------------------------------------------------------------
@@ -241,7 +322,10 @@ function UI.currentScale()
 		return 1
 	end
 	local viewport = camera.ViewportSize
-	return math.clamp(math.min(viewport.X / 1366, viewport.Y / 768), 0.48, 1.2)
+	if viewport.X < 50 then
+		return 1
+	end
+	return math.clamp(math.min(viewport.X / 1366, viewport.Y / 768), 0.55, 1.2)
 end
 
 function UI.scaled(frame)
@@ -253,18 +337,15 @@ end
 function UI.applyScale()
 	local value = UI.currentScale()
 	for _, scaler in scalers do
-		if scaler.Parent and not scaler:GetAttribute("Animating") then
+		if scaler.Parent then
 			scaler.Scale = value
 		end
 	end
 end
 
 function UI.isTouch()
-	local input = game:GetService("UserInputService")
-	return input.TouchEnabled and not input.KeyboardEnabled
+	return UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled
 end
-
--- Janelas modais ----------------------------------------------------------------------------------
 
 function UI.newScreen(name, order, ignoreInset)
 	return create("ScreenGui", {
@@ -277,10 +358,44 @@ function UI.newScreen(name, order, ignoreInset)
 	})
 end
 
+-- Janelas -------------------------------------------------------------------------------------------
+
 local modalScreen = nil
 local openWindow = nil
 
-function UI.window(title, subtitle, icon, size)
+function UI.closeButton(parent, onClick)
+	local button = create("TextButton", {
+		Text = "",
+		AutoButtonColor = false,
+		AnchorPoint = Vector2.new(1, 0),
+		Position = UDim2.new(1, -16, 0, 16),
+		Size = UDim2.fromOffset(40, 40),
+		BackgroundColor3 = T.card,
+		Parent = parent,
+	}, { UI.corner("full") })
+	for _, angle in { 45, -45 } do
+		create("Frame", {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.fromScale(0.5, 0.5),
+			Size = UDim2.fromOffset(18, 3),
+			Rotation = angle,
+			BackgroundColor3 = T.muted,
+			BorderSizePixel = 0,
+			Parent = button,
+		}, { UI.corner("full") })
+	end
+	button.MouseEnter:Connect(function()
+		button.BackgroundColor3 = T.cardDark
+	end)
+	button.MouseLeave:Connect(function()
+		button.BackgroundColor3 = T.card
+	end)
+	button.Activated:Connect(onClick)
+	return button
+end
+
+-- accent: cor da faixa ao lado do título
+function UI.window(title, subtitle, accent, size)
 	if modalScreen == nil then
 		modalScreen = UI.newScreen("AdegaJanelas", 10, true)
 	end
@@ -289,7 +404,7 @@ function UI.window(title, subtitle, icon, size)
 		Text = "",
 		AutoButtonColor = false,
 		Size = UDim2.fromScale(1, 1),
-		BackgroundColor3 = rgb(5, 2, 12),
+		BackgroundColor3 = T.dim,
 		BackgroundTransparency = 1,
 		Visible = false,
 		Parent = modalScreen,
@@ -297,32 +412,19 @@ function UI.window(title, subtitle, icon, size)
 	local frame = create("Frame", {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.fromScale(0.5, 0.5),
-		Size = size or UDim2.fromOffset(880, 560),
+		Size = size or UDim2.fromOffset(900, 580),
 		BackgroundColor3 = T.bg,
 		Active = true,
 		Parent = dim,
-	}, { UI.corner(22), UI.stroke(T.neon, 2, 0.2) })
+	}, { UI.corner(24) })
 	local scale = create("UIScale", { Parent = frame })
-	local header = create("Frame", { Size = UDim2.new(1, 0, 0, 76), BackgroundColor3 = rgb(255, 255, 255), BorderSizePixel = 0, Parent = frame }, {
-		UI.corner(22),
-		UI.gradient(rgb(140, 30, 70), rgb(90, 40, 180), 0),
-	})
-	create("Frame", { Position = UDim2.new(0, 0, 1, -22), Size = UDim2.new(1, 0, 0, 22), BackgroundColor3 = rgb(255, 255, 255), BorderSizePixel = 0, Parent = header }, {
-		UI.gradient(rgb(140, 30, 70), rgb(90, 40, 180), 0),
-	})
-	UI.label({ Text = icon .. "  " .. title, Font = UI.Fonts.title, TextSize = 30, Position = UDim2.fromOffset(24, 8), Size = UDim2.new(1, -140, 0, 38), Parent = header })
-	local sub = UI.label({ Text = subtitle or "", Font = UI.Fonts.body, TextSize = 14, TextColor3 = rgb(235, 220, 255), Position = UDim2.fromOffset(26, 44), Size = UDim2.new(1, -140, 0, 20), Parent = header })
-	local close = UI.button({
-		Style = "red",
-		Text = "✕",
-		TextSize = 20,
-		AnchorPoint = Vector2.new(1, 0),
-		Position = UDim2.new(1, -18, 0, 17),
-		Size = UDim2.fromOffset(42, 42),
-		Parent = header,
-	})
-	close.UICorner.CornerRadius = UDim.new(1, 0)
-	local body = create("Frame", { Position = UDim2.fromOffset(18, 92), Size = UDim2.new(1, -36, 1, -108), BackgroundTransparency = 1, Parent = frame })
+	local header = create("Frame", { Size = UDim2.new(1, 0, 0, 84), BackgroundColor3 = T.panel, BorderSizePixel = 0, Parent = frame }, { UI.corner(24) })
+	create("Frame", { Position = UDim2.new(0, 0, 1, -24), Size = UDim2.new(1, 0, 0, 24), BackgroundColor3 = T.panel, BorderSizePixel = 0, Parent = header })
+	create("Frame", { Position = UDim2.new(0, 0, 1, 0), Size = UDim2.new(1, 0, 0, 1), BackgroundColor3 = T.line, BorderSizePixel = 0, Parent = header })
+	create("Frame", { Position = UDim2.fromOffset(28, 22), Size = UDim2.fromOffset(6, 40), BackgroundColor3 = accent or T.gold, BorderSizePixel = 0, Parent = header }, { UI.corner("full") })
+	UI.label({ Text = title, FontFace = F.heavy, TextSize = 30, Position = UDim2.fromOffset(46, 14), Size = UDim2.new(1, -140, 0, 34), Parent = header })
+	local sub = UI.label({ Text = subtitle or "", FontFace = F.medium, TextSize = 15, TextColor3 = T.muted, Position = UDim2.fromOffset(46, 48), Size = UDim2.new(1, -140, 0, 20), Parent = header })
+	local body = create("Frame", { Position = UDim2.fromOffset(22, 102), Size = UDim2.new(1, -44, 1, -122), BackgroundTransparency = 1, Parent = frame })
 
 	local win: { [string]: any } = { dim = dim, frame = frame, body = body, subtitle = sub, open = false }
 	function win.show()
@@ -332,9 +434,9 @@ function UI.window(title, subtitle, icon, size)
 		openWindow = win
 		win.open = true
 		dim.Visible = true
-		scale.Scale = UI.currentScale() * 0.85
-		UI.tween(dim, 0.2, { BackgroundTransparency = 0.45 })
-		UI.tween(scale, 0.32, { Scale = UI.currentScale() }, Enum.EasingStyle.Back)
+		scale.Scale = UI.currentScale() * 0.9
+		UI.tween(dim, 0.2, { BackgroundTransparency = 0.5 })
+		UI.tween(scale, 0.3, { Scale = UI.currentScale() }, Enum.EasingStyle.Back)
 		if win.onShow then
 			win.onShow()
 		end
@@ -347,9 +449,12 @@ function UI.window(title, subtitle, icon, size)
 		if openWindow == win then
 			openWindow = nil
 		end
-		UI.tween(dim, 0.18, { BackgroundTransparency = 1 })
-		UI.tween(scale, 0.18, { Scale = UI.currentScale() * 0.85 }, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
-		task.delay(0.18, function()
+		if win.onHide then
+			win.onHide()
+		end
+		UI.tween(dim, 0.16, { BackgroundTransparency = 1 })
+		UI.tween(scale, 0.16, { Scale = UI.currentScale() * 0.9 }, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
+		task.delay(0.16, function()
 			if not win.open then
 				dim.Visible = false
 			end
@@ -362,7 +467,7 @@ function UI.window(title, subtitle, icon, size)
 			win.show()
 		end
 	end
-	close.Activated:Connect(win.hide)
+	UI.closeButton(header, win.hide).Position = UDim2.new(1, -22, 0, 22)
 	dim.Activated:Connect(win.hide)
 	return win
 end
@@ -377,8 +482,8 @@ function UI.scroll(parent, props)
 	local frame = create("ScrollingFrame", {
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		ScrollBarThickness = 6,
-		ScrollBarImageColor3 = T.neon,
+		ScrollBarThickness = 5,
+		ScrollBarImageColor3 = rgb(180, 172, 190),
 		CanvasSize = UDim2.new(),
 		AutomaticCanvasSize = Enum.AutomaticSize.Y,
 		ScrollingDirection = Enum.ScrollingDirection.Y,

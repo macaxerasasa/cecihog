@@ -1,15 +1,17 @@
 -- Build: modo construção. Catálogo com miniaturas 3D, prévia na grade, colocar, mover, girar e vender.
+-- Cadeiras giram sozinhas para a mesa ou balcão do lado (até o jogador apertar R).
 
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 
 local UI = require(script.Parent.UI)
+local Icons = require(script.Parent.Icons)
 
 local Build = {}
 
 local T = UI.T
-local F = UI.Fonts
+local F = UI.F
 local create = UI.create
 local label = UI.label
 local rgb = Color3.fromRGB
@@ -59,7 +61,7 @@ local function rebuildOccupancy()
 		local x, z, r, uid = model:GetAttribute("X"), model:GetAttribute("Z"), model:GetAttribute("R"), model:GetAttribute("Uid")
 		if item and x and z and r then
 			for _, key in Catalog.cells(item, x, z, r) do
-				occupancy[key] = uid
+				occupancy[key] = { uid = uid, item = item }
 			end
 		end
 	end
@@ -76,8 +78,8 @@ local function validity(item, x, z, rotation, ignoreUid)
 		rebuildOccupancy()
 	end
 	for _, key in Catalog.cells(item, x, z, rotation) do
-		local uid = occupancy[key]
-		if uid and uid ~= ignoreUid then
+		local entry = occupancy[key]
+		if entry and entry.uid ~= ignoreUid then
 			return false, "Já tem algo nesse lugar"
 		end
 	end
@@ -85,6 +87,21 @@ local function validity(item, x, z, rotation, ignoreUid)
 		return false, "Falta dinheiro"
 	end
 	return true, nil
+end
+
+-- Quantos lugares da cadeira ficam virados para uma mesa ou balcão.
+local function facingSeats(item, x, z, rotation)
+	if occupancy == nil then
+		rebuildOccupancy()
+	end
+	local count = 0
+	for _, seat in Catalog.seatPoints(item, x, z, rotation) do
+		local entry = occupancy[seat.frontKey]
+		if entry and Catalog.isSeatingHost(entry.item) then
+			count += 1
+		end
+	end
+	return count
 end
 
 -- Grade e paredes transparentes ----------------------------------------------------------------------
@@ -104,26 +121,26 @@ local function drawGrid()
 	gridFolder = Instance.new("Folder")
 	gridFolder.Name = "GradeAdega"
 	local base = origin()
-	local function line(cframe, lineSize)
+	local function line(cframe, lineSize, transparency)
 		create("Part", {
 			Anchored = true,
 			CanCollide = false,
 			CanQuery = false,
 			CanTouch = false,
 			CastShadow = false,
-			Material = Enum.Material.Neon,
+			Material = Enum.Material.SmoothPlastic,
 			Color = rgb(255, 255, 255),
-			Transparency = 0.82,
+			Transparency = transparency,
 			Size = lineSize,
 			CFrame = cframe,
 			Parent = gridFolder,
 		})
 	end
 	for x = -size / 2, size / 2, 2 do
-		line(base * CFrame.new(x, 0.03, size / 2), Vector3.new(0.06, 0.02, size))
+		line(base * CFrame.new(x, 0.03, size / 2), Vector3.new(0.07, 0.02, size), if x % 8 == 0 then 0.55 else 0.75)
 	end
 	for z = 0, size, 2 do
-		line(base * CFrame.new(0, 0.03, z), Vector3.new(size, 0.02, 0.06))
+		line(base * CFrame.new(0, 0.03, z), Vector3.new(size, 0.02, 0.07), if z % 8 == 0 then 0.55 else 0.75)
 	end
 	gridFolder.Parent = workspace.CurrentCamera
 end
@@ -186,7 +203,7 @@ local function startGhost(item, rotation, moveUid, hiddenModel)
 	highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
 	highlight.Parent = model
 	model.Parent = workspace.CurrentCamera
-	ghost = { item = item, model = model, highlight = highlight, rotation = rotation or 0, moveUid = moveUid, hidden = hiddenModel }
+	ghost = { item = item, model = model, highlight = highlight, rotation = rotation or 0, moveUid = moveUid, hidden = hiddenModel, manual = moveUid ~= nil }
 	if hiddenModel then
 		for _, part in hiddenModel:GetDescendants() do
 			if part:IsA("BasePart") then
@@ -213,21 +230,42 @@ local function updateGhost()
 		return
 	end
 	local localPos = origin():PointToObjectSpace(hit.Position)
-	local w, d = Catalog.footprint(ghost.item, ghost.rotation)
+	local item = ghost.item
+
+	-- cadeira: gira sozinha para a mesa do lado, se o jogador não escolheu a rotação
+	if item.kind == "chair" and not ghost.manual then
+		local best, bestCount = ghost.rotation, -1
+		for offset = 0, 3 do
+			local rotation = (ghost.rotation + offset) % 4
+			local w, d = Catalog.footprint(item, rotation)
+			local count = facingSeats(item, Catalog.snap(localPos.X, w), Catalog.snap(localPos.Z, d), rotation)
+			if count > bestCount then
+				best, bestCount = rotation, count
+			end
+		end
+		ghost.rotation = best
+	end
+
+	local w, d = Catalog.footprint(item, ghost.rotation)
 	local x = Catalog.snap(localPos.X, w)
 	local z = Catalog.snap(localPos.Z, d)
 	ghost.x, ghost.z = x, z
 	ghost.model:PivotTo(origin() * Catalog.localCFrame(x, z, ghost.rotation) * CFrame.new(0, 0.1, 0))
-	local ok, reason = validity(ghost.item, x, z, ghost.rotation, ghost.moveUid)
+	local ok, reason = validity(item, x, z, ghost.rotation, ghost.moveUid)
 	ghost.valid = ok
 	ghost.reason = reason
-	ghost.highlight.FillColor = if ok then rgb(60, 230, 120) else rgb(240, 60, 70)
-	refs.ghostReason.Text = if ok then "Clique para colocar" else reason
-	refs.ghostReason.TextColor3 = if ok then T.green else T.red
+	local warning = nil
+	if ok and item.kind == "chair" and facingSeats(item, x, z, ghost.rotation) == 0 then
+		warning = "Sem mesa na frente: ninguém vai sentar aqui"
+	end
+	ghost.highlight.FillColor = if not ok then rgb(255, 69, 58) elseif warning then rgb(255, 179, 0) else rgb(52, 199, 89)
+	refs.ghostReason.Text = if not ok then reason elseif warning then warning else (if UI.isTouch() then "Toque em Colocar" else "Clique para colocar")
+	refs.ghostReason.TextColor3 = if not ok then T.red elseif warning then T.goldDark else T.greenDark
 end
 
 local function rotateGhost()
 	if ghost then
+		ghost.manual = true
 		ghost.rotation = (ghost.rotation + 1) % 4
 		updateGhost()
 	end
@@ -272,13 +310,13 @@ local function selectModel(model)
 		return
 	end
 	local highlight = Instance.new("Highlight")
-	highlight.FillColor = rgb(70, 150, 255)
-	highlight.FillTransparency = 0.7
-	highlight.OutlineColor = rgb(120, 200, 255)
+	highlight.FillColor = rgb(0, 122, 255)
+	highlight.FillTransparency = 0.75
+	highlight.OutlineColor = rgb(120, 190, 255)
 	highlight.Parent = model
 	selected = { model = model, item = item, uid = model:GetAttribute("Uid"), highlight = highlight, confirmSell = false }
 	refs.selName.Text = item.name
-	refs.sellButton.Text = "💲 Vender " .. App.Util.formatMoney(math.floor(item.price * App.Config.SellRefund))
+	refs.sellButton.Text = "Vender por " .. App.Util.formatMoney(math.floor(item.price * App.Config.SellRefund))
 	refs.selection.Visible = true
 end
 
@@ -308,9 +346,9 @@ end
 local function thumbnail(item, parent)
 	local viewport = create("ViewportFrame", {
 		Position = UDim2.fromOffset(6, 6),
-		Size = UDim2.new(1, -12, 0, 84),
-		BackgroundColor3 = rgb(36, 30, 56),
-		Ambient = rgb(170, 165, 185),
+		Size = UDim2.new(1, -12, 0, 88),
+		BackgroundColor3 = T.card,
+		Ambient = rgb(200, 196, 210),
 		LightColor = rgb(255, 250, 240),
 		LightDirection = Vector3.new(-0.6, -1, -0.4),
 		Parent = parent,
@@ -318,7 +356,7 @@ local function thumbnail(item, parent)
 	local model = Catalog.buildModel(item, CFrame.new(), { noLights = true })
 	model.Parent = viewport
 	local camera = Instance.new("Camera")
-	camera.FieldOfView = 32
+	camera.FieldOfView = 30
 	camera.Parent = viewport
 	viewport.CurrentCamera = camera
 	local cframe, size = model:GetBoundingBox()
@@ -335,11 +373,27 @@ local function refreshCards()
 	end
 	for _, entry in cards do
 		local item = entry.item
-		local locked = App.state.level < item.level
-		entry.lock.Visible = locked
-		entry.price.TextColor3 = if App.state.cash >= item.price then T.gold else T.red
-		entry.frame.UIStroke.Color = if ghost and ghost.item == item and not ghost.moveUid then T.gold else T.line
+		entry.lock.Visible = App.state.level < item.level
+		entry.price.TextColor3 = if App.state.cash >= item.price then T.goldDark else T.red
+		local stroke = entry.frame:FindFirstChildOfClass("UIStroke")
+		local chosen = ghost and ghost.item == item and not ghost.moveUid
+		stroke.Color = if chosen then T.gold else rgb(0, 0, 0)
+		stroke.Thickness = if chosen then 3 else 1
+		stroke.Transparency = if chosen then 0 else 0.9
 	end
+end
+
+local function kindLabel(item)
+	if item.kind == "chair" then
+		return #item.seats .. (if #item.seats == 1 then " lugar" else " lugares")
+	elseif item.kind == "station" then
+		return "Equipamento"
+	elseif item.layer == "air" then
+		return "Fica no alto"
+	elseif item.layer == "rug" then
+		return "Vai no chão"
+	end
+	return nil
 end
 
 local function showCategory(categoryId)
@@ -347,7 +401,7 @@ local function showCategory(categoryId)
 	for id, tab in refs.tabs do
 		local on = id == categoryId
 		tab.BackgroundTransparency = if on then 0 else 1
-		tab.TextColor3 = if on then rgb(60, 25, 0) else T.muted
+		tab.TextColor3 = if on then rgb(255, 255, 255) else T.muted
 	end
 	for _, entry in cards do
 		entry.frame:Destroy()
@@ -357,23 +411,29 @@ local function showCategory(categoryId)
 		if item.category ~= categoryId then
 			continue
 		end
-		local frame = create("TextButton", { Text = "", AutoButtonColor = false, Size = UDim2.fromOffset(132, 160), BackgroundColor3 = T.card, LayoutOrder = item.order, Parent = refs.items }, {
+		local frame = create("TextButton", { Text = "", AutoButtonColor = false, Size = UDim2.fromOffset(136, 172), BackgroundColor3 = T.panel, LayoutOrder = item.order, Parent = refs.items }, {
 			UI.corner(14),
-			UI.stroke(T.line, 1.5, 0.3),
+			UI.stroke(rgb(0, 0, 0), 1, 0.9),
 		})
 		thumbnail(item, frame)
-		label({ Text = item.name, TextSize = 11, TextWrapped = true, TextYAlignment = Enum.TextYAlignment.Top, Position = UDim2.fromOffset(8, 94), Size = UDim2.new(1, -16, 0, 28), Parent = frame })
+		label({ Text = item.name, FontFace = F.extra, TextSize = 13, TextWrapped = true, TextYAlignment = Enum.TextYAlignment.Top, Position = UDim2.fromOffset(9, 98), Size = UDim2.new(1, -18, 0, 32), Parent = frame })
+		local price = label({ Text = App.Util.formatMoney(item.price), FontFace = F.heavy, TextSize = 16, TextColor3 = T.goldDark, Position = UDim2.fromOffset(9, 132), Size = UDim2.new(1, -18, 0, 18), Parent = frame })
 		local extras = {}
-		if item.seats then
-			table.insert(extras, "🪑" .. #item.seats)
+		local kind = kindLabel(item)
+		if kind then
+			table.insert(extras, kind)
 		end
 		if (item.appeal or 0) > 0 then
-			table.insert(extras, "✨+" .. item.appeal)
+			table.insert(extras, "+" .. item.appeal .. " ambiente")
 		end
-		local price = label({ Text = App.Util.formatMoney(item.price), Font = F.title, TextSize = 14, TextColor3 = T.gold, Position = UDim2.fromOffset(8, 124), Size = UDim2.new(1, -16, 0, 16), Parent = frame })
-		label({ Text = table.concat(extras, "  "), Font = F.bold, TextSize = 11, TextColor3 = T.muted, Position = UDim2.fromOffset(8, 140), Size = UDim2.new(1, -16, 0, 14), Parent = frame })
-		local lock = create("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = rgb(10, 6, 18), BackgroundTransparency = 0.35, Visible = false, ZIndex = 5, Parent = frame }, { UI.corner(14) })
-		label({ Text = "🔒\nNível " .. item.level, Font = F.black, TextSize = 14, TextXAlignment = Enum.TextXAlignment.Center, Size = UDim2.fromScale(1, 1), ZIndex = 6, Parent = lock })
+		label({ Text = table.concat(extras, " • "), FontFace = F.bold, TextSize = 11, TextColor3 = T.muted, TextTruncate = Enum.TextTruncate.AtEnd, Position = UDim2.fromOffset(9, 150), Size = UDim2.new(1, -18, 0, 14), Parent = frame })
+		local lock = create("Frame", { Size = UDim2.fromScale(1, 1), BackgroundColor3 = rgb(255, 255, 255), BackgroundTransparency = 0.15, Visible = false, ZIndex = 5, Parent = frame }, { UI.corner(14) })
+		local lockIcon = Icons.lock(28, T.muted)
+		lockIcon.AnchorPoint = Vector2.new(0.5, 0.5)
+		lockIcon.Position = UDim2.fromScale(0.5, 0.4)
+		lockIcon.ZIndex = 6
+		lockIcon.Parent = lock
+		label({ Text = "Nível " .. item.level, FontFace = F.heavy, TextSize = 15, TextColor3 = T.muted, TextXAlignment = Enum.TextXAlignment.Center, Position = UDim2.fromScale(0, 0.55), Size = UDim2.new(1, 0, 0, 20), ZIndex = 6, Parent = lock })
 		local entry = { item = item, frame = frame, price = price, lock = lock }
 		frame.Activated:Connect(function()
 			if App.state.level < item.level then
@@ -387,7 +447,7 @@ local function showCategory(categoryId)
 		end)
 		if item.desc then
 			frame.MouseEnter:Connect(function()
-				refs.tooltip.Text = item.desc
+				refs.tooltipText.Text = item.desc
 				refs.tooltip.Visible = true
 			end)
 			frame.MouseLeave:Connect(function()
@@ -405,17 +465,22 @@ local function buildUI()
 	refs.screen = screen
 	screen.Enabled = false
 
-	local drawer = UI.scaled(UI.panel({ Name = "Catalogo", AnchorPoint = Vector2.new(0.5, 1), Position = UDim2.new(0.5, 0, 1, -10), Size = UDim2.fromOffset(1060, 232), Parent = screen }))
-	drawer.UIStroke.Color = T.gold
-	label({ Text = "🔨 CONSTRUÇÃO", Font = F.title, TextSize = 20, TextColor3 = T.gold, Position = UDim2.fromOffset(16, 10), Size = UDim2.fromOffset(190, 30), Parent = drawer })
-	local tabs = create("Frame", { Position = UDim2.fromOffset(200, 8), Size = UDim2.new(1, -330, 0, 34), BackgroundTransparency = 1, Parent = drawer })
-	UI.list(Enum.FillDirection.Horizontal, 6).Parent = tabs
+	local drawer = UI.scaled(UI.panel({ Name = "Catalogo", AnchorPoint = Vector2.new(0.5, 1), Position = UDim2.new(0.5, 0, 1, -12), Size = UDim2.fromOffset(1100, 252), Parent = screen }))
+	drawer.UICorner.CornerRadius = UDim.new(0, 22)
+	local square = create("Frame", { Position = UDim2.fromOffset(16, 12), Size = UDim2.fromOffset(36, 36), BackgroundColor3 = T.gold, Parent = drawer }, { UI.corner(10) })
+	local hammer = Icons.hammer(24, rgb(255, 255, 255))
+	hammer.AnchorPoint = Vector2.new(0.5, 0.5)
+	hammer.Position = UDim2.fromScale(0.5, 0.5)
+	hammer.Parent = square
+	label({ Text = "Construir", FontFace = F.heavy, TextSize = 22, Position = UDim2.fromOffset(62, 12), Size = UDim2.fromOffset(130, 36), Parent = drawer })
+	local tabs = create("Frame", { Position = UDim2.fromOffset(190, 12), Size = UDim2.new(1, -330, 0, 36), BackgroundTransparency = 1, Parent = drawer })
+	UI.list(Enum.FillDirection.Horizontal, 4, nil, Enum.VerticalAlignment.Center).Parent = tabs
 	refs.tabs = {}
 	for index, category in Catalog.Categories do
 		local tab = create("TextButton", {
-			Text = category.icon .. " " .. category.name,
-			Font = F.bold,
-			TextSize = 14,
+			Text = category.name,
+			FontFace = F.extra,
+			TextSize = 15,
 			TextColor3 = T.muted,
 			AutoButtonColor = false,
 			AutomaticSize = Enum.AutomaticSize.X,
@@ -424,77 +489,71 @@ local function buildUI()
 			BackgroundTransparency = 1,
 			LayoutOrder = index,
 			Parent = tabs,
-		}, { UI.corner("full"), UI.pad(0, 14, 0, 14) })
+		}, { UI.corner("full"), UI.pad(0, 13, 0, 13) })
 		tab.Activated:Connect(function()
 			showCategory(category.id)
 		end)
 		refs.tabs[category.id] = tab
 	end
-	UI.button({ Style = "red", Text = "✕ Sair", AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -14, 0, 8), Size = UDim2.fromOffset(100, 34), Parent = drawer }, function()
+	UI.button({ Style = "light", Text = "Sair", AnchorPoint = Vector2.new(1, 0), Position = UDim2.new(1, -16, 0, 12), Size = UDim2.fromOffset(110, 36), Parent = drawer }, function()
 		Build.setActive(false)
 	end)
 	refs.items = create("ScrollingFrame", {
-		Position = UDim2.fromOffset(12, 50),
-		Size = UDim2.new(1, -24, 0, 172),
+		Position = UDim2.fromOffset(12, 60),
+		Size = UDim2.new(1, -24, 0, 184),
 		BackgroundTransparency = 1,
 		BorderSizePixel = 0,
-		ScrollBarThickness = 6,
-		ScrollBarImageColor3 = T.gold,
+		ScrollBarThickness = 5,
+		ScrollBarImageColor3 = rgb(180, 172, 190),
 		ScrollingDirection = Enum.ScrollingDirection.X,
 		CanvasSize = UDim2.new(),
 		AutomaticCanvasSize = Enum.AutomaticSize.X,
 		Parent = drawer,
 	})
 	UI.list(Enum.FillDirection.Horizontal, 10).Parent = refs.items
-	UI.pad(4, 4, 8, 4).Parent = refs.items
+	UI.pad(2, 4, 8, 4).Parent = refs.items
 
-	refs.tooltip = label({
-		Text = "",
-		Font = F.body,
-		TextSize = 13,
-		TextWrapped = true,
-		TextXAlignment = Enum.TextXAlignment.Center,
-		BackgroundColor3 = T.bg,
-		BackgroundTransparency = 0.05,
+	refs.tooltip = UI.panel({
 		AnchorPoint = Vector2.new(0.5, 1),
-		Position = UDim2.new(0.5, 0, 0, -8),
-		Size = UDim2.fromOffset(520, 40),
+		Position = UDim2.new(0.5, 0, 0, -10),
+		Size = UDim2.fromOffset(0, 42),
+		AutomaticSize = Enum.AutomaticSize.X,
 		Visible = false,
 		Parent = drawer,
 	})
-	UI.corner(12).Parent = refs.tooltip
+	UI.pad(0, 16, 0, 16).Parent = refs.tooltip
+	refs.tooltipText = label({ Text = "", FontFace = F.bold, TextSize = 15, AutomaticSize = Enum.AutomaticSize.X, Size = UDim2.fromOffset(0, 42), Parent = refs.tooltip })
 
-	-- informação da prévia e ajuda
-	local info = UI.scaled(UI.panel({ Name = "Previa", AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 116), Size = UDim2.fromOffset(460, 86), Visible = false, Parent = screen }))
+	-- informação da prévia
+	local info = UI.scaled(UI.panel({ Name = "Previa", AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 120), Size = UDim2.fromOffset(480, 90), Visible = false, Parent = screen }))
 	refs.ghostInfo = info
-	refs.ghostName = label({ Text = "", TextSize = 17, Position = UDim2.fromOffset(16, 8), Size = UDim2.new(1, -150, 0, 22), TextTruncate = Enum.TextTruncate.AtEnd, Parent = info })
-	refs.ghostPrice = label({ Text = "", Font = F.title, TextSize = 18, TextColor3 = T.gold, TextXAlignment = Enum.TextXAlignment.Right, Position = UDim2.new(1, -140, 0, 8), Size = UDim2.fromOffset(124, 22), Parent = info })
-	refs.ghostReason = label({ Text = "", Font = F.bold, TextSize = 13, Position = UDim2.fromOffset(16, 32), Size = UDim2.new(1, -32, 0, 18), Parent = info })
+	refs.ghostName = label({ Text = "", FontFace = F.heavy, TextSize = 18, Position = UDim2.fromOffset(18, 10), Size = UDim2.new(1, -170, 0, 24), TextTruncate = Enum.TextTruncate.AtEnd, Parent = info })
+	refs.ghostPrice = label({ Text = "", FontFace = F.heavy, TextSize = 18, TextColor3 = T.goldDark, TextXAlignment = Enum.TextXAlignment.Right, Position = UDim2.new(1, -150, 0, 10), Size = UDim2.fromOffset(132, 24), Parent = info })
+	refs.ghostReason = label({ Text = "", FontFace = F.extra, TextSize = 14, Position = UDim2.fromOffset(18, 36), Size = UDim2.new(1, -36, 0, 20), Parent = info })
 	label({
-		Text = if UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled then "Toque no chão para mover a prévia" else "R girar  •  Q ou botão direito cancela  •  clique coloca",
-		Font = F.body,
-		TextSize = 12,
+		Text = if UI.isTouch() then "Toque no chão para mover a prévia" else "R gira  •  Q ou botão direito cancela  •  clique coloca",
+		FontFace = F.medium,
+		TextSize = 13,
 		TextColor3 = T.muted,
-		Position = UDim2.fromOffset(16, 56),
-		Size = UDim2.new(1, -32, 0, 18),
+		Position = UDim2.fromOffset(18, 60),
+		Size = UDim2.new(1, -36, 0, 18),
 		Parent = info,
 	})
 
-	local touchBar = create("Frame", { Position = UDim2.new(0, 0, 1, 10), Size = UDim2.new(1, 0, 0, 46), BackgroundTransparency = 1, Visible = false, Parent = info })
+	local touchBar = create("Frame", { Position = UDim2.new(0, 0, 1, 10), Size = UDim2.new(1, 0, 0, 48), BackgroundTransparency = 1, Visible = false, Parent = info })
 	UI.list(Enum.FillDirection.Horizontal, 10, Enum.HorizontalAlignment.Center).Parent = touchBar
-	UI.button({ Style = "blue", Text = "⟳ Girar", Size = UDim2.fromOffset(130, 44), LayoutOrder = 1, Parent = touchBar }, rotateGhost)
-	UI.button({ Style = "green", Text = "✓ Colocar", Size = UDim2.fromOffset(140, 44), LayoutOrder = 2, Parent = touchBar }, placeGhost)
-	UI.button({ Style = "red", Text = "✕", Size = UDim2.fromOffset(60, 44), LayoutOrder = 3, Parent = touchBar }, endGhost)
+	UI.button({ Style = "blue", Text = "Girar", Size = UDim2.fromOffset(130, 46), LayoutOrder = 1, Parent = touchBar }, rotateGhost)
+	UI.button({ Style = "green", Text = "Colocar", Size = UDim2.fromOffset(150, 46), LayoutOrder = 2, Parent = touchBar }, placeGhost)
+	UI.button({ Style = "light", Text = "Cancelar", Size = UDim2.fromOffset(130, 46), LayoutOrder = 3, Parent = touchBar }, endGhost)
 	refs.touchBar = touchBar
 
 	-- painel do móvel selecionado
-	local selection = UI.scaled(UI.panel({ Name = "Selecionado", AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 116), Size = UDim2.fromOffset(560, 104), Visible = false, Parent = screen }))
-	selection.UIStroke.Color = T.blue
+	local selection = UI.scaled(UI.panel({ Name = "Selecionado", AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.new(0.5, 0, 0, 120), Size = UDim2.fromOffset(600, 112), Visible = false, Parent = screen }))
 	refs.selection = selection
-	refs.selName = label({ Text = "", TextSize = 17, Position = UDim2.fromOffset(16, 8), Size = UDim2.new(1, -32, 0, 24), TextTruncate = Enum.TextTruncate.AtEnd, Parent = selection })
-	local row = create("Frame", { Position = UDim2.fromOffset(12, 42), Size = UDim2.new(1, -24, 0, 48), BackgroundTransparency = 1, Parent = selection })
+	refs.selName = label({ Text = "", FontFace = F.heavy, TextSize = 18, Position = UDim2.fromOffset(18, 10), Size = UDim2.new(1, -36, 0, 24), TextTruncate = Enum.TextTruncate.AtEnd, Parent = selection })
+	local row = create("Frame", { Position = UDim2.fromOffset(14, 48), Size = UDim2.new(1, -28, 0, 50), BackgroundTransparency = 1, Parent = selection })
 	UI.list(Enum.FillDirection.Horizontal, 10, Enum.HorizontalAlignment.Center).Parent = row
-	UI.button({ Style = "blue", Text = "✋ Mover", Size = UDim2.fromOffset(120, 44), LayoutOrder = 1, Parent = row }, function()
+	UI.button({ Style = "blue", Text = "Mover", Size = UDim2.fromOffset(120, 46), LayoutOrder = 1, Parent = row }, function()
 		if selected then
 			local model, item = selected.model, selected.item
 			local uid, rotation = selected.uid, model:GetAttribute("R") or 0
@@ -502,7 +561,7 @@ local function buildUI()
 			startGhost(item, rotation, uid, model)
 		end
 	end)
-	UI.button({ Style = "neon", Text = "⟳ Girar", Size = UDim2.fromOffset(110, 44), LayoutOrder = 2, Parent = row }, function()
+	UI.button({ Style = "purple", Text = "Girar", Size = UDim2.fromOffset(110, 46), LayoutOrder = 2, Parent = row }, function()
 		if selected then
 			local model = selected.model
 			local result = App.invoke("mover", { uid = selected.uid, x = model:GetAttribute("X"), z = model:GetAttribute("Z"), r = (model:GetAttribute("R") or 0) + 1 }, true)
@@ -512,7 +571,7 @@ local function buildUI()
 			end
 		end
 	end)
-	refs.sellButton = UI.button({ Style = "red", Text = "💲 Vender", Size = UDim2.fromOffset(170, 44), LayoutOrder = 3, Parent = row }, function()
+	refs.sellButton = UI.button({ Style = "red", Text = "Vender", Size = UDim2.fromOffset(200, 46), LayoutOrder = 3, Parent = row }, function()
 		if selected == nil then
 			return
 		end
@@ -527,7 +586,7 @@ local function buildUI()
 			occupancy = nil
 		end
 	end)
-	UI.button({ Style = "dark", Text = "✕", Size = UDim2.fromOffset(60, 44), LayoutOrder = 4, Parent = row }, deselect)
+	UI.button({ Style = "light", Text = "Fechar", Size = UDim2.fromOffset(110, 46), LayoutOrder = 4, Parent = row }, deselect)
 end
 
 -- Ligar e desligar ----------------------------------------------------------------------------------

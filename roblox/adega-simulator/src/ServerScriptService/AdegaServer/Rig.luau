@@ -4,8 +4,11 @@
 -- TweenService ao longo de caminhos calculados pelo PathfindingService.
 
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local PathfindingService = game:GetService("PathfindingService")
 local TweenService = game:GetService("TweenService")
+
+local Looks = require(ReplicatedStorage:WaitForChild("AdegaShared"):WaitForChild("Looks"))
 
 local Rig = {}
 
@@ -17,26 +20,13 @@ local ANIMATIONS = {
 	sit = "rbxassetid://2506281703",
 }
 
-Rig.Skins = { rgb(255, 224, 189), rgb(234, 192, 134), rgb(198, 134, 66), rgb(141, 85, 36), rgb(96, 58, 30), rgb(250, 205, 170) }
-Rig.Shirts = { rgb(230, 57, 70), rgb(29, 53, 87), rgb(42, 157, 143), rgb(244, 162, 97), rgb(250, 250, 250), rgb(25, 25, 28), rgb(255, 214, 10), rgb(120, 70, 200), rgb(0, 120, 70), rgb(240, 120, 170), rgb(90, 160, 230) }
-Rig.Pants = { rgb(40, 60, 110), rgb(30, 30, 34), rgb(90, 90, 96), rgb(60, 110, 60), rgb(150, 120, 80), rgb(200, 200, 200), rgb(70, 50, 40) }
-Rig.Hairs = { rgb(30, 22, 18), rgb(70, 45, 25), rgb(15, 15, 15), rgb(200, 160, 80), rgb(120, 60, 30), rgb(180, 60, 60) }
-
 local function pick(list)
 	return list[math.random(1, #list)]
 end
 Rig.pick = pick
 
 function Rig.randomLook()
-	local hat = pick({ "hair", "hair", "long", "long", "cap", "none", "curly" })
-	return {
-		skin = pick(Rig.Skins),
-		shirt = pick(Rig.Shirts),
-		pants = pick(Rig.Pants),
-		shoes = pick({ rgb(20, 20, 20), rgb(240, 240, 240), rgb(120, 70, 40) }),
-		hat = hat,
-		hatColor = if hat == "cap" then pick(Rig.Shirts) else pick(Rig.Hairs),
-	}
+	return Looks.random()
 end
 
 -- Avatar R15 base, criado uma vez e clonado para cada boneco ----------------------------------
@@ -84,6 +74,10 @@ local function getTemplate()
 		end
 		template.HumanoidRootPart.Anchored = true
 		template.HumanoidRootPart.Transparency = 1
+		-- cópia para a interface mostrar retratos e a prévia da personalização
+		local copy = template:Clone()
+		copy.Name = "BonecoModelo"
+		copy.Parent = ReplicatedStorage:WaitForChild("AdegaShared")
 	else
 		warn("[Adega] Não deu para criar avatares R15, usando bonecos de blocos:", result)
 	end
@@ -91,10 +85,6 @@ local function getTemplate()
 	return template
 end
 Rig.preload = getTemplate
-
-local SHIRT_PARTS = { UpperTorso = true, LeftUpperArm = true, RightUpperArm = true }
-local PANTS_PARTS = { LowerTorso = true, LeftUpperLeg = true, LeftLowerLeg = true, RightUpperLeg = true, RightLowerLeg = true }
-local SHOE_PARTS = { LeftFoot = true, RightFoot = true }
 
 local function weld(part0, part1, c0)
 	part1.Anchored = false
@@ -123,40 +113,6 @@ end
 Rig.newPart = newPart
 Rig.weld = weld
 
--- Chapéus e cabelos feitos de peças, presos na cabeça.
-local function addHeadwear(model, head, look, headSize)
-	local hat = look.hat
-	local color = look.hatColor or rgb(30, 22, 18)
-	local top = headSize.Y / 2
-	-- a cabeça do R6/R15 clássico é uma peça 2x1x1 com malha; a menor medida é a largura visível
-	local width = math.min(headSize.X, headSize.Z) * 1.1 + 0.1
-	local function add(name, size, offset, partColor, material)
-		local part = newPart(name, size, partColor or color, material)
-		weld(head, part, offset)
-		part.Parent = model
-		return part
-	end
-	if hat == "hair" then
-		add("Cabelo", Vector3.new(width, 0.32, width), CFrame.new(0, top - 0.05, 0.03))
-		add("Nuca", Vector3.new(width, 0.7, 0.25), CFrame.new(0, top - 0.45, headSize.Z / 2))
-	elseif hat == "curly" then
-		add("Cabelo", Vector3.new(width + 0.3, width * 0.7, width + 0.3), CFrame.new(0, top + 0.05, 0.08), nil, Enum.Material.Fabric).Shape = Enum.PartType.Ball
-	elseif hat == "long" then
-		add("Cabelo", Vector3.new(width, 0.32, width), CFrame.new(0, top - 0.05, 0.03))
-		add("CabeloLongo", Vector3.new(width, 1.7, 0.3), CFrame.new(0, top - 1.1, headSize.Z / 2 + 0.05))
-	elseif hat == "cap" then
-		add("Bone", Vector3.new(width, 0.42, width), CFrame.new(0, top + 0.05, 0))
-		add("Aba", Vector3.new(width - 0.1, 0.1, 0.7), CFrame.new(0, top - 0.1, -width / 2 - 0.3))
-	elseif hat == "chef" then
-		add("Touca", Vector3.new(width - 0.1, 0.9, width - 0.1), CFrame.new(0, top + 0.4, 0), rgb(250, 250, 250))
-	elseif hat == "headphones" then
-		add("Fone", Vector3.new(width + 0.3, 0.2, 0.3), CFrame.new(0, top + 0.05, 0), rgb(20, 20, 20))
-		for _, x in { -1, 1 } do
-			add("Concha", Vector3.new(0.3, 0.6, 0.6), CFrame.new(x * (width / 2 + 0.1), 0, 0), look.shirt, Enum.Material.Neon)
-		end
-	end
-end
-
 -- Boneco de blocos (plano B) ---------------------------------------------------------------------
 
 local LIMBS = {
@@ -171,14 +127,15 @@ local function limbC0(name, angle)
 	return CFrame.new(def.pivot) * CFrame.Angles(angle, 0, 0) * CFrame.new(def.hang)
 end
 
-local function buildBlocky(model, look)
-	local root = newPart("HumanoidRootPart", Vector3.new(2, 2, 1), look.shirt)
+local function buildBlocky(model)
+	local white = rgb(240, 240, 240)
+	local root = newPart("HumanoidRootPart", Vector3.new(2, 2, 1), white)
 	root.Anchored = true
 	root.CanCollide = false
 	root.CanQuery = false
 	root.CanTouch = false
 	root.Parent = model
-	local head = newPart("Head", Vector3.new(1.2, 1.2, 1.2), look.skin)
+	local head = newPart("Head", Vector3.new(1.2, 1.2, 1.2), white)
 	weld(root, head, CFrame.new(0, 1.6, 0))
 	local face = Instance.new("Decal")
 	face.Texture = "rbxasset://textures/face.png"
@@ -187,11 +144,11 @@ local function buildBlocky(model, look)
 	local welds = {}
 	for name in LIMBS do
 		local isArm = name == "LeftArm" or name == "RightArm"
-		local limb = newPart(name, Vector3.new(1, 2, 1), if isArm then look.skin else look.pants)
+		local limb = newPart(name, Vector3.new(1, 2, 1), white)
 		welds[name] = weld(root, limb, limbC0(name, 0))
 		limb.Parent = model
 		if isArm then
-			local sleeve = newPart("Manga", Vector3.new(1.05, 0.8, 1.05), look.shirt)
+			local sleeve = newPart("Manga", Vector3.new(1.05, 0.8, 1.05), white)
 			weld(limb, sleeve, CFrame.new(0, 0.62, 0))
 			sleeve.Parent = model
 		end
@@ -209,19 +166,6 @@ function Rig.new(parent, feet, lookDir, look, name)
 
 	if base then
 		model = base:Clone()
-		for _, part in model:GetDescendants() do
-			if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
-				if SHIRT_PARTS[part.Name] then
-					part.Color = look.shirt
-				elseif PANTS_PARTS[part.Name] then
-					part.Color = look.pants
-				elseif SHOE_PARTS[part.Name] then
-					part.Color = look.shoes or rgb(25, 25, 25)
-				else
-					part.Color = look.skin
-				end
-			end
-		end
 		rig.root = model.HumanoidRootPart
 		rig.head = model:FindFirstChild("Head")
 		rig.hand = model:FindFirstChild("RightHand")
@@ -231,7 +175,7 @@ function Rig.new(parent, feet, lookDir, look, name)
 		rig.isR15 = true
 	else
 		model = Instance.new("Model")
-		local root, head, welds = buildBlocky(model, look)
+		local root, head, welds = buildBlocky(model)
 		rig.root = root
 		rig.head = head
 		rig.welds = welds
@@ -244,9 +188,8 @@ function Rig.new(parent, feet, lookDir, look, name)
 	model.Name = name or "Cliente"
 	model.PrimaryPart = rig.root
 	rig.model = model
-	if not rig.isR15 then
-		addHeadwear(model, rig.head, look, rig.head.Size)
-	end
+	model:SetAttribute("Blocos", not rig.isR15)
+	Looks.apply(model, look)
 
 	rig.root.CFrame = CFrame.lookAt(feet + Vector3.new(0, rig.standOffset, 0), feet + Vector3.new(lookDir.X, rig.standOffset, lookDir.Z))
 	model.Parent = parent
@@ -445,6 +388,14 @@ function Rig.findPath(from, to)
 	return nil, nil, nil
 end
 
+local lastNoPathWarning = 0
+local function warnNoPath(from, to)
+	if os.clock() - lastNoPathWarning > 30 then
+		lastNoPathWarning = os.clock()
+		warn(string.format("[Adega] Sem caminho livre de (%.0f, %.0f) até (%.0f, %.0f); o boneco foi em linha reta. Deixe corredores mais largos entre os móveis.", from.X, from.Z, to.X, to.Z))
+	end
+end
+
 local function stepTo(rig, target, speed)
 	local from = rig.root.Position
 	local destination = target + Vector3.new(0, rig.standOffset, 0)
@@ -472,7 +423,14 @@ function Rig.walkTo(rig, target, speed, alive, approach)
 	end
 	local waypoints, startFix, endFix = Rig.findPath(from, target)
 	if waypoints == nil then
-		return false
+		-- Sem caminho (móveis apertados demais): vai em linha reta para não travar a adega.
+		warnNoPath(from, target)
+		Rig.setPose(rig, "walk")
+		stepTo(rig, target, speed)
+		if Rig.isAlive(rig) then
+			Rig.setPose(rig, "idle")
+		end
+		return Rig.isAlive(rig) and alive()
 	end
 	if approach then
 		endFix = nil

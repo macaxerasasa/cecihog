@@ -152,7 +152,7 @@ function Restaurant.pickupPlaceFor(plot, item, station)
 	end
 	local best, bestDistance = nil, math.huge
 	for _, rec in plot.furniture do
-		if rec.kind == "counter" then
+		if (rec.kind == "counter" or rec.kind == "bar") and rec.staffPos then
 			local distance = (rec.staffPos - station.use).Magnitude
 			if distance < bestDistance then
 				best, bestDistance = rec, distance
@@ -289,9 +289,6 @@ function Restaurant.takeOrder(plot, order, actor)
 	for _, item in order.items do
 		item.state = "pending"
 	end
-	if order.party.bubble then
-		order.party.bubble.color(rgb(112, 26, 44))
-	end
 	if actor.kind == "player" then
 		event(plot, "takeOrder")
 	end
@@ -329,7 +326,7 @@ function Restaurant.deliver(plot, order, items, actor)
 		end
 		local where = if order.place then (order.place.top or order.place.queue) else nil
 		if where then
-			Props.popup(where + Vector3.new(0, 2, 0), "✅", rgb(110, 255, 140))
+			Props.popup(where + Vector3.new(0, 2, 0), "Entregue!", rgb(110, 255, 140))
 		end
 	end
 	if orderComplete(order) then
@@ -455,7 +452,7 @@ end
 function Restaurant.claimTable(plot, actor, need)
 	local list = {}
 	for _, rec in plot.furniture do
-		if rec.kind == "seating" then
+		if rec.host then
 			local wants = (need == "money" and rec.money > 0 and rec.moneyClaim == nil)
 				or (need == "dirty" and rec.status == "dirty" and rec.cleanClaim == nil)
 			if wants then
@@ -503,6 +500,7 @@ function Restaurant.clean(plot, rec, actor)
 		rec.dirtModel = nil
 	end
 	rec.status = "free"
+	plot:relink()
 	Props.sparkle(rec.top + Vector3.new(0, 0.5, 0), rgb(120, 200, 255))
 	if actor.kind == "player" then
 		event(plot, "clean")
@@ -617,7 +615,7 @@ local function alive(plot, party)
 	return plot.rt ~= nil and plot.rt.session == party.session and not party.gone
 end
 
-local function setBubble(plot, party, text, width)
+local function setBubble(plot, party, text)
 	if party.bubble == nil then
 		local adornee = if party.table then party.table.topPart else party.members[1].rig.head
 		if adornee == nil then
@@ -625,7 +623,11 @@ local function setBubble(plot, party, text, width)
 		end
 		party.bubble = Props.bubble(adornee, if party.table then 4 else 2.6)
 	end
-	party.bubble.set(text, width)
+	if text == "!" then
+		party.bubble.call()
+	else
+		party.bubble.text(text)
+	end
 end
 
 local function clearBubble(party)
@@ -635,14 +637,14 @@ local function clearBubble(party)
 	end
 end
 
-local function orderIcons(order)
-	local icons = {}
+local function orderProducts(order)
+	local list = {}
 	for _, item in order.items do
 		if item.state ~= "served" then
-			table.insert(icons, item.product.icon)
+			table.insert(list, item.product)
 		end
 	end
-	return table.concat(icons, "")
+	return list
 end
 
 -- Espera até condition() ser verdadeira, mostrando a paciência no balão. Devolve false se acabou a paciência.
@@ -658,8 +660,7 @@ local function waitWithPatience(plot, party, condition, patience, label)
 		end
 		if party.bubble then
 			if label then
-				local text = label()
-				party.bubble.set(text, math.clamp(30 + (utf8.len(text) or #text) * 26, 70, 170))
+				party.bubble.products(label())
 			end
 			party.bubble.bar(1 - elapsed / patience)
 		end
@@ -679,7 +680,7 @@ local function leaveAll(plot, party, angry)
 				return
 			end
 			if angry then
-				Props.popup(rig.root.Position + Vector3.new(0, 2.5, 0), "😡", rgb(255, 90, 90))
+				Props.popup(rig.root.Position + Vector3.new(0, 2.5, 0), "Que demora!", rgb(255, 110, 100))
 			end
 			if member.seat and member.seated then
 				Rig.stand(rig, member.seat.pos, -member.seat.face)
@@ -734,6 +735,9 @@ local function finishTable(plot, party, angry)
 		rec.status = "free"
 	end
 	rec.party = nil
+	if rec.status == "free" then
+		plot:relink()
+	end
 	leaveAll(plot, party, angry)
 end
 
@@ -773,6 +777,7 @@ local function runTable(plot, party)
 		notifyOnce(plot, "mesa" .. rec.number, "Os clientes não conseguem chegar na Mesa " .. rec.number .. ". Deixe um caminho livre até ela.", "erro")
 		rec.status = "free"
 		rec.party = nil
+		plot:relink()
 		leaveAll(plot, party, false)
 		return
 	end
@@ -780,7 +785,7 @@ local function runTable(plot, party)
 
 	while alive(plot, party) do
 		party.state = "reading"
-		setBubble(plot, party, "📖")
+		setBubble(plot, party, "...")
 		party.bubble.bar(nil)
 		task.wait(randomIn(C.readMenu))
 		if not alive(plot, party) then
@@ -796,8 +801,7 @@ local function runTable(plot, party)
 		local order = newOrder(plot, party)
 		party.order = order
 		party.ready = true
-		setBubble(plot, party, "❗")
-		party.bubble.color(rgb(255, 170, 30))
+		setBubble(plot, party, "!")
 		local taken, waited = waitWithPatience(plot, party, function()
 			return order.state ~= "waiting"
 		end, C.patienceOrder, nil)
@@ -814,7 +818,7 @@ local function runTable(plot, party)
 		local served, waitedFood = waitWithPatience(plot, party, function()
 			return order.state == "done"
 		end, C.patienceDelivery, function()
-			return orderIcons(order)
+			return orderProducts(order)
 		end)
 		if not alive(plot, party) then
 			return
@@ -839,7 +843,7 @@ local function runTable(plot, party)
 			if math.random() < 0.35 and alive(plot, party) then
 				local member = party.members[math.random(1, #party.members)]
 				if Rig.isAlive(member.rig) then
-					Props.popup(member.rig.head.Position + Vector3.new(0, 1.2, 0), Rig.pick({ "😂", "🍻", "🎉", "😋", "🔥", "🥳" }), rgb(255, 255, 255))
+					Props.popup(member.rig.head.Position + Vector3.new(0, 1.2, 0), Rig.pick({ "Saúde!", "Hahaha", "Que delícia!", "Top demais!", "Bora mais uma?", "Esse lugar é bom!" }), rgb(255, 255, 255))
 				end
 			end
 		end
@@ -923,8 +927,7 @@ local function runCounter(plot, party)
 	party.order = order
 	party.ready = true
 	party.state = "waitingOrder"
-	setBubble(plot, party, "❗")
-	party.bubble.color(rgb(255, 170, 30))
+	setBubble(plot, party, "!")
 	member.prompt = Instance.new("ProximityPrompt")
 	member.prompt.ObjectText = "Cliente do balcão"
 	member.prompt.ActionText = "Anotar pedido"
@@ -949,7 +952,7 @@ local function runCounter(plot, party)
 		served, waitedFood = waitWithPatience(plot, party, function()
 			return order.state == "done"
 		end, C.patienceDelivery, function()
-			return orderIcons(order)
+			return orderProducts(order)
 		end)
 		party.waitPenalty += math.max(0, waitedFood - 15) * 0.7
 	end
@@ -1016,7 +1019,7 @@ local function trySpawn(plot)
 	end
 	local tables, counters = {}, {}
 	for _, rec in plot.furniture do
-		if rec.kind == "seating" and rec.status == "free" and (rec.unreachableUntil or 0) < now() then
+		if rec.host and rec.status == "free" and #rec.seats > 0 and (rec.unreachableUntil or 0) < now() then
 			table.insert(tables, rec)
 		elseif rec.kind == "counter" and #rec.line < 4 then
 			table.insert(counters, rec)
@@ -1083,9 +1086,13 @@ end
 
 local function placeLabel(order)
 	if order.kind == "counter" then
-		return "Balcão"
+		return "Caixa"
 	end
-	return "Mesa " .. (order.place and order.place.number or "?")
+	local place = order.place
+	if place and place.kind == "bar" then
+		return "Balcão " .. place.number
+	end
+	return "Mesa " .. (place and place.number or "?")
 end
 
 function Restaurant.playerTable(plot, rec)
@@ -1100,7 +1107,7 @@ function Restaurant.playerTable(plot, rec)
 		Restaurant.deliver(plot, order, items, actor)
 	elseif action == "take" then
 		if Restaurant.takeOrder(plot, rec.party.order, actor) then
-			Props.popup(rec.top + Vector3.new(0, 2, 0), "📝", rgb(255, 255, 255))
+			Props.popup(rec.top + Vector3.new(0, 2, 0), "Pedido anotado", rgb(255, 255, 255))
 		end
 	elseif action == "money" then
 		Restaurant.collectMoney(plot, rec, actor)
@@ -1146,7 +1153,7 @@ function Restaurant.playerPrepare(plot, station)
 	item.actor = rt.playerActor
 	table.insert(rt.carry, item)
 	updateTray(plot)
-	Props.popup(station.use + Vector3.new(0, 5, 0), item.product.icon, rgb(255, 255, 255))
+	Props.popup(station.use + Vector3.new(0, 5, 0), item.product.name, rgb(255, 255, 255))
 	event(plot, "prepare")
 	markDirty(plot)
 end
@@ -1182,14 +1189,23 @@ local function newPrompt(part, key, holdDuration)
 end
 
 function Restaurant.attach(plot, rec)
-	if rec.kind == "seating" then
+	if rec.host then
 		rec.prompt = newPrompt(rec.topPart)
-		rec.prompt.ObjectText = "Mesa " .. rec.number
+		rec.prompt.ObjectText = (if rec.kind == "bar" then "Balcão " else "Mesa ") .. rec.number
 		rec.prompt.Triggered:Connect(function(player)
 			if player == plot.owner and plot.rt then
 				Restaurant.playerTable(plot, rec)
 			end
 		end)
+		if rec.kind == "bar" then
+			rec.pickupPrompt = newPrompt(rec.topPart, Enum.KeyCode.F)
+			rec.pickupPrompt.UIOffset = Vector2.new(0, 80)
+			rec.pickupPrompt.Triggered:Connect(function(player)
+				if player == plot.owner and plot.rt then
+					Restaurant.playerPickup(plot, rec)
+				end
+			end)
+		end
 	elseif rec.kind == "station" then
 		rec.prompt = newPrompt(rec.part)
 		rec.prompt.Triggered:Connect(function(player)
@@ -1232,8 +1248,12 @@ function Restaurant.detach(plot, rec)
 end
 
 function Restaurant.canModify(plot, rec)
-	if rec.kind == "seating" and (rec.status ~= "free" or rec.money > 0) then
-		return false, "A Mesa " .. rec.number .. " está em uso. Espere ela ficar livre e limpa."
+	if rec.host and (rec.status ~= "free" or rec.money > 0) then
+		return false, "A mesa " .. rec.number .. " está em uso. Espere ela ficar livre e limpa."
+	end
+	local host = rec.attached
+	if rec.kind == "chair" and host and not host.removed and (host.status ~= "free" or host.money > 0) then
+		return false, "Essa cadeira é da mesa " .. host.number .. ", que está em uso."
 	end
 	if rec.ready and #rec.ready > 0 then
 		return false, "Tem pedido pronto em cima. Pegue antes de mexer."
@@ -1256,18 +1276,24 @@ end
 local function refreshPrompts(plot)
 	local rt = plot.rt
 	for _, rec in plot.furniture do
-		if rec.kind == "seating" and rec.prompt then
+		if rec.host and rec.prompt then
 			local action, text, hold = tableAction(plot, rec)
 			rec.prompt.Enabled = action ~= nil
 			if action then
 				rec.prompt.ActionText = text
 				rec.prompt.HoldDuration = hold
 			end
+			if rec.pickupPrompt then
+				local ready = #rec.ready
+				rec.pickupPrompt.Enabled = ready > 0
+				rec.pickupPrompt.ActionText = "Pegar pedidos prontos (" .. ready .. ")"
+				rec.pickupPrompt.ObjectText = "Balcão " .. rec.number
+			end
 		elseif rec.kind == "station" and rec.prompt then
 			local item = nextPendingFor(plot, rec)
 			rec.prompt.Enabled = item ~= nil and #rt.carry < Config.CarryLimit
 			if item then
-				rec.prompt.ActionText = "Preparar " .. item.product.icon .. " " .. item.product.name
+				rec.prompt.ActionText = "Preparar " .. item.product.name
 				rec.prompt.ObjectText = placeLabel(item.order)
 				rec.prompt.HoldDuration = item.product.prep
 			end
@@ -1290,7 +1316,7 @@ local function refreshPrompts(plot)
 				party.prompt.ActionText = "Anotar pedido"
 			elseif order.state == "open" and #carriedFor(plot, order) > 0 then
 				party.prompt.Enabled = true
-				party.prompt.ActionText = "Entregar " .. order.items[1].product.icon
+				party.prompt.ActionText = "Entregar " .. order.items[1].product.name
 			else
 				party.prompt.Enabled = false
 			end
@@ -1358,7 +1384,7 @@ function Restaurant.snapshot(plot)
 	for _, order in rt.orders do
 		local icons = {}
 		for _, item in order.items do
-			table.insert(icons, { item.product.icon, item.state })
+			table.insert(icons, { item.product.id, item.state })
 		end
 		local started = order.takenAt or order.createdAt
 		local patience = if order.state == "waiting" then C.patienceOrder else C.patienceDelivery
@@ -1375,11 +1401,11 @@ function Restaurant.snapshot(plot)
 	end
 	local carry = {}
 	for _, item in rt.carry do
-		table.insert(carry, { item.product.icon, placeLabel(item.order) })
+		table.insert(carry, { item.product.id, placeLabel(item.order) })
 	end
 	local free, dirty, money = 0, 0, 0
 	for _, rec in plot.furniture do
-		if rec.kind == "seating" then
+		if rec.host and (#rec.seats > 0 or rec.status ~= "free") then
 			if rec.status == "free" then
 				free += 1
 			elseif rec.status == "dirty" then

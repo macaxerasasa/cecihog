@@ -43,7 +43,7 @@ local function signText(part, text, color)
 	label.Size = UDim2.fromScale(1, 1)
 	label.BackgroundTransparency = 1
 	label.TextScaled = true
-	label.Font = Enum.Font.FredokaOne
+	label.FontFace = Font.new("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.Heavy)
 	label.TextColor3 = color
 	label.Text = text
 	label.Parent = gui
@@ -241,39 +241,55 @@ function Plot:place(itemId, x, z, rotation, animate)
 
 	local front = cframe:VectorToWorldSpace(Vector3.new(0, 0, -1))
 	rec.front = front
-	if item.kind == "seating" then
+	if Catalog.isSeatingHost(item) then
+		-- mesa ou balcão de bar: recebe os clientes das cadeiras viradas para ele
+		rec.host = true
 		rec.number = lowestFreeNumber(self.furniture)
 		rec.status = "free"
 		rec.money = 0
 		rec.seats = {}
-		for _, seat in item.seats do
-			table.insert(rec.seats, {
-				pos = Catalog.floorPoint(cframe, seat),
-				face = cframe:VectorToWorldSpace(Vector3.new(seat[3], 0, seat[4])),
-				height = seat[5] or 1.85,
-			})
-		end
 		rec.top = Catalog.point3(cframe, item.top)
 		rec.topPart = model:FindFirstChild("Tampo") or model.PrimaryPart
+		if item.kind == "bar" then
+			rec.ready = {}
+			rec.pickup = rec.top
+			rec.staffPos = Catalog.floorPoint(cframe, { 0, item.size[2] * 2 / 2 + 1.4 })
+		end
 		local tag = Instance.new("BillboardGui")
 		tag.Name = "Numero"
-		tag.Size = UDim2.fromOffset(40, 24)
-		tag.StudsOffset = Vector3.new(0, 1.2, 0)
+		tag.Size = UDim2.fromOffset(30, 30)
+		tag.StudsOffset = Vector3.new(0, 1.3, 0)
 		tag.MaxDistance = 40
 		tag.LightInfluence = 0
 		tag.Parent = rec.topPart
 		local label = Instance.new("TextLabel")
 		label.Size = UDim2.fromScale(1, 1)
-		label.BackgroundColor3 = rgb(30, 24, 46)
-		label.BackgroundTransparency = 0.2
-		label.TextColor3 = rgb(255, 255, 255)
-		label.Font = Enum.Font.GothamBold
+		label.BackgroundColor3 = rgb(255, 255, 255)
+		label.BackgroundTransparency = 0.05
+		label.TextColor3 = rgb(40, 34, 48)
+		label.FontFace = Font.new("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.Heavy)
 		label.TextScaled = true
 		label.Text = tostring(rec.number)
 		label.Parent = tag
 		local corner = Instance.new("UICorner")
-		corner.CornerRadius = UDim.new(0.4, 0)
+		corner.CornerRadius = UDim.new(1, 0)
 		corner.Parent = label
+		local padding = Instance.new("UIPadding")
+		padding.PaddingTop = UDim.new(0.15, 0)
+		padding.PaddingBottom = UDim.new(0.15, 0)
+		padding.Parent = label
+		rec.numberTag = tag
+	elseif item.kind == "chair" then
+		rec.seatList = {}
+		for index, seat in Catalog.seatPoints(item, x, z, rotation) do
+			rec.seatList[index] = {
+				pos = (self.origin * CFrame.new(seat.pos.X, 0, seat.pos.Z)).Position,
+				face = self.origin:VectorToWorldSpace(seat.face),
+				height = seat.height,
+				frontKey = seat.frontKey,
+				chair = rec,
+			}
+		end
 	elseif item.kind == "station" then
 		rec.use = Catalog.floorPoint(cframe, item.use)
 		rec.top = Catalog.point3(cframe, item.top)
@@ -319,10 +335,45 @@ function Plot:place(itemId, x, z, rotation, animate)
 
 	model.Parent = self.furnitureFolder
 	self.furniture[uid] = rec
+	if not self.batching then
+		self:relink()
+	end
 	if self.hooks.added then
 		self.hooks.added(self, rec)
 	end
 	return rec
+end
+
+-- Liga cada cadeira à mesa ou balcão que está na frente dela. Mesas em uso mantêm os
+-- lugares que tinham, para não atrapalhar quem está sentado.
+function Plot:relink()
+	for _, rec in self.furniture do
+		if rec.host and rec.status == "free" then
+			rec.seats = {}
+		end
+		if rec.kind == "chair" then
+			rec.attached = nil
+		end
+	end
+	for _, rec in self.furniture do
+		if rec.kind == "chair" then
+			for _, seat in rec.seatList do
+				local hostUid = self.occupied[seat.frontKey]
+				local host = hostUid and self.furniture[hostUid]
+				if host and host.host then
+					rec.attached = host
+					if host.status == "free" then
+						table.insert(host.seats, seat)
+					end
+				end
+			end
+		end
+	end
+	for _, rec in self.furniture do
+		if rec.host and rec.numberTag then
+			rec.numberTag.Enabled = #rec.seats > 0 or rec.status ~= "free"
+		end
+	end
 end
 
 function Plot:remove(uid)
@@ -341,13 +392,18 @@ function Plot:remove(uid)
 	self.furniture[uid] = nil
 	rec.removed = true
 	rec.model:Destroy()
+	if not self.batching then
+		self:relink()
+	end
 	return rec
 end
 
 function Plot:clearFurniture()
+	self.batching = true
 	for uid in self.furniture do
 		self:remove(uid)
 	end
+	self.batching = false
 	self.occupied = {}
 	self.nextUid = 1
 end
@@ -361,6 +417,7 @@ function Plot:serialize()
 end
 
 function Plot:loadLayout(list)
+	self.batching = true
 	for _, entry in list do
 		local item = Catalog.ById[entry[1]]
 		if item and type(entry[2]) == "number" and type(entry[3]) == "number" and type(entry[4]) == "number" then
@@ -370,6 +427,8 @@ function Plot:loadLayout(list)
 			end
 		end
 	end
+	self.batching = false
+	self:relink()
 end
 
 function Plot:appeal()

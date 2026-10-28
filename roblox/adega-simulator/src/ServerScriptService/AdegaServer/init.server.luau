@@ -14,6 +14,7 @@ end
 local Config = require(Shared.Config)
 local Catalog = require(Shared.Catalog)
 local Util = require(Shared.Util)
+local Looks = require(Shared.Looks)
 
 local Data = require(script.Data)
 local Plot = require(script.Plot)
@@ -68,14 +69,14 @@ local function ensureEffect(className, name, props)
 end
 
 Lighting.ClockTime = 16.5
-Lighting.Brightness = 2
+Lighting.Brightness = 1.8
 Lighting.EnvironmentDiffuseScale = 1
 Lighting.EnvironmentSpecularScale = 0.4
 Lighting.OutdoorAmbient = rgb(118, 104, 136)
 Lighting.Ambient = rgb(40, 34, 56)
 Lighting.ShadowSoftness = 0.3
 ensureEffect("Atmosphere", "AdegaAtmosfera", { Density = 0.3, Offset = 0.15, Color = rgb(205, 175, 220), Decay = rgb(92, 62, 140), Glare = 0.35, Haze = 1.4 })
-ensureEffect("BloomEffect", "AdegaBrilho", { Intensity = 0.45, Size = 22, Threshold = 1.6 })
+ensureEffect("BloomEffect", "AdegaBrilho", { Intensity = 0.25, Size = 18, Threshold = 2.4 })
 ensureEffect("ColorCorrectionEffect", "AdegaCor", { Saturation = 0.12, Contrast = 0.05, Brightness = -0.03, TintColor = rgb(255, 247, 240) })
 ensureEffect("SunRaysEffect", "AdegaRaios", { Intensity = 0.05, Spread = 0.6 })
 ensureEffect("DepthOfFieldEffect", "AdegaFoco", { FarIntensity = 0.12, FocusDistance = 80, InFocusRadius = 70, NearIntensity = 0 })
@@ -276,7 +277,7 @@ end
 local function serialize(plot)
 	local staff = {}
 	for _, member in plot.staff do
-		table.insert(staff, { role = member.role.id, name = member.name, level = member.level })
+		table.insert(staff, { role = member.role.id, name = member.name, level = member.level, look = member.look })
 	end
 	return {
 		version = 3,
@@ -308,7 +309,7 @@ end
 
 local nextStaffId = 1
 local function spawnStaff(plot, entry)
-	local data = { id = nextStaffId, role = entry.role, name = entry.name, level = entry.level }
+	local data = { id = nextStaffId, role = entry.role, name = entry.name, level = entry.level, look = entry.look }
 	nextStaffId += 1
 	return Staff.spawn(plot, data)
 end
@@ -515,8 +516,8 @@ function actions.colocar(player, plot, payload)
 		return result(false, "Falta dinheiro: " .. formatMoney(item.price))
 	end
 	addCash(plot, -item.price)
-	plot:place(item.id, x, z, rotation, true)
-	if item.kind == "seating" then
+	local rec = plot:place(item.id, x, z, rotation, true)
+	if rec and ((rec.kind == "chair" and rec.attached) or (rec.host and #rec.seats > 0)) then
 		questEvent(plot, "placeSeating", 1)
 	end
 	questEvent(plot, "place_" .. item.id, 1)
@@ -601,6 +602,25 @@ function actions.treinar(player, plot, payload)
 	Props.sparkle(member.rig.root.Position, rgb(120, 200, 255))
 	markDirty(plot)
 	return result(true, member.name .. " agora está no nível " .. member.level)
+end
+
+function actions.visual(player, plot, payload)
+	local member = findStaff(plot, payload.id)
+	if member == nil then
+		return result(false, "Funcionário não encontrado")
+	end
+	Staff.setLook(member, Looks.sanitize(payload.look, member.look))
+	if type(payload.name) == "string" then
+		local name = payload.name:gsub("[%c<>]", ""):sub(1, 18)
+		if #name >= 2 then
+			member.name = name
+			member.actor.name = name
+			Staff.updateTag(member)
+		end
+	end
+	questEvent(plot, "customize", 1)
+	markDirty(plot)
+	return result(true, "Visual de " .. member.name .. " atualizado")
 end
 
 function actions.demitir(player, plot, payload)
@@ -703,6 +723,7 @@ local function buildState(plot)
 			name = member.name,
 			level = member.level,
 			train = if member.level < Config.StaffMaxLevel then Config.trainPrice(member.role, member.level) else nil,
+			look = member.look,
 		})
 	end
 	local quest = currentQuest(plot)

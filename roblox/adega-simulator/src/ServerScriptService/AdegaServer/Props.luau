@@ -3,132 +3,20 @@
 local TweenService = game:GetService("TweenService")
 local Debris = game:GetService("Debris")
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Models = require(ReplicatedStorage:WaitForChild("AdegaShared"):WaitForChild("Models"))
+
 local Props = {}
+
+Props.product = Models.product
+Props.tray = Models.tray
 
 local rgb = Color3.fromRGB
 local v = Vector3.new
 local M = Enum.Material
-
-local function part(model, primary, size, offset, color, material, props)
-	local p = Instance.new("Part")
-	p.Size = size
-	p.Color = color
-	p.Material = material or M.SmoothPlastic
-	p.Anchored = true
-	p.CanCollide = false
-	p.CanQuery = false
-	p.CanTouch = false
-	p.Massless = true
-	p.TopSurface = Enum.SurfaceType.Smooth
-	p.BottomSurface = Enum.SurfaceType.Smooth
-	if props then
-		for key, value in props do
-			p[key] = value
-		end
-	end
-	if primary then
-		p.CFrame = primary.CFrame * offset
-		local weld = Instance.new("WeldConstraint")
-		weld.Part0 = primary
-		weld.Part1 = p
-		weld.Parent = p
-	else
-		p.CFrame = offset
-	end
-	p.Parent = model
-	return p
-end
-
-local CYLINDER = { Shape = Enum.PartType.Cylinder }
-local UPRIGHT = CFrame.Angles(0, 0, math.rad(90))
-
--- Desenha um produto do cardápio. O ponto de apoio (PrimaryPart) fica na base.
-function Props.product(product, cframe)
-	local model = Instance.new("Model")
-	model.Name = product.id
-	local base = part(model, nil, v(0.5, 0.05, 0.5), cframe, product.color, M.SmoothPlastic, { Transparency = 1 })
-	model.PrimaryPart = base
-	local kind = product.visual
-	if kind == "lata" then
-		part(model, base, v(0.75, 0.42, 0.42), CFrame.new(0, 0.4, 0) * UPRIGHT, product.color, M.Metal, CYLINDER)
-		part(model, base, v(0.05, 0.36, 0.36), CFrame.new(0, 0.79, 0) * UPRIGHT, rgb(200, 200, 205), M.Metal, CYLINDER)
-	elseif kind == "garrafa" then
-		part(model, base, v(0.8, 0.38, 0.38), CFrame.new(0, 0.42, 0) * UPRIGHT, product.color, M.Glass, CYLINDER)
-		part(model, base, v(0.45, 0.16, 0.16), CFrame.new(0, 1.02, 0) * UPRIGHT, product.color, M.Glass, CYLINDER)
-		part(model, base, v(0.3, 0.39, 0.39), CFrame.new(0, 0.42, 0) * UPRIGHT, rgb(240, 230, 210), M.SmoothPlastic, CYLINDER)
-	elseif kind == "dose" then
-		part(model, base, v(0.4, 0.34, 0.34), CFrame.new(0, 0.2, 0) * UPRIGHT, rgb(230, 240, 255), M.Glass, { Shape = Enum.PartType.Cylinder, Transparency = 0.5 })
-		part(model, base, v(0.26, 0.28, 0.28), CFrame.new(0, 0.15, 0) * UPRIGHT, product.color, M.Glass, CYLINDER)
-	elseif kind == "copo" or kind == "taca" then
-		local height = if kind == "taca" then 0.55 else 0.7
-		if kind == "taca" then
-			part(model, base, v(0.45, 0.08, 0.08), CFrame.new(0, 0.25, 0) * UPRIGHT, rgb(230, 240, 255), M.Glass, CYLINDER)
-		end
-		local y = if kind == "taca" then 0.5 + height / 2 else height / 2
-		part(model, base, v(height, 0.5, 0.5), CFrame.new(0, y, 0) * UPRIGHT, rgb(230, 240, 255), M.Glass, { Shape = Enum.PartType.Cylinder, Transparency = 0.55 })
-		part(model, base, v(height * 0.8, 0.44, 0.44), CFrame.new(0, y - height * 0.08, 0) * UPRIGHT, product.color, M.Glass, { Shape = Enum.PartType.Cylinder, Transparency = 0.15 })
-		part(model, base, v(0.2, 0.2, 0.2), CFrame.new(0.15, y + height / 2, 0), rgb(120, 200, 60), M.SmoothPlastic, { Shape = Enum.PartType.Ball })
-	elseif kind == "copao" then
-		part(model, base, v(1.1, 0.62, 0.62), CFrame.new(0, 0.55, 0) * UPRIGHT, rgb(235, 240, 255), M.Glass, { Shape = Enum.PartType.Cylinder, Transparency = 0.5 })
-		part(model, base, v(0.9, 0.55, 0.55), CFrame.new(0, 0.47, 0) * UPRIGHT, product.color, M.Glass, { Shape = Enum.PartType.Cylinder, Transparency = 0.1 })
-		for i = 0, 2 do
-			part(model, base, v(0.18, 0.18, 0.18), CFrame.new(-0.12 + i * 0.12, 0.95, 0.05 * i), rgb(240, 250, 255), M.Glass, { Transparency = 0.2 })
-		end
-		part(model, base, v(0.06, 0.8, 0.06), CFrame.new(0.12, 1.25, 0) * CFrame.Angles(0, 0, math.rad(-12)), rgb(255, 60, 120), M.SmoothPlastic)
-	elseif kind == "caneca" then
-		part(model, base, v(0.8, 0.5, 0.5), CFrame.new(0, 0.4, 0) * UPRIGHT, product.color, M.Glass, { Shape = Enum.PartType.Cylinder, Transparency = 0.2 })
-		part(model, base, v(0.18, 0.52, 0.52), CFrame.new(0, 0.86, 0) * UPRIGHT, rgb(255, 255, 250), M.SmoothPlastic, CYLINDER)
-		part(model, base, v(0.1, 0.45, 0.25), CFrame.new(0.33, 0.42, 0), rgb(230, 240, 255), M.Glass, { Transparency = 0.4 })
-	elseif kind == "espeto" then
-		part(model, base, v(0.06, 1.3, 0.06), CFrame.new(0, 0.65, 0), rgb(200, 160, 100), M.Wood)
-		for i = 0, 3 do
-			part(model, base, v(0.28, 0.24, 0.28), CFrame.new(0, 0.55 + i * 0.22, 0), if i % 2 == 0 then product.color else rgb(190, 60, 40), M.SmoothPlastic)
-		end
-	elseif kind == "balde" then
-		part(model, base, v(0.8, 0.9, 0.9), CFrame.new(0, 0.4, 0) * UPRIGHT, rgb(200, 205, 215), M.Metal, CYLINDER)
-		for i = 0, 3 do
-			local angle = i * math.pi / 2
-			part(model, base, v(0.6, 0.22, 0.22), CFrame.new(math.cos(angle) * 0.2, 0.95, math.sin(angle) * 0.2) * UPRIGHT, rgb(40, 110, 50), M.Glass, CYLINDER)
-		end
-	elseif kind == "porcao" then
-		part(model, base, v(0.08, 0.9, 0.9), CFrame.new(0, 0.05, 0) * UPRIGHT, rgb(250, 250, 250), M.SmoothPlastic, CYLINDER)
-		for i = 0, 6 do
-			local angle = i * 0.9
-			part(model, base, v(0.1, 0.1, 0.45), CFrame.new(math.cos(angle) * 0.18, 0.15 + (i % 3) * 0.05, math.sin(angle) * 0.18) * CFrame.Angles(0, angle, math.rad(10)), product.color, M.SmoothPlastic)
-		end
-	else
-		part(model, base, v(0.5, 0.8, 0.5), CFrame.new(0, 0.4, 0), product.color, M.Glass)
-	end
-	return model
-end
-
--- Bandeja com até 6 itens, usada por jogadores e garçons.
-function Props.tray(products)
-	local model = Instance.new("Model")
-	model.Name = "Bandeja"
-	local base = part(model, nil, v(1.6, 0.1, 1.6), CFrame.new(), rgb(190, 192, 200), M.Metal)
-	model.PrimaryPart = base
-	part(model, base, v(0.06, 1.7, 1.7), CFrame.new(0, 0, 0) * UPRIGHT, rgb(170, 172, 180), M.Metal, CYLINDER)
-	local spots = { { -0.42, -0.42 }, { 0.42, -0.42 }, { -0.42, 0.42 }, { 0.42, 0.42 }, { 0, 0 }, { 0, -0.7 } }
-	for index, product in products do
-		local spot = spots[index]
-		if spot == nil then
-			break
-		end
-		local item = Props.product(product, base.CFrame * CFrame.new(spot[1], 0.05, spot[2]) * CFrame.new(0, 0, 0))
-		for _, p in item:GetDescendants() do
-			if p:IsA("BasePart") and p ~= item.PrimaryPart then
-				p.Size *= 0.75
-			end
-		end
-		local weld = Instance.new("WeldConstraint")
-		weld.Part0 = base
-		weld.Part1 = item.PrimaryPart
-		weld.Parent = item.PrimaryPart
-		item.Parent = model
-	end
-	return model
-end
+local part = Models.part
+local CYLINDER = Models.CYLINDER
+local UPRIGHT = Models.UPRIGHT
 
 -- Dinheiro deixado na mesa.
 function Props.money(cframe, amount)
@@ -149,11 +37,11 @@ function Props.money(cframe, amount)
 	gui.Parent = base
 	local label = Instance.new("TextLabel")
 	label.Size = UDim2.fromScale(1, 1)
-	label.BackgroundColor3 = rgb(30, 120, 60)
-	label.TextColor3 = rgb(255, 255, 255)
-	label.Font = Enum.Font.FredokaOne
+	label.BackgroundColor3 = rgb(255, 255, 255)
+	label.TextColor3 = rgb(30, 140, 70)
+	label.FontFace = Font.new("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.Heavy)
 	label.TextScaled = true
-	label.Text = "💵 " .. amount
+	label.Text = "R$ " .. amount
 	label.Parent = gui
 	local corner = Instance.new("UICorner")
 	corner.CornerRadius = UDim.new(0.4, 0)
@@ -182,56 +70,153 @@ end
 
 -- Balão em cima da cabeça ou da mesa ----------------------------------------------------------------
 
+local FONT_HEAVY = Font.new("rbxasset://fonts/families/BuilderSans.json", Enum.FontWeight.Heavy)
+local INK = rgb(40, 34, 48)
+
+local function productViewport(parent, product, size, order)
+	local viewport = Instance.new("ViewportFrame")
+	viewport.Size = UDim2.fromOffset(size, size)
+	viewport.BackgroundTransparency = 1
+	viewport.Ambient = rgb(200, 196, 210)
+	viewport.LightColor = rgb(255, 250, 240)
+	viewport.LightDirection = Vector3.new(-0.5, -1, -0.6)
+	viewport.LayoutOrder = order or 0
+	local model = Models.product(product, CFrame.new())
+	model.Parent = viewport
+	local camera = Instance.new("Camera")
+	camera.FieldOfView = 30
+	local center, extent = model:GetBoundingBox()
+	local distance = extent.Magnitude / 2 / math.tan(math.rad(15)) * 1.05
+	camera.CFrame = CFrame.lookAt(center.Position + Vector3.new(0.35, 0.45, -1).Unit * distance, center.Position)
+	camera.Parent = viewport
+	viewport.CurrentCamera = camera
+	viewport.Parent = parent
+	return viewport
+end
+Props.productViewport = productViewport
+
+-- Balão: mode "text" (texto curto), "call" (cliente chamando) ou "products" (bebidas em 3D).
 function Props.bubble(adornee, offsetY)
 	local gui = Instance.new("BillboardGui")
 	gui.Name = "Balao"
-	gui.Size = UDim2.fromOffset(70, 70)
+	gui.Size = UDim2.fromOffset(64, 64)
 	gui.StudsOffset = Vector3.new(0, offsetY or 2.8, 0)
 	gui.MaxDistance = 80
 	gui.LightInfluence = 0
-	gui.AlwaysOnTop = false
 	gui.Parent = adornee
 
 	local frame = Instance.new("Frame")
+	frame.AnchorPoint = Vector2.new(0.5, 0.5)
+	frame.Position = UDim2.fromScale(0.5, 0.5)
 	frame.Size = UDim2.fromScale(1, 1)
 	frame.BackgroundColor3 = rgb(255, 255, 255)
 	frame.Parent = gui
 	local corner = Instance.new("UICorner")
-	corner.CornerRadius = UDim.new(0, 18)
+	corner.CornerRadius = UDim.new(0, 20)
 	corner.Parent = frame
 	local stroke = Instance.new("UIStroke")
-	stroke.Color = rgb(112, 26, 44)
+	stroke.Color = rgb(255, 255, 255)
 	stroke.Thickness = 3
+	stroke.Transparency = 0
 	stroke.Parent = frame
 
 	local label = Instance.new("TextLabel")
-	label.Size = UDim2.new(1, -10, 0.7, 0)
-	label.Position = UDim2.fromOffset(5, 4)
+	label.Size = UDim2.new(1, 0, 1, -8)
 	label.BackgroundTransparency = 1
 	label.TextScaled = true
-	label.Font = Enum.Font.FredokaOne
-	label.TextColor3 = rgb(30, 20, 40)
+	label.FontFace = FONT_HEAVY
+	label.TextColor3 = INK
 	label.Text = ""
 	label.Parent = frame
+	local padding = Instance.new("UIPadding")
+	padding.PaddingTop = UDim.new(0, 8)
+	padding.PaddingBottom = UDim.new(0, 4)
+	padding.Parent = label
+
+	local row = Instance.new("Frame")
+	row.Size = UDim2.new(1, -12, 1, -14)
+	row.Position = UDim2.fromOffset(6, 3)
+	row.BackgroundTransparency = 1
+	row.Visible = false
+	row.Parent = frame
+	local layout = Instance.new("UIListLayout")
+	layout.FillDirection = Enum.FillDirection.Horizontal
+	layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	layout.VerticalAlignment = Enum.VerticalAlignment.Center
+	layout.SortOrder = Enum.SortOrder.LayoutOrder
+	layout.Padding = UDim.new(0, 2)
+	layout.Parent = row
 
 	local track = Instance.new("Frame")
-	track.Size = UDim2.new(1, -16, 0, 7)
-	track.Position = UDim2.new(0, 8, 1, -13)
-	track.BackgroundColor3 = rgb(225, 220, 230)
+	track.Size = UDim2.new(1, -18, 0, 6)
+	track.Position = UDim2.new(0, 9, 1, -11)
+	track.BackgroundColor3 = rgb(232, 228, 236)
+	track.BorderSizePixel = 0
 	track.Visible = false
 	track.Parent = frame
-	Instance.new("UICorner").Parent = track
+	local trackCorner = Instance.new("UICorner")
+	trackCorner.CornerRadius = UDim.new(1, 0)
+	trackCorner.Parent = track
 	local fill = Instance.new("Frame")
 	fill.Size = UDim2.fromScale(1, 1)
-	fill.BackgroundColor3 = rgb(64, 214, 120)
+	fill.BackgroundColor3 = rgb(52, 199, 89)
+	fill.BorderSizePixel = 0
 	fill.Parent = track
-	Instance.new("UICorner").Parent = fill
+	local fillCorner = Instance.new("UICorner")
+	fillCorner.CornerRadius = UDim.new(1, 0)
+	fillCorner.Parent = fill
 
 	local bubble = { gui = gui }
-	function bubble.set(text, width)
+	local shownKey = nil
+
+	function bubble.text(text)
+		row.Visible = false
+		label.Visible = true
 		label.Text = text
-		gui.Size = UDim2.fromOffset(width or 70, 70)
+		label.TextColor3 = INK
+		frame.BackgroundColor3 = rgb(255, 255, 255)
+		stroke.Color = rgb(255, 255, 255)
+		gui.Size = UDim2.fromOffset(64, 56)
+		shownKey = nil
 	end
+
+	function bubble.call()
+		row.Visible = false
+		label.Visible = true
+		label.Text = "!"
+		label.TextColor3 = rgb(255, 255, 255)
+		frame.BackgroundColor3 = rgb(255, 149, 0)
+		stroke.Color = rgb(255, 255, 255)
+		gui.Size = UDim2.fromOffset(58, 66)
+		shownKey = nil
+	end
+
+	-- products = lista de produtos ainda não entregues
+	function bubble.products(products)
+		local ids = {}
+		for _, product in products do
+			table.insert(ids, product.id)
+		end
+		local key = table.concat(ids, ",")
+		if key == shownKey then
+			return
+		end
+		shownKey = key
+		label.Visible = false
+		row.Visible = true
+		frame.BackgroundColor3 = rgb(255, 255, 255)
+		stroke.Color = rgb(255, 255, 255)
+		for _, child in row:GetChildren() do
+			if child:IsA("ViewportFrame") then
+				child:Destroy()
+			end
+		end
+		for index, product in products do
+			productViewport(row, product, 40, index)
+		end
+		gui.Size = UDim2.fromOffset(math.max(64, #products * 42 + 16), 62)
+	end
+
 	function bubble.bar(ratio)
 		if ratio == nil then
 			track.Visible = false
@@ -240,11 +225,9 @@ function Props.bubble(adornee, offsetY)
 		track.Visible = true
 		ratio = math.clamp(ratio, 0, 1)
 		fill.Size = UDim2.fromScale(ratio, 1)
-		fill.BackgroundColor3 = if ratio > 0.5 then rgb(64, 214, 120) elseif ratio > 0.25 then rgb(250, 190, 40) else rgb(236, 72, 88)
+		fill.BackgroundColor3 = if ratio > 0.5 then rgb(52, 199, 89) elseif ratio > 0.25 then rgb(255, 179, 0) else rgb(255, 69, 58)
 	end
-	function bubble.color(color)
-		stroke.Color = color
-	end
+
 	function bubble.destroy()
 		gui:Destroy()
 	end
@@ -278,7 +261,7 @@ function Props.popup(position, text, color)
 	label.Size = UDim2.fromScale(1, 1)
 	label.BackgroundTransparency = 1
 	label.TextScaled = true
-	label.Font = Enum.Font.FredokaOne
+	label.FontFace = FONT_HEAVY
 	label.Text = text
 	label.TextColor3 = color or rgb(110, 255, 140)
 	label.TextStrokeTransparency = 0.2
