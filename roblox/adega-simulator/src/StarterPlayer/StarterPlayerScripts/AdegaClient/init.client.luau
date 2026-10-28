@@ -91,16 +91,25 @@ local function unlockText(level)
 	return "Liberado: " .. table.concat(names, ", ")
 end
 
-Hud.init(App)
-Panels.init(App)
-Build.init(App)
+local function start(name, module)
+	local ok, err = pcall(module.init, App)
+	if not ok then
+		warn("[Adega] Erro iniciando " .. name .. ":", err)
+	end
+end
+start("Hud", Hud)
+start("Panels", Panels)
+start("Build", Build)
 
 stateEvent.OnClientEvent:Connect(function(state)
 	local previous = App.state
 	App.state = state
-	Hud.update(state, previous)
-	Panels.update(state)
-	Build.update(state)
+	for name, update in { Hud = Hud.update, Panels = Panels.update, Build = Build.update } do
+		local ok, err = pcall(update, state, previous)
+		if not ok then
+			warn("[Adega] Erro atualizando " .. name .. ":", err)
+		end
+	end
 end)
 
 noticeEvent.OnClientEvent:Connect(function(text, kind, extra)
@@ -131,3 +140,7 @@ if camera then
 	camera:GetPropertyChangedSignal("ViewportSize"):Connect(UI.applyScale)
 end
 UI.applyScale()
+-- No começo a câmera ainda pode estar com tamanho errado; reaplica a escala algumas vezes.
+for _, delay in { 0.5, 2, 5 } do
+	task.delay(delay, UI.applyScale)
+end

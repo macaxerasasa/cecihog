@@ -205,7 +205,9 @@ function UI.bar(parent, props)
 		Parent = parent,
 	}, { UI.corner("full") })
 	for key, value in props do
-		track[key] = value
+		if key ~= "ColorA" and key ~= "ColorB" then
+			track[key] = value
+		end
 	end
 	local fill = create("Frame", { Size = UDim2.fromScale(0, 1), BackgroundColor3 = rgb(255, 255, 255), BorderSizePixel = 0, Parent = track }, {
 		UI.corner("full"),

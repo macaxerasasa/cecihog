@@ -151,7 +151,7 @@ Config.Floors = {
 	{ id = "porcelanato", name = "Porcelanato", price = 9000, color = Color3.fromRGB(236, 232, 226), material = Enum.Material.Marble },
 }
 Config.WallColors = {
-	{ id = "branco", name = "Branco", price = 0, color = Color3.fromRGB(236, 232, 224) },
+	{ id = "branco", name = "Branco gelo", price = 0, color = Color3.fromRGB(214, 206, 192) },
 	{ id = "amarelo", name = "Amarelo adega", price = 300, color = Color3.fromRGB(245, 196, 50) },
 	{ id = "vinho", name = "Vinho", price = 300, color = Color3.fromRGB(116, 28, 46) },
 	{ id = "verde", name = "Verde bandeira", price = 300, color = Color3.fromRGB(0, 120, 70) },

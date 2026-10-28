@@ -15,7 +15,7 @@ local Catalog = {}
 local GRID = 2
 local WALL_H = 12
 local SEAT = 1.85
-local DEFAULT_WALL = Color3.fromRGB(236, 232, 224)
+local DEFAULT_WALL = Color3.fromRGB(214, 206, 192)
 
 local rgb = Color3.fromRGB
 local v = Vector3.new
@@ -608,7 +608,7 @@ Catalog.Items = {
 			for _, x in { -1.85, 1.85 } do
 				B.part({ pos = v(x, 4.5, 0), size = v(0.3, 9, 0.8), color = rgb(120, 120, 128), material = M.Metal })
 			end
-			B.part({ pos = v(0, 8.55, -0.15), size = v(1.2, 3.8, 1.2), rot = CFrame.Angles(0, 0, math.rad(90)), shape = Enum.PartType.Cylinder, color = rgb(150, 150, 158), material = M.CorrodedMetal })
+			B.part({ pos = v(0, 8.4, -0.2), size = v(3.4, 1.2, 1.2), shape = Enum.PartType.Cylinder, color = rgb(150, 150, 158), material = M.CorrodedMetal })
 		end,
 	},
 	{

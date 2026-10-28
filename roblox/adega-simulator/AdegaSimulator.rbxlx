@@ -30,7 +30,7 @@ local Catalog = {}
 local GRID = 2
 local WALL_H = 12
 local SEAT = 1.85
-local DEFAULT_WALL = Color3.fromRGB(236, 232, 224)
+local DEFAULT_WALL = Color3.fromRGB(214, 206, 192)
 
 local rgb = Color3.fromRGB
 local v = Vector3.new
@@ -623,7 +623,7 @@ Catalog.Items = {
 			for _, x in { -1.85, 1.85 } do
 				B.part({ pos = v(x, 4.5, 0), size = v(0.3, 9, 0.8), color = rgb(120, 120, 128), material = M.Metal })
 			end
-			B.part({ pos = v(0, 8.55, -0.15), size = v(1.2, 3.8, 1.2), rot = CFrame.Angles(0, 0, math.rad(90)), shape = Enum.PartType.Cylinder, color = rgb(150, 150, 158), material = M.CorrodedMetal })
+			B.part({ pos = v(0, 8.4, -0.2), size = v(3.4, 1.2, 1.2), shape = Enum.PartType.Cylinder, color = rgb(150, 150, 158), material = M.CorrodedMetal })
 		end,
 	},
 	{
@@ -1424,7 +1424,7 @@ Config.Floors = {
 	{ id = "porcelanato", name = "Porcelanato", price = 9000, color = Color3.fromRGB(236, 232, 226), material = Enum.Material.Marble },
 }
 Config.WallColors = {
-	{ id = "branco", name = "Branco", price = 0, color = Color3.fromRGB(236, 232, 224) },
+	{ id = "branco", name = "Branco gelo", price = 0, color = Color3.fromRGB(214, 206, 192) },
 	{ id = "amarelo", name = "Amarelo adega", price = 300, color = Color3.fromRGB(245, 196, 50) },
 	{ id = "vinho", name = "Vinho", price = 300, color = Color3.fromRGB(116, 28, 46) },
 	{ id = "verde", name = "Verde bandeira", price = 300, color = Color3.fromRGB(0, 120, 70) },
@@ -1661,15 +1661,15 @@ local function ensureEffect(className, name, props)
 end
 
 Lighting.ClockTime = 16.5
-Lighting.Brightness = 2.2
+Lighting.Brightness = 2
 Lighting.EnvironmentDiffuseScale = 1
-Lighting.EnvironmentSpecularScale = 1
+Lighting.EnvironmentSpecularScale = 0.4
 Lighting.OutdoorAmbient = rgb(118, 104, 136)
 Lighting.Ambient = rgb(40, 34, 56)
 Lighting.ShadowSoftness = 0.3
 ensureEffect("Atmosphere", "AdegaAtmosfera", { Density = 0.3, Offset = 0.15, Color = rgb(205, 175, 220), Decay = rgb(92, 62, 140), Glare = 0.35, Haze = 1.4 })
-ensureEffect("BloomEffect", "AdegaBrilho", { Intensity = 0.8, Size = 30, Threshold = 0.92 })
-ensureEffect("ColorCorrectionEffect", "AdegaCor", { Saturation = 0.14, Contrast = 0.1, TintColor = rgb(255, 247, 240) })
+ensureEffect("BloomEffect", "AdegaBrilho", { Intensity = 0.45, Size = 22, Threshold = 1.6 })
+ensureEffect("ColorCorrectionEffect", "AdegaCor", { Saturation = 0.12, Contrast = 0.05, Brightness = -0.03, TintColor = rgb(255, 247, 240) })
 ensureEffect("SunRaysEffect", "AdegaRaios", { Intensity = 0.05, Spread = 0.6 })
 ensureEffect("DepthOfFieldEffect", "AdegaFoco", { FarIntensity = 0.12, FocusDistance = 80, InFocusRadius = 70, NearIntensity = 0 })
 
@@ -4864,7 +4864,9 @@ function Rig.new(parent, feet, lookDir, look, name)
 	model.Name = name or "Cliente"
 	model.PrimaryPart = rig.root
 	rig.model = model
-	addHeadwear(model, rig.head, look, rig.head.Size)
+	if not rig.isR15 then
+		addHeadwear(model, rig.head, look, rig.head.Size)
+	end
 
 	rig.root.CFrame = CFrame.lookAt(feet + Vector3.new(0, rig.standOffset, 0), feet + Vector3.new(lookDir.X, rig.standOffset, lookDir.Z))
 	model.Parent = parent
@@ -5693,16 +5695,25 @@ local function unlockText(level)
 	return "Liberado: " .. table.concat(names, ", ")
 end
 
-Hud.init(App)
-Panels.init(App)
-Build.init(App)
+local function start(name, module)
+	local ok, err = pcall(module.init, App)
+	if not ok then
+		warn("[Adega] Erro iniciando " .. name .. ":", err)
+	end
+end
+start("Hud", Hud)
+start("Panels", Panels)
+start("Build", Build)
 
 stateEvent.OnClientEvent:Connect(function(state)
 	local previous = App.state
 	App.state = state
-	Hud.update(state, previous)
-	Panels.update(state)
-	Build.update(state)
+	for name, update in { Hud = Hud.update, Panels = Panels.update, Build = Build.update } do
+		local ok, err = pcall(update, state, previous)
+		if not ok then
+			warn("[Adega] Erro atualizando " .. name .. ":", err)
+		end
+	end
 end)
 
 noticeEvent.OnClientEvent:Connect(function(text, kind, extra)
@@ -5733,6 +5744,10 @@ if camera then
 	camera:GetPropertyChangedSignal("ViewportSize"):Connect(UI.applyScale)
 end
 UI.applyScale()
+-- No começo a câmera ainda pode estar com tamanho errado; reaplica a escala algumas vezes.
+for _, delay in { 0.5, 2, 5 } do
+	task.delay(delay, UI.applyScale)
+end
 ]]></ProtectedString>
 				</Properties>
 				<Item class="ModuleScript" referent="RBX0000000E">
@@ -7575,7 +7590,9 @@ function UI.bar(parent, props)
 		Parent = parent,
 	}, { UI.corner("full") })
 	for key, value in props do
-		track[key] = value
+		if key ~= "ColorA" and key ~= "ColorB" then
+			track[key] = value
+		end
 	end
 	local fill = create("Frame", { Size = UDim2.fromScale(0, 1), BackgroundColor3 = rgb(255, 255, 255), BorderSizePixel = 0, Parent = track }, {
 		UI.corner("full"),

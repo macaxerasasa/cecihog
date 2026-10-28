@@ -68,15 +68,15 @@ local function ensureEffect(className, name, props)
 end
 
 Lighting.ClockTime = 16.5
-Lighting.Brightness = 2.2
+Lighting.Brightness = 2
 Lighting.EnvironmentDiffuseScale = 1
-Lighting.EnvironmentSpecularScale = 1
+Lighting.EnvironmentSpecularScale = 0.4
 Lighting.OutdoorAmbient = rgb(118, 104, 136)
 Lighting.Ambient = rgb(40, 34, 56)
 Lighting.ShadowSoftness = 0.3
 ensureEffect("Atmosphere", "AdegaAtmosfera", { Density = 0.3, Offset = 0.15, Color = rgb(205, 175, 220), Decay = rgb(92, 62, 140), Glare = 0.35, Haze = 1.4 })
-ensureEffect("BloomEffect", "AdegaBrilho", { Intensity = 0.8, Size = 30, Threshold = 0.92 })
-ensureEffect("ColorCorrectionEffect", "AdegaCor", { Saturation = 0.14, Contrast = 0.1, TintColor = rgb(255, 247, 240) })
+ensureEffect("BloomEffect", "AdegaBrilho", { Intensity = 0.45, Size = 22, Threshold = 1.6 })
+ensureEffect("ColorCorrectionEffect", "AdegaCor", { Saturation = 0.12, Contrast = 0.05, Brightness = -0.03, TintColor = rgb(255, 247, 240) })
 ensureEffect("SunRaysEffect", "AdegaRaios", { Intensity = 0.05, Spread = 0.6 })
 ensureEffect("DepthOfFieldEffect", "AdegaFoco", { FarIntensity = 0.12, FocusDistance = 80, InFocusRadius = 70, NearIntensity = 0 })
 

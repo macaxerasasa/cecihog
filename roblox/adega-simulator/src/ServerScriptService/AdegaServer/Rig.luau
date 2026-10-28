@@ -244,7 +244,9 @@ function Rig.new(parent, feet, lookDir, look, name)
 	model.Name = name or "Cliente"
 	model.PrimaryPart = rig.root
 	rig.model = model
-	addHeadwear(model, rig.head, look, rig.head.Size)
+	if not rig.isR15 then
+		addHeadwear(model, rig.head, look, rig.head.Size)
+	end
 
 	rig.root.CFrame = CFrame.lookAt(feet + Vector3.new(0, rig.standOffset, 0), feet + Vector3.new(lookDir.X, rig.standOffset, lookDir.Z))
 	model.Parent = parent
