@@ -1,5 +1,5 @@
 {
-  "name": "adega-simulator",
+  "name": "AdegaSimulator",
   "tree": {
     "$className": "DataModel",
     "ReplicatedStorage": {
