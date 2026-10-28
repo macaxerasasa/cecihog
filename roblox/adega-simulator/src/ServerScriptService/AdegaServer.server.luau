@@ -6,7 +6,36 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local DataStoreService = game:GetService("DataStoreService")
 local TweenService = game:GetService("TweenService")
 
-local Config = require(ReplicatedStorage:WaitForChild("AdegaConfig"))
+print("[Adega] AdegaServer iniciou")
+
+-- Procura o AdegaConfig sem ligar para maiúsculas e em qualquer pasta comum, porque é fácil
+-- criar o ModuleScript com outro nome ou no lugar errado.
+local function findConfig()
+	local containers = { ReplicatedStorage, game:GetService("ServerScriptService"), game:GetService("ServerStorage"), workspace }
+	for _, container in containers do
+		for _, child in container:GetDescendants() do
+			if child:IsA("ModuleScript") and child.Name:lower() == "adegaconfig" then
+				return child
+			end
+		end
+	end
+	return nil
+end
+
+local configModule = findConfig()
+local deadline = os.clock() + 10
+while configModule == nil and os.clock() < deadline do
+	task.wait(0.5)
+	configModule = findConfig()
+end
+if configModule == nil then
+	error("[Adega] Não achei o ModuleScript AdegaConfig. Crie um ModuleScript chamado AdegaConfig dentro de ReplicatedStorage e cole nele o código do AdegaConfig.luau.")
+end
+
+local Config = require(configModule)
+if type(Config) ~= "table" or type(Config.Upgrades) ~= "table" then
+	error("[Adega] O AdegaConfig não tem o código certo. Apague tudo que está nele e cole de novo o conteúdo inteiro do AdegaConfig.luau.")
+end
 
 local storeOk, store = pcall(function()
 	return DataStoreService:GetDataStore(Config.DataStoreName)
@@ -525,6 +554,7 @@ end
 for index = 1, Config.PlotCount do
 	plots[index] = createPlot(index)
 end
+print("[Adega] " .. Config.PlotCount .. " terrenos criados no Workspace")
 
 Players.PlayerAdded:Connect(onPlayerAdded)
 Players.PlayerRemoving:Connect(onPlayerRemoving)
